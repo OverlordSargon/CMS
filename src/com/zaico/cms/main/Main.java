@@ -1,4 +1,4 @@
-package com.zaico.cms;
+package com.zaico.cms.main;
 
 /**
  * Created by nzaitsev on 01.08.2016.
