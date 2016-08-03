@@ -27,7 +27,7 @@ public class Order {
     private int tel_number;
 
     /* Client name */
-    private String client_name;
+    private String clientName;
 
     /* Created at time*/
     private Date createdAt;
@@ -44,17 +44,26 @@ public class Order {
 
     /* Full */
     public Order(String code, String description, Integer interval,
-                 Date day, int tel_number, String client_name) {
+                 Date day, int tel_number, String clientName) {
         this.code = code;
         this.description = description;
         this.interval = interval;
         this.day = day;
         this.tel_number = tel_number;
-        this.client_name = client_name;
+        this.clientName = clientName;
     }
 
 
     /** GETTERS/SETTERS */
+    /* ID */
+//  get
+    public Long getId() {
+        return id;
+    }
+    //  set
+    public void setId(Long id) {
+        this.id = id;
+    }
     /* Code */
 //  get
     public String getCode() {
@@ -93,12 +102,12 @@ public class Order {
     }
     /* Client name */
 //  get
-    public String getClient_name() {
-        return client_name;
+    public String getclientName() {
+        return clientName;
     }
 //  set
-    public void setClient_name(String client_name) {
-        this.client_name = client_name;
+    public void setclientName(String clientName) {
+        this.clientName = clientName;
     }
     /* Created at */
 //  get

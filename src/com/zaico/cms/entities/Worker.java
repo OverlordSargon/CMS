@@ -43,7 +43,17 @@ public class Worker {
     }
 
 
+
     /** GETTERS\SETTERS */
+    /* ID */
+//  get
+    public Long getId() {
+        return id;
+    }
+    //  set
+    public void setId(Long id) {
+        this.id = id;
+    }
     /* Name */
 //  get
     public String getName() {

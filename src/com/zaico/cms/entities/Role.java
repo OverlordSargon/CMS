@@ -34,6 +34,15 @@ public class Role {
 
 
     /** GETTERS\SETTERS */
+    /* ID */
+//  get
+    public Long getId() {
+        return id;
+    }
+    //  set
+    public void setId(Long id) {
+        this.id = id;
+    }
     /* Role*/
 //  get
     public String getRole() {

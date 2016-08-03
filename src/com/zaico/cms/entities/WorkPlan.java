@@ -39,6 +39,15 @@ public class WorkPlan {
 
 
     /** GETTERS\SETTERS */
+    /* ID */
+//  get
+    public Long getId() {
+        return id;
+    }
+    //  set
+    public void setId(Long id) {
+        this.id = id;
+    }
     /* Day */
 //  get
     public Date getDay() {
