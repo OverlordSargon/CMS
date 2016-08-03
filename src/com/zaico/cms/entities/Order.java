@@ -11,23 +11,30 @@ public class Order {
     /* ID */
     private Long id;
 
-    /* Code, for order identification */
-    private String code;
+    /* ordNumber, for order identification */
+    private String ordNumber;
 
     /* Description */
     private String description;
 
-    /* Work interval number */
-    private Integer interval;
+    /* date, when needs to be done */
+    private Date date;
 
-    /* Day, when needs to be done */
-    private Date day;
+    /* start time*/
+    private Date from;
+
+    /* end time */
+    private Date to;
 
     /* Client telephone number */
-    private int tel_number;
+    private int telNumber;
 
     /* Client name */
     private String clientName;
+
+    //  /* Relation */
+    /* Order, which attached to this worker*/
+    private Worker worker;
 
     /* Created at time*/
     private Date createdAt;
@@ -43,16 +50,19 @@ public class Order {
     }
 
     /* Full */
-    public Order(String code, String description, Integer interval,
-                 Date day, int tel_number, String clientName) {
-        this.code = code;
-        this.description = description;
-        this.interval = interval;
-        this.day = day;
-        this.tel_number = tel_number;
-        this.clientName = clientName;
-    }
 
+    public Order(String ordNumber, String description, Date date,
+                 Date from, Date to, int telNumber,
+                 String clientName, Worker worker) {
+        this.ordNumber = ordNumber;
+        this.description = description;
+        this.date = date;
+        this.from = from;
+        this.to = to;
+        this.telNumber = telNumber;
+        this.clientName = clientName;
+        this.worker = worker;
+    }
 
     /** GETTERS/SETTERS */
     /* ID */
@@ -64,15 +74,17 @@ public class Order {
     public void setId(Long id) {
         this.id = id;
     }
-    /* Code */
+
+    /* ordNumber */
 //  get
-    public String getCode() {
-        return code;
+    public String getOrdNumber() {
+        return ordNumber;
     }
 //  set
-    public void setCode(String code) {
-        this.code = code;
+    public void setOrdNumber(String ordNumber) {
+        this.ordNumber = ordNumber;
     }
+
     /* Description */
 //  get
     public String getDescription() {
@@ -82,49 +94,81 @@ public class Order {
     public void setDescription(String description) {
         this.description = description;
     }
-    /* Interval */
-//  get
-    public Integer getInterval() {
-        return interval;
+
+    /* Date*/
+    public Date getDate() {
+        return date;
     }
-//  set
-    public void setInterval(Integer interval) {
-        this.interval = interval;
+
+    public void setDate(Date date) {
+        this.date = date;
     }
-    /* Telephone */
-//  get
-    public int getTel_number() {
-        return tel_number;
+
+    /* From */
+    public Date getFrom() {
+        return from;
     }
-//  set
-    public void setTel_number(int tel_number) {
-        this.tel_number = tel_number;
+
+    public void setFrom(Date from) {
+        this.from = from;
     }
+
+    /* To */
+    public Date getTo() {
+        return to;
+    }
+
+    public void setTo(Date to) {
+        this.to = to;
+    }
+
     /* Client name */
 //  get
-    public String getclientName() {
+    public String getClientName() {
         return clientName;
     }
 //  set
-    public void setclientName(String clientName) {
+    public void setClientName(String clientName) {
         this.clientName = clientName;
     }
+
+    /* Telephone */
+//  get
+    public int getTelNumber() {
+        return telNumber;
+    }
+    //  set
+    public void setTelNumber(int telNumber) {
+        this.telNumber = telNumber;
+    }
+
+    /* Worker */
+//  get
+    public Worker getWorker() {
+        return worker;
+    }
+//  set
+    public void setWorker(Worker worker) {
+        this.worker = worker;
+    }
+
     /* Created at */
 //  get
-    public Date getcreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 //  set
-    public void setcreatedAt(Date createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
     /* Updated at */
 //  get
-    public Date getupdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 //  set
-    public void setupdatedAt(Date updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -132,6 +176,16 @@ public class Order {
     /** Methods */
     @Override
     public String toString() {
-        return this.description.toString() + this.code.toString();
+        return "Order{" +
+                "ordNumber='" + ordNumber + '\'' +
+                ", description='" + description + '\'' +
+                ", date=" + date +
+                ", from=" + from +
+                ", to=" + to +
+                ", telNumber=" + telNumber +
+                ", clientName='" + clientName + '\'' +
+                ", worker=" + worker +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

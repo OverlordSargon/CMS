@@ -54,20 +54,20 @@ public class Role {
     }
     /* Created at*/
 //  get
-    public Date getcreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
     //  set
-    public void setcreatedAt(Date createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
     /* Updated at*/
 //  get
-    public Date getupdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
     //  set
-    public void setupdatedAt(Date updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

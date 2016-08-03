@@ -58,6 +58,7 @@ public class Skill {
     public void setName(String name) {
         this.name = name;
     }
+
     /*Description*/
 //  get
     public String getDescription() {
@@ -67,22 +68,24 @@ public class Skill {
     public void setDescription(String description) {
         this.description = description;
     }
+
     /* Created at */
 //  get
-    public Date getcreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
     //  set
-    public void setcreatedAt(Date createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
     /* Updated at */
 //  get
-    public Date getupdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
     //  set
-    public void setupdatedAt(Date updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -90,10 +93,10 @@ public class Skill {
     /** Methods */
     @Override
     public String toString() {
-        String info ="";
-        info = "Skill Id: "+this.id+"\t\n";
-        info += "Name: "+this.name+"\t\n";
-        info += "Description: "+this.description+"\t\n";
-        return info;
+        return "Skill{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }
