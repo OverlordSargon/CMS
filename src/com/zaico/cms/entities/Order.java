@@ -10,53 +10,39 @@ import java.util.Date;
 @Entity
 @Table(name = "ORDER")
 public class Order {
-    @OneToMany()
     /** Variables */
     /* ID */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column( name = "ORD_ID")
     private Long id;
 
     /* ordNumber, for order identification */
-    @Column( name = "ORD_NUMBER")
     private String ordNumber;
 
     /* Description */
-    @Column( name = "ORD_DESCRIPTION")
     private String description;
 
     /* date, when needs to be done */
-    @Column( name = "ORD_DATE")
     private Date date;
 
     /* start time*/
-    @Column( name = "ORD_FROM")
     private Date from;
 
     /* end time */
-    @Column( name = "ORD_TO")
     private Date to;
 
     /* Client telephone number */
-    @Column( name = "ORD_CLIENT_NUM")
     private Integer telNumber;
 
     /* Client name */
-    @Column( name = "ORD_CLIENT_NAME")
     private String clientName;
 
     //  /* Relation */
     /* Order, which attached to this worker*/
-    @Column( name = "W_ID")
     private Worker worker;
 
     /* Created at time*/
-    @Column( name = "ORD_CREATED_AT")
     private Date createdAt;
 
     /*Updated at time*/
-    @Column( name = "ORD_UPDATED_AT")
     private Date updatedAt;
 
 
@@ -95,6 +81,9 @@ public class Order {
 
     /** GETTERS/SETTERS */
     /* ID */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column( name = "ORD_ID")
     /**
      * Gets the id
      *  @return the id
@@ -109,7 +98,7 @@ public class Order {
     }
 
     /* ordNumber */
-
+    @Column( name = "ORD_NUMBER")
     /**
      * Gets the ordNumber
      *  @return the ordNumber
@@ -123,6 +112,7 @@ public class Order {
     }
 
     /* Description */
+    @Column( name = "ORD_DESCRIPTION")
     /**
      * Gets the order description
      *  @return the Description
@@ -136,7 +126,7 @@ public class Order {
     }
 
     /* Date*/
-
+    @Column( name = "ORD_DATE")
     /**
      * Gets the Day, when must be performed
      *  @return the Date
@@ -150,6 +140,7 @@ public class Order {
     }
 
     /* From */
+    @Column( name = "ORD_FROM")
     /**
      * Gets the start time
      *  @return the From
@@ -163,6 +154,7 @@ public class Order {
     }
 
     /* To */
+    @Column( name = "ORD_TO")
     /**
      * Gets the end time
      *  @return the id
@@ -176,6 +168,7 @@ public class Order {
     }
 
     /* Client name */
+    @Column( name = "ORD_CLIENT_NAME")
     /**
      * Gets the this order client name
      *  @return the Client name
@@ -189,6 +182,7 @@ public class Order {
     }
 
     /* Telephone */
+    @Column( name = "ORD_CLIENT_NUM")
     /**
      * Gets the client telephone number
      *  @return the id
@@ -202,6 +196,8 @@ public class Order {
     }
 
     /* Worker */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "W_ID")
     /**
      * Gets the worker, who implement this order
      *  @return the worker
@@ -215,6 +211,7 @@ public class Order {
     }
 
     /* Created at */
+    @Column( name = "ORD_CREATED_AT")
     /**
      * Gets time of creation
      *  @return the created at
@@ -228,6 +225,7 @@ public class Order {
     }
 
     /* Updated at */
+    @Column( name = "ORD_UPDATED_AT")
     /**
      * Gets the last update time
      *  @return the updated_at

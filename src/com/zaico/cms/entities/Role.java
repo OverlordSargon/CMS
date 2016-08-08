@@ -13,29 +13,22 @@ public class Role {
 
     /** VARIABLES */
     /* ID */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "R_ID")
+
     private Long id;
 
     /* Role */
-    @Column(name = "R_ROLE")
     private String role;
 
     /* Description */
-    @Column(name = "R_DESCRIPTION")
     private String description;
 
     /* Users, with this role */
-    @ManyToMany(mappedBy = "roles")
     private List<User> users;
 
     /* Created at time*/
-    @Column(name = "R_CREATED_AT")
     private Date createdAt;
 
     /*Updated at time*/
-    @Column(name = "R_UPDATED_AT")
     private Date updatedAt;
 
 
@@ -58,6 +51,9 @@ public class Role {
 
     /** GETTERS\SETTERS */
     /* ID */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "R_ID")
     /**
      * Gets the id
      * @return the id
@@ -74,6 +70,7 @@ public class Role {
     }
 
     /* Role*/
+    @Column(name = "R_ROLE")
     /**
      * Gets the Role
      * @return the role
@@ -90,6 +87,7 @@ public class Role {
     }
 
     /* Description */
+    @Column(name = "R_DESCRIPTION")
     /**
      * Gets the description of the role
      * @return role description
@@ -106,6 +104,7 @@ public class Role {
     }
 
     /* Users */
+    @ManyToMany(mappedBy = "roles")
     /**
      * Gets the users with this role
      * @return the users
@@ -122,6 +121,7 @@ public class Role {
     }
 
     /* Created at */
+    @Column(name = "R_CREATED_AT")
     /**
      * Get time, when role was created
      * @return createdAt
@@ -138,6 +138,7 @@ public class Role {
     }
 
     /* Updated at */
+    @Column(name = "R_UPDATED_AT")
     /**
      * Get time, when role was created
      * @return updatedAt

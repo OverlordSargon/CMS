@@ -15,25 +15,18 @@ public class Skill {
 
     /** Variables */
     /* Id */
-    @Id
-    @GeneratedValue( strategy = GenerationType.AUTO)
-    @Column( name = "S_ID")
     private  Long id;
 
     /* Name of tne skill */
-    @Column ( name = "S_NAME")
     private String name;
 
     /* Description */
-    @Column ( name = "S_DESCRIPTION")
     private String description;
 
     /* Created at time*/
-    @Column ( name = "S_CREATED_AT")
     private Date createdAt;
 
     /*Updated at time*/
-    @Column ( name = "S_UPDATED_AT")
     private Date updatedAt;
 
 
@@ -58,7 +51,9 @@ public class Skill {
 
     /** GETTERS/SETTERS */
     /* ID */
-//  get
+    @Id
+    @GeneratedValue( strategy = GenerationType.AUTO)
+    @Column( name = "S_ID")
     /**
      * Gets the id
      * @return  The id
@@ -66,7 +61,6 @@ public class Skill {
     public Long getId() {
         return id;
     }
-    //  set
     /**
      * Sets the id
      * @param id the new id
@@ -76,7 +70,7 @@ public class Skill {
     }
 
     /*Name*/
-//  get
+    @Column ( name = "S_NAME")
     /**
      * Gets the name of the skill
      * @return Skill name
@@ -84,7 +78,6 @@ public class Skill {
     public String getName() {
         return name;
     }
-//  set
     /**
      * Sets the name of the skill
      * @param name
@@ -94,6 +87,7 @@ public class Skill {
     }
 
     /*Description*/
+    @Column ( name = "S_DESCRIPTION")
     /**
      * Get skill description
      * @retun Skill description
@@ -110,6 +104,7 @@ public class Skill {
     }
 
     /* Created at */
+    @Column ( name = "S_CREATED_AT")
     /**
      * Get time, when skill was created
      * @return createdAt
@@ -126,6 +121,7 @@ public class Skill {
     }
 
     /* Updated at */
+    @Column ( name = "S_UPDATED_AT")
     /**
      * Get time, when skill was created
      * @return updatedAt

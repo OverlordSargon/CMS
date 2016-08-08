@@ -23,24 +23,31 @@ public class Workplan {
     private Long id;
 
     /* date, when work need to be done*/
-    @Column(name = "")
+    @Column(name = "WP_DATE")
     private Date date;
 
 //    /* Relation */
     /* Worker, who own this workplan */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "W_ID")
     private Worker worker;
 
     /* Schedules, included in this workplan */
     @OneToMany
+    @JoinTable
+        (
+            name="SCHEDULE",
+            joinColumns={ @JoinColumn(name="SCH_ID", referencedColumnName="SCH_ID") },
+            inverseJoinColumns={ @JoinColumn(name="WP_ID", referencedColumnName="WP_ID", unique=true) }
+        )
     private List<Schedule> schedules;
 
     /* Created at time*/
-    @Column( name = "ORD_CREATED_AT")
+    @Column( name = "WP_CREATED_AT")
     private Date createdAt;
 
     /*Updated at time*/
-    @Column( name = "ORD_UPDATED_AT")
+    @Column( name = "WP_UPDATED_AT")
     private Date updatedAt;
 
 

@@ -13,33 +13,22 @@ public class User {
 
     /** VARIABLES */
     /* ID */
-    @Id
-    @GeneratedValue( strategy = GenerationType.AUTO)
-    @Column( name = "U_ID" )
     private Long id;
 
     /* Login */
-    @Column ( name = "U_LOGIN" )
     private String login;
 
     /* Password */
-    @Column( name = "U_PASSWORD" )
     private String password;
 
-//    /*Relation*/
+//  /*Relation*/
     /* Role of the user */
-    @ManyToMany
-    @JoinTable( name = "USER_ROLE",
-                joinColumns = @JoinColumn(name = "U_ID", referencedColumnName = "U_ID"),
-                inverseJoinColumns = @JoinColumn(name = "S_ID",referencedColumnName = "S_ID"))
     private List<Role> roles;
 
     /* Created at time*/
-    @Column( name = "U_CREATED_AT" )
     private Date createdAt;
 
     /*Updated at time*/
-    @Column( name = "U_UPDATED_AT" )
     private Date updatedAt;
 
 
@@ -62,6 +51,9 @@ public class User {
     /** GETTERS\SETTERS */
 
     /* ID */
+    @Id
+    @GeneratedValue( strategy = GenerationType.AUTO)
+    @Column( name = "U_ID" )
     /**
      * Get user id
      * @return id
@@ -78,6 +70,7 @@ public class User {
     }
 
     /* Login */
+    @Column ( name = "U_LOGIN" )
     /**
      * Get Login
      * @return login
@@ -94,6 +87,7 @@ public class User {
     }
 
     /* Password */
+    @Column( name = "U_PASSWORD" )
     /**
      * Get password
      * @return password
@@ -110,6 +104,13 @@ public class User {
     }
 
     /* Role */
+    @ManyToMany
+    @JoinTable
+        (
+            name = "USER_ROLE",
+            joinColumns = @JoinColumn(name = "U_ID", referencedColumnName = "U_ID"),
+            inverseJoinColumns = @JoinColumn(name = "R_ID",referencedColumnName = "R_ID")
+        )
     /**
      * Get all user roles
      * @return roles
@@ -126,6 +127,7 @@ public class User {
     }
 
     /* Created at */
+    @Column( name = "U_CREATED_AT" )
     /**
      * Get time, when UserInterface was created
      * @return createdAt
@@ -142,6 +144,7 @@ public class User {
     }
 
     /* Updated at */
+    @Column( name = "U_UPDATED_AT" )
     /**
      * Get time, when UserInterface was created
      * @return updatedAt

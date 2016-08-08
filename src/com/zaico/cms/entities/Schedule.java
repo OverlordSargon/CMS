@@ -13,30 +13,22 @@ public class Schedule {
 
     /** Variables */
     /* Id */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "SCH_ID")
     private Long id;
 
     /* Number of work interval */
-    @Column(name = "SCH_INTERVAL")
     private Integer interval;
 
     /* Set type of interval. P - pause, W - working */
-    @Column(name = "SCH_FLAG", length = 50)
     private String flag;
 
     //  /* Relation */
     /* Order, which attached to this worker*/
-    @ManyToOne
     private Workplan workplan;
 
     /* Created at time*/
-    @Column( name = "ORD_CREATED_AT")
     private Date createdAt;
 
     /*Updated at time*/
-    @Column( name = "ORD_UPDATED_AT")
     private Date updatedAt;
 
     /** Constructors*/
@@ -60,6 +52,9 @@ public class Schedule {
 
     /** GETTERS\SETTERS */
     /* ID */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "SCH_ID")
     /**
      * Get schedule id
      * @return id
@@ -76,6 +71,7 @@ public class Schedule {
     }
 
     /* Interval */
+    @Column(name = "SCH_INTERVAL")
     /**
      * Get schedule interval number
      * @return interval
@@ -92,6 +88,7 @@ public class Schedule {
     }
 
     /* Flag */
+    @Column(name = "SCH_FLAG", length = 50)
     /**
      * Get interval flag
      * @return flag
@@ -108,6 +105,8 @@ public class Schedule {
     }
 
     /* Workplan */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "WP_ID")
     /**
      * Get schedule workpaln
      * @return workplan
@@ -124,6 +123,7 @@ public class Schedule {
     }
 
     /* Created at */
+    @Column( name = "SCH_CREATED_AT")
     /**
      * Get time, when role was created
      * @return createdAt
@@ -140,6 +140,7 @@ public class Schedule {
     }
 
     /* Updated at */
+    @Column( name = "SCH_UPDATED_AT")
     /**
      * Get time, when role was created
      * @return updatedAt

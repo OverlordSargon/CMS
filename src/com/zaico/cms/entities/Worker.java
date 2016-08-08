@@ -13,38 +13,28 @@ public class Worker {
 
     /** Variables */
     /* Id */
-    @Id
-    @GeneratedValue( strategy = GenerationType.AUTO)
-    @Column( name = "W_ID")
     private Long id;
 
     /* Name */
-    @Column( name = "W_NAME")
     private String name;
 
     /* Telephone */
-    @Column( name = "W_TELEPHONE")
     private Integer telephone;
 
 //  /* Relation */
     /* Order, which attached to this worker*/
-    @OneToMany
     private List<Order> orders;
 
     /* Workplans for this worker*/
-    @OneToMany
     private  List<Workplan> workplans;
 
     /* Skills of the worker*/
-    @OneToMany
     private List<Skill> skills;
 
     /* Created at time*/
-    @Column( name = "ORD_CREATED_AT")
     private Date createdAt;
 
     /*Updated at time*/
-    @Column( name = "ORD_UPDATED_AT")
     private Date updatedAt;
 
 
@@ -71,6 +61,10 @@ public class Worker {
 
     /** GETTERS\SETTERS */
     /* ID */
+    @Id
+    @GeneratedValue( strategy = GenerationType.AUTO)
+    @Column( name = "W_ID")
+
     /**
      * Get worker id
      * @return id
@@ -87,6 +81,8 @@ public class Worker {
     }
 
     /* Name */
+    @Column( name = "W_NAME")
+
     /**
      * Get worker name
      * @return name
@@ -103,6 +99,8 @@ public class Worker {
     }
 
     /* Telephone */
+    @Column( name = "W_TELEPHONE")
+
     /**
      * Get worker telephone
      * @return telephone
@@ -119,6 +117,14 @@ public class Worker {
     }
 
     /* Orders */
+    @OneToMany
+    @JoinTable
+            (
+                    name="ORDER",
+                    joinColumns={ @JoinColumn(name="O_ID", referencedColumnName="O_ID") },
+                    inverseJoinColumns={ @JoinColumn(name="W_ID", referencedColumnName="W_ID", unique=true) }
+            )
+
     /**
      * Get list of orders, which executed by this worker
      * @return orders
@@ -135,6 +141,14 @@ public class Worker {
     }
 
     /* Workplans */
+    @OneToMany(mappedBy="worker")
+    @JoinTable
+            (
+                    name="WORKPLAN",
+                    joinColumns={ @JoinColumn(name="WP_ID", referencedColumnName="WP_ID") },
+                    inverseJoinColumns={ @JoinColumn(name="W_ID", referencedColumnName="W_ID", unique=true) }
+            )
+
     /**
      * Get worker`s workplans
      * @return workplans
@@ -151,6 +165,14 @@ public class Worker {
     }
 
     /* Skills */
+    @ManyToMany
+    @JoinTable
+            (
+                    name = "WORKER_SKILL",
+                    joinColumns = @JoinColumn(name = "W_ID", referencedColumnName = "W_ID"),
+                    inverseJoinColumns = @JoinColumn(name = "S_ID",referencedColumnName = "S_ID")
+            )
+
     /**
      * Get list of worker skills
      * @return skills
@@ -167,6 +189,8 @@ public class Worker {
     }
 
     /* Created at */
+    @Column( name = "W_CREATED_AT")
+
     /**
      * Get time, when role was created
      * @return createdAt
@@ -183,6 +207,7 @@ public class Worker {
     }
 
     /* Updated at */
+    @Column( name = "W_UPDATED_AT")
     /**
      * Get time, when role was created
      * @return updatedAt
