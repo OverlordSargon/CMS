@@ -15,11 +15,12 @@
         <class>com.zaico.cms.entities.Schedule</class>
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
-            <property name="javax.persistence.jdbc.url"
-                      value="jdbc:derby://localhost:3306/csm;" />
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cms" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="1234" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.show_sql" value="true" />
         </properties>
     </persistence-unit>
 

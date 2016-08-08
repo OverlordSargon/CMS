@@ -10,8 +10,7 @@ import com.zaico.cms.entities.User;
 public class Main {
     public static void main(String[] args) {
         System.out.println("HELllo");
-    } {
-        User user = new User("login","password");
+        User user = new User("logidn","password");
         UserInterface ui = new UserDAO();
         ui.create(user);
     }
