@@ -1,30 +1,45 @@
 package com.zaico.cms.entities;
 
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by nzaitsev on 02.08.2016.
  */
+@Entity
+@Table( name = "USER" )
 public class User {
 
     /** VARIABLES */
     /* ID */
+    @Id
+    @GeneratedValue( strategy = GenerationType.AUTO)
+    @Column( name = "U_ID" )
     private Long id;
 
     /* Login */
+    @Column ( name = "U_LOGIN" )
     private String login;
 
     /* Password */
+    @Column( name = "U_PASSWORD" )
     private String password;
 
 //    /*Relation*/
     /* Role of the user */
-    private Role role;
+    @ManyToMany
+    @JoinTable( name = "USER_ROLE",
+                joinColumns = @JoinColumn(name = "U_ID", referencedColumnName = "U_ID"),
+                inverseJoinColumns = @JoinColumn(name = "S_ID",referencedColumnName = "S_ID"))
+    private List<Role> roles;
 
     /* Created at time*/
+    @Column( name = "U_CREATED_AT" )
     private Date createdAt;
 
     /*Updated at time*/
+    @Column( name = "U_UPDATED_AT" )
     private Date updatedAt;
 
 
@@ -34,69 +49,125 @@ public class User {
 
     }
 
-    /* Full */
-    public User(String login, String password, Role role) {
+    /**
+     * Full constructor
+     * @param login UserInterface name
+     * @param password UserInterface password will be ecnrypted
+     * @param roles All roles, which will be performed
+     * */
+    public User(String login, String password, List roles) {
         this.login = login;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
     }
 
     /** GETTERS\SETTERS */
+
     /* ID */
-//  get
+    /**
+     * Get user id
+     * @return id
+     * */
     public Long getId() {
         return id;
     }
-    //  set
+    /**
+     * Set user id
+     * @param id
+     * */
     public void setId(Long id) {
         this.id = id;
     }
+
     /* Login */
-//  get
+    /**
+     * Get Login
+     * @return login
+     * */
     public String getLogin() {
         return login;
     }
-//  set
+    /**
+     * Set user login
+     * @param login
+     * */
     public void setLogin(String login) {
         this.login = login;
     }
+
     /* Password */
-//  get
+    /**
+     * Get password
+     * @return password
+     * */
     public String getPassword() {
         return password;
     }
-//  set
+    /**
+     * Set user password
+     * @param password
+     * */
     public void setPassword(String password) {
         this.password = password;
     }
+
     /* Role */
-//  get
-    public Role getRole() {
-        return role;
+    /**
+     * Get all user roles
+     * @return roles
+     * */
+    public List getRole() {
+        return roles;
     }
-//  set
-    public void setRole(Role role) {
-        this.role = role;
+    /**
+     * Set user roles
+     * @param roles
+     * */
+    public void setRole(List roles) {
+        this.roles = roles;
     }
-    /* Created at*/
-//  get
+
+    /* Created at */
+    /**
+     * Get time, when UserInterface was created
+     * @return createdAt
+     * */
     public Date getCreatedAt() {
         return createdAt;
     }
-    //  set
+    /**
+     * Set time, when UserInterface was created
+     * @param createdAt
+     * */
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-    /* Updated at*/
-//  get
+
+    /* Updated at */
+    /**
+     * Get time, when UserInterface was created
+     * @return updatedAt
+     * */
     public Date getUpdatedAt() {
         return updatedAt;
     }
-    //  set
+    /**
+     * Set time, when UserInterface was created
+     * @param updatedAt
+     * */
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-
     /** METHODS */
-
+    @Override
+    /**
+     * ToString
+     * @return login&roles
+     * */
+    public String toString() {
+        return "UserInterface{" +
+                "login='" + login + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }
