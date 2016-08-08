@@ -53,12 +53,10 @@ public class User {
      * Full constructor
      * @param login UserInterface name
      * @param password UserInterface password will be ecnrypted
-     * @param roles All roles, which will be performed
      * */
-    public User(String login, String password, List roles) {
+    public User(String login, String password) {
         this.login = login;
         this.password = password;
-        this.roles = roles;
     }
 
     /** GETTERS\SETTERS */
