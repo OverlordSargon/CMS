@@ -1,4 +1,4 @@
-package com.zaico.cms.dao;
+package com.zaico.cms.dao.implementation;
 
 import com.zaico.cms.dao.interfaces.UserInterface;
 import com.zaico.cms.entities.User;
