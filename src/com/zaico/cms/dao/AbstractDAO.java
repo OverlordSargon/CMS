@@ -1,5 +1,7 @@
 package com.zaico.cms.dao;
 
+import com.zaico.cms.entities.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -24,12 +26,15 @@ public abstract class AbstractDAO<T> {
     /**
      * Basic CRUD actions for all
      * */
-    abstract public void create();
+    public User create(User user) {
+        em.persist(user);
+        return user;
+    };
 
     /**
      * Get object by id
      * */
-    public T readr(Integer id) {
+    public T read(Long id) {
         return em.find(type,id);
     }
 

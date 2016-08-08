@@ -16,7 +16,7 @@ public interface UserInterface {
     /**
      * Allows to create new user
      * */
-    void create();
+    User create(User user);
 
     /**
      * Allows to get all users
@@ -29,19 +29,19 @@ public interface UserInterface {
      * @param id Needed user id
      * @return UserInterface
      * */
-    UserInterface read(Integer id);
+    User read(Long id);
 
     /**
      * Updating userInterface
-     * @param userInterface UserInterface entity
+     * @param user User entity
      * */
-    void update(UserInterface userInterface);
+    void update(User user);
 
     /**
-     * Delete userInterface
-     * @param userInterface UserInterface entity
+     * Delete user
+     * @param user user entity
      * */
-    void delete(UserInterface userInterface);
+    void delete(User user);
 
 
 

@@ -19,23 +19,4 @@ public class UserDAO extends AbstractDAO<User> implements UserInterface {
         return users;
     }
 
-    @Override
-    public UserInterface read(Integer id) {
-        return null;
-    }
-
-    @Override
-    public void create() {
-
-    }
-
-    @Override
-    public void update(UserInterface userInterface) {
-
-    }
-
-    @Override
-    public void delete(UserInterface userInterface) {
-
-    }
 }
