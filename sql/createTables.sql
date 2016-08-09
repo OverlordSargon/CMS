@@ -1,6 +1,3 @@
--- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2016-08-08 15:44:11.715
-
 -- tables
 -- Table: ORDER
 CREATE TABLE `ORDER` (
