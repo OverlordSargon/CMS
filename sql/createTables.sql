@@ -58,8 +58,8 @@ CREATE TABLE USER (
 -- Table: USER_ROLE
 CREATE TABLE USER_ROLE (
     UR_ID bigint NOT NULL,
-    USER_U_ID bigint NOT NULL,
-    ROLE_R_ID bigint NOT NULL,
+    U_ID bigint NOT NULL,
+    R_ID bigint NOT NULL,
     CONSTRAINT USER_ROLE_pk PRIMARY KEY (UR_ID)
 );
 

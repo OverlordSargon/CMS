@@ -82,7 +82,7 @@ public class Order {
     /** GETTERS/SETTERS */
     /* ID */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column( name = "ORD_ID")
     /**
      * Gets the id

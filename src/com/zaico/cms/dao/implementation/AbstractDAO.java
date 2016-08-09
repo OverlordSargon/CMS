@@ -3,7 +3,10 @@ package com.zaico.cms.dao.implementation;
 import com.zaico.cms.entities.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import java.lang.reflect.ParameterizedType;
 
 /**
  * Created by ZAITNIK on 06.08.2016.
@@ -20,15 +23,25 @@ public abstract class AbstractDAO<T> {
     /**
      * The entity manager, 4 handy CRUD.
      */
-    @PersistenceContext
-    protected EntityManager em;
+    private EntityManager em = Persistence.createEntityManagerFactory("cms").createEntityManager();
+
+    /**
+     * The constructor.
+     */
+    @SuppressWarnings("unchecked")
+    public AbstractDAO() {
+        this.type = (Class<T>) ((ParameterizedType) getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[0];
+    }
 
     /**
      * Basic CRUD actions for all
      * */
-    public User create(User user) {
-        em.persist(user);
-        return user;
+    public T create(T t) {
+        em.getTransaction().begin();
+        em.persist(t);
+        em.getTransaction().commit();
+        return t;
     };
 
     /**
@@ -40,18 +53,18 @@ public abstract class AbstractDAO<T> {
 
     /**
      * Updates object
-     * @param entity Entity object
+     * @param t Entity object
      * */
-    public void update(T entity) {
-        em.merge(entity);
+    public void update(T t) {
+        em.merge(t);
     }
 
     /**
      * Deletes object
-     * @param entity Entity, we want to delete
+     * @param t Entity, we want to delete
      * */
-    public void delete(T entity) {
-        em.remove(entity);
+    public void delete(T t) {
+        em.remove(t);
     }
 
 }

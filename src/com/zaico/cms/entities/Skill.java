@@ -52,7 +52,7 @@ public class Skill {
     /** GETTERS/SETTERS */
     /* ID */
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
     @Column( name = "S_ID")
     /**
      * Gets the id

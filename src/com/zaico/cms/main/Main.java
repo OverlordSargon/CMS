@@ -15,11 +15,8 @@ public class Main {
     public static void main(String[] args)  throws SQLException, ClassNotFoundException {
 
         System.out.println("HELllo");
-//        User user = new User("Никита","Ybrbneirf");
-//        UserInterface userIn = new UserDAO();
-//        userIn.create(user);
-        Class.forName("com.mysql.jdbc.Driver.java");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cms","root", "1234");
-        conn.close();
+        User user = new User("Test","Test");
+        UserInterface userIn = new UserDAO();
+        userIn.create(user);
     }
 }

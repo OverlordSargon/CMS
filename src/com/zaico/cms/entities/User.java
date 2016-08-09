@@ -22,7 +22,7 @@ public class User {
     private String password;
 
 //  /*Relation*/
-    /* Roles of the user */
+    /* Role of the user */
     private List<Role> roles;
 
     /* Created at time*/
@@ -52,7 +52,7 @@ public class User {
 
     /* ID */
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
     @Column( name = "U_ID" )
     /**
      * Get user id
@@ -115,7 +115,7 @@ public class User {
      * Get all user roles
      * @return roles
      * */
-    public List getRole() {
+    public List<Role> getRole() {
         return roles;
     }
     /**

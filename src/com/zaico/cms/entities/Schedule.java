@@ -53,7 +53,7 @@ public class Schedule {
     /** GETTERS\SETTERS */
     /* ID */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SCH_ID")
     /**
      * Get schedule id

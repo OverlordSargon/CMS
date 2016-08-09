@@ -17,37 +17,23 @@ public class Workplan {
 
     /** Variables */
     /* ID */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "WP_ID")
     private Long id;
 
     /* date, when work need to be done*/
-    @Column(name = "WP_DATE")
     private Date date;
 
 //    /* Relation */
     /* Worker, who own this workplan */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "W_ID")
     private Worker worker;
 
     /* Schedules, included in this workplan */
-    @OneToMany
-    @JoinTable
-        (
-            name="SCHEDULE",
-            joinColumns={ @JoinColumn(name="SCH_ID", referencedColumnName="SCH_ID") },
-            inverseJoinColumns={ @JoinColumn(name="WP_ID", referencedColumnName="WP_ID", unique=true) }
-        )
+
     private List<Schedule> schedules;
 
     /* Created at time*/
-    @Column( name = "WP_CREATED_AT")
     private Date createdAt;
 
     /*Updated at time*/
-    @Column( name = "WP_UPDATED_AT")
     private Date updatedAt;
 
 
@@ -66,6 +52,9 @@ public class Workplan {
 
     /** GETTERS\SETTERS */
     /* ID */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "WP_ID")
     /**
      * Get workplan id
      * @return id
@@ -82,6 +71,7 @@ public class Workplan {
     }
 
     /* date */
+    @Column(name = "WP_DATE")
     /**
      * Get workplan date (day)
      * @return date
@@ -98,6 +88,8 @@ public class Workplan {
     }
 
     /* Worker */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "W_ID")
     /**
      * Get workplan worker
      * @return worker
@@ -114,6 +106,13 @@ public class Workplan {
     }
 
     /* Schedules */
+    @OneToMany
+    @JoinTable
+        (
+            name="SCHEDULE",
+            joinColumns={ @JoinColumn(name="WP_ID", referencedColumnName="WP_ID") },
+            inverseJoinColumns={ @JoinColumn(name="SCH_ID", referencedColumnName="SCH_ID", unique=true) }
+        )
     /**
      * Get schedules for this workplan
      * @return schedules
@@ -130,6 +129,7 @@ public class Workplan {
     }
 
     /* Created at */
+    @Column( name = "WP_CREATED_AT")
     /**
      * Get time, when role was created
      * @return createdAt
@@ -146,6 +146,9 @@ public class Workplan {
     }
 
     /* Updated at */
+    @Column( name = "WP_UPDATED_AT")
+
+
     /**
      * Get time, when role was created
      * @return updatedAt

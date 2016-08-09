@@ -52,7 +52,7 @@ public class Role {
     /** GETTERS\SETTERS */
     /* ID */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "R_ID")
     /**
      * Gets the id
@@ -104,7 +104,13 @@ public class Role {
     }
 
     /* Users */
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany
+    @JoinTable
+        (
+            name = "USER_ROLE",
+            joinColumns = @JoinColumn(name = "R_ID", referencedColumnName = "R_ID "),
+            inverseJoinColumns = @JoinColumn(name = "U_ID",referencedColumnName = "U_ID")
+        )
     /**
      * Gets the users with this role
      * @return the users
