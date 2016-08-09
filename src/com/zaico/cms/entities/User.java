@@ -22,7 +22,7 @@ public class User {
     private String password;
 
 //  /*Relation*/
-    /* Role of the user */
+    /* Roles of the user */
     private List<Role> roles;
 
     /* Created at time*/
