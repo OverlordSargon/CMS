@@ -11,23 +11,20 @@ import java.util.Date;
  */
 @Entity
 @Table( name = "SKILL")
-public class Skill {
+@NamedQueries(
+    {
+        @NamedQuery(name = "Skill.getAll", query = " SELECT skill FROM Skill skill "),
+        @NamedQuery(name = "Skill.deleteAll", query = " DELETE FROM Skill")
+    })
+public class Skill extends AbstractEntity{
 
     /** Variables */
-    /* Id */
-    private  Long id;
 
     /* Name of tne skill */
     private String name;
 
     /* Description */
     private String description;
-
-    /* Created at time*/
-    private Date createdAt;
-
-    /*Updated at time*/
-    private Date updatedAt;
 
 
     /** Constructors*/
@@ -42,7 +39,7 @@ public class Skill {
      * @param name Name of the skill
      * @param description Description of the skill
      *
-     * */
+     */
     public Skill(String name,String description) {
         this.name = name;
         this.description = description;
@@ -64,7 +61,7 @@ public class Skill {
     /**
      * Sets the id
      * @param id the new id
-     * */
+     */
     public void setId(Long id) {
         this.id = id;
     }
@@ -74,14 +71,14 @@ public class Skill {
     /**
      * Gets the name of the skill
      * @return Skill name
-     * */
+     */
     public String getName() {
         return name;
     }
     /**
      * Sets the name of the skill
      * @param name
-     * */
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -91,14 +88,14 @@ public class Skill {
     /**
      * Get skill description
      * @retun Skill description
-     * */
+     */
     public String getDescription() {
         return description;
     }
     /**
      * Sets skill description
      * @param description
-     * */
+     */
     public void setDescription(String description) {
         this.description = description;
     }
@@ -108,14 +105,14 @@ public class Skill {
     /**
      * Get time, when skill was created
      * @return createdAt
-     * */
+     */
     public Date getCreatedAt() {
         return createdAt;
     }
     /**
      * Set time, when skill was created
      * @param createdAt
-     * */
+     */
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
@@ -125,14 +122,14 @@ public class Skill {
     /**
      * Get time, when skill was created
      * @return updatedAt
-     * */
+     */
     public Date getUpdatedAt() {
         return updatedAt;
     }
     /**
      * Set time, when skill was created
      * @param updatedAt
-     * */
+     */
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
@@ -142,7 +139,7 @@ public class Skill {
     @Override
     /** ToString()
      *  Allows to get full info in string format
-     * */
+     */
     public String toString() {
         return "Skill{" +
                 "name='" + name + '\'' +

@@ -9,11 +9,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "WORKER")
-public class Worker {
+@NamedQueries(
+    {
+        @NamedQuery(name = "Worker.getAll", query = "SELECT worker FROM Worker worker "),
+        @NamedQuery(name = "Worker.deleteAll", query = "DELETE FROM Worker")
+    })
+public class Worker extends AbstractEntity {
 
     /** Variables */
-    /* Id */
-    private Long id;
 
     /* Name */
     private String name;
@@ -30,12 +33,6 @@ public class Worker {
 
     /* Skills of the worker*/
     private List<Skill> skills;
-
-    /* Created at time*/
-    private Date createdAt;
-
-    /*Updated at time*/
-    private Date updatedAt;
 
 
     /** Constructors */
@@ -57,7 +54,7 @@ public class Worker {
      * @param telephone Worker telephone
      * @param skills List of skills
      * @param workplans List of workplans
-     * */
+     */
     public Worker(String name, Integer telephone, List<Workplan> workplans, List<Skill> skills) {
         this.name = name;
         this.telephone = telephone;
@@ -73,14 +70,14 @@ public class Worker {
     /**
      * Get worker id
      * @return id
-     * */
+     */
     public Long getId() {
         return id;
     }
     /**
      * Set worker id
      * @param  id
-     * */
+     */
     public void setId(Long id) {
         this.id = id;
     }
@@ -90,14 +87,14 @@ public class Worker {
     /**
      * Get worker name
      * @return name
-     * */
+     */
     public String getName() {
         return name;
     }
     /**
      * Set worker name
      * @param name
-     * */
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -107,14 +104,14 @@ public class Worker {
     /**
      * Get worker telephone
      * @return telephone
-     * */
+     */
     public Integer getTelephone() {
         return telephone;
     }
     /**
      * Set worker telephone
      * @param telephone
-     * */
+     */
     public void setTelephone(Integer telephone) {
         this.telephone = telephone;
     }
@@ -131,14 +128,14 @@ public class Worker {
     /**
      * Get list of orders, which executed by this worker
      * @return orders
-     * */
+     */
     public List<Order> getOrders() {
         return orders;
     }
     /**
      * Set list of orders, which`ll executed by this worker
      * @param orders
-     * */
+     */
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
@@ -155,14 +152,14 @@ public class Worker {
     /**
      * Get worker`s workplans
      * @return workplans
-     * */
+     */
     public List<Workplan> getWorkplans() {
         return workplans;
     }
     /**
      * Set worker`s workplans
      * @param workplans
-     * */
+     */
     public void setWorkplans(List<Workplan> workplans) {
         this.workplans = workplans;
     }
@@ -179,14 +176,14 @@ public class Worker {
     /**
      * Get list of worker skills
      * @return skills
-     * */
+     */
     public List<Skill> getSkills() {
         return skills;
     }
     /**
      * Set list of worker skills
      * @param skills
-     * */
+     */
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
@@ -196,14 +193,14 @@ public class Worker {
     /**
      * Get time, when role was created
      * @return createdAt
-     * */
+     */
     public Date getCreatedAt() {
         return createdAt;
     }
     /**
      * Set time, when role was created
      * @param createdAt
-     * */
+     */
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
@@ -213,14 +210,14 @@ public class Worker {
     /**
      * Get time, when role was created
      * @return updatedAt
-     * */
+     */
     public Date getUpdatedAt() {
         return updatedAt;
     }
     /**
      * Set time, when role was created
      * @param updatedAt
-     * */
+     */
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
@@ -230,7 +227,7 @@ public class Worker {
     /**
      * toString
      * @return all info about choosen worker
-     * */
+     */
     public String toString() {
         return "Worker{" +
                 "name='" + name + '\'' +

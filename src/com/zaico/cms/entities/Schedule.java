@@ -8,12 +8,15 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "SCHEDULE")
+@NamedQueries(
+    {
+        @NamedQuery(name = "Schedule.getAll", query = "SELECT schedule FROM Schedule schedule"),
+        @NamedQuery(name = "Schedule.deleteAll", query = "DELETE FROM Schedule")
+    })
     /* Describes every interval in specified day (WORKPLAN) */
-public class Schedule {
+public class Schedule extends AbstractEntity {
 
     /** Variables */
-    /* Id */
-    private Long id;
 
     /* Number of work interval */
     private Integer interval;
@@ -25,11 +28,6 @@ public class Schedule {
     /* Order, which attached to this worker*/
     private Workplan workplan;
 
-    /* Created at time*/
-    private Date createdAt;
-
-    /*Updated at time*/
-    private Date updatedAt;
 
     /** Constructors*/
     /* Default */
@@ -43,7 +41,7 @@ public class Schedule {
      * @param flag Interval flag
      * @param interval Interval number
      * @param workplan workplan(day)
-     * */
+     */
     public Schedule(Integer interval, String flag, Workplan workplan) {
         this.interval = interval;
         this.flag = flag;
@@ -58,14 +56,14 @@ public class Schedule {
     /**
      * Get schedule id
      * @return id
-     * */
+     */
     public Long getId() {
         return id;
     }
     /**
      * Set schedule id
      * @param id
-     * */
+     */
     public void setId(Long id) {
         this.id = id;
     }
@@ -75,14 +73,14 @@ public class Schedule {
     /**
      * Get schedule interval number
      * @return interval
-     * */
+     */
     public Integer getInterval() {
         return interval;
     }
     /**
      * Set schedule interval number
      * @param interval
-     * */
+     */
     public void setInterval(Integer interval) {
         this.interval = interval;
     }
@@ -92,14 +90,14 @@ public class Schedule {
     /**
      * Get interval flag
      * @return flag
-     * */
+     */
     public String getFlag() {
         return flag;
     }
     /**
      * Set interval flag
      * @param flag
-     * */
+     */
     public void setFlag(String flag) {
         this.flag = flag;
     }
@@ -110,14 +108,14 @@ public class Schedule {
     /**
      * Get schedule workpaln
      * @return workplan
-     * */
+     */
     public Workplan getWorkplan() {
         return workplan;
     }
     /**
      * Set schedule workplan
      * @param workplan
-     * */
+     */
     public void setWorkplan(Workplan workplan) {
         this.workplan = workplan;
     }
@@ -127,14 +125,14 @@ public class Schedule {
     /**
      * Get time, when role was created
      * @return createdAt
-     * */
+     */
     public Date getCreatedAt() {
         return createdAt;
     }
     /**
      * Set time, when role was created
      * @param createdAt
-     * */
+     */
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
@@ -144,14 +142,14 @@ public class Schedule {
     /**
      * Get time, when role was created
      * @return updatedAt
-     * */
+     */
     public Date getUpdatedAt() {
         return updatedAt;
     }
     /**
      * Set time, when role was created
      * @param updatedAt
-     * */
+     */
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }

@@ -10,14 +10,16 @@ import java.util.List;
  */
 @Entity
 @Table(name = "WORKPLAN")
-
+@NamedQueries(
+    {
+        @NamedQuery(name = "Workplan.getAll", query = "SELECT workplan FROM Workplan workplan "),
+        @NamedQuery(name = "Workplan.deleteAll", query = "DELETE FROM Workplan")
+    })
     /* Workplan means DAY workplan, which devided into intervals in SCHEDULE */
 
-public class Workplan {
+public class Workplan extends AbstractEntity {
 
     /** Variables */
-    /* ID */
-    private Long id;
 
     /* date, when work need to be done*/
     private Date date;
@@ -29,12 +31,6 @@ public class Workplan {
     /* Schedules, included in this workplan */
 
     private List<Schedule> schedules;
-
-    /* Created at time*/
-    private Date createdAt;
-
-    /*Updated at time*/
-    private Date updatedAt;
 
 
     /** Constructors */
@@ -58,14 +54,14 @@ public class Workplan {
     /**
      * Get workplan id
      * @return id
-     * */
+     */
     public Long getId() {
         return id;
     }
     /**
      * Set workplan id
      * @param id
-     * */
+     */
     public void setId(Long id) {
         this.id = id;
     }
@@ -75,14 +71,14 @@ public class Workplan {
     /**
      * Get workplan date (day)
      * @return date
-     * */
+     */
     public Date getDate() {
         return date;
     }
     /**
      * Set workplan date (day)
      * @param date
-     * */
+     */
     public void setDate(Date date) {
         this.date = date;
     }
@@ -93,14 +89,14 @@ public class Workplan {
     /**
      * Get workplan worker
      * @return worker
-     * */
+     */
     public Worker getWorker() {
         return worker;
     }
     /**
      * Set workplan worker
      * @param worker
-     * */
+     */
     public void setWorker(Worker worker) {
         this.worker = worker;
     }
@@ -116,14 +112,14 @@ public class Workplan {
     /**
      * Get schedules for this workplan
      * @return schedules
-     * */
+     */
     public List<Schedule> getSchedules() {
         return schedules;
     }
     /**
      * Set schedules for this workplan
      * @param schedules
-     * */
+     */
     public void setSchedules(List<Schedule> schedules) {
         this.schedules = schedules;
     }
@@ -133,14 +129,14 @@ public class Workplan {
     /**
      * Get time, when role was created
      * @return createdAt
-     * */
+     */
     public Date getCreatedAt() {
         return createdAt;
     }
     /**
      * Set time, when role was created
      * @param createdAt
-     * */
+     */
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
@@ -152,14 +148,14 @@ public class Workplan {
     /**
      * Get time, when role was created
      * @return updatedAt
-     * */
+     */
     public Date getUpdatedAt() {
         return updatedAt;
     }
     /**
      * Set time, when role was created
      * @param updatedAt
-     * */
+     */
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
@@ -169,7 +165,7 @@ public class Workplan {
     /**
      * toString
      * @return workplan full info
-     * */
+     */
     @Override
     public String toString() {
         return "Workplan{" +

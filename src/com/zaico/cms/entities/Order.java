@@ -9,10 +9,13 @@ import java.util.Date;
 
 @Entity
 @Table(name = "ORDER")
-public class Order {
+@NamedQueries(
+    {
+        @NamedQuery(name = "Order.getAll", query = "SELECT order FROM Order order"),
+        @NamedQuery(name = "Order.deleteAll", query = "DELETE FROM Order")
+    })
+public class Order extends AbstractEntity {
     /** Variables */
-    /* ID */
-    private Long id;
 
     /* ordNumber, for order identification */
     private String ordNumber;
@@ -38,12 +41,6 @@ public class Order {
     //  /* Relation */
     /* Order, which attached to this worker*/
     private Worker worker;
-
-    /* Created at time*/
-    private Date createdAt;
-
-    /*Updated at time*/
-    private Date updatedAt;
 
 
     /** Constructors */
@@ -87,7 +84,7 @@ public class Order {
     /**
      * Gets the id
      *  @return the id
-     * */
+     */
     public Long getId() {
         return id;
     }
@@ -102,7 +99,7 @@ public class Order {
     /**
      * Gets the ordNumber
      *  @return the ordNumber
-     * */
+     */
     public String getOrdNumber() {
         return ordNumber;
     }
@@ -116,7 +113,7 @@ public class Order {
     /**
      * Gets the order description
      *  @return the Description
-     * */
+     */
     public String getDescription() {
         return description;
     }
@@ -130,7 +127,7 @@ public class Order {
     /**
      * Gets the Day, when must be performed
      *  @return the Date
-     * */
+     */
     public Date getDate() {
         return date;
     }
@@ -144,7 +141,7 @@ public class Order {
     /**
      * Gets the start time
      *  @return the From
-     * */
+     */
     public Date getFrom() {
         return from;
     }
@@ -158,7 +155,7 @@ public class Order {
     /**
      * Gets the end time
      *  @return the id
-     * */
+     */
     public Date getTo() {
         return to;
     }
@@ -172,7 +169,7 @@ public class Order {
     /**
      * Gets the this order client name
      *  @return the Client name
-     * */
+     */
     public String getClientName() {
         return clientName;
     }
@@ -186,7 +183,7 @@ public class Order {
     /**
      * Gets the client telephone number
      *  @return the id
-     * */
+     */
     public int getTelNumber() {
         return telNumber;
     }
@@ -201,7 +198,7 @@ public class Order {
     /**
      * Gets the worker, who implement this order
      *  @return the worker
-     * */
+     */
     public Worker getWorker() {
         return worker;
     }
@@ -215,7 +212,7 @@ public class Order {
     /**
      * Gets time of creation
      *  @return the created at
-     * */
+     */
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -229,7 +226,7 @@ public class Order {
     /**
      * Gets the last update time
      *  @return the updated_at
-     * */
+     */
     public Date getUpdatedAt() {
         return updatedAt;
     }
@@ -245,7 +242,7 @@ public class Order {
      * ToString
      * @return OrderInfo
      * Return all info about selected order
-     * */
+     */
     public String toString() {
         return "Order{" +
                 "ordNumber='" + ordNumber + '\'' +

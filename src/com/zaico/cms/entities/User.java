@@ -9,11 +9,14 @@ import java.util.List;
  */
 @Entity
 @Table( name = "USER" )
-public class User {
+@NamedQueries(
+    {
+        @NamedQuery(name = "User.getAll", query = "SELECT user FROM User user"),
+        @NamedQuery(name = "User.deleteAll", query = "DELETE FROM User")
+    })
+public class User extends AbstractEntity {
 
     /** VARIABLES */
-    /* ID */
-    private Long id;
 
     /* Login */
     private String login;
@@ -25,12 +28,6 @@ public class User {
     /* Role of the user */
     private List<Role> roles;
 
-    /* Created at time*/
-    private Date createdAt;
-
-    /*Updated at time*/
-    private Date updatedAt;
-
 
     /** CONSTRUCTORS */
     /* Default */
@@ -40,9 +37,9 @@ public class User {
 
     /**
      * Full constructor
-     * @param login UserInterface name
-     * @param password UserInterface password will be ecnrypted
-     * */
+     * @param login UserDAO name
+     * @param password UserDAO password will be ecnrypted
+     */
     public User(String login, String password) {
         this.login = login;
         this.password = password;
@@ -57,14 +54,14 @@ public class User {
     /**
      * Get user id
      * @return id
-     * */
+     */
     public Long getId() {
         return id;
     }
     /**
      * Set user id
      * @param id
-     * */
+     */
     public void setId(Long id) {
         this.id = id;
     }
@@ -74,14 +71,14 @@ public class User {
     /**
      * Get Login
      * @return login
-     * */
+     */
     public String getLogin() {
         return login;
     }
     /**
      * Set user login
      * @param login
-     * */
+     */
     public void setLogin(String login) {
         this.login = login;
     }
@@ -91,14 +88,14 @@ public class User {
     /**
      * Get password
      * @return password
-     * */
+     */
     public String getPassword() {
         return password;
     }
     /**
      * Set user password
      * @param password
-     * */
+     */
     public void setPassword(String password) {
         this.password = password;
     }
@@ -114,31 +111,31 @@ public class User {
     /**
      * Get all user roles
      * @return roles
-     * */
-    public List<Role> getRole() {
+     */
+    public List<Role> getRoles() {
         return roles;
     }
     /**
      * Set user roles
      * @param roles
-     * */
-    public void setRole(List roles) {
+     */
+    public void setRoles(List roles) {
         this.roles = roles;
     }
 
     /* Created at */
     @Column( name = "U_CREATED_AT" )
     /**
-     * Get time, when UserInterface was created
+     * Get time, when UserDAO was created
      * @return createdAt
-     * */
+     */
     public Date getCreatedAt() {
         return createdAt;
     }
     /**
-     * Set time, when UserInterface was created
+     * Set time, when UserDAO was created
      * @param createdAt
-     * */
+     */
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
@@ -146,16 +143,17 @@ public class User {
     /* Updated at */
     @Column( name = "U_UPDATED_AT" )
     /**
-     * Get time, when UserInterface was created
+     * Get time, when UserDAO was created
      * @return updatedAt
-     * */
+     */
     public Date getUpdatedAt() {
         return updatedAt;
     }
     /**
-     * Set time, when UserInterface was created
+     * Set time, when UserDAO was created
      * @param updatedAt
-     * */
+     */
+
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
@@ -164,9 +162,9 @@ public class User {
     /**
      * ToString
      * @return login&roles
-     * */
+     */
     public String toString() {
-        return "UserInterface{" +
+        return "UserDAO{" +
                 "login='" + login + '\'' +
                 ", roles=" + roles +
                 '}';
