@@ -1,16 +1,10 @@
 package com.zaico.cms.dao.implementation;
 
 import com.zaico.cms.dao.interfaces.CommonDAO;
-import com.zaico.cms.entities.AbstractEntity;
-import com.zaico.cms.entities.User;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 

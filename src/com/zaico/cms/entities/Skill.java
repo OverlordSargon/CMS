@@ -1,6 +1,6 @@
 package com.zaico.cms.entities;
 
-import com.sun.deploy.util.StringUtils;
+import com.zaico.cms.dao.implementation.AbstractEntity;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,7 +16,7 @@ import java.util.Date;
         @NamedQuery(name = "Skill.getAll", query = " SELECT skill FROM Skill skill "),
         @NamedQuery(name = "Skill.deleteAll", query = " DELETE FROM Skill")
     })
-public class Skill extends AbstractEntity{
+public class Skill extends AbstractEntity {
 
     /** Variables */
 

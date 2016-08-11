@@ -1,5 +1,7 @@
 package com.zaico.cms.entities;
 
+import com.zaico.cms.dao.implementation.AbstractEntity;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;

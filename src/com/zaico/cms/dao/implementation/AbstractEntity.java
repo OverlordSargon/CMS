@@ -1,4 +1,4 @@
-package com.zaico.cms.entities;
+package com.zaico.cms.dao.implementation;
 
 import java.util.Date;
 import java.util.List;

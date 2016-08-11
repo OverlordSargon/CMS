@@ -1,5 +1,7 @@
 package com.zaico.cms.entities;
 
+import com.zaico.cms.dao.implementation.AbstractEntity;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
         @NamedQuery(name = "Role.getAll", query = "SELECT roles FROM Role roles"),
         @NamedQuery(name = "Role.deleteAll", query = "DELETE FROM Role")
     })
-public class Role extends AbstractEntity{
+public class Role extends AbstractEntity {
 
     /** VARIABLES */
 
