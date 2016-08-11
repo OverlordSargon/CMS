@@ -50,14 +50,13 @@ public class Schedule extends AbstractEntity {
 
     /** GETTERS\SETTERS */
     /* ID */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SCH_ID")
     /**
      * Get schedule id
      * @return id
      */
-    public Long getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SCH_ID")public Long getId() {
         return id;
     }
     /**
@@ -69,11 +68,11 @@ public class Schedule extends AbstractEntity {
     }
 
     /* Interval */
-    @Column(name = "SCH_INTERVAL")
     /**
      * Get schedule interval number
      * @return interval
      */
+    @Column(name = "SCH_INTERVAL")
     public Integer getInterval() {
         return interval;
     }
@@ -86,11 +85,11 @@ public class Schedule extends AbstractEntity {
     }
 
     /* Flag */
-    @Column(name = "SCH_FLAG", length = 50)
     /**
      * Get interval flag
      * @return flag
      */
+    @Column(name = "SCH_FLAG", length = 50)
     public String getFlag() {
         return flag;
     }
@@ -103,12 +102,12 @@ public class Schedule extends AbstractEntity {
     }
 
     /* Workplan */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "WP_ID")
     /**
      * Get schedule workpaln
      * @return workplan
      */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "WP_ID")
     public Workplan getWorkplan() {
         return workplan;
     }
@@ -121,11 +120,11 @@ public class Schedule extends AbstractEntity {
     }
 
     /* Created at */
-    @Column( name = "SCH_CREATED_AT")
     /**
      * Get time, when role was created
      * @return createdAt
      */
+    @Column( name = "SCH_CREATED_AT")
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -138,11 +137,11 @@ public class Schedule extends AbstractEntity {
     }
 
     /* Updated at */
-    @Column( name = "SCH_UPDATED_AT")
     /**
      * Get time, when role was created
      * @return updatedAt
      */
+    @Column( name = "SCH_UPDATED_AT")
     public Date getUpdatedAt() {
         return updatedAt;
     }
@@ -154,4 +153,16 @@ public class Schedule extends AbstractEntity {
         this.updatedAt = updatedAt;
     }
 
+    /**
+     * Methods
+     */
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "interval=" + interval +
+                ", flag='" + flag + '\'' +
+                ", workplan=" + workplan.getDescription() +
+                '}';
+    }
 }

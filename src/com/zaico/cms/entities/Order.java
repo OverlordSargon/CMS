@@ -76,30 +76,30 @@ public class Order extends AbstractEntity {
         this.worker = worker;
     }
 
+    //  set
     /** GETTERS/SETTERS */
     /* ID */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column( name = "ORD_ID")
     /**
      * Gets the id
      *  @return the id
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column( name = "ORD_ID")
     public Long getId() {
         return id;
     }
-    //  set
     /** @param id new id*/
     public void setId(Long id) {
         this.id = id;
     }
 
     /* ordNumber */
-    @Column( name = "ORD_NUMBER")
     /**
      * Gets the ordNumber
      *  @return the ordNumber
      */
+    @Column( name = "ORD_NUMBER")
     public String getOrdNumber() {
         return ordNumber;
     }
@@ -109,11 +109,11 @@ public class Order extends AbstractEntity {
     }
 
     /* Description */
-    @Column( name = "ORD_DESCRIPTION")
     /**
      * Gets the order description
      *  @return the Description
      */
+    @Column( name = "ORD_DESCRIPTION")
     public String getDescription() {
         return description;
     }
@@ -123,11 +123,11 @@ public class Order extends AbstractEntity {
     }
 
     /* Date*/
-    @Column( name = "ORD_DATE")
     /**
      * Gets the Day, when must be performed
      *  @return the Date
      */
+    @Column( name = "ORD_DATE")
     public Date getDate() {
         return date;
     }
@@ -137,11 +137,11 @@ public class Order extends AbstractEntity {
     }
 
     /* From */
-    @Column( name = "ORD_FROM")
     /**
      * Gets the start time
      *  @return the From
      */
+    @Column( name = "ORD_FROM")
     public Date getFrom() {
         return from;
     }
@@ -151,11 +151,11 @@ public class Order extends AbstractEntity {
     }
 
     /* To */
-    @Column( name = "ORD_TO")
     /**
      * Gets the end time
      *  @return the id
      */
+    @Column( name = "ORD_TO")
     public Date getTo() {
         return to;
     }
@@ -165,11 +165,11 @@ public class Order extends AbstractEntity {
     }
 
     /* Client name */
-    @Column( name = "ORD_CLIENT_NAME")
     /**
      * Gets the this order client name
      *  @return the Client name
      */
+    @Column( name = "ORD_CLIENT_NAME")
     public String getClientName() {
         return clientName;
     }
@@ -179,11 +179,11 @@ public class Order extends AbstractEntity {
     }
 
     /* Telephone */
-    @Column( name = "ORD_CLIENT_NUM")
     /**
      * Gets the client telephone number
      *  @return the id
      */
+    @Column( name = "ORD_CLIENT_NUM")
     public int getTelNumber() {
         return telNumber;
     }
@@ -193,12 +193,12 @@ public class Order extends AbstractEntity {
     }
 
     /* Worker */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "W_ID")
     /**
      * Gets the worker, who implement this order
      *  @return the worker
      */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "W_ID")
     public Worker getWorker() {
         return worker;
     }
@@ -208,11 +208,11 @@ public class Order extends AbstractEntity {
     }
 
     /* Created at */
-    @Column( name = "ORD_CREATED_AT")
     /**
      * Gets time of creation
      *  @return the created at
      */
+    @Column( name = "ORD_CREATED_AT")
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -222,11 +222,11 @@ public class Order extends AbstractEntity {
     }
 
     /* Updated at */
-    @Column( name = "ORD_UPDATED_AT")
     /**
      * Gets the last update time
      *  @return the updated_at
      */
+    @Column( name = "ORD_UPDATED_AT")
     public Date getUpdatedAt() {
         return updatedAt;
     }
@@ -252,7 +252,7 @@ public class Order extends AbstractEntity {
                 ", to=" + to +
                 ", telNumber=" + telNumber +
                 ", clientName='" + clientName + '\'' +
-                ", worker=" + worker +
+                ", worker=" + worker.getName() +
                 ", updatedAt=" + updatedAt +
                 '}';
     }

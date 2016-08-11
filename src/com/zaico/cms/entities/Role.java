@@ -51,14 +51,13 @@ public class Role extends AbstractEntity{
 
     /** GETTERS\SETTERS */
     /* ID */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "R_ID")
     /**
      * Gets the id
      * @return the id
      */
-    public Long getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "R_ID")public Long getId() {
         return id;
     }
     /**
@@ -70,11 +69,11 @@ public class Role extends AbstractEntity{
     }
 
     /* Role*/
-    @Column(name = "R_ROLE")
     /**
      * Gets the Role
      * @return the role
      */
+    @Column(name = "R_ROLE")
     public String getRole() {
         return role;
     }
@@ -87,11 +86,11 @@ public class Role extends AbstractEntity{
     }
 
     /* Description */
-    @Column(name = "R_DESCRIPTION")
     /**
      * Gets the description of the role
      * @return role description
      */
+    @Column(name = "R_DESCRIPTION")
     public String getDescription() {
         return description;
     }
@@ -104,17 +103,17 @@ public class Role extends AbstractEntity{
     }
 
     /* Users */
-    @ManyToMany
-    @JoinTable
-        (
-            name = "USER_ROLE",
-            joinColumns = @JoinColumn(name = "R_ID", referencedColumnName = "R_ID "),
-            inverseJoinColumns = @JoinColumn(name = "U_ID",referencedColumnName = "U_ID")
-        )
     /**
      * Gets the users with this role
      * @return the users
      */
+    @ManyToMany
+    @JoinTable
+    (
+        name = "USER_ROLE",
+        joinColumns = @JoinColumn(name = "R_ID", referencedColumnName = "R_ID "),
+        inverseJoinColumns = @JoinColumn(name = "U_ID",referencedColumnName = "U_ID")
+    )
     public List<User> getUsers() {
         return users;
     }
@@ -127,11 +126,11 @@ public class Role extends AbstractEntity{
     }
 
     /* Created at */
-    @Column(name = "R_CREATED_AT")
     /**
      * Get time, when role was created
      * @return createdAt
      */
+    @Column(name = "R_CREATED_AT")
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -144,11 +143,11 @@ public class Role extends AbstractEntity{
     }
 
     /* Updated at */
-    @Column(name = "R_UPDATED_AT")
     /**
      * Get time, when role was created
      * @return updatedAt
      */
+    @Column(name = "R_UPDATED_AT")
     public Date getUpdatedAt() {
         return updatedAt;
     }
@@ -170,7 +169,6 @@ public class Role extends AbstractEntity{
         return "Role{" +
                 "role='" + role + '\'' +
                 ", description='" + description + '\'' +
-                ", users=" + users +
                 ", updatedAt=" + updatedAt +
                 '}';
     }

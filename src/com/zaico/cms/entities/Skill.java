@@ -48,14 +48,13 @@ public class Skill extends AbstractEntity{
 
     /** GETTERS/SETTERS */
     /* ID */
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    @Column( name = "S_ID")
     /**
      * Gets the id
      * @return  The id
      */
-    public Long getId() {
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @Column( name = "S_ID")public Long getId() {
         return id;
     }
     /**
@@ -67,11 +66,11 @@ public class Skill extends AbstractEntity{
     }
 
     /*Name*/
-    @Column ( name = "S_NAME")
     /**
      * Gets the name of the skill
      * @return Skill name
      */
+    @Column ( name = "S_NAME")
     public String getName() {
         return name;
     }
@@ -84,11 +83,11 @@ public class Skill extends AbstractEntity{
     }
 
     /*Description*/
-    @Column ( name = "S_DESCRIPTION")
     /**
      * Get skill description
      * @retun Skill description
      */
+    @Column ( name = "S_DESCRIPTION")
     public String getDescription() {
         return description;
     }
@@ -101,11 +100,11 @@ public class Skill extends AbstractEntity{
     }
 
     /* Created at */
-    @Column ( name = "S_CREATED_AT")
     /**
      * Get time, when skill was created
      * @return createdAt
      */
+    @Column ( name = "S_CREATED_AT")
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -118,11 +117,11 @@ public class Skill extends AbstractEntity{
     }
 
     /* Updated at */
-    @Column ( name = "S_UPDATED_AT")
     /**
      * Get time, when skill was created
      * @return updatedAt
      */
+    @Column ( name = "S_UPDATED_AT")
     public Date getUpdatedAt() {
         return updatedAt;
     }

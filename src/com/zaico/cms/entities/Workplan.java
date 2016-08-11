@@ -21,6 +21,9 @@ public class Workplan extends AbstractEntity {
 
     /** Variables */
 
+    /* Description, marks, commentaries */
+    private String description;
+
     /* date, when work need to be done*/
     private Date date;
 
@@ -48,13 +51,13 @@ public class Workplan extends AbstractEntity {
 
     /** GETTERS\SETTERS */
     /* ID */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "WP_ID")
     /**
      * Get workplan id
      * @return id
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "WP_ID")
     public Long getId() {
         return id;
     }
@@ -66,12 +69,29 @@ public class Workplan extends AbstractEntity {
         this.id = id;
     }
 
+    /* Description*/
+    /**
+     * Get description of workplan
+     * @return description
+     */
+    @Column(name = "WP_DESCRIPTION")
+    public String getDescription() {
+        return description;
+    }
+    /**
+     * Set description of workplan
+     * @param description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     /* date */
-    @Column(name = "WP_DATE")
     /**
      * Get workplan date (day)
      * @return date
      */
+    @Column(name = "WP_DATE")
     public Date getDate() {
         return date;
     }
@@ -84,12 +104,12 @@ public class Workplan extends AbstractEntity {
     }
 
     /* Worker */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "W_ID")
     /**
      * Get workplan worker
      * @return worker
      */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "W_ID")
     public Worker getWorker() {
         return worker;
     }
@@ -102,17 +122,17 @@ public class Workplan extends AbstractEntity {
     }
 
     /* Schedules */
-    @OneToMany
-    @JoinTable
-        (
-            name="SCHEDULE",
-            joinColumns={ @JoinColumn(name="WP_ID", referencedColumnName="WP_ID") },
-            inverseJoinColumns={ @JoinColumn(name="SCH_ID", referencedColumnName="SCH_ID", unique=true) }
-        )
     /**
      * Get schedules for this workplan
      * @return schedules
      */
+    @OneToMany
+    @JoinTable
+    (
+        name="SCHEDULE",
+        joinColumns={ @JoinColumn(name="WP_ID", referencedColumnName="WP_ID") },
+        inverseJoinColumns={ @JoinColumn(name="SCH_ID", referencedColumnName="SCH_ID", unique=true) }
+    )
     public List<Schedule> getSchedules() {
         return schedules;
     }
@@ -125,11 +145,11 @@ public class Workplan extends AbstractEntity {
     }
 
     /* Created at */
-    @Column( name = "WP_CREATED_AT")
     /**
      * Get time, when role was created
      * @return createdAt
      */
+    @Column( name = "WP_CREATED_AT")
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -142,13 +162,11 @@ public class Workplan extends AbstractEntity {
     }
 
     /* Updated at */
-    @Column( name = "WP_UPDATED_AT")
-
-
     /**
      * Get time, when role was created
      * @return updatedAt
      */
+    @Column( name = "WP_UPDATED_AT")
     public Date getUpdatedAt() {
         return updatedAt;
     }
@@ -171,7 +189,7 @@ public class Workplan extends AbstractEntity {
         return "Workplan{" +
                 "id=" + id +
                 ", date=" + date +
-                ", worker=" + worker +
+                ", worker=" + worker.getName() +
                 ", schedules=" + schedules +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +

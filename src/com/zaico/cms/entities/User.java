@@ -48,14 +48,13 @@ public class User extends AbstractEntity {
     /** GETTERS\SETTERS */
 
     /* ID */
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    @Column( name = "U_ID" )
     /**
      * Get user id
      * @return id
      */
-    public Long getId() {
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @Column( name = "U_ID" ) public Long getId() {
         return id;
     }
     /**
@@ -67,11 +66,11 @@ public class User extends AbstractEntity {
     }
 
     /* Login */
-    @Column ( name = "U_LOGIN" )
     /**
      * Get Login
      * @return login
      */
+    @Column ( name = "U_LOGIN" )
     public String getLogin() {
         return login;
     }
@@ -84,11 +83,11 @@ public class User extends AbstractEntity {
     }
 
     /* Password */
-    @Column( name = "U_PASSWORD" )
     /**
      * Get password
      * @return password
      */
+    @Column( name = "U_PASSWORD" )
     public String getPassword() {
         return password;
     }
@@ -101,17 +100,17 @@ public class User extends AbstractEntity {
     }
 
     /* Role */
-    @ManyToMany
-    @JoinTable
-        (
-            name = "USER_ROLE",
-            joinColumns = @JoinColumn(name = "U_ID", referencedColumnName = "U_ID"),
-            inverseJoinColumns = @JoinColumn(name = "R_ID",referencedColumnName = "R_ID")
-        )
     /**
      * Get all user roles
      * @return roles
      */
+    @ManyToMany
+    @JoinTable
+    (
+        name = "USER_ROLE",
+        joinColumns = @JoinColumn(name = "U_ID", referencedColumnName = "U_ID"),
+        inverseJoinColumns = @JoinColumn(name = "R_ID",referencedColumnName = "R_ID")
+    )
     public List<Role> getRoles() {
         return roles;
     }
@@ -124,11 +123,11 @@ public class User extends AbstractEntity {
     }
 
     /* Created at */
-    @Column( name = "U_CREATED_AT" )
     /**
      * Get time, when UserDAO was created
      * @return createdAt
      */
+    @Column( name = "U_CREATED_AT" )
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -141,11 +140,11 @@ public class User extends AbstractEntity {
     }
 
     /* Updated at */
-    @Column( name = "U_UPDATED_AT" )
     /**
      * Get time, when UserDAO was created
      * @return updatedAt
      */
+    @Column( name = "U_UPDATED_AT" )
     public Date getUpdatedAt() {
         return updatedAt;
     }
@@ -166,7 +165,7 @@ public class User extends AbstractEntity {
     public String toString() {
         return "UserDAO{" +
                 "login='" + login + '\'' +
-                ", roles=" + roles +
+                ", roles=" + roles.toString() +
                 '}';
     }
 }

@@ -64,14 +64,13 @@ public class Worker extends AbstractEntity {
 
     /** GETTERS\SETTERS */
     /* ID */
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    @Column( name = "W_ID")
     /**
      * Get worker id
      * @return id
      */
-    public Long getId() {
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @Column( name = "W_ID")public Long getId() {
         return id;
     }
     /**
@@ -83,11 +82,11 @@ public class Worker extends AbstractEntity {
     }
 
     /* Name */
-    @Column( name = "W_NAME")
     /**
      * Get worker name
      * @return name
      */
+    @Column( name = "W_NAME")
     public String getName() {
         return name;
     }
@@ -100,11 +99,11 @@ public class Worker extends AbstractEntity {
     }
 
     /* Telephone */
-    @Column( name = "W_TELEPHONE")
     /**
      * Get worker telephone
      * @return telephone
      */
+    @Column( name = "W_TELEPHONE")
     public Integer getTelephone() {
         return telephone;
     }
@@ -117,18 +116,17 @@ public class Worker extends AbstractEntity {
     }
 
     /* Orders */
-    @OneToMany
-    @JoinTable
-        (
-            name="ORDER",
-            joinColumns={ @JoinColumn(name="W_ID", referencedColumnName="W_ID") },
-            inverseJoinColumns={ @JoinColumn(name="ORD_ID", referencedColumnName="ORD_ID", unique=true) }
-        )
-
     /**
      * Get list of orders, which executed by this worker
      * @return orders
      */
+    @OneToMany
+    @JoinTable
+    (
+        name="ORDER",
+        joinColumns={ @JoinColumn(name="W_ID", referencedColumnName="W_ID") },
+        inverseJoinColumns={ @JoinColumn(name="ORD_ID", referencedColumnName="ORD_ID", unique=true) }
+    )
     public List<Order> getOrders() {
         return orders;
     }
@@ -141,18 +139,17 @@ public class Worker extends AbstractEntity {
     }
 
     /* Workplans */
-    @OneToMany
-    @JoinTable
-        (
-            name="WORKPLAN",
-            joinColumns={ @JoinColumn(name="W_ID", referencedColumnName="W_ID") },
-            inverseJoinColumns={ @JoinColumn(name="WP_ID", referencedColumnName="WP_ID", unique=true) }
-        )
-
     /**
      * Get worker`s workplans
      * @return workplans
      */
+    @OneToMany
+    @JoinTable
+    (
+        name="WORKPLAN",
+        joinColumns={ @JoinColumn(name="W_ID", referencedColumnName="W_ID") },
+        inverseJoinColumns={ @JoinColumn(name="WP_ID", referencedColumnName="WP_ID", unique=true) }
+    )
     public List<Workplan> getWorkplans() {
         return workplans;
     }
@@ -165,18 +162,17 @@ public class Worker extends AbstractEntity {
     }
 
     /* Skills */
-    @ManyToMany
-    @JoinTable
-        (
-            name = "WORKER_SKILL",
-            joinColumns = @JoinColumn(name = "W_ID", referencedColumnName = "W_ID"),
-            inverseJoinColumns = @JoinColumn(name = "S_ID",referencedColumnName = "S_ID")
-        )
-
     /**
      * Get list of worker skills
      * @return skills
      */
+    @ManyToMany
+    @JoinTable
+    (
+        name = "WORKER_SKILL",
+        joinColumns = @JoinColumn(name = "W_ID", referencedColumnName = "W_ID"),
+        inverseJoinColumns = @JoinColumn(name = "S_ID",referencedColumnName = "S_ID")
+    )
     public List<Skill> getSkills() {
         return skills;
     }
@@ -189,11 +185,11 @@ public class Worker extends AbstractEntity {
     }
 
     /* Created at */
-    @Column( name = "W_CREATED_AT")
     /**
      * Get time, when role was created
      * @return createdAt
      */
+    @Column( name = "W_CREATED_AT")
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -206,11 +202,11 @@ public class Worker extends AbstractEntity {
     }
 
     /* Updated at */
-    @Column( name = "W_UPDATED_AT")
     /**
      * Get time, when role was created
      * @return updatedAt
      */
+    @Column( name = "W_UPDATED_AT")
     public Date getUpdatedAt() {
         return updatedAt;
     }
@@ -232,9 +228,9 @@ public class Worker extends AbstractEntity {
         return "Worker{" +
                 "name='" + name + '\'' +
                 ", telephone=" + telephone +
-                ", orders=" + orders +
+                ", orders=" + orders.toString() +
                 ", workplans=" + workplans +
-                ", skills=" + skills +
+                ", skills=" + skills.toString() +
                 ", updatedAt=" + updatedAt +
                 '}';
     }
