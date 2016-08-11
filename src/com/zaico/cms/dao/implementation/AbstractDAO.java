@@ -1,6 +1,7 @@
 package com.zaico.cms.dao.implementation;
 
 import com.zaico.cms.dao.interfaces.CommonDAO;
+import com.zaico.cms.entities.AbstractEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;

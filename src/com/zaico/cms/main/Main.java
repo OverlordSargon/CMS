@@ -1,21 +1,11 @@
 package com.zaico.cms.main;
 
-import com.zaico.cms.dao.implementation.RoleDAOImpl;
-import com.zaico.cms.dao.implementation.SkillDAOImpl;
+import com.zaico.cms.dao.implementation.FactoryDAO;
 import com.zaico.cms.dao.implementation.UserDAOImpl;
 import com.zaico.cms.dao.interfaces.UserDAO;
-import com.zaico.cms.entities.FactoryDAO;
-import com.zaico.cms.entities.Role;
-import com.zaico.cms.entities.Skill;
 import com.zaico.cms.entities.User;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by nzaitsev on 01.08.2016.
@@ -28,7 +18,7 @@ public class Main {
 //        System.out.println(ZonedDateTime.now());
 //        System.out.println("HELllo");
 //        User user = new User("Clear","Test2");
-        UserDAO ui = new UserDAOImpl();
+//        UserDAO ui = new UserDAOImpl();
 //        ui.deleteAll();
 //        ui.create(user);
 //        user.setLogin("TestUpdate");
@@ -48,16 +38,19 @@ public class Main {
 //        }
 //        user.getRoles().add(role);
 //        ui.update(user);
-        User user = FactoryDAO.getUserInstance();
+        UserDAO ud1 = FactoryDAO.getUserDAOInstance();
+        User user = new User();
         user.setLogin("Gromila");
         user.setPassword("LIZAUT");
-        ui.create(user);
+        ud1.create(user);
 
-        User user2 = FactoryDAO.getUserInstance();
-        ui.create(user2);
+        UserDAO ud2 = FactoryDAO.getUserDAOInstance();
+        User user2 = new User();
+        ud2.create(user2);
         user2.setLogin("Няшечка");
+        user2.setPassword("HERFFFFF");
         Thread.sleep(8000);
-        ui.update(user2);
+        ud2.update(user2);
 //        User oldu = ui.read(Long.valueOf(28));
 //        oldu.setLogin("Rhacsafsfsafsfasfa");
 //        ui.update(oldu);

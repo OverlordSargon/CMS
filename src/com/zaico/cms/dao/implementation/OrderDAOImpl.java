@@ -8,7 +8,7 @@ import com.zaico.cms.entities.Order;
  * @author ZAITNIK
  * Class for implementation abstract & interfaces
  */
-public class OrederDAOImpl extends AbstractDAO<Order> implements OrderDAO {
+public class OrderDAOImpl extends AbstractDAO<Order> implements OrderDAO {
     /**
      * Overrited methods for getAll & deleteAll by named queries
      */
