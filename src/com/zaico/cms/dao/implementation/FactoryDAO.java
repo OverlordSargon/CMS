@@ -46,8 +46,8 @@ public class FactoryDAO {
      */
     private static RoleDAO roleDAOInstance;
     /**
-     * Get order instance
-     * @return Order
+     * Get role instance
+     * @return Role
      */
     public static RoleDAO getRoleDAOInstance() {
         if ( roleDAOInstance == null) {
@@ -61,8 +61,8 @@ public class FactoryDAO {
      */
     private static ScheduleDAO scheduleDAOInstance;
     /**
-     * Get order instance
-     * @return Order
+     * Get Schedule instance
+     * @return Schedule
      */
     public static ScheduleDAO getScheduleDAOInstance() {
         if ( scheduleDAOInstance == null) {
@@ -76,8 +76,8 @@ public class FactoryDAO {
      */
     private static SkillDAO skillDAOInstance;
     /**
-     * Get order instance
-     * @return Order
+     * Get Skill instance
+     * @return skill
      */
     public static SkillDAO getSkillDAOInstance() {
         if ( skillDAOInstance == null) {
@@ -91,8 +91,8 @@ public class FactoryDAO {
      */
     private static WorkerDAO workerDAOInstance;
     /**
-     * Get order instance
-     * @return Order
+     * Get worker instance
+     * @return Worker
      */
     public static WorkerDAO getWorkerDAOInstance() {
         if ( workerDAOInstance == null) {
@@ -106,8 +106,8 @@ public class FactoryDAO {
      */
     private static WorkplanDAO workplanDAOInstance;
     /**
-     * Get order instance
-     * @return Order
+     * Get workplan instance
+     * @return Workplan
      */
     public static WorkplanDAO getWorkplanDAOInstance() {
         if ( workplanDAOInstance == null) {

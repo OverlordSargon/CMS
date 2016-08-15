@@ -43,9 +43,10 @@ public class Workplan extends AbstractEntity {
     }
 
     /* Full */
-    public Workplan(Date date, Worker worker) {
+    public Workplan(Date date, Worker worker, String description) {
         this.date = date;
         this.worker = worker;
+        this.description = description;
     }
 
 

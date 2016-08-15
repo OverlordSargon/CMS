@@ -42,7 +42,7 @@ public class Worker extends AbstractEntity {
     }
     /*SemiFull*/
 
-    public Worker(String name, int telephone) {
+    public Worker(String name, Integer telephone) {
         this.name = name;
         this.telephone = telephone;
     }
@@ -53,12 +53,12 @@ public class Worker extends AbstractEntity {
      * @param name Worker name
      * @param telephone Worker telephone
      * @param skills List of skills
-     * @param workplans List of workplans
+//     * @param workplans List of workplans
      */
-    public Worker(String name, Integer telephone, List<Workplan> workplans, List<Skill> skills) {
+    public Worker(String name, Integer telephone, /*List<Workplan> workplans, */List<Skill> skills) {
         this.name = name;
         this.telephone = telephone;
-        this.workplans = workplans;
+//        this.workplans = workplans;
         this.skills = skills;
     }
 

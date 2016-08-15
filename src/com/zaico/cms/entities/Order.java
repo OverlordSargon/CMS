@@ -6,7 +6,6 @@ import java.util.Date;
 /**
  * Created by Zaitnik on 02.08.2016.
  */
-
 @Entity
 @Table(name = "ORDER")
 @NamedQueries(

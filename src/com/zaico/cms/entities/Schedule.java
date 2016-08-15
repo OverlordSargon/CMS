@@ -21,7 +21,7 @@ public class Schedule extends AbstractEntity {
     /* Number of work interval */
     private Integer interval;
 
-    /* Set type of interval. P - pause, W - working */
+    /* Set type of interval. P - pereriv obedenniy, W - working, F - free*/
     private String flag;
 
     //  /* Relation */
