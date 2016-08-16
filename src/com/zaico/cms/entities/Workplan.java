@@ -41,6 +41,10 @@ public class Workplan extends AbstractEntity {
     public Workplan() {
 
     }
+    public Workplan(Date date,String description) {
+        this.date = date;
+        this.description = description;
+    }
 
     /* Full */
     public Workplan(Date date, Worker worker, String description) {
@@ -127,13 +131,7 @@ public class Workplan extends AbstractEntity {
      * Get schedules for this workplan
      * @return schedules
      */
-    @OneToMany
-    @JoinTable
-    (
-        name="SCHEDULE",
-        joinColumns={ @JoinColumn(name="WP_ID", referencedColumnName="WP_ID") },
-        inverseJoinColumns={ @JoinColumn(name="SCH_ID", referencedColumnName="SCH_ID", unique=true) }
-    )
+    @OneToMany( cascade = CascadeType.ALL, mappedBy = "workplan" )
     public List<Schedule> getSchedules() {
         return schedules;
     }
@@ -190,7 +188,7 @@ public class Workplan extends AbstractEntity {
         return "Workplan{" +
                 "id=" + id +
                 ", date=" + date +
-                ", worker=" + worker.getName() +
+//                ", worker=" + worker.getName() +
                 ", schedules=" + schedules +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +

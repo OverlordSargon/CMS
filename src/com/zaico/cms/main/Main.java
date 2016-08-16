@@ -18,95 +18,24 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args)  throws Exception, SQLException, ClassNotFoundException,InterruptedException {
-
-//        System.out.println(new Date().toString());
-//        System.out.println();
-//        System.out.println(ZonedDateTime.now());
-//        System.out.println("HELllo");
-//        User user = new User("Clear","Test2");
-//        UserDAO ui = new UserDAOImpl();
-//        ui.deleteAll();
-//        ui.create(user);
-//        user.setLogin("TestUpdate");
-//
-//        Role role = new Role("TestRole","TestRoleDesc");
-//        RoleDAOImpl ri = new RoleDAOImpl();
-//        ri.create(role);
-//
-////      Check existing user roles, to avoid EXEPT
-//
         /* DAO */
         SkillDAO si = FactoryDAO.getSkillDAOInstance();
-        WorkerDAO wd = FactoryDAO.getWorkerDAOInstance();
+        WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
         WorkplanDAO wpd = FactoryDAO.getWorkplanDAOInstance();
-        OrderDAO ordd = FactoryDAO.getOrderDAOInstance();
+        OrderDAO orderDAO= FactoryDAO.getOrderDAOInstance();
         ScheduleDAO schD = FactoryDAO.getScheduleDAOInstance();
+        UserDAO userDAO = FactoryDAO.getUserDAOInstance();
+        RoleDAO roleDAO = FactoryDAO.getRoleDAOInstance();
 
-        /* Clear */
-        schD.deleteAll();
-        wpd.deleteAll();
-        si.deleteAll();
-        wd.deleteAll();
-        ordd.deleteAll();
-
-        /* Operations */
-
-        Skill skill = new Skill("Установка интернета","Описание установки интернета");
-        List<Skill> newskills = new ArrayList<Skill>();
-        si.create(skill);
-        newskills.add(skill);
-
-        Worker worker1 = new Worker("WONG",8434);
-        worker1.setSkills(newskills);
-        wd.create(worker1);
-
-        Workplan wp1 = new Workplan(new Date(),worker1,"Description to worker WONG");
-        wpd.create(wp1);
-
-        for(int i = 10; i < 19; i++) {
-            Schedule sch = new Schedule();
-            sch.setWorkplan(wp1);
-            sch.setInterval(i);
-
-            if ( i == 14) {
-                sch.setFlag("P");
-            }
-            else sch.setFlag("F");
-            schD.create(sch);
-        }
-
-
-//
-//        DateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-//        String ds = "31-08-2016 10:20:56";
-//        String de = "1-09-2016 10:20:56";
-//        Date dateS = sdf.parse(ds);
-//        Date dateE = sdf.parse(de);
-
-//        Order order1 = new Order("F1","Install Inet",new Date(),ds,de,5665,"Vasya",worker1);
-//        /* Saving in DB */
-//
-//        if (user.getRoles() == null) {
-//            user.setRoles(new ArrayList());
-//        }
-//        user.getRoles().add(role);
-//        ui.update(user);
-//        UserDAO ud1 = FactoryDAO.getUserDAOInstance();
-//        User user = new User();
-//        user.setLogin("Gromila");
-//        user.setPassword("LIZAUT");
-//        ud1.create(user);
-//
-//        UserDAO ud2 = FactoryDAO.getUserDAOInstance();
-//        User user2 = new User();
-//        ud2.create(user2);
-//        user2.setLogin("Няшечка");
-//        user2.setPassword("HERFFFFF");
-//        Thread.sleep(8000);
-//        ud2.update(user2);
-//        User oldu = ui.read(Long.valueOf(28));
-//        oldu.setLogin("Rhacsafsfsafsfasfa");
-//        ui.update(oldu);
-
+        Worker worker1 = new Worker("Grizly",767657);
+//        workerDAO.create(worker1);
+        Worker w2 = workerDAO.read((long)30);
+        Order order1 = new Order("566g","DEsc",new Date(),new Date(),new Date(),234,"rsax",w2);
+//        order1.setOrdNumber("gdgsgg3");
+//        order1.setDescription("||}}}|||");
+//        order1.setWorker(worker1);
+//        order1.setClientName("HIGJ");
+//        order1.setTelNumber(343441);
+        orderDAO.create(order1);
     }
 }

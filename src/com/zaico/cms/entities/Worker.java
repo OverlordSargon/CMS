@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import static java.util.logging.Level.ALL;
+
 /**
  * Created by nzaitsev on 02.08.2016.
  */
@@ -42,7 +44,7 @@ public class Worker extends AbstractEntity {
     }
     /*SemiFull*/
 
-    public Worker(String name, Integer telephone) {
+    public Worker(String name, int telephone) {
         this.name = name;
         this.telephone = telephone;
     }
@@ -53,12 +55,12 @@ public class Worker extends AbstractEntity {
      * @param name Worker name
      * @param telephone Worker telephone
      * @param skills List of skills
-//     * @param workplans List of workplans
+     * @param workplans List of workplans
      */
-    public Worker(String name, Integer telephone, /*List<Workplan> workplans, */List<Skill> skills) {
+    public Worker(String name, Integer telephone, List<Workplan> workplans, List<Skill> skills) {
         this.name = name;
         this.telephone = telephone;
-//        this.workplans = workplans;
+        this.workplans = workplans;
         this.skills = skills;
     }
 
@@ -120,13 +122,7 @@ public class Worker extends AbstractEntity {
      * Get list of orders, which executed by this worker
      * @return orders
      */
-    @OneToMany
-    @JoinTable
-    (
-        name="ORDER",
-        joinColumns={ @JoinColumn(name="W_ID", referencedColumnName="W_ID") },
-        inverseJoinColumns={ @JoinColumn(name="ORD_ID", referencedColumnName="ORD_ID", unique=true) }
-    )
+    @OneToMany( cascade = CascadeType.PERSIST, mappedBy="worker" )
     public List<Order> getOrders() {
         return orders;
     }
@@ -143,13 +139,7 @@ public class Worker extends AbstractEntity {
      * Get worker`s workplans
      * @return workplans
      */
-    @OneToMany
-    @JoinTable
-    (
-        name="WORKPLAN",
-        joinColumns={ @JoinColumn(name="W_ID", referencedColumnName="W_ID") },
-        inverseJoinColumns={ @JoinColumn(name="WP_ID", referencedColumnName="WP_ID", unique=true) }
-    )
+    @OneToMany( cascade = CascadeType.ALL, mappedBy="worker" )
     public List<Workplan> getWorkplans() {
         return workplans;
     }
@@ -228,9 +218,9 @@ public class Worker extends AbstractEntity {
         return "Worker{" +
                 "name='" + name + '\'' +
                 ", telephone=" + telephone +
-                ", orders=" + orders.toString() +
+//                ", orders=" + orders.toString() +
                 ", workplans=" + workplans +
-                ", skills=" + skills.toString() +
+//                ", skills=" + skills.toString() +
                 ", updatedAt=" + updatedAt +
                 '}';
     }

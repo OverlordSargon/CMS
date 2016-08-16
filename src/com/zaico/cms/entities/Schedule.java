@@ -162,7 +162,7 @@ public class Schedule extends AbstractEntity {
         return "Schedule{" +
                 "interval=" + interval +
                 ", flag='" + flag + '\'' +
-                ", workplan=" + workplan.getDescription() +
+//                ", workplan=" + workplan.getDescription() +
                 '}';
     }
 }
