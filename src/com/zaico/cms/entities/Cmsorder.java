@@ -7,13 +7,13 @@ import java.util.Date;
  * Created by Zaitnik on 02.08.2016.
  */
 @Entity
-@Table(name = "ORDER")
+@Table(name = "CMSORDER")
 @NamedQueries(
     {
-        @NamedQuery(name = "Order.getAll", query = "SELECT order FROM Order order"),
-        @NamedQuery(name = "Order.deleteAll", query = "DELETE FROM Order")
+        @NamedQuery(name = "Cmsorder.getAll", query = "SELECT cmsorder FROM Cmsorder cmsorder"),
+        @NamedQuery(name = "Cmsorder.deleteAll", query = "DELETE FROM Cmsorder")
     })
-public class Order extends AbstractEntity {
+public class Cmsorder extends AbstractEntity {
     /** Variables */
 
     /* ordNumber, for order identification */
@@ -44,7 +44,7 @@ public class Order extends AbstractEntity {
 
     /** Constructors */
     /* Default */
-    public Order() {
+    public Cmsorder() {
 
     }
 
@@ -62,7 +62,7 @@ public class Order extends AbstractEntity {
     */
 
 
-    public Order(String ordNumber, String description, Date date,
+    public Cmsorder(String ordNumber, String description, Date date,
                  Date from, Date to, int telNumber,
                  String clientName, Worker worker) {
         this.ordNumber = ordNumber;
@@ -196,8 +196,8 @@ public class Order extends AbstractEntity {
      * Gets the worker, who implement this order
      *  @return the worker
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="W_ID")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="W_ID", referencedColumnName = "W_ID")
     public Worker getWorker() {
         return worker;
     }
@@ -243,7 +243,7 @@ public class Order extends AbstractEntity {
      * Return all info about selected order
      */
     public String toString() {
-        return "Order{" +
+        return "Cmsorder{" +
                 "ordNumber='" + ordNumber + '\'' +
                 ", description='" + description + '\'' +
                 ", date=" + date +

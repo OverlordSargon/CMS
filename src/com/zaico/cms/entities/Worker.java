@@ -28,7 +28,7 @@ public class Worker extends AbstractEntity {
 
 //  /* Relation */
     /* Order, which attached to this worker*/
-    private List<Order> orders;
+//    private List<Order> orders;
 
     /* Workplans for this worker*/
     private  List<Workplan> workplans;
@@ -117,29 +117,30 @@ public class Worker extends AbstractEntity {
         this.telephone = telephone;
     }
 
-    /* Orders */
-    /**
-     * Get list of orders, which executed by this worker
-     * @return orders
-     */
-    @OneToMany( cascade = CascadeType.PERSIST, mappedBy="worker" )
-    public List<Order> getOrders() {
-        return orders;
-    }
-    /**
-     * Set list of orders, which`ll executed by this worker
-     * @param orders
-     */
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
+//    /* Orders */
+//    /**
+//     * Get list of orders, which executed by this worker
+//     * @return orders
+//     */
+//    @OneToMany( cascade = CascadeType.PERSIST, mappedBy="worker" )
+//    public List<Order> getOrders() {
+//        return orders;
+//    }
+//    /**
+//     * Set list of orders, which`ll executed by this worker
+//     * @param orders
+//     */
+//    public void setOrders(List<Order> orders) {
+//        this.orders = orders;
+//    }
 
     /* Workplans */
     /**
      * Get worker`s workplans
      * @return workplans
      */
-    @OneToMany( cascade = CascadeType.ALL, mappedBy="worker" )
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn( name = "W_ID", referencedColumnName = "W_ID")
     public List<Workplan> getWorkplans() {
         return workplans;
     }

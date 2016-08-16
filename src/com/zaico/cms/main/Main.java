@@ -18,24 +18,44 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args)  throws Exception, SQLException, ClassNotFoundException,InterruptedException {
-        /* DAO */
-        SkillDAO si = FactoryDAO.getSkillDAOInstance();
-        WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
-        WorkplanDAO wpd = FactoryDAO.getWorkplanDAOInstance();
-        OrderDAO orderDAO= FactoryDAO.getOrderDAOInstance();
-        ScheduleDAO schD = FactoryDAO.getScheduleDAOInstance();
-        UserDAO userDAO = FactoryDAO.getUserDAOInstance();
-        RoleDAO roleDAO = FactoryDAO.getRoleDAOInstance();
 
-        Worker worker1 = new Worker("Grizly",767657);
+        ScheduleDAO scheduleDAO = FactoryDAO.getScheduleDAOInstance();
+        WorkplanDAO workplanDAO = FactoryDAO.getWorkplanDAOInstance();
+        WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
+        OrderDAO orderDAO = FactoryDAO.getOrderDAOInstance();
+
+//        Schedule schedule1 = new Schedule(1,"W");
+//        Schedule schedule2 = new Schedule(1,"W");
+//        Schedule schedule3 = new Schedule(1,"W");
+//        Schedule schedule4 = new Schedule(1,"W");
+//        Schedule schedule5 = new Schedule(1,"W");
+//        Schedule schedule6 = new Schedule(1,"W");
+//
+//        List<Schedule> scheduleList1 = new ArrayList<>();
+//        List<Schedule> scheduleList2 = new ArrayList<>();
+//        scheduleList1.add(schedule1);
+//        scheduleList1.add(schedule2);
+//        scheduleList1.add(schedule3);
+//        scheduleList2.add(schedule4);
+//        scheduleList2.add(schedule5);
+//        scheduleList2.add(schedule6);
+//
+//        Workplan workplan1 = new Workplan(new Date(),"TEST");
+//        Workplan workplan2 = new Workplan(new Date(),"TEST2");
+//        workplan1.setSchedules(scheduleList1);
+//        workplan2.setSchedules(scheduleList2);
+//
+//        List<Workplan> workplanList1 = new ArrayList<>();
+//        workplanList1.add(workplan1);
+//        workplanList1.add(workplan2);
+//
+//        Worker worker1 = new Worker("NameTest",1111);
+//        worker1.setWorkplans(workplanList1);
 //        workerDAO.create(worker1);
-        Worker w2 = workerDAO.read((long)30);
-        Order order1 = new Order("566g","DEsc",new Date(),new Date(),new Date(),234,"rsax",w2);
-//        order1.setOrdNumber("gdgsgg3");
-//        order1.setDescription("||}}}|||");
-//        order1.setWorker(worker1);
-//        order1.setClientName("HIGJ");
-//        order1.setTelNumber(343441);
-        orderDAO.create(order1);
+        Worker work2 = workerDAO.read(3L);
+        Cmsorder ord2 = new Cmsorder("432f","testdesc",
+                new Date(),new Date(),new Date(),451236,"Clinetbane",work2);
+        orderDAO.create(ord2);
+
     }
 }

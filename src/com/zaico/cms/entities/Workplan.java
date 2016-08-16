@@ -29,7 +29,7 @@ public class Workplan extends AbstractEntity {
 
 //    /* Relation */
     /* Worker, who own this workplan */
-    private Worker worker;
+//    private Worker worker;
 
     /* Schedules, included in this workplan */
 
@@ -47,9 +47,9 @@ public class Workplan extends AbstractEntity {
     }
 
     /* Full */
-    public Workplan(Date date, Worker worker, String description) {
+    public Workplan(Date date, Worker worker) {
         this.date = date;
-        this.worker = worker;
+//        this.worker = worker;
         this.description = description;
     }
 
@@ -108,30 +108,31 @@ public class Workplan extends AbstractEntity {
         this.date = date;
     }
 
-    /* Worker */
-    /**
-     * Get workplan worker
-     * @return worker
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "W_ID")
-    public Worker getWorker() {
-        return worker;
-    }
-    /**
-     * Set workplan worker
-     * @param worker
-     */
-    public void setWorker(Worker worker) {
-        this.worker = worker;
-    }
+//    /* Worker */
+//    /**
+//     * Get workplan worker
+//     * @return worker
+//     */
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "W_ID")
+//    public Worker getWorker() {
+//        return worker;
+//    }
+//    /**
+//     * Set workplan worker
+//     * @param worker
+//     */
+//    public void setWorker(Worker worker) {
+//        this.worker = worker;
+//    }
 
     /* Schedules */
     /**
      * Get schedules for this workplan
      * @return schedules
      */
-    @OneToMany( cascade = CascadeType.ALL, mappedBy = "workplan" )
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn( name = "WP_ID", referencedColumnName = "WP_ID")
     public List<Schedule> getSchedules() {
         return schedules;
     }

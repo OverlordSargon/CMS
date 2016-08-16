@@ -23,10 +23,10 @@ public class Schedule extends AbstractEntity {
 
     /* Set type of interval. P - pereriv obedenniy, W - working, F - free*/
     private String flag;
-
-    //  /* Relation */
-    /* Order, which attached to this worker*/
-    private Workplan workplan;
+//
+//    //  /* Relation */
+//    /* Order, which attached to this worker*/
+//    private Workplan workplan;
 
 
     /** Constructors*/
@@ -40,12 +40,11 @@ public class Schedule extends AbstractEntity {
      * Full constructor
      * @param flag Interval flag
      * @param interval Interval number
-     * @param workplan workplan(day)
      */
-    public Schedule(Integer interval, String flag, Workplan workplan) {
+    public Schedule(Integer interval, String flag ) {
         this.interval = interval;
         this.flag = flag;
-        this.workplan = workplan;
+//        this.workplan = workplan;
     }
 
     /** GETTERS\SETTERS */
@@ -99,24 +98,6 @@ public class Schedule extends AbstractEntity {
      */
     public void setFlag(String flag) {
         this.flag = flag;
-    }
-
-    /* Workplan */
-    /**
-     * Get schedule workpaln
-     * @return workplan
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "WP_ID")
-    public Workplan getWorkplan() {
-        return workplan;
-    }
-    /**
-     * Set schedule workplan
-     * @param workplan
-     */
-    public void setWorkplan(Workplan workplan) {
-        this.workplan = workplan;
     }
 
     /* Created at */
