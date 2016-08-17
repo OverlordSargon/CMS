@@ -1,0 +1,22 @@
+
+//        userDAO.deleteAll();
+//        roleDAO.deleteAll();
+//
+//        User user1 = new User("Никита","|||||");
+//        Role role = new Role("Nikita role","OVERLORD");
+//        List<Role> roles = new ArrayList<Role>();
+//        roles.add(role);
+//        user1.setRoles(roles);
+//        User user2 = new User("OVerlord","Overlord");
+//        user2.setRoles(roles);
+//
+//        roleDAO.create(role);
+//        userDAO.create(user1);
+//        userDAO.create(user2);
+
+//        Role role = roleDAO.read((long)6);
+//        User user = userDAO.read((long)14);
+//        user.toString();
+//        role.toString();
+//        userDAO.delete(user);
+//        roleDAO.delete(role);

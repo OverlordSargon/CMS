@@ -10,10 +10,10 @@ import java.util.Date;
 @Table(name = "CMSORDER")
 @NamedQueries(
     {
-        @NamedQuery(name = "Cmsorder.getAll", query = "SELECT cmsorder FROM Cmsorder cmsorder"),
-        @NamedQuery(name = "Cmsorder.deleteAll", query = "DELETE FROM Cmsorder")
+        @NamedQuery(name = "Cmsorder.getAll", query = "SELECT cmsorder FROM Order cmsorder"),
+        @NamedQuery(name = "Cmsorder.deleteAll", query = "DELETE FROM Order")
     })
-public class Cmsorder extends AbstractEntity {
+public class Order extends AbstractEntity {
     /** Variables */
 
     /* ordNumber, for order identification */
@@ -44,7 +44,7 @@ public class Cmsorder extends AbstractEntity {
 
     /** Constructors */
     /* Default */
-    public Cmsorder() {
+    public Order() {
 
     }
 
@@ -62,7 +62,7 @@ public class Cmsorder extends AbstractEntity {
     */
 
 
-    public Cmsorder(String ordNumber, String description, Date date,
+    public Order(String ordNumber, String description, Date date,
                  Date from, Date to, int telNumber,
                  String clientName, Worker worker) {
         this.ordNumber = ordNumber;
@@ -243,7 +243,7 @@ public class Cmsorder extends AbstractEntity {
      * Return all info about selected order
      */
     public String toString() {
-        return "Cmsorder{" +
+        return "Order{" +
                 "ordNumber='" + ordNumber + '\'' +
                 ", description='" + description + '\'' +
                 ", date=" + date +

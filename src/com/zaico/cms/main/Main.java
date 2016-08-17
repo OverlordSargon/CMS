@@ -1,17 +1,11 @@
 package com.zaico.cms.main;
 
 import com.zaico.cms.dao.implementation.FactoryDAO;
-import com.zaico.cms.dao.implementation.SkillDAOImpl;
-import com.zaico.cms.dao.implementation.UserDAOImpl;
 import com.zaico.cms.dao.interfaces.*;
 import com.zaico.cms.entities.*;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by nzaitsev on 01.08.2016.
@@ -53,7 +47,7 @@ public class Main {
 //        worker1.setWorkplans(workplanList1);
 //        workerDAO.create(worker1);
         Worker work2 = workerDAO.read(3L);
-        Cmsorder ord2 = new Cmsorder("432f","testdesc",
+        Order ord2 = new Order("432f","testdesc",
                 new Date(),new Date(),new Date(),451236,"Clinetbane",work2);
         orderDAO.create(ord2);
 

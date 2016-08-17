@@ -35,19 +35,6 @@
     <dependencies>
 
         <!-- ********************************************************************** -->
-        <!--                            SPRING FRAMEWORK                            -->
-        <!-- ********************************************************************** -->
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
-
-
-        <!-- https://mvnrepository.com/artifact/aopalliance/aopalliance -->
-        <dependency>
-            <groupId>aopalliance</groupId>
-            <artifactId>aopalliance</artifactId>
-            <version>${aopalliance.version}</version>
-        </dependency>
-
-        <!-- ********************************************************************** -->
         <!--                          HIBERNATE FRAMEWORK                           -->
         <!-- ********************************************************************** -->
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
@@ -97,6 +84,17 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector-java.version}</version>
         </dependency>
+
+        <!-- ********************************************************************** -->
+        <!--                            JBOSS LOGGING                             -->
+        <!-- ********************************************************************** -->
+        <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+
 
     </dependencies>
 

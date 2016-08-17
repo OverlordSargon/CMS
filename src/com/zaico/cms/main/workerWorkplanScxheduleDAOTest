@@ -1,0 +1,52 @@
+////      Check existing user roles, to avoid EXEPT
+//        /* DAO */
+        /* DAO */
+        SkillDAO si = FactoryDAO.getSkillDAOInstance();
+        WorkerDAO wd = FactoryDAO.getWorkerDAOInstance();
+        WorkplanDAO wpd = FactoryDAO.getWorkplanDAOInstance();
+        OrderDAO ordd = FactoryDAO.getOrderDAOInstance();
+        ScheduleDAO schD = FactoryDAO.getScheduleDAOInstance();
+
+        /* Clear */
+//        schD.deleteAll();
+//        wpd.deleteAll();
+//        si.deleteAll();
+//        wd.deleteAll();
+//        ordd.deleteAll();
+
+        /* Operations */
+
+        Worker work = wd.read((long) 11);
+        wd.delete(work);
+//        Skill skill = new Skill("Установка интернета","Описание установки интернета");
+//        List<Skill> newskills = new ArrayList<Skill>();
+//        si.create(skill);
+//        newskills.add(skill);
+//
+//        Worker worker1 = new Worker("WONG",8434);
+//        worker1.setSkills(newskills);
+//
+//        List<Workplan> workerWorkplans = new ArrayList<Workplan>();
+//
+//        Workplan wp1 = new Workplan(new Date(),worker1,"Description to worker WONG");
+//
+//        List<Schedule> workplanSchedules = new ArrayList<Schedule>();
+//
+//        for(int i = 10; i < 19; i++) {
+//            Schedule sch = new Schedule();
+//            sch.setInterval(i);
+//            sch.setWorkplan(wp1);
+//            if ( i == 14) {
+//                sch.setFlag("P");
+//            }
+//            else sch.setFlag("F");
+//            workplanSchedules.add(sch);
+//        }
+////        wp1.getId().toString();
+////        wpd.create(wp1);
+//        wp1.setSchedules(workplanSchedules);
+//        workerWorkplans.add(wp1);
+//        worker1.setWorkplans(workerWorkplans);
+//        wd.create(worker1);
+//        worker1.toString();
+//        wd.update(worker1);
