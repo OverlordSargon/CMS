@@ -8,10 +8,10 @@
     <!-- ********************************************************************** -->
     <!--<modelVersion>4.0.0</modelVersion>-->
     <modelVersion>4.0.0</modelVersion>
-    <groupId>new</groupId>
-    <artifactId>new</artifactId>
+    <groupId>CMS</groupId>
+    <artifactId>CMS</artifactId>
     <packaging>war</packaging>
-    <version>0</version>
+    <version>CMS1.0-SNAPSHOT</version>
 
 
     <!-- ********************************************************************** -->

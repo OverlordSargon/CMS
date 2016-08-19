@@ -49,9 +49,9 @@ public class Main {
 //        Worker worker1 = new Worker("NameTest",1111);
 //        worker1.setWorkplans(workplanList1);
 //        workerDAO.create(worker1);
-/*        Order ord2 = new Order("432f","testdesc",
-                new Date(),new Date(),new Date(),451236,"Clinetbane",work2);
-        orderDAO.create(ord2);*/
+        Order ord2 = new Order("432f","testdesc",
+                new Date(),new Date(),new Date(),451236,"Clinetbane",null);
+        orderDAO.create(ord2);
 
     }
 }

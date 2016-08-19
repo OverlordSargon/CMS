@@ -243,6 +243,10 @@ public class Order extends AbstractEntity {
      * Return all info about selected order
      */
     public String toString() {
+        String workerInfo = "";
+        if (worker != null) {
+            workerInfo = ", worker=" + worker.getName();
+        }
         return "Order{" +
                 "ordNumber='" + ordNumber + '\'' +
                 ", description='" + description + '\'' +
@@ -251,7 +255,7 @@ public class Order extends AbstractEntity {
                 ", to=" + to +
                 ", telNumber=" + telNumber +
                 ", clientName='" + clientName + '\'' +
-                ", worker=" + worker.getName() +
+                workerInfo +
                 ", updatedAt=" + updatedAt +
                 '}';
     }
