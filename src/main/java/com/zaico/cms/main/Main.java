@@ -15,8 +15,11 @@ public class Main {
 
         ScheduleDAO scheduleDAO = FactoryDAO.getScheduleDAOInstance();
         WorkplanDAO workplanDAO = FactoryDAO.getWorkplanDAOInstance();
-        WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
         OrderDAO orderDAO = FactoryDAO.getOrderDAOInstance();
+        OrderDAO orderDAO2 = FactoryDAO.getOrderDAOInstance();
+        WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
+        Worker work2 = workerDAO.read(3L);
+
 
 //        Schedule schedule1 = new Schedule(1,"W");
 //        Schedule schedule2 = new Schedule(1,"W");
@@ -46,10 +49,9 @@ public class Main {
 //        Worker worker1 = new Worker("NameTest",1111);
 //        worker1.setWorkplans(workplanList1);
 //        workerDAO.create(worker1);
-        Worker work2 = workerDAO.read(3L);
-        Order ord2 = new Order("432f","testdesc",
+/*        Order ord2 = new Order("432f","testdesc",
                 new Date(),new Date(),new Date(),451236,"Clinetbane",work2);
-        orderDAO.create(ord2);
+        orderDAO.create(ord2);*/
 
     }
 }

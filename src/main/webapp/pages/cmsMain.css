@@ -1,0 +1,24 @@
+body {
+    height: 100%;
+}
+.bodydiv {
+    width: 80%;
+    margin: 30px auto;
+    background:#7EA8B3;
+    height: auto;
+}
+
+.bodydiv .header {
+    text-align: center;
+    min-height: 10%;
+    max-height: 50%;
+    color: darkblue;
+    font-size:30px;
+}
+.bodydiv .info {
+    background-color: lightcyan;
+    font-size:20px;
+    padding: 15px 0;
+    margin: 15px 0;
+    height: 200px;
+}
