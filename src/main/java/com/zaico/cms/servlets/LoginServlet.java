@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
             }
         }
         catch (Exception e) {
-            req.setAttribute("message",e.toString());
+            req.setAttribute("message","Login error. Wrong credentials or no user in base.");
 
         }
 
