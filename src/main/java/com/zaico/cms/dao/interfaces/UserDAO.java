@@ -12,4 +12,5 @@ public interface UserDAO  extends CommonDAO<User> {
     /**
      * Methods
      */
+    User userLogin(String login, String password);
 }

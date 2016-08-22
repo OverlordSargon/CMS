@@ -1,0 +1,65 @@
+
+body {
+    height: 100%;
+}
+
+header {
+    width: 100%;
+    background-color: #7EA8B3;
+}
+header .logo {
+    padding: 5% 0;
+}
+header .logoleft {
+    float: left;
+    background-color: lightcyan;
+    width: 50px;
+}
+
+header .logoright {
+    float: right;
+    width: 50px;
+    background-color: lightcyan;
+}
+
+header .logotext {
+    text-align: center;
+    font-size:25px;
+    color: indigo;
+    vertical-align: middle;
+    line-height: inherit;
+}
+
+menu {
+    list-style: none;
+    display: flex;
+}
+
+.bodydiv {
+    width: 80%;
+    margin: 30px auto;
+    background:#7EA8B3;
+    height: auto;
+}
+
+.bodydiv .header {
+    text-align: center;
+    min-height: 10%;
+    max-height: 50%;
+    color: darkblue;
+    font-size:30px;
+}
+.bodydiv .info {
+    background-color: lightcyan;
+    font-size:20px;
+    padding: 15px 0;
+    margin: 15px 0;
+    height: 200px;
+}
+
+
+footer {
+    background-color: aliceblue;
+    width: 100%;
+    height: 300px;
+}
