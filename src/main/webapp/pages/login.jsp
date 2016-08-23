@@ -1,4 +1,12 @@
 <%@include file="head.jsp"%>
+
+<%
+    //allow access only if session exists
+    if(session.getAttribute("user") != null){
+        response.sendRedirect("/main");
+    }
+%>
+
 <style>
     <%@include file="/css/cmsMain.css"%>
 </style>

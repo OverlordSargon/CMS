@@ -5,12 +5,12 @@ import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.UserService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Created by nzaitsev on 22.08.2016.
@@ -19,36 +19,44 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String name = req.getAttribute("upass").toString();
-//        String password = req.getAttribute("ulog").toString();
-//
-//        req.setAttribute("par1",name);
-//        req.setAttribute("par2",password);
-        req.getRequestDispatcher("pages/login.jsp").forward(req, resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("pages/login.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("ulog").toString();
-        String password = req.getParameter("upass").toString();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("ulog").toString();
+        String password = request.getParameter("upass").toString();
         UserService userService = FactoryService.getUserServiceInstance();
         try {
-            User u = userService.login(name,password);
-            if ( u != null ) {
-                req.setAttribute("message","Success login "+u.getLogin());
-            }
-            else {
-                req.setAttribute("message","failed "+u.getLogin());
+            User user = userService.login(name, password);
+            String username = user.getLogin();
+            if (user != null) {
+//                Success message
+                request.setAttribute("message", "Success login " + username);
+//                Star session
+                HttpSession session = request.getSession();
+                session.setAttribute("user", username);
+                //setting session to expiry in 30 mins
+                session.setMaxInactiveInterval(30 * 60);
+                Cookie userName = new Cookie("user", username);
+                userName.setMaxAge(30 * 60);
+                response.addCookie(userName);
+                response.sendRedirect("LoginSuccess.jsp");
+
+            } else {
+                request.setAttribute("message", "failed " + username);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+                PrintWriter out = response.getWriter();
+                out.println("<font color=red>Either user name or password is wrong.</font>");
             }
         }
         catch (Exception e) {
-            req.setAttribute("message","Login error. Wrong credentials or no user in base.");
-
+            request.setAttribute("message","Login error. Wrong credentials or no user in base.");
         }
 
-        req.setAttribute("par1",name);
-        req.setAttribute("par2",password);
-        req.getRequestDispatcher("pages/main.jsp").forward(req, resp);
+        request.setAttribute("par1",name);
+        request.setAttribute("par2",password);
+        request.getRequestDispatcher("pages/main.jsp").forward(request, response);
     }
 }

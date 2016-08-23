@@ -29,4 +29,9 @@
                 <button>Login</button>
             </a>
         </li>
+        <li>
+            <a href="/logout">
+                <button>logout</button>
+            </a>
+        </li>
     </menu>
