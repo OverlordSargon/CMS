@@ -43,6 +43,6 @@ public class OrderServlet extends HttpServlet {
 
         req.setAttribute("param",html);
         req.setAttribute("page","main");
-        req.getRequestDispatcher("pages/head.jsp").forward(req, resp);
+        req.getRequestDispatcher("pages/main.jsp").forward(req, resp);
     }
 }

@@ -9,12 +9,36 @@
 <html>
 <head>
     <title>${title}</title>
+    <%
+        String logoutButt ;
+        String userName = " ";
+        if(session.getAttribute("user") != null) {
+            logoutButt = "<li>\n" +
+                    "<form action=\"/logout\" method=\"post\">" +
+                    "<input type=\"submit\" value=\"Logout\" ></form>" +
+                    "</li>";
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("user")) {
+                        userName = cookie.getValue();
+                    }
+                }
+            }
+        } else {
+            logoutButt = "<li>\n" +
+                    "<a href=\"/login\">\n" +
+                    "<button>Login</button>\n" +
+                    "</a>\n" +
+                    "</li>";
+        }
+    %>
 </head>
 <body>
     <header>
         <div class = "logoleft"></div>
         <div class = "logo">
-            <div class="logotext" >Content Management System</div>
+            <div class="logotext" >Content Management System <%=userName%></div>
         </div>
         <div class = "logoright"></div>
     </header>
@@ -24,14 +48,6 @@
                 <button>Main Page</button>
             </a>
         </li>
-        <li>
-            <a href="/login">
-                <button>Login</button>
-            </a>
-        </li>
-        <li>
-            <a href="/logout">
-                <button>logout</button>
-            </a>
-        </li>
+
+        <%=logoutButt%>
     </menu>

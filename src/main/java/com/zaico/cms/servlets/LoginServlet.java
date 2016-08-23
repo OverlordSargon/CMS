@@ -25,10 +25,12 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("ulog").toString();
-        String password = request.getParameter("upass").toString();
+        String name = request.getParameter("ulog");
+        String password = request.getParameter("upass");
         UserService userService = FactoryService.getUserServiceInstance();
         try {
+//            Try to login through service and DAO
+            /* SMTH wrong here, with bad credentials still work */
             User user = userService.login(name, password);
             String username = user.getLogin();
             if (user != null) {
@@ -39,24 +41,20 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("user", username);
                 //setting session to expiry in 30 mins
                 session.setMaxInactiveInterval(30 * 60);
-                Cookie userName = new Cookie("user", username);
-                userName.setMaxAge(30 * 60);
-                response.addCookie(userName);
-                response.sendRedirect("LoginSuccess.jsp");
+                Cookie userSession = new Cookie("user", username);
+                userSession.setMaxAge(30 * 60);
+                response.addCookie(userSession);
+                response.sendRedirect("/main");
 
-            } else {
-                request.setAttribute("message", "failed " + username);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
-                PrintWriter out = response.getWriter();
-                out.println("<font color=red>Either user name or password is wrong.</font>");
             }
         }
         catch (Exception e) {
             request.setAttribute("message","Login error. Wrong credentials or no user in base.");
+            request.getRequestDispatcher("pages/main.jsp").forward(request, response);
         }
-
-        request.setAttribute("par1",name);
-        request.setAttribute("par2",password);
-        request.getRequestDispatcher("pages/main.jsp").forward(request, response);
+//        request.setAttribute("message","Login error. Wrong credentials or no user in base.");
+//        request.setAttribute("par1",name);
+//        request.setAttribute("par2",password);
+//        request.getRequestDispatcher("pages/main.jsp").forward(request, response);
     }
 }
