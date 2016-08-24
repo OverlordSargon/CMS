@@ -1,10 +1,17 @@
 <%@include file="head.jsp"%>
-    <style>
-        <%@include file="/css/cmsMain.css"%>
-    </style>
-
     <div class="bodydiv">
-        <div class="header">Hello <%=userName %> </div>
+    <%
+        String roles = "";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("role")) {
+                    roles += " Role: "+cookie.getValue();
+                }
+            }
+        }
+    %>
+        <div class="header">Hello <%=userName %> <%= roles %></div>
         <div class="info">
             <div>U`ve entered ${param}</div>
             <div class="formdiv">
@@ -24,4 +31,4 @@
     </div>
 
 
-    <%@include file="bottom.jsp"%>
+<%@include file="bottom.jsp"%>

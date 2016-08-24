@@ -19,7 +19,6 @@ public class MainServlet extends HttpServlet {
 
         req.setAttribute("name", "EnterOrderNumber");
         req.setAttribute("date", new Date() );
-
         req.getRequestDispatcher("pages/main.jsp").forward(req, resp);
     }
 

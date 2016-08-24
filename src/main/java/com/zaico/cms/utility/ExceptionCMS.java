@@ -4,7 +4,7 @@ package com.zaico.cms.utility;
  * Created by nzaitsev on 17.08.2016.
  * @author ZAITNIK
  */
-public class MistakeException extends Exception {
+public class ExceptionCMS extends Exception {
     /**
      *  Exception message
      */
@@ -25,19 +25,32 @@ public class MistakeException extends Exception {
      */
     Throwable parentException;
 
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    /**
+     *
+     */
+    private int errorCode;
+
     /**
      * Empty constructor
      */
-    public MistakeException() {};
+    public ExceptionCMS() {};
 
     /**
      * The Constructor.
      *
      * @param message   The message of the exception.
      */
-    public MistakeException(String message) {
-        super(message);
-        this.message = addOops(message);
+    public ExceptionCMS(String message, int errorCode) {
+        this.message = addCMSException(message);
+        this.errorCode = errorCode;
     }
 
     /**
@@ -46,9 +59,9 @@ public class MistakeException extends Exception {
      * @param message   The message of the exception.
      * @param e         The parent exception.
      */
-    public MistakeException(String message, Throwable e) {
+    public ExceptionCMS(String message, Throwable e) {
         super(message, e);
-        this.message = addOops(message);
+        this.message = addCMSException(message);
         this.parentException = e;
     }
 
@@ -61,7 +74,7 @@ public class MistakeException extends Exception {
         return message;
     }
 
-    private String addOops(String message) {
+    private String addCMSException(String message) {
         StringBuilder newMessage = new StringBuilder(message);
         if (!message.endsWith(DOT)) {
             newMessage.append(DOT);

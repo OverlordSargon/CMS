@@ -1,9 +1,15 @@
 package com.zaico.cms.servlets;
 
+import com.zaico.cms.entities.Role;
 import com.zaico.cms.entities.User;
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.UserService;
+import com.zaico.cms.utility.ErrorCode;
+import com.zaico.cms.utility.ExceptionCMS;
+import com.zaico.cms.utility.ExceptionHandler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,12 +17,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by nzaitsev on 22.08.2016.
  */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+
+    private static final Log LOG = LogFactory.getLog(UserServiceImpl.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,27 +45,36 @@ public class LoginServlet extends HttpServlet {
             User user = userService.login(name, password);
             String username = user.getLogin();
             if (user != null) {
+//                Logging user login
+                LOG.info("Success login "+username+" "+new Date());
 //                Success message
                 request.setAttribute("message", "Success login " + username);
 //                Star session
                 HttpSession session = request.getSession();
-                session.setAttribute("user", username);
-                //setting session to expiry in 30 mins
+                session.setAttribute("user", user);
+//                Set roles as cookies
+                List<Role> roleList;
+                roleList = user.getRoles();
+                for ( Role role : roleList) {
+                    Cookie userRole = new Cookie("role",role.toString());
+                    userRole.setMaxAge(30 * 60);
+                    response.addCookie(userRole);
+                }
+//                Setting session to expiry in 30 mins
                 session.setMaxInactiveInterval(30 * 60);
                 Cookie userSession = new Cookie("user", username);
                 userSession.setMaxAge(30 * 60);
                 response.addCookie(userSession);
                 response.sendRedirect("/main");
-
             }
-        }
+         }
         catch (Exception e) {
-            request.setAttribute("message","Login error. Wrong credentials or no user in base.");
+//            Logging failed login
+            LOG.info("Failed login "+name+" password"+password+" "+new Date());
+//            Handle exception
+            String errorMessage = ExceptionHandler.handleException(e);
+            request.setAttribute("message", errorMessage);
             request.getRequestDispatcher("pages/main.jsp").forward(request, response);
         }
-//        request.setAttribute("message","Login error. Wrong credentials or no user in base.");
-//        request.setAttribute("par1",name);
-//        request.setAttribute("par2",password);
-//        request.getRequestDispatcher("pages/main.jsp").forward(request, response);
     }
 }

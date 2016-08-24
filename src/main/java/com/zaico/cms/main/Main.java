@@ -4,8 +4,16 @@ import com.zaico.cms.dao.implementation.FactoryDAO;
 import com.zaico.cms.dao.interfaces.*;
 import com.zaico.cms.entities.*;
 import com.zaico.cms.servicies.implementation.FactoryService;
+import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.UserService;
+import com.zaico.cms.utility.ErrorCode;
+import com.zaico.cms.utility.ExceptionCMS;
+import com.zaico.cms.utility.ExceptionHandler;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -13,25 +21,41 @@ import java.util.Date;
  * Created by nzaitsev on 01.08.2016.
  */
 public class Main {
-    public static void main(String[] args)  throws Exception, SQLException, ClassNotFoundException,InterruptedException {
+    public static void main(String[] args)  throws ExceptionCMS, SQLException, ClassNotFoundException,InterruptedException {
 
-//        UserService userService = FactoryService.getUserServiceInstance();
-        UserDAO userDAO = FactoryDAO.getUserDAOInstance();
-        User u = userDAO.userLogin("0verlord","1234");
+//        UserServiceImpl usi = new UserServiceImpl();
+//        usi.login("0verlord","12");
+
         try {
-
-            if ( u != null ) {
-                System.out.println("Success");
-                System.out.println(u.getLogin());
-            }
-            else {
-                System.out.println("failed "+u.getLogin());
-            }
+            EntityManager em = Persistence.createEntityManagerFactory("cms").createEntityManager();
+            User result = null;
+            Query user = em.createNamedQuery("User.login",User.class);
+            user.setParameter("login","0verlord");
+            user.setParameter("password","3");
+            result = (User) user.getSingleResult();
         }
         catch (Exception e) {
-            System.out.println(e.toString());
-
+            String errorMessage = ExceptionHandler.handleException(e);
+            System.out.println(errorMessage);
         }
+
+// /        UserService userService = FactoryService.getUserServiceInstance();
+//        UserDAO userDAO = FactoryDAO.getUserDAOInstance();
+//        User u = userDAO.userLogin("0verlord","1234");
+//        try {
+//
+//            if ( u != null ) {
+//                System.out.println("Success");
+//                System.out.println(u.getLogin());
+//            }
+//            else {
+//                System.out.println("failed "+u.getLogin());
+//            }
+//        }
+//        catch (Exception e) {
+//            System.out.println(e.toString());
+//
+//        }
 //        ScheduleDAO scheduleDAO = FactoryDAO.getScheduleDAOInstance();
 //        WorkplanDAO workplanDAO = FactoryDAO.getWorkplanDAOInstance();
 //        OrderDAO orderDAO = FactoryDAO.getOrderDAOInstance();

@@ -164,7 +164,7 @@ public class User extends AbstractEntity {
      * @return login&roles
      */
     public String toString() {
-        return "UserDAO{" +
+        return "User{" +
                 "login='" + login + '\'' +
 //                ", roles=" + roles.toString() +
                 '}';

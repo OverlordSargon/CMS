@@ -6,6 +6,6 @@ import com.zaico.cms.servicies.interfaces.CommonService;
 /**
  * Created by nzaitsev on 17.08.2016.
  */
-public class WorkplanServiceImpl extends AbstractService<Workplan> implements CommonService<Workplan> {
+public class WorkplanServiceImpl {
 
 }

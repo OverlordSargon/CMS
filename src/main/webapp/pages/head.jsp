@@ -8,10 +8,14 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
 <head>
+    <style>
+        <%@include file="/css/main.css"%>
+    </style>
     <title>${title}</title>
     <%
         String logoutButt ;
         String userName = " ";
+        String role = " ";
         if(session.getAttribute("user") != null) {
             logoutButt = "<li>\n" +
                     "<form action=\"/logout\" method=\"post\">" +
@@ -22,6 +26,9 @@
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("user")) {
                         userName = cookie.getValue();
+                    }
+                    if ( cookie.getName().equals("role")) {
+                        role = cookie.getValue();
                     }
                 }
             }
@@ -38,7 +45,7 @@
     <header>
         <div class = "logoleft"></div>
         <div class = "logo">
-            <div class="logotext" >Content Management System <%=userName%></div>
+            <div class="logotext" >Content Management System <%=role%> <%=userName%></div>
         </div>
         <div class = "logoright"></div>
     </header>

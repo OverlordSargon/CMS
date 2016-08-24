@@ -7,10 +7,6 @@
     }
 
 %>
-
-<style>
-    <%@include file="/css/cmsMain.css"%>
-</style>
 <div class="bodydiv">
     <div>Try to login</div>
     <form action="/login" method="post">

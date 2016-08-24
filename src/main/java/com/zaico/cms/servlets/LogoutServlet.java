@@ -1,9 +1,15 @@
 package com.zaico.cms.servlets;
 
+import com.zaico.cms.servicies.implementation.UserServiceImpl;
+import com.zaico.cms.utility.ExceptionCMS;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by nzaitsev on 22.08.2016.
@@ -11,6 +17,7 @@ import java.io.IOException;
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
 
+    private static final Log LOG = LogFactory.getLog(UserServiceImpl.class);
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -28,6 +35,14 @@ public class LogoutServlet extends HttpServlet {
 
 //        Get all cookies
         Cookie[] cookies = request.getCookies();
+//        Logging user logout
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("user")) {
+                    LOG.info("Logout " + cookie.getValue() + new Date() );                }
+            }
+        }
+
         if(cookies != null){
 //            Clear all cookies
             for (Cookie c : cookies) {
@@ -37,7 +52,6 @@ public class LogoutServlet extends HttpServlet {
                 response.addCookie(cookie);
             }
         }
-
 
         response.sendRedirect("/main");
     }

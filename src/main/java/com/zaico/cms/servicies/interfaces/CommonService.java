@@ -1,8 +1,6 @@
 package com.zaico.cms.servicies.interfaces;
 
-import com.mysql.jdbc.log.LogFactory;
-import com.zaico.cms.utility.MistakeException;
-import org.hibernate.annotations.common.util.impl.Log;
+import com.zaico.cms.utility.ExceptionCMS;
 
 import java.util.List;
 
@@ -15,27 +13,27 @@ public interface CommonService<T> {
      *
      * @param entity The entity.
      * @return      The created entity.
-     * @throws MistakeException
+     * @throws ExceptionCMS
      */
-    T createEntity(T entity) throws MistakeException;
+    T createEntity(T entity) throws ExceptionCMS;
 
     /**
      * Loads T by id.
      *
      * @param id    The id.
      * @return      The found entity.
-     * @throws MistakeException
+     * @throws ExceptionCMS
      */
-    T loadEntity(Long id) throws MistakeException;
+    T loadEntity(Long id) throws ExceptionCMS;
 
     /**
      * Updates the entity.
      *
      * @param entity The entity.
      * @return      The updated entity.
-     * @throws MistakeException
+     * @throws ExceptionCMS
      */
-    T updateEntity(T entity) throws MistakeException;
+    T updateEntity(T entity) throws ExceptionCMS;
 
     /**
      * Deletes the T.
@@ -49,7 +47,7 @@ public interface CommonService<T> {
      *
      * @return	The list of entities.
      */
-    List<T> getAllEntities() throws MistakeException;
+    List<T> getAllEntities() throws ExceptionCMS;
 
     /**
      * Deletes all entities.
