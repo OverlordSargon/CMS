@@ -172,4 +172,8 @@ public class Role extends AbstractEntity {
                 ", updatedAt=" + updatedAt +
                 '}';
     }
+
+    public String toString(int a) {
+        return role;
+    }
 }

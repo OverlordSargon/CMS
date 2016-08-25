@@ -15,7 +15,6 @@
     <%
         String logoutButt ;
         String userName = " ";
-        String role = " ";
         if(session.getAttribute("user") != null) {
             logoutButt = "<li>\n" +
                     "<form action=\"/logout\" method=\"post\">" +
@@ -26,9 +25,6 @@
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("user")) {
                         userName = cookie.getValue();
-                    }
-                    if ( cookie.getName().equals("role")) {
-                        role = cookie.getValue();
                     }
                 }
             }
@@ -45,7 +41,7 @@
     <header>
         <div class = "logoleft"></div>
         <div class = "logo">
-            <div class="logotext" >Content Management System <%=role%> <%=userName%></div>
+            <div class="logotext" >Content Management System <%=userName%></div>
         </div>
         <div class = "logoright"></div>
     </header>

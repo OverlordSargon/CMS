@@ -51,19 +51,20 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("message", "Success login " + username);
 //                Star session
                 HttpSession session = request.getSession();
-                session.setAttribute("user", user);
+                session.setAttribute("user", username);
 //                Set roles as cookies
                 List<Role> roleList;
                 roleList = user.getRoles();
+                Cookie userRole = null;
                 for ( Role role : roleList) {
-                    Cookie userRole = new Cookie("role",role.toString());
+                    userRole = new Cookie("role",role.toString(1));
                     userRole.setMaxAge(30 * 60);
-                    response.addCookie(userRole);
                 }
 //                Setting session to expiry in 30 mins
                 session.setMaxInactiveInterval(30 * 60);
                 Cookie userSession = new Cookie("user", username);
                 userSession.setMaxAge(30 * 60);
+                response.addCookie(userRole);
                 response.addCookie(userSession);
                 response.sendRedirect("/main");
             }

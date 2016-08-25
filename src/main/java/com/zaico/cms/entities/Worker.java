@@ -216,6 +216,10 @@ public class Worker extends AbstractEntity {
      * @return all info about choosen worker
      */
     public String toString() {
+        return name;
+    }
+
+    public String infoToString() {
         return "Worker{" +
                 "name='" + name + '\'' +
                 ", telephone=" + telephone +

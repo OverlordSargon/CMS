@@ -116,6 +116,9 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
         List<T> result = null;
         try {
             em.getTransaction().begin();
+            if (entityName.equals("Order")) {
+                entityName = "Cmsorder";
+            }
             result = em.createNamedQuery(entityName+".getAll").getResultList();
             em.getTransaction().commit();
         }

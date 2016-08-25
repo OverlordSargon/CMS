@@ -259,4 +259,11 @@ public class Order extends AbstractEntity {
                 ", updatedAt=" + updatedAt +
                 '}';
     }
+
+    public StringBuffer printHtml() {
+        StringBuffer code = new StringBuffer();
+        String td = "<td>";
+        code.append(id).append(ordNumber).append(description).append(from);
+        return  code;
+    }
 }

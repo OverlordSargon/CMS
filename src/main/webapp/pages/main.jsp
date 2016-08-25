@@ -1,17 +1,25 @@
 <%@include file="head.jsp"%>
     <div class="bodydiv">
     <%
-        String roles = "";
+        String role = "";
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("role")) {
-                    roles += " Role: "+cookie.getValue();
+                    role = cookie.getValue();
                 }
             }
         }
     %>
-        <div class="header">Hello <%=userName %> <%= roles %></div>
+    <%
+        String adminBlock = "";
+        if ( role.equals("Administrator") ) {
+            adminBlock = "/orders";
+        } else {
+            adminBlock = "/orders";
+        }
+    %>
+        <div class="header">Hello <%=userName %> <%= role %></div>
         <div class="info">
             <div>U`ve entered ${param}</div>
             <div class="formdiv">
@@ -25,6 +33,14 @@
         </div>
     </div>
     <div class="message">
+        <button>
+            <a href="<%=adminBlock%>">
+                BUTTON
+            </a>
+        </button>
+        <button>
+            <a href="/allskills">allskills</a>
+        </button>
         <p>Param1 ${par1}</p>
         <p>Param2 ${par2}</p>
         <p>message ${message}</p>
