@@ -1,6 +1,7 @@
 package com.zaico.cms.utility;
 
 import java.lang.reflect.Field;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +41,7 @@ public class PrintAttributes {
 
     private static void addFieldInfo(List<Field[]> allFields,final Object obj) throws IllegalArgumentException,
             IllegalAccessException {
+        int id = 0;
         for(Field[] fields: allFields) {
             for (int i = 0; i < fields.length; i++)
             {
@@ -49,9 +51,17 @@ public class PrintAttributes {
                 Object newObj = fields[i].get(obj);
 //                System.out.println("Value of field" + fieldName + "newObj:: " + newObj);
                 result+="<td>"+newObj+"<td>";
+                try {
+                    if ( i == 0 ) {
+                        id = Integer.parseInt(newObj.toString());
+                    }
+                } catch (Exception e) {
+
+                }
 //                map.put(fieldName, newObj);
             }
         }
+        result+="<td><div><a href=\"/updateskill?id="+id+"\">UPDATE</a></div></td>";
     }
 
     public static String getHeader(final Object valueObj) throws IllegalArgumentException,
@@ -67,6 +77,7 @@ public class PrintAttributes {
         af.add(parentFields);
         af.add(valueObjFields);
         addFieldHeader(af,valueObj);
+        header+="<th>Actions</th>";
         return header;
     }
 

@@ -19,6 +19,8 @@ public class ExceptionHandler {
             switch (((ExceptionCMS) e).getErrorCode()) {
                 case 1:
                     return e.getMessage();
+                case 2:
+                    return e.getMessage();
                 default:
                     return TECHNICAL_ERROR;
             }

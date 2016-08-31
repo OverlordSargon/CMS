@@ -25,9 +25,14 @@ public class AllSkillsServlet extends HttpServlet {
         SkillDAO skillDAO = FactoryDAO.getSkillDAOInstance();
         List<Skill> allSkills = skillDAO.getAll();
         String result = "";
+        boolean first = true;
         try {
             for (Skill skill: allSkills) {
-                result = (PrintAttributes.getAttributes(skill));
+                if ( first == true ) {
+                    result = PrintAttributes.getHeader(skill);
+                    first = false;
+                }
+//                result += (PrintAttributes.getAttributes(skill));
             }
         } catch (Exception e) {
             result = "FUCK";

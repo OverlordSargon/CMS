@@ -1,0 +1,155 @@
+ Main c = new Main();
+//        Class cls = c.getClass();
+//
+//        System.out.println("Field =");
+//
+//        try {
+//            // string field
+//            Field sField = cls.getField("string1");
+//            System.out.println("Public field found: " + sField.toString());
+//            System.out.println(sField.getName());
+//        }
+//        catch(NoSuchFieldException e) {
+//            System.out.println(e.toString());
+//        }
+//    }
+//
+//
+//    public Main() {
+//        // no argument constructor
+//    }
+//
+//    public Main(String string1) {
+//        this.string1 = string1;
+//    }
+//
+//    public String string1 = "tutorialspoint";
+//}
+//        UserServiceImpl usi = new UserServiceImpl();
+////        usi.login("0verlord", "12");
+//        OrderDAO orderDAO = FactoryDAO.getOrderDAOInstance();
+//        List<Order> allOrders = orderDAO.getAll();
+//
+//        for (Order order : allOrders) {
+//            try
+//            {
+////                System.out.println(getFieldNamesAndValues(order));
+//            }
+//      catch (IllegalArgumentException e)
+//            {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//      catch (IllegalAccessException e)
+//            {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//        }
+//            List<Field> fields = Arrays.asList(Order.class.getDeclaredFields());
+//            for (Field field : fields) {
+//                Class c1 = order.getClass();
+//                System.out.println("Class name got is:: " + c1.getName());
+//
+//                Map fieldMap = new HashMap();
+//                Field[] valueObjFields = c1.getDeclaredFields();
+//
+//                // compare values now
+//                for (int i = 0;i < valueObjFields.length; i++)
+//                {
+//
+//                    String fieldName = valueObjFields[i].getName();
+//
+//                    System.out.println("Getting Field Values for Field:: " + valueObjFields[i].getName());
+//                    valueObjFields[i].setAccessible(true);
+//
+//                    Object newObj = valueObjFields[i].get(valueObj);
+//
+//                    System.out.println("Value of field" + fieldName + "newObj:: " + newObj);
+//                    fieldMap.put(fieldName, newObj);
+//
+//                }
+//            }
+//            System.out.println(order.toString());
+//        }
+    }
+
+}
+
+
+//        fields.addAll(Arrays.asList(Order.class.getSuperclass().getDeclaredFields()));
+
+//        Class parentClass = Order.class.getSuperclass();
+//        for ( Field obj : parentClass.getDeclaredFields()) {
+//            System.out.println(obj.getName());
+//        }
+
+        //        try {
+//            EntityManager em = Persistence.createEntityManagerFactory("cms").createEntityManager();
+//            User result = null;
+//            Query user = em.createNamedQuery("User.login",User.class);
+//            user.setParameter("login","0verlord");
+//            user.setParameter("password","3");
+//            result = (User) user.getSingleResult();
+//        }
+//        catch (Exception e) {
+//            String errorMessage = ExceptionHandler.handleException(e);
+//            System.out.println(errorMessage);
+//        }
+
+// /        UserService userService = FactoryService.getUserServiceInstance();
+//        UserDAO userDAO = FactoryDAO.getUserDAOInstance();
+//        User u = userDAO.userLogin("0verlord","1234");
+//        try {
+//
+//            if ( u != null ) {
+//                System.out.println("Success");
+//                System.out.println(u.getLogin());
+//            }
+//            else {
+//                System.out.println("failed "+u.getLogin());
+//            }
+//        }
+//        catch (Exception e) {
+//            System.out.println(e.toString());
+//
+//        }
+//        ScheduleDAO scheduleDAO = FactoryDAO.getScheduleDAOInstance();
+//        WorkplanDAO workplanDAO = FactoryDAO.getWorkplanDAOInstance();
+//        OrderDAO orderDAO = FactoryDAO.getOrderDAOInstance();
+//        OrderDAO orderDAO2 = FactoryDAO.getOrderDAOInstance();
+//        WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
+//        Worker work2 = workerDAO.read(3L);
+//
+//
+////        Schedule schedule1 = new Schedule(1,"W");
+////        Schedule schedule2 = new Schedule(1,"W");
+////        Schedule schedule3 = new Schedule(1,"W");
+////        Schedule schedule4 = new Schedule(1,"W");
+////        Schedule schedule5 = new Schedule(1,"W");
+////        Schedule schedule6 = new Schedule(1,"W");
+////
+////        List<Schedule> scheduleList1 = new ArrayList<>();
+////        List<Schedule> scheduleList2 = new ArrayList<>();
+////        scheduleList1.add(schedule1);
+////        scheduleList1.add(schedule2);
+////        scheduleList1.add(schedule3);
+////        scheduleList2.add(schedule4);
+////        scheduleList2.add(schedule5);
+////        scheduleList2.add(schedule6);
+////
+////        Workplan workplan1 = new Workplan(new Date(),"TEST");
+////        Workplan workplan2 = new Workplan(new Date(),"TEST2");
+////        workplan1.setSchedules(scheduleList1);
+////        workplan2.setSchedules(scheduleList2);
+////
+////        List<Workplan> workplanList1 = new ArrayList<>();
+////        workplanList1.add(workplan1);
+////        workplanList1.add(workplan2);
+////
+////        Worker worker1 = new Worker("NameTest",1111);
+////        worker1.setWorkplans(workplanList1);
+////        workerDAO.create(worker1);
+//        Order ord2 = new Order("432f","testdesc",
+//                new Date(),new Date(),new Date(),451236,"Clinetbane",null);
+//        orderDAO.create(ord2);

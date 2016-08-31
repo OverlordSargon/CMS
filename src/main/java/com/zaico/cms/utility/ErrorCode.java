@@ -5,4 +5,5 @@ package com.zaico.cms.utility;
  */
 public class ErrorCode {
     public static final int USER_NOT_FOUND = 1;
+    public static final int SKILL_CREATE_ERROR = 2;
 }
