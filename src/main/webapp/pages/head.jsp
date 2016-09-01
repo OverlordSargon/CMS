@@ -5,6 +5,7 @@
   Time: 12:48
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -45,6 +46,19 @@
         </div>
         <div class = "logoright"></div>
     </header>
+
+    <div class="messages">
+        <div class="error_message">
+            ${errMessage}
+        </div>
+        <div class="success_message">
+            ${sucMessage}
+        </div>
+        <div class="info_message">
+            ${infoMessage}
+        </div>
+    </div>
+
     <menu>
         <li>
             <a href="/main">
@@ -54,3 +68,6 @@
 
         <%=logoutButt%>
     </menu>
+    <aside>
+        ${message}
+    </aside>

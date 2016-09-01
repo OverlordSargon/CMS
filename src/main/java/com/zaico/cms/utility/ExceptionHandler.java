@@ -18,8 +18,8 @@ public class ExceptionHandler {
         if (e instanceof ExceptionCMS) {
             switch (((ExceptionCMS) e).getErrorCode()) {
                 case 1:
-                    return e.getMessage();
                 case 2:
+                case 3:
                     return e.getMessage();
                 default:
                     return TECHNICAL_ERROR;

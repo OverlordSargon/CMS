@@ -11,7 +11,7 @@
     </div>
     <div>
         <button>
-            <input type="submit" value="Create">
+            <input type="submit" value="Update">
         </button>
     </div>
 </form>

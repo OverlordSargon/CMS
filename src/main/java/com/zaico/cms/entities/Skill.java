@@ -11,7 +11,7 @@ import java.util.Date;
 @Table( name = "SKILL")
 @NamedQueries(
     {
-        @NamedQuery(name = "Skill.getAll", query = " SELECT skill FROM Skill skill ORDER BY S_UPDATED_AT"),
+        @NamedQuery(name = "Skill.getAll", query = " SELECT skill FROM Skill skill ORDER BY S_UPDATED_AT DESC"),
         @NamedQuery(name = "Skill.deleteAll", query = " DELETE FROM Skill")
     })
 public class Skill extends AbstractEntity {

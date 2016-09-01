@@ -20,26 +20,20 @@ import java.util.List;
  */
 @WebServlet("/allskills")
 public class AllSkillsServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SkillDAO skillDAO = FactoryDAO.getSkillDAOInstance();
         List<Skill> allSkills = skillDAO.getAll();
-        String result = "";
-        boolean first = true;
-        try {
-            for (Skill skill: allSkills) {
-                if ( first == true ) {
-                    result = PrintAttributes.getHeader(skill);
-                    first = false;
-                }
-//                result += (PrintAttributes.getAttributes(skill));
-            }
-        } catch (Exception e) {
-            result = "FUCK";
+        if ( allSkills.size() == 0 ) {
+            request.setAttribute("infoMessage","No skills ");
         }
-        String hhhh = "<h1>{EQ{QE</h1>";
         request.setAttribute("skills",allSkills);
-        request.setAttribute("html",result);
         request.getRequestDispatcher("pages/skill/allskills.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request,response);
     }
 }
