@@ -1,11 +1,8 @@
-package com.zaico.cms.servlets.skills;
+package com.zaico.cms.servlets.skill;
 
 import com.zaico.cms.dao.implementation.FactoryDAO;
-import com.zaico.cms.dao.interfaces.OrderDAO;
 import com.zaico.cms.dao.interfaces.SkillDAO;
-import com.zaico.cms.entities.Order;
 import com.zaico.cms.entities.Skill;
-import com.zaico.cms.utility.PrintAttributes;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +15,7 @@ import java.util.List;
 /**
  * Created by nzaitsev on 25.08.2016.
  */
-@WebServlet("/allskills")
+@WebServlet("/skills")
 public class AllSkillsServlet extends HttpServlet {
 
     @Override
@@ -26,7 +23,7 @@ public class AllSkillsServlet extends HttpServlet {
         SkillDAO skillDAO = FactoryDAO.getSkillDAOInstance();
         List<Skill> allSkills = skillDAO.getAll();
         if ( allSkills.size() == 0 ) {
-            request.setAttribute("infoMessage","No skills ");
+            request.setAttribute("infoMessage","No skill ");
         }
         request.setAttribute("skills",allSkills);
         request.getRequestDispatcher("pages/skill/allskills.jsp").forward(request, response);

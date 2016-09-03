@@ -1,13 +1,10 @@
-package com.zaico.cms.servlets.skills;
+package com.zaico.cms.servlets.skill;
 
-import com.zaico.cms.dao.implementation.FactoryDAO;
-import com.zaico.cms.dao.interfaces.SkillDAO;
 import com.zaico.cms.entities.Skill;
 import com.zaico.cms.servicies.implementation.FactoryService;
+import com.zaico.cms.servicies.implementation.SkillServiceImpl;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.SkillService;
-import com.zaico.cms.utility.ErrorCode;
-import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,7 +23,7 @@ import java.util.Date;
 @WebServlet("/updateskill")
 public class SkillUpdate extends HttpServlet {
 
-    private static final Log LOG = LogFactory.getLog(UserServiceImpl.class);
+    private static final Log LOG = LogFactory.getLog(SkillServiceImpl.class);
     Skill skill = null;
     SkillService skillService = FactoryService.getSkillServiceInstance();
 
@@ -35,13 +32,14 @@ public class SkillUpdate extends HttpServlet {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
             skill = skillService.findSkill((long)id);
-            request.setAttribute("skillName",skill.getName());
-            request.setAttribute("skillDesc",skill.getDescription());
+            request.setAttribute("skill",skill);
         } catch (Exception e) {
             LOG.info("Skill \""+skill.getName()+ "\" notfounded at "+new Date());
             String errMess = ExceptionHandler.handleException(e);
         }
-        request.getRequestDispatcher("pages/skill/updateskill.jsp").forward(request, response);
+        request.setAttribute("action","/updateskill");
+        request.setAttribute("button","UPDATE");
+        request.getRequestDispatcher("pages/skill/skill.jsp").forward(request, response);
 
     }
 
@@ -60,7 +58,7 @@ public class SkillUpdate extends HttpServlet {
             LOG.info(errMess);
             request.setAttribute("errMessage",errMess);
         }
-        request.getRequestDispatcher("/allskills").forward(request, response);
+        request.getRequestDispatcher("/skills").forward(request, response);
 
     }
 }

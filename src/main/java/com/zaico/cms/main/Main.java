@@ -5,11 +5,19 @@ import com.zaico.cms.dao.implementation.FactoryDAO;
 import com.zaico.cms.dao.interfaces.*;
 import com.zaico.cms.entities.*;
 
+import com.zaico.cms.servicies.implementation.FactoryService;
+import com.zaico.cms.servicies.implementation.UserServiceImpl;
+import com.zaico.cms.servicies.interfaces.RoleService;
+import com.zaico.cms.servicies.interfaces.UserService;
+import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 import com.zaico.cms.utility.PrintAttributes;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.*;
@@ -52,9 +60,15 @@ public class Main {
 //            String errorMessage = ExceptionHandler.handleException(exc);
 //            System.out.println(errorMessage);
 //        }
-        int id = 0;
-        Object newObj = "9";
-        id = Integer.parseInt(newObj.toString());
-        System.out.println(id);
+        WorkerService workerService = FactoryService.getWorkerServiceInstance();
+
+        try {
+            List<Worker> workers = workerService.findAllWorkers();
+            if ( workers != null ) {
+                System.out.println("GOTHCA!");
+            }
+        } catch (Exception e) {
+            String errMes = ExceptionHandler.handleException(e);
+        }
     }
 }

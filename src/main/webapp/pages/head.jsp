@@ -5,7 +5,9 @@
   Time: 12:48
   To change this template use File | Settings | File Templates.
 --%>
+<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -64,6 +66,31 @@
             <a href="/main">
                 <button>Main Page</button>
             </a>
+        </li>
+        <li>
+            <button>
+                <a href="/orders">Orders</a>
+            </button>
+        </li>
+        <li>
+            <button>
+                <a href="/skills">skills</a>
+            </button>
+        </li>
+        <li>
+            <button>
+                <a href="/roles">roles</a>
+            </button>
+        </li>
+        <li>
+            <button>
+                <a href="/users">users</a>
+            </button>
+        </li>
+        <li>
+            <button>
+                <a href="/workers">workers</a>
+            </button>
         </li>
 
         <%=logoutButt%>

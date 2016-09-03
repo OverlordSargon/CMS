@@ -1,13 +1,10 @@
-package com.zaico.cms.servlets.skills;
+package com.zaico.cms.servlets.skill;
 
-import com.zaico.cms.dao.implementation.FactoryDAO;
-import com.zaico.cms.dao.interfaces.SkillDAO;
 import com.zaico.cms.entities.Skill;
 import com.zaico.cms.servicies.implementation.FactoryService;
+import com.zaico.cms.servicies.implementation.SkillServiceImpl;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.SkillService;
-import com.zaico.cms.utility.ErrorCode;
-import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,11 +23,13 @@ import java.util.Date;
 @WebServlet("/newskill")
 public class SkillCreate extends HttpServlet {
 
-    private static final Log LOG = LogFactory.getLog(UserServiceImpl.class);
+    private static final Log LOG = LogFactory.getLog(SkillServiceImpl.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("pages/skill/newskill.jsp").forward(request, response);
+        request.setAttribute("action","/newskill");
+        request.setAttribute("button","CREATE");
+        request.getRequestDispatcher("pages/skill/skill.jsp").forward(request, response);
     }
 
     @Override
@@ -49,6 +48,6 @@ public class SkillCreate extends HttpServlet {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage"+" Try again please, check parameters", errorMessage);
         }
-        request.getRequestDispatcher("/allskills").forward(request, response);
+        request.getRequestDispatcher("/skills").forward(request, response);
     }
 }

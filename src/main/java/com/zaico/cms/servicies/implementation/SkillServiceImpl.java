@@ -59,6 +59,21 @@ public class SkillServiceImpl implements SkillService {
     }
 
     /**
+     * Get all skills
+     * @return Skill list
+     * @throws ExceptionCMS
+     */
+    public List<Skill> findAllSkills() throws ExceptionCMS {
+        try {
+            return skillDAO.getAll();
+        } catch (Exception e) {
+            String errMes = "ALL SKILLS ERROR:"+new Date();
+            LOG.info(errMes);
+            throw new ExceptionCMS(errMes,ErrorCode.SKILL_NOT_FOUND);
+        }
+    }
+
+    /**
      * UpdateSkill method implementation
      */
 

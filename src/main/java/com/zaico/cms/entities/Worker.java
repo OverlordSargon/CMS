@@ -13,7 +13,7 @@ import static java.util.logging.Level.ALL;
 @Table(name = "WORKER")
 @NamedQueries(
     {
-        @NamedQuery(name = "Worker.getAll", query = "SELECT worker FROM Worker worker "),
+        @NamedQuery(name = "Worker.getAll", query = "SELECT worker FROM Worker worker ORDER BY W_UPDATED_AT DESC"),
         @NamedQuery(name = "Worker.deleteAll", query = "DELETE FROM Worker")
     })
 public class Worker extends AbstractEntity {
@@ -54,7 +54,7 @@ public class Worker extends AbstractEntity {
      * Full constructor
      * @param name Worker name
      * @param telephone Worker telephone
-     * @param skills List of skills
+     * @param skills List of skill
      * @param workplans List of workplans
      */
     public Worker(String name, Integer telephone, List<Workplan> workplans, List<Skill> skills) {
@@ -154,8 +154,8 @@ public class Worker extends AbstractEntity {
 
     /* Skills */
     /**
-     * Get list of worker skills
-     * @return skills
+     * Get list of worker skill
+     * @return skill
      */
     @ManyToMany
     @JoinTable
@@ -168,7 +168,7 @@ public class Worker extends AbstractEntity {
         return skills;
     }
     /**
-     * Set list of worker skills
+     * Set list of worker skill
      * @param skills
      */
     public void setSkills(List<Skill> skills) {
@@ -225,7 +225,7 @@ public class Worker extends AbstractEntity {
                 ", telephone=" + telephone +
 //                ", orders=" + orders.toString() +
                 ", workplans=" + workplans +
-//                ", skills=" + skills.toString() +
+//                ", skill=" + skill.toString() +
                 ", updatedAt=" + updatedAt +
                 '}';
     }

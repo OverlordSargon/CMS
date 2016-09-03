@@ -109,8 +109,8 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
     }
 
     /**
-     * Get all users
-     * @return users like result list
+     * Get all user
+     * @return user like result list
      */
     public List<T> getAll() {
         List<T> result = null;
@@ -129,7 +129,7 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
     }
 
     /**
-     * Deletes all existing users
+     * Deletes all existing user
      */
     public void deleteAll() {
         try {

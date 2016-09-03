@@ -7,6 +7,8 @@
     </button>
 </div>
 <div class="table_header"> SKills </div>
+<c:choose>
+    <c:when test="${skills != null}">
 <table>
     <tr>
         <th> ID </th>
@@ -20,8 +22,16 @@
             <td><c:out value="${skill.id}"/></td>
             <td><c:out value="${skill.name}"/></td>
             <td><c:out value="${skill.description}"/></td>
-            <td><c:out value="${skill.updatedAt}"/></td>
             <td>
+                <fmt:formatDate pattern="MM-dd-y HH:mm:ss"  value="${skill.updatedAt}" />
+            </td>
+            <td>
+                <div class="btn-update">
+                    <form action="/viewskill" method="get">
+                        <input type="hidden"  name="id" value="${skill.id}">
+                        <input type="submit" value="VIEW">
+                    </form>
+                </div>
                 <div class="btn-update">
                     <form action="/updateskill" method="get">
                         <input type="hidden"  name="id" value="${skill.id}">
@@ -29,7 +39,7 @@
                     </form>
                 </div>
                 <div class="btn-delete">
-                    <form action="/deleteskill" method="post">
+                    <form action="/deleteskill" method="get">
                         <input type="hidden"  name="id" value="${skill.id}">
                         <input type="submit" value="DELETE">
                     </form>
@@ -37,6 +47,13 @@
             </td>
         </tr>
     </c:forEach>
-</table>
-
+    </table>
+    </c:when>
+    <c:otherwise>
+        <div class="no_yet">
+            Don`t Worry!<br>
+            Just no skills yet :)
+        </div>
+    </c:otherwise>
+</c:choose>
 <%@include file="../bottom.jsp"%>

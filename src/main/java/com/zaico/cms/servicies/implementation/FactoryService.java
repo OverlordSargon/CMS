@@ -1,7 +1,6 @@
 package com.zaico.cms.servicies.implementation;
 
-import com.zaico.cms.servicies.interfaces.SkillService;
-import com.zaico.cms.servicies.interfaces.UserService;
+import com.zaico.cms.servicies.interfaces.*;
 
 /**
  * Created by nzaitsev on 22.08.2016.
@@ -22,6 +21,21 @@ public class FactoryService {
      */
     private static SkillService skillService;
 
+    /**
+     * Role
+     */
+    private static RoleService roleService;
+
+    /**
+     * Worker
+     */
+    private static WorkerService workerService;
+
+    /**
+     * Order
+     */
+    private static OrderService orderService;
+    
     /**
      * Singleton methods
      */
@@ -46,5 +60,38 @@ public class FactoryService {
             skillService = new SkillServiceImpl();
         }
         return skillService;
+    }
+
+    /**
+     * Get role service instance
+     * @return skill service implementation
+     */
+    public static RoleService getRoleServiceInstance() {
+        if ( roleService == null) {
+            roleService = new RoleServiceImpl();
+        }
+        return roleService;
+    }
+    
+    /**
+     * Get worker service instance
+     * @return skill service implementation
+     */
+    public static WorkerService getWorkerServiceInstance() {
+        if ( workerService == null) {
+            workerService = new WorkerServiceImpl();
+        }
+        return workerService;
+    }
+    
+    /**
+     * Get order service instance
+     * @return skill service implementation
+     */
+    public static OrderService getOrderServiceInstance() {
+        if ( orderService == null) {
+            orderService = new OrderServiceImpl();
+        }
+        return orderService;
     }
 }

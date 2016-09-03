@@ -3,6 +3,8 @@ package com.zaico.cms.servicies.interfaces;
 import com.zaico.cms.entities.Skill;
 import com.zaico.cms.utility.ExceptionCMS;
 
+import java.util.List;
+
 /**
  * Created by nzaitsev on 17.08.2016.
  */
@@ -28,6 +30,13 @@ public interface SkillService {
      * Update skill
      */
     Skill updateSkill(Skill skill) throws ExceptionCMS;
+
+    /**
+     * Get list of all skills
+     * @return
+     * @throws ExceptionCMS
+     */
+    List<Skill> findAllSkills() throws ExceptionCMS;
 
     /**
      * Delete Skill

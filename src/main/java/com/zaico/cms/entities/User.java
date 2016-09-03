@@ -11,7 +11,7 @@ import java.util.List;
 @Table( name = "USER" )
 @NamedQueries(
     {
-        @NamedQuery(name = "User.getAll", query = "SELECT user FROM User user"),
+        @NamedQuery(name = "User.getAll", query = "SELECT user FROM User user ORDER BY U_UPDATED_AT DESC"),
         @NamedQuery(name = "User.deleteAll", query = "DELETE FROM User"),
         @NamedQuery(name = "User.login", query = "SELECT u FROM User u WHERE u.login= :login AND u.password = :password")
     })
@@ -102,8 +102,8 @@ public class User extends AbstractEntity {
 
     /* Role */
     /**
-     * Get all user roles
-     * @return roles
+     * Get all user role
+     * @return role
      */
     @ManyToMany
     @JoinTable
@@ -116,7 +116,7 @@ public class User extends AbstractEntity {
         return roles;
     }
     /**
-     * Set user roles
+     * Set user role
      * @param roles
      */
     public void setRoles(List roles) {
@@ -161,12 +161,20 @@ public class User extends AbstractEntity {
     @Override
     /**
      * ToString
-     * @return login&roles
+     * @return login&role
      */
     public String toString() {
         return "User{" +
                 "login='" + login + '\'' +
-//                ", roles=" + roles.toString() +
+//                ", role=" + role.toString() +
                 '}';
+    }
+
+    public String rolesprint() {
+        String rolesStr ="";
+        for ( Role role : roles) {
+            rolesStr+="<br>"+role.getRole()+"</br>";
+        }
+        return  rolesStr;
     }
 }

@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 //                Star session
                 HttpSession session = request.getSession();
                 session.setAttribute("user", username);
-//                Set roles as cookies
+//                Set role as cookies
                 List<Role> roleList;
                 roleList = user.getRoles();
                 Cookie userRole = null;
