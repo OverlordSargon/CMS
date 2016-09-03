@@ -18,13 +18,13 @@
         <%-- choose begin worker date--%>
         <div>
             <label for=""> Begin date </label>
-            <input type="text" name="begindate" value="" ${disabled}>
+            <input type="text" name="begindate" value="" ${disabled} placeholder="dd-MM-y" >
         </div>
 
         <%-- choose end worker date--%>
         <div>
             <label for=""> End date </label>
-            <input type="text" name="begindate" value="" ${disabled}>
+            <input type="text" name="enddate" value="" ${disabled} placeholder="dd-MM-y">
         </div>
     </div>
 
@@ -32,27 +32,25 @@
         <%--choose time from--%>
         <div>
             <label for=""> Work from: </label>
-            <input type="text" name="begindate" value="" ${disabled}>
+            <input type="text" name="begintime" value="" ${disabled}>
         </div>
 
         <%--choose time to--%>
         <div>
             <label for=""> to: </label>
-            <input type="text" name="begindate" value="" ${disabled}>
+            <input type="text" name="endtime" value="" ${disabled}>
         </div>
         <%-- choose break for 1 hour--%>
         <div>
             <label for=""> Begin 1 hour break: </label>
-            <input type="text" name="begindate" value="" ${disabled}>
+            <input type="text" name="breakhour" value="" ${disabled}>
         </div>
     </div>
 
 <c:choose>
     <c:when test="${action != \"/worker\"}">
         <%--If U or C print the following name--%>
-        <%--If U or C print the following name--%>
-
-        <%-- choose skills --%>
+                <%-- choose skills --%>
         <div class="list">
             <div class="list_label">
                 Choose skills for worker:

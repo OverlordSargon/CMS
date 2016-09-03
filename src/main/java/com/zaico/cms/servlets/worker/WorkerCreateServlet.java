@@ -1,16 +1,12 @@
 package com.zaico.cms.servlets.worker;
 
-import com.zaico.cms.entities.Role;
-import com.zaico.cms.entities.Skill;
-import com.zaico.cms.entities.User;
-import com.zaico.cms.entities.Worker;
+import com.zaico.cms.entities.*;
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
-import com.zaico.cms.servicies.interfaces.SkillService;
-import com.zaico.cms.servicies.interfaces.UserService;
-import com.zaico.cms.servicies.interfaces.WorkerService;
+import com.zaico.cms.servicies.interfaces.*;
 import com.zaico.cms.utility.ExceptionHandler;
+import com.zaico.cms.utility.WorkWeek;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,7 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +31,7 @@ public class WorkerCreateServlet extends HttpServlet {
     private static final Log LOG = LogFactory.getLog(WorkerServiceImpl.class);
     WorkerService workerService = FactoryService.getWorkerServiceInstance();
     SkillService skillService = FactoryService.getSkillServiceInstance();
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,13 +48,33 @@ public class WorkerCreateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//      Servicies
+        WorkplanService workplanService = FactoryService.getWorkplanServiceInstance();
+        ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
 //        Get parameters
         String workerName = request.getParameter("workername");
         int workerNum = Integer.parseInt(request.getParameter("workertele"));
-        String[] skills = request.getParameterValues("skill");
+        String[] skills = request.getParameterValues("skills");
+//      Sample of date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-y HH:mm");
+//      Dates for schedule and workplan
+        String beginDate = request.getParameter("begindate");
+        String endDate = request.getParameter("enddate");
+        String beginTime = request.getParameter("begintime");
+        String endTime = request.getParameter("endtime");
+        String breakHour = request.getParameter("breakhour");
 
         try {
-            Worker worker = new Worker(workerName,workerNum);
+//            Empty list of workplans
+            List<Workplan> workplanList = new ArrayList<Workplan>();
+//            Get list of dates & create workplan for these days
+            List<Date> workDays = WorkWeek.getWorkDays(beginDate,endDate);            ;
+            for (Date day: workDays) {
+                Workplan workplan = new Workplan(day,workerName);
+                workplanService.createWorkplan(workplan);
+//                Add workplan entity to workplan list
+                workplanList.add(workplan);
+            }
             List<Skill> workerSkills = new ArrayList<Skill>();
 //            if skill id not null
             if (skills != null && skills.length != 0) {
@@ -66,8 +85,11 @@ public class WorkerCreateServlet extends HttpServlet {
                 }
             }
 //            set all finded skill as user skill
-            worker.setSkills(workerSkills);
+            Worker worker = new Worker(workerName, workerNum);
             workerService.createWorker(worker);
+            worker.setSkills(workerSkills);
+            worker.setWorkplans(workplanList);
+            workerService.updateWorker(worker);
             String message = "Worker \""+workerName+"\" created at "+new Date();
             LOG.info(message);
             request.setAttribute("sucMessage",message);
@@ -75,6 +97,6 @@ public class WorkerCreateServlet extends HttpServlet {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage"+" Try again please, check parameters", errorMessage);
         }
-        request.getRequestDispatcher("pages/worker/workers.jsp").forward(request, response);
+        request.getRequestDispatcher("/workers").forward(request, response);
     }
 }

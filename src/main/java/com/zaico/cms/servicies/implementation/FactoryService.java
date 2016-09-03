@@ -35,7 +35,19 @@ public class FactoryService {
      * Order
      */
     private static OrderService orderService;
-    
+
+    /**
+     * Workplan
+     */
+    private static WorkplanService workplanService;
+
+    /**
+     * Schedule
+     */
+    private static ScheduleService scheduleService;
+
+
+
     /**
      * Singleton methods
      */
@@ -93,5 +105,27 @@ public class FactoryService {
             orderService = new OrderServiceImpl();
         }
         return orderService;
+    }
+
+    /**
+     * Get workplan service instance
+     * @return workplan service implementation
+     */
+    public static WorkplanService getWorkplanServiceInstance() {
+        if ( workplanService == null) {
+            workplanService = new WorkplanServiceImpl();
+        }
+        return workplanService;
+    }
+
+    /**
+     * Get schedule service instance
+     * @return schedule service implementation
+     */
+    public static ScheduleService getScheduleServiceInstance() {
+        if ( scheduleService == null) {
+            scheduleService = new ScheduleServiceImpl();
+        }
+        return scheduleService;
     }
 }

@@ -30,6 +30,11 @@ public class ErrorCode {
     public static final int ORDER_CREATION_ERROR = 18;
     public static final int ORDER_CANNOT_BE_UPDATED = 19;
     public static final int ORDER_CANNOT_BE_DELETED = 20;
+    
+    public static final int WORKPLAN_NOT_FOUND = 21;
+    public static final int WORKPLAN_CREATION_ERROR = 22;
+    public static final int WORKPLAN_CANNOT_BE_UPDATED = 23;
+    public static final int WORKPLAN_CANNOT_BE_DELETED = 24;
 
     
 }

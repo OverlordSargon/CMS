@@ -7,19 +7,15 @@ import com.zaico.cms.entities.*;
 
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
-import com.zaico.cms.servicies.interfaces.RoleService;
-import com.zaico.cms.servicies.interfaces.UserService;
-import com.zaico.cms.servicies.interfaces.WorkerService;
-import com.zaico.cms.utility.ErrorCode;
-import com.zaico.cms.utility.ExceptionCMS;
-import com.zaico.cms.utility.ExceptionHandler;
-import com.zaico.cms.utility.PrintAttributes;
+import com.zaico.cms.servicies.interfaces.*;
+import com.zaico.cms.utility.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -28,47 +24,54 @@ import java.util.*;
 public class Main {
     public static void main(String[] args)  throws ExceptionCMS, SQLException, ClassNotFoundException,InterruptedException , IllegalArgumentException,
     IllegalAccessException {
-//        OrderDAO orderDAO = FactoryDAO.getOrderDAOInstance();
-//        List<Order> allOrders = orderDAO.getAll();
-//        String result = "";
-//        boolean first = true;
-//        try {
-//            for (Order order: allOrders) {
-//                if ( first == true ) {
-//                    PrintAttributes.getHeader(order);
-//                    first = false;
-//                }
-//                result += (PrintAttributes.getAttributes(order));
-//            }
-//        } catch (Exception e) {
-//            result = "FUCK";
-//            System.out.println(e);
-//        }
-//        System.out.println(result);
-//        String message ="";
-//        String skillName = "skillname";
-//        String skillDesc = "skilldesc";
-//        try {
-//            SkillDAO skillDAO = FactoryDAO.getSkillDAOInstance();
-//            Skill newSkill = skillDAO.read(9L);
-//            newSkill.setName("Changed mane");
-//            skillDAO.update(newSkill);
-//            message = "Skill created successfully";
-//            System.out.println(message);
-//        } catch (Exception e) {
-//            ExceptionCMS exc = new ExceptionCMS("Skill not created", ErrorCode.SKILL_CREATE_ERROR);
-//            String errorMessage = ExceptionHandler.handleException(exc);
-//            System.out.println(errorMessage);
-//        }
+//
         WorkerService workerService = FactoryService.getWorkerServiceInstance();
+        SkillService skillService = FactoryService.getSkillServiceInstance();
+        WorkplanService workplanService = FactoryService.getWorkplanServiceInstance();
+        ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
+//        Get parameters
+        String workerName = "workhdgfhgfername";
+        int workerNum = Integer.parseInt("5423345");
+//      Sample of date
+//      Dates for schedule and workplan
+        String beginDate ="10-09-2016";
+        String endDate = "14-10-2016";
+        String[] skills = {"18"};
+
 
         try {
-            List<Worker> workers = workerService.findAllWorkers();
-            if ( workers != null ) {
-                System.out.println("GOTHCA!");
+//            Empty list of workplans
+            List<Workplan> workplanList = new ArrayList<Workplan>();
+//            Get list of dates & create workplan for these days
+            List<Date> workDays = WorkWeek.getWorkDays(beginDate, endDate);
+            ;
+            for (Date day : workDays) {
+                Workplan workplan = new Workplan(day, workerName);
+                workplanService.createWorkplan(workplan);
+//                Add workplan entity to workplan list
+                workplanList.add(workplan);
             }
+            List<Skill> workerSkills = new ArrayList<Skill>();
+//            if skill id not null
+            if (skills != null && skills.length != 0) {
+                for (String skillId : skills) {
+//                    Find each skill with id and add to skill list
+                    long id = Long.parseLong(skillId);
+                    workerSkills.add(skillService.findSkill(id));
+                }
+            }
+//            set all finded skill as user skill
+            Worker worker = new Worker(workerName, workerNum);
+            workerService.createWorker(worker);
+            worker.setSkills(workerSkills);
+            worker.setWorkplans(workplanList);
+            workerService.updateWorker(worker);
+            String message = "Worker \"" + workerName + "\" created at " + new Date();
+            System.out.println(message);
         } catch (Exception e) {
-            String errMes = ExceptionHandler.handleException(e);
+            System.out.println(e);
         }
+
+
     }
 }

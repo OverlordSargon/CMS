@@ -6,6 +6,6 @@ import com.zaico.cms.servicies.interfaces.ScheduleService;
 /**
  * Created by nzaitsev on 17.08.2016.
  */
-public class ScheduleServiceImpl {
+public class ScheduleServiceImpl implements ScheduleService {
 
 }
