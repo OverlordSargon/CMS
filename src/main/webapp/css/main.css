@@ -1,65 +1,150 @@
-
-body {
-    height: 100%;
+.slider {
+    max-height: 600px;
+    width: 100%
 }
 
-header {
+.slider .carousel .carousel-indicators li {
+    border: 1px solid #c2c2c2;
+    background-color: #c2c2c2;
+    margin-left: 1%
+}
+
+.slider .carousel .carousel-indicators .active {
+    background-color: #048bff;
+    border: 1px solid #048bff
+}
+
+.slider .carousel-control {
+    bottom: 6%;
+    width: 4%;
+    opacity: 1;
+    top: 95%;
+    color: #048bff
+}
+
+.slider .carousel-inner .carousel-caption {
+    position: absolute;
+    left: 3%;
+    right: 65%;
+    bottom: 36%;
+    text-align: left
+}
+
+.slider .carousel-inner .item {
+    max-height: 600px
+}
+
+.slider .carousel-inner .item img {
     width: 100%;
-    background-color: #7EA8B3;
-}
-header .logo {
-    padding: 5% 0;
-}
-header .logoleft {
-    float: left;
-    background-color: lightcyan;
-    width: 50px;
+    max-height: 600px
 }
 
-header .logoright {
-    float: right;
-    width: 50px;
-    background-color: lightcyan;
-}
-
-header .logotext {
-    text-align: center;
-    font-size:25px;
-    color: indigo;
-    vertical-align: middle;
-    line-height: inherit;
-}
-
-menu {
-    list-style: none;
-    display: flex;
-}
-
-.bodydiv {
-    width: 80%;
-    margin: 30px auto;
-    background:#7EA8B3;
+.news {
+    display: inline-block;
+    min-height: 300px;
+    width: 100%;
     height: auto;
-}
-
-.bodydiv .header {
-    text-align: center;
-    min-height: 10%;
-    max-height: 50%;
-    color: darkblue;
-    font-size:30px;
-}
-.bodydiv .info {
-    background-color: lightcyan;
-    font-size:20px;
     padding: 15px 0;
-    margin: 15px 0;
-    height: 200px;
+    border-bottom: 1px solid darkgrey;
+    position: relative;
+    background-color: white
 }
 
-
-footer {
-    background-color: aliceblue;
+.news .newsmedia {
+    display: inline-block;
+    float: left;
     width: 100%;
-    height: 300px;
+    min-height: 100px;
+    max-height: 400px;
+    overflow: hidden
+}
+
+.news .newsmedia img {
+    width: 100%;
+    max-width: 709px;
+    min-width: 150px
+}
+
+.news .newsmediaw {
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    padding-left: 0
+}
+
+.news .newsmediaw img {
+    width: 100%
+}
+
+.news .newsinfo {
+    display: inline-block;
+    float: left;
+    width: 100%;
+    height: auto
+}
+
+.news .newsinfo .top {
+    height: auto;
+    margin-bottom: 2%;
+    padding: 0
+}
+
+.news .newsinfo .newsheader {
+    font-size: 26px;
+    text-align: left;
+    color: black;
+    margin: 0 0 20px 0;
+    width: 100%;
+    font-weight: bold;
+    text-align: center
+}
+
+.news .newsinfo .newspreview {
+    text-align: left;
+    margin: 0 0 15px 0
+}
+
+.news .newsinfo .newstext {
+    font-size: 18px;
+    word-wrap: break-word
+}
+
+.news .newsinfo .newstext p {
+    text-indent: 5%
+}
+
+.news .eventdate {
+    text-align: center;
+    font-size: 2.5em;
+    font-family: 'a_FuturicaBsBold', arial;
+    background: -webkit-linear-gradient(to top, rgba(30, 87, 153, 0), rgba(30, 87, 153, 0.8), #1e5799, #1e5799, #2989d8, #1e5799, #1e5799, rgba(30, 87, 153, 0.8), rgba(30, 87, 153, 0));
+    -webkit-background-clip: text;
+    color: transparent, black;
+    color: #08f
+}
+
+.navbar-fixed-top, .navbar-fixed-bottom {
+    position: relative
+}
+
+.tsdbuttonnews {
+    right: 1%;
+    bottom: 10%;
+    color: #048bff !important;
+    background: white !important;
+    font-weight: bold !important
+}
+
+.admin_icons {
+    position: absolute;
+    right: 3%;
+    top: 0%;
+    font-size: 15px
+}
+
+.pagemain {
+    color: #2d6a9f;
+    font-weight: bold
 }

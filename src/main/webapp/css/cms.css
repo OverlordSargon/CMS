@@ -1,0 +1,543 @@
+@font-face {
+    font-family: a_FuturicaBsLight;
+    src: "fonts/a_futuricabs-light.ttf"
+}
+
+@font-face {
+    font-family: a_FuturicaBsBold;
+    src: "fonts/a_futuricabs-bold.ttf"
+}
+
+body {
+    max-width: 1600px;
+    min-width: 300px;
+    margin: 0 auto !important;
+    box-sizing: border-box;
+    font-size: 15px;
+    background: black!important;
+    font-family: 'a_FuturicaBsLight', arial
+}
+
+header {
+    height: 100px;
+    background: -webkit- linear-gradient(to right, #e91e79, #e20074, #e91e79);
+    background: linear-gradient(to right, #e91e79, #e20074, #e91e79);
+    line-height: 1;
+    position: relative
+}
+
+header .logoleft, header .logoright, header .header-name {
+    height: inherit;
+    text-align: center;
+    display: inline-block;
+    background: white
+}
+
+header .logoleft img, header .logoright img, header .header-name img {
+    margin: 5px 0 0 0
+}
+
+header .child {
+    display: inline-block;
+    vertical-align: middle
+}
+
+header .header-name {
+    width: 100%;
+    background: transparent;
+    color: white;
+    vertical-align: middle;
+    font-family: 'a_FuturicaBsBold', arial;
+    font-size: 30px;
+    font-weight: bold
+}
+
+header .logoleft {
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    width: 100px
+}
+
+header .logoright {
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px
+}
+
+nav {
+    height: 50px;
+    width: 100%;
+    margin: 0 auto;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    background-color: white
+}
+
+nav a {
+    display: inline-block;
+    height: inherit;
+    margin-left: -5px;
+    padding: 0;
+    box-sizing: border-box;
+    width: 14.28571429%;
+    text-align: center;
+    text-decoration: none !important;
+    line-height: 50px;
+    height: 49px;
+    text-transform: uppercase;
+    color: black
+}
+
+nav a:first-child {
+    margin: 0
+}
+
+nav a:last-child {
+    border-right: none
+}
+
+nav a:hover {
+    color: #048bff;
+    font-weight: bold
+}
+
+nav a:active {
+    background: black;
+    color: white;
+    box-shadow: 0 0 0 black
+}
+
+nav a:last-child:active {
+    box-shadow: 10px 0 0 black
+}
+
+.row {
+    margin-right: 0
+}
+
+.asideblock {
+    padding-right: 0
+}
+
+aside {
+    height: auto;
+    float: right;
+    width: 100%
+}
+
+aside .calendar {
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    text-align: center;
+    margin-bottom: 2%
+}
+
+aside .calendar .cal {
+    background: #048bff;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: white
+}
+
+aside .calendar .cal a {
+    text-decoration: none
+}
+
+aside .calendar .cal .month {
+    display: none
+}
+
+aside .calendar .cal caption {
+    line-height: 32px;
+    color: white;
+    font-weight: bold;
+    background: #048bff;
+    text-align: center;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+    position: relative
+}
+
+aside .calendar .cal caption a {
+    display: block;
+    line-height: 32px;
+    padding: 0 10px !important;
+    font-size: 15px
+}
+
+aside .calendar .cal caption .prev, aside .calendar .cal caption .next {
+    position: absolute;
+    height: 100%
+}
+
+aside .calendar .cal caption .prev a, aside .calendar .cal caption .next a {
+    color: white;
+    margin: auto;
+    line-height: 60px;
+    font-size: 2em
+}
+
+aside .calendar .cal caption .prev {
+    left: 0
+}
+
+aside .calendar .cal caption .next {
+    right: 0
+}
+
+aside .calendar .cal .active a {
+    border: none
+}
+
+aside .calendar .cal thead th {
+    font-size: 1em;
+    text-align: center
+}
+
+aside .calendar .cal tbody {
+    width: 100%;
+    font-weight: bold
+}
+
+aside .calendar .cal tbody td {
+    font-weight: normal;
+    text-align: center;
+    height: 3.1em;
+    padding: 0 !important;
+    width: 14.28571429%;
+    position: relative
+}
+
+aside .calendar .cal tbody td .fa {
+    font-size: 0;
+    position: absolute;
+    width: 100%;
+    left: 0%;
+    top: 4%;
+    z-index: 1;
+    color: #048bff
+}
+
+aside .calendar .cal tbody td a {
+    color: white;
+    z-index: 2;
+    position: relative
+}
+
+aside .calendar .cal tbody .off a {
+    color: #c2c2c2
+}
+
+aside .calendar .cal tbody .active .fa {
+    color: #2D6A9F;
+    font-size: 3em
+}
+
+aside .calendar .cal tbody .active a {
+    color: white
+}
+
+aside .calendar .cal tbody .event-day .fa {
+    font-size: 3em;
+    color: white
+}
+
+aside .calendar .cal tbody .event-day a {
+    color: #048bff !important
+}
+
+aside .calendar .calendar-popup {
+    height: 100%;
+    width: 300px;
+    position: absolute;
+    top: 0;
+    left: -300px;
+    display: none;
+    background: white;
+    border: 2px solid #08f;
+    font-size: 1.5em
+}
+
+aside .calendar .calendar-popup .title, aside .calendar .calendar-popup .content, aside .calendar .calendar-popup .datevis {
+    display: block
+}
+
+aside .calendar .calendar-popup .title, aside .calendar .calendar-popup .datevis {
+    border-bottom: 1px solid black
+}
+
+aside .calendar .calendar-popup .date {
+    display: none
+}
+
+aside .calendar .calendar-popup .title {
+    font-size: 1em;
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    color: #048bff;
+    border-bottom: 1px solid black
+}
+
+aside .calendar .calendar-popup .content {
+    text-indent: 4%
+}
+
+aside .calendar .calendar-popup .datevis {
+    line-height: 2em;
+    vertical-align: middle;
+    background: linear-gradient(to right, #e91e79, #e20074, #e91e79);
+    color: white
+}
+
+aside .calendar .calendar-popup .id {
+    position: absolute;
+    bottom: 10%;
+    right: 50%
+}
+
+aside .calendar .calendar-popup .id .tsdbutton {
+    background: none;
+    color: #2d6a9f
+}
+
+aside .news_aside {
+    background: black;
+    height: auto;
+    width: 100%;
+    padding-bottom: 5%
+}
+
+aside .news_aside .newsblock {
+    height: auto;
+    margin: 0 0 10px 0;
+    background: #222
+}
+
+aside .news_aside .newsblock .newsblock_info {
+    margin: auto;
+    height: auto;
+    width: 90%;
+    position: relative
+}
+
+aside .news_aside .newsblock .newsblock_info .autor_date {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    line-height: 1em;
+    margin: 2% 0 3% 0
+}
+
+aside .news_aside .newsblock .newsblock_info .autor_date .newsblock_author {
+    display: inline-block;
+    float: left;
+    color: #048bff;
+    margin: 0 0 5px 0
+}
+
+aside .news_aside .newsblock .newsblock_info .autor_date .newsblock_date {
+    display: inline-block;
+    float: right;
+    color: #048bff;
+    font-size: 10px
+}
+
+aside .news_aside .newsblock .newsblock_info .newsblock_text {
+    clear: both;
+    font-size: 12px;
+    color: #8d8d8d;
+    text-align: left;
+    max-height: 50px;
+    overflow: hidden
+}
+
+aside .news_aside .newsblock .newsblock_info .newsblock_link {
+    color: #048bff;
+    text-align: left
+}
+
+aside .news_aside .news_navigation {
+    margin: 0 auto;
+    text-align: center;
+    vertical-align: bottom
+}
+
+aside .news_aside .news_navigation .pagination {
+    margin: 0;
+    padding: 0
+}
+
+aside .news_aside .news_navigation .pagination .next a {
+    color: #048bff
+}
+
+aside .news_aside .news_navigation .pagination .active a {
+    background-color: #048bff
+}
+
+aside .news_aside .news_navigation .pagination li a, aside .news_aside .news_navigation .pagination li span {
+    background-color: #222;
+    border: none;
+    color: white
+}
+
+aside .news_aside .news_navigation .pagination li .next, aside .news_aside .news_navigation .pagination li span {
+    border-radius: 0 !important;
+    color: #048bff
+}
+
+.change_block {
+    margin: 0px;
+    background: white;
+    padding: 0;
+}
+
+.center {
+    display: inline-block
+}
+
+.cmsbutton {
+    margin-left: 1%;
+    border-radius: 5px;
+    color: white;
+    background: #e20074;
+    width: 166px;
+    height: 43px;
+    line-height: 43px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    text-shadow: none;
+    font-size: 1.19em;
+    border: none;
+}
+
+.cmsbutton a {
+    color: white;
+}
+
+.cmsbutton:active {
+    background: greenyellow;
+}
+
+.cmsbutton a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+footer {
+    clear: both;
+    height: 90px;
+    margin: 5% 0 0 0;
+    background: -webkit- linear-gradient(to right, #e91e79, #e20074, #e91e79);
+    background: linear-gradient(to right, #e91e79, #e20074, #e91e79)
+}
+
+.helper {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    width: 0px
+}
+.btn {
+    font-weight: bold!important;
+}
+.btn:hover {
+    color: white!important;
+}
+.buttons-ud {
+    margin: 2%;
+}
+
+.buttons-ud div {
+    display: inline-block;
+}
+
+.view {
+    /*background: rgba(226, 0, 116, 0.59);*/
+    background: #c30064;
+    color: white;
+    font-weight: bold;
+
+}
+.renew {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-weight: bold;
+}
+
+.detailview {
+    color: white;
+    background: #08f;
+    font-weight: bold;
+}
+
+.delete {
+    color: white;
+    font-weight: bold;
+    background: #B83D3D
+}
+
+.create {
+    max-width: 200px;
+    margin: 1% 0!important;
+    color: white;
+    font-weight: bold!important;
+    background: #e20074;
+}
+
+.create:hover {
+    color: white;
+}
+
+.form-view {
+    padding: 1.5%;
+    width: 100%;
+    font-size: 1.4em;
+}
+
+.form-view form label {
+    display: block;
+}
+
+.form-view form input {
+    display: block;
+    width: 100%;
+}
+
+.list select {
+    width: 250px;
+}
+.form-part {
+    margin-bottom: 1%;
+}
+.form-view div {
+    margin: 1% 0;
+}
+.messages .error_message,.messages .success_message,.messages .info_message{
+    color: #0a0a0a;
+    font-size: 25px;
+    line-height: 50px;
+    text-align: center;
+    height: 50px;
+    width: 90%;
+    margin: 1% auto;
+    border-radius: 10px;
+}
+
+.messages .error_message {
+    background: red;
+}
+
+.messages .success_message {
+    background: greenyellow;
+}
+
+.messages .info_message {
+    background: cornflowerblue;
+}

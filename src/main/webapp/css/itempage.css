@@ -1,0 +1,125 @@
+.pagegrid-views {
+    color: #2d6a9f;
+    font-weight: bold
+}
+
+.grid-view:first-child {
+    margin-top: 20px
+}
+
+.grid-view {
+    display: inline-block;
+    background: #fff;
+    min-height: 300px;
+    height: auto;
+    width: 100%;
+    padding: 1% 0 1% 0
+}
+
+.grid-view .grid-viewphoto {
+    display: inline-block;
+    height: 100%
+}
+
+.grid-view .grid-viewphoto .grid-viewimg {
+    overflow: hidden;
+    margin: 0 auto;
+    height: 70%
+}
+
+.grid-view .grid-viewphoto .grid-viewimg img {
+    width: 100%
+}
+
+.grid-view .grid-viewphoto .grid-viewdan {
+    background: #222;
+    color: white;
+    height: 10%;
+    line-height: 30px;
+    width: 100%;
+    border-bottom: 3px solid #048bff;
+    box-sizing: border-box;
+    text-align: center
+}
+
+.grid-view .grid-viewphoto .grid-viewdan .dan {
+    text-align: center
+}
+
+.grid-view .grid-viewphoto .grid-viewname {
+    background: #222;
+    color: white;
+    height: 20%;
+    line-height: 60px;
+    font-size: 26px;
+    text-align: center;
+    width: 100%
+}
+
+.grid-view .grid-viewinfo {
+    display: inline-block;
+    float: right;
+    word-wrap: break-word;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px
+}
+
+.grid-view .grid-viewinfo .adress {
+    text-align: center;
+    font-size: 2em;
+    color: #2d6a9f
+}
+
+.grid-view .grid-viewinfo table {
+    table-layout: auto;
+    font-size: 20px;
+    width: 95%;
+    margin: 0 auto;
+    background: white;
+    height: inherit
+}
+
+.grid-view .grid-viewinfo table th {
+    border: 2px solid #e20074;
+    font-weight: bold;
+    text-align: center
+}
+
+.grid-view .grid-viewinfo table td {
+    text-align: center;
+    width: 1%;
+    border: 2px solid #e20074;
+    border-bottom: 1px solid #c2c2c2;
+    height: 3em
+}
+
+.grid-view .grid-viewinfo table td input {
+    width: 80%;
+    margin: 5px auto;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px
+}
+
+.grid-view .grid-viewinfo table td .renew {
+    background: rgba(0, 0, 0, 0.8);
+    color: white
+}
+
+.grid-view .grid-viewinfo table td .detailview {
+    color: white;
+    background: #08f
+}
+
+.grid-view .grid-viewinfo table td .delete {
+    color: white;
+    background: #B83D3D
+}
+
+.grid-view .admin_icons {
+    position: absolute;
+    right: 3%;
+    top: 0%;
+    font-size: 15px
+}

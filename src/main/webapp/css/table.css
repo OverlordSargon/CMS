@@ -1,0 +1,41 @@
+.table_header {
+    color: snow;
+    text-align: center;
+}
+ table {
+    table-layout: auto;
+    font-size: 20px;
+    width: 95%;
+    margin: 0 auto;
+    background: white;
+    height: inherit
+}
+
+table th {
+    border: 2px solid #e20074;
+    font-weight: bold;
+    text-align: center
+}
+
+table td {
+    text-align: center;
+    width: 1%;
+    border: 2px solid #e20074;
+    border-bottom: 1px solid #c2c2c2;
+    height: 3em;
+    font-size:;
+}
+
+table td input {
+    width: 80%;
+    margin: 5px auto;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px
+}
+
+
+
+table .btn {
+    margin-bottom: 5px;
+}
