@@ -35,6 +35,14 @@ public class ErrorCode {
     public static final int WORKPLAN_CREATION_ERROR = 22;
     public static final int WORKPLAN_CANNOT_BE_UPDATED = 23;
     public static final int WORKPLAN_CANNOT_BE_DELETED = 24;
-
     
+    public static final int SCHEDULE_NOT_FOUND = 25;
+    public static final int SCHEDULE_CREATE_ERROR = 26;
+    public static final int SCHEDULE_CANNOT_BE_UPDATED = 27;
+    public static final int SCHEDULE_CANNOT_BE_DELETED = 28;
+
+    public static final int WORKER_NOT_FOUND_BY_SKILL = 29;
+
+
+
 }

@@ -18,10 +18,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by nzaitsev on 03.09.2016.
@@ -53,20 +55,27 @@ public class OrderCreateSevlet extends HttpServlet {
 //        Get parameters
         String orderNum = request.getParameter("ordernum");
         String orderDesc = request.getParameter("orderdesc");
-        String orderWorktype = request.getParameter("orderworktype");
+        Long orderSkill = Long.parseLong(request.getParameter("orderworktype"));
         Date date = new Date();
         String from = request.getParameter("orderfrom");
         String to = request.getParameter("orderto");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-y HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("MM-dd-y HH:mm");
         String orderClient = request.getParameter("ordercname");
         int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
         Long workerId = Long.parseLong(request.getParameter("orderworker"));
 
         try {
+            /*Find workers by skill*/
+            List<Worker> workers  = workerService.findWorkersBySkill(orderSkill);
+            Random random = new Random();
+            int id = random.nextInt(workers.size());
+//            choose random worker
+            Worker worker = workers.get(id);
+
+            /*Create order*/
             Date dateFrom = dateFormat.parse(from);
             Date dateTo = dateFormat.parse(to);
-            Worker worker = workerService.findWorker(workerId);
-            Order order = new Order(orderNum,orderDesc,orderWorktype,
+            Order order = new Order(orderNum,orderDesc,
                     date,dateFrom,dateTo,orderCleintNum,orderClient,worker);
             orderService.createOrder(order);
             String message = "Order \""+orderNum+"\" created at "+new Date();

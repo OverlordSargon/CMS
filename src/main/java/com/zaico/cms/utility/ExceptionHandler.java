@@ -17,9 +17,7 @@ public class ExceptionHandler {
     public static String handleException(Exception e) {
         if (e instanceof ExceptionCMS) {
             switch (((ExceptionCMS) e).getErrorCode()) {
-                case 1:
-                case 2:
-                case 3:
+                case 1-28:
                     return e.getMessage();
                 default:
                     return TECHNICAL_ERROR;

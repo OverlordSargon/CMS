@@ -53,7 +53,7 @@ public class UserDeleteServlet extends HttpServlet {
             userService.deleteUser(user);
             String message = "User \""+user.getLogin()+"\" deleted successfully";
             LOG.info(message);
-            request.setAttribute("sucMessage",message);
+            request.setAttribute("infoMessage",message);
         } catch (Exception e) {
             String message = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage",message);

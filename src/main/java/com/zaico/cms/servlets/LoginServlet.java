@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
                 Cookie userRole = null;
                 for ( Role role : roleList) {
                     userRole = new Cookie("role",role.toString(1));
-                    userRole.setMaxAge(30 * 60);
+                    userRole.setMaxAge(-1);
                 }
 //                Setting session to expiry in 30 mins
                 session.setMaxInactiveInterval(30 * 60);

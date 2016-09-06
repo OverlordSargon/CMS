@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +43,9 @@ public class RoleCreateServlet extends HttpServlet {
             String message = "Role \""+roleName+"\" created at "+new Date();
             LOG.info(message);
             request.setAttribute("sucMessage",message);
+//            Cookie messa = new Cookie("sucMessage",message);
+//            messa.setMaxAge(60);
+//            response.addCookie(messa);
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage"+" Try again please, check parameters", errorMessage);

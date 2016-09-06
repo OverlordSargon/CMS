@@ -34,12 +34,31 @@ public interface WorkerService {
     List<Worker> findAllWorkers() throws ExceptionCMS;
 
     /**
-     * Update worker entity
-     * @param worker
-     * @return updated worker
+     * Find worker by id declaration
+     * @param skillId
+     * @return list of workers with needed skill
      * @throws ExceptionCMS
      */
+    List<Worker> findWorkersBySkill(long skillId) throws ExceptionCMS;
+
+
+        /**
+         * Update worker entity
+         * @param worker
+         * @return updated worker
+         * @throws ExceptionCMS
+         */
     Worker updateWorker(Worker worker) throws ExceptionCMS;
+
+    /**
+     * Set new flags for worker
+     * @param worker
+     * @param timeFrom
+     * @param timeTo
+     * @return
+     * @throws ExceptionCMS
+     */
+    Worker updateFlag(Worker worker,String timeFrom, String timeTo) throws ExceptionCMS;
 
     /**
      * Delete worker by id

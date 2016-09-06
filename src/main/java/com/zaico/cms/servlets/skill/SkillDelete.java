@@ -33,7 +33,7 @@ public class SkillDelete extends HttpServlet {
             Integer id = Integer.parseInt(request.getParameter("id"));
             skill = skillService.findSkill((long)id);
             request.setAttribute("skill",skill);
-            request.setAttribute("infoMessage","You want to delete this role. Are you sure?");
+            request.setAttribute("infoMessage","You want to delete this Skill. Are you sure?");
         } catch (Exception e) {
             LOG.info("Skill \""+skill.getName()+ "\" notfounded at "+new Date());
             String errMess = ExceptionHandler.handleException(e);
@@ -55,7 +55,7 @@ public class SkillDelete extends HttpServlet {
             skillService.deleteSkill(skill);
             String message = "Skill \""+skill.getName()+"\" deleted successfully";
             LOG.info(message);
-            request.setAttribute("sucMessage",message);
+            request.setAttribute("infoMessage",message);
         } catch (Exception e) {
             String message = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage",message);

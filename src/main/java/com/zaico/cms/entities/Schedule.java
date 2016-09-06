@@ -140,10 +140,10 @@ public class Schedule extends AbstractEntity {
 
     @Override
     public String toString() {
-        return "Schedule{" +
-                "interval=" + interval +
+        return "Schedule: " +
+                "interval= " + interval +
                 ", flag='" + flag + '\'' +
 //                ", workplan=" + workplan.getDescription() +
-                '}';
+                '.';
     }
 }

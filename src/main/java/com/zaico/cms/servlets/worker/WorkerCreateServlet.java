@@ -5,6 +5,7 @@ import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
 import com.zaico.cms.servicies.interfaces.*;
+import com.zaico.cms.utility.DaySchedule;
 import com.zaico.cms.utility.ExceptionHandler;
 import com.zaico.cms.utility.WorkWeek;
 import org.apache.commons.logging.Log;
@@ -57,6 +58,7 @@ public class WorkerCreateServlet extends HttpServlet {
         String[] skills = request.getParameterValues("skills");
 //      Sample of date
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-y HH:mm");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 //      Dates for schedule and workplan
         String beginDate = request.getParameter("begindate");
         String endDate = request.getParameter("enddate");
@@ -65,16 +67,23 @@ public class WorkerCreateServlet extends HttpServlet {
         String breakHour = request.getParameter("breakhour");
 
         try {
+            /*Schedules*/
+            List<Schedule> scheduleList = DaySchedule.scheduleList(beginTime,endTime,breakHour);
+
+            /*Workplans*/
 //            Empty list of workplans
             List<Workplan> workplanList = new ArrayList<Workplan>();
 //            Get list of dates & create workplan for these days
-            List<Date> workDays = WorkWeek.getWorkDays(beginDate,endDate);            ;
+            List<Date> workDays = WorkWeek.getWorkDays(beginDate,endDate);
             for (Date day: workDays) {
                 Workplan workplan = new Workplan(day,workerName);
+                workplan.setSchedules(scheduleList);
                 workplanService.createWorkplan(workplan);
 //                Add workplan entity to workplan list
                 workplanList.add(workplan);
             }
+
+            /*Skills*/
             List<Skill> workerSkills = new ArrayList<Skill>();
 //            if skill id not null
             if (skills != null && skills.length != 0) {

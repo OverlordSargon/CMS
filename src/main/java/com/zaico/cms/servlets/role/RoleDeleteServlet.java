@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,10 +57,15 @@ public class RoleDeleteServlet extends HttpServlet {
             String message = "Role \""+role.getRole()+"\" deleted successfully";
             roleService.deleteRole(role);
             LOG.info(message);
-            request.setAttribute("sucMessage",message);
+            request.setAttribute("infoMessage",message);
+//            Cookie messa = new Cookie("infoMessage",message);
+//            messa.setMaxAge(60);
         } catch (Exception e) {
             String message = ExceptionHandler.handleException(e);
-            request.setAttribute("errMessage",message);
+//            request.setAttribute("errMessage",message);
+            Cookie messa = new Cookie("infoMessage",message);
+            messa.setMaxAge(60);
+
         }
         request.getRequestDispatcher("/roles").forward(request,response);
     }

@@ -1,5 +1,6 @@
 package com.zaico.cms.utility;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class WorkWeek {
     public static List<Date> getWorkDays(String beginDate, String endDate) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
         Date begin = dateFormat.parse(beginDate);
         Date end = dateFormat.parse(endDate);
         List<Date> workDays = new ArrayList<Date>();

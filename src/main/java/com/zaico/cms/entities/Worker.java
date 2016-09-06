@@ -14,6 +14,7 @@ import static java.util.logging.Level.ALL;
 @NamedQueries(
     {
         @NamedQuery(name = "Worker.getAll", query = "SELECT worker FROM Worker worker ORDER BY W_UPDATED_AT DESC"),
+        @NamedQuery(name = "Worker.getBySkill", query = "select  w from Worker w join w.skills s where s.id  = :skill "),
         @NamedQuery(name = "Worker.deleteAll", query = "DELETE FROM Worker")
     })
 public class Worker extends AbstractEntity {

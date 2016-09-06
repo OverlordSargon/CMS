@@ -56,7 +56,7 @@ public class WorkerDeleteServlet extends HttpServlet {
             workerService.deleteWorker(worker);
             String message = "Worker \""+worker.getName()+"\" deleted successfully";
             LOG.info(message);
-            request.setAttribute("sucMessage",message);
+            request.setAttribute("infoMessage",message);
         } catch (Exception e) {
             String message = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage",message);

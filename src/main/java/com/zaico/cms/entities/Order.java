@@ -22,9 +22,6 @@ public class Order extends AbstractEntity {
     /* Description */
     private String description;
 
-    /* Worktype */
-    private String worktype;
-
     /* date, when needs to be done */
     private Date date;
 
@@ -65,12 +62,11 @@ public class Order extends AbstractEntity {
     */
 
 
-    public Order(String ordNumber, String description, String worktype,
+    public Order(String ordNumber, String description,
                  Date date,Date from, Date to, int telNumber,
                  String clientName, Worker worker) {
         this.ordNumber = ordNumber;
         this.description = description;
-        this.worktype = worktype;
         this.date = date;
         this.from = from;
         this.to = to;
@@ -123,25 +119,6 @@ public class Order extends AbstractEntity {
     /** @param description new Description*/
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    /* Worktype */
-
-    /**
-     * Get worktype
-     * @return worktype
-     */
-    @Column( name = "ORD_WORKTYPE")
-    public String getWorktype() {
-        return worktype;
-    }
-
-    /**
-     * Set eorktype
-     * @param worktype
-     */
-    public void setWorktype(String worktype) {
-        this.worktype = worktype;
     }
 
     /* Date*/
