@@ -82,6 +82,10 @@ public class WorkerCreateServlet extends HttpServlet {
 //                Add workplan entity to workplan list
                 workplanList.add(workplan);
             }
+            if (workplanList.size() == 0 ) {
+                String messa = "In period from "+beginDate+" to "+endDate+"only weekends";
+                request.setAttribute("infoMessage",messa);
+            }
 
             /*Skills*/
             List<Skill> workerSkills = new ArrayList<Skill>();

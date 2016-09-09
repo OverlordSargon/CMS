@@ -78,12 +78,16 @@
                     <c:out value="${errMessage}"></c:out>
                 </div>
             </c:when>
+        </c:choose>
+        <c:choose>
             <c:when test="${sucMessage != null}">
                 <div class="success_message">
                     <c:out value="${sucMessage}"></c:out>
                 </div>
             </c:when>
-            <c:when test="${infoMessage != null}">
+        </c:choose>
+        <c:choose>
+        <c:when test="${infoMessage != null}">
                 <div class="info_message">
                     <c:out value="${infoMessage}"></c:out>
                 </div>

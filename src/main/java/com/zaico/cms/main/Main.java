@@ -18,6 +18,7 @@ import javax.persistence.Query;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -37,19 +38,55 @@ public class Main {
         int workerNum = Integer.parseInt("5423345");
 //      Sample of date
 //      Dates for schedule and workplan
-        String beginDate ="10-09-2016";
-        String endDate = "14-10-2016";
+        String beginDate ="10-09-2016 15:00:00";
+        String endDate = "11-09-2016 15:00:00";
         String[] skills = {"18"};
         String beginTime = ("10:00:00");
         String endTime = ("15:00:00");
         String breakHour = ("13:00:00");
         EntityManager em = Persistence.createEntityManagerFactory("cms").createEntityManager();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-y HH:mm:ss");
+
 
         try {
-            List<Worker> workers  = workerService.findWorkersBySkill(17L);
-            for ( Worker worker: workers) {
-                System.out.println(worker.toString());
+            /*Find workers by skill*/
+            List<Worker> workers  = workerService.findWorkersBySkill(18);
+            Worker worker = workers.get(id);
+
+            /*Set flags*/
+            List<Workplan> workplanList = worker.getWorkplans();
+            List<Schedule> scheduleList = new ArrayList<Schedule>();
+            Calendar time = Calendar.getInstance();
+//            set dates from string
+            Date dateFrom = dateFormat.parse(beginDate);
+            Date dateTo = dateFormat.parse(endDate);
+            time.setTime(dateFrom);
+            while(dateFrom.before(dateTo)) {
+                for(Workplan workplan: workplanList) {
+                    if(workplan.getDate() == time.getTime()) {
+                        scheduleList = workplan.getSchedules();
+                        for ( Schedule schedule: scheduleList) {
+                            if ( schedule.getInterval() == time.get(Calendar.HOUR+1)) {
+                                System.out.println(schedule.getFlag()+"Changed");
+                                time.add(Calendar.HOUR_OF_DAY,1);
+                            }
+                        }
+                    }
+                }
             }
+
+            /*Skills*/
+                List<Skill> workerSkills = new ArrayList<Skill>();
+//            if skill id not null
+                if (skills != null && skills.length != 0) {
+                    for ( String skillId: skills) {
+//                    Find each skill with id and add to skill list
+                        long idz = Long.parseLong(skillId);
+                        workerSkills.add(skillService.findSkill(idz));
+                    }
+                }
+            //            set all finded skill as user skill
+
 //            List<Schedule> scheduleList = DaySchedule.scheduleList(beginTime,endTime,breakHour);
 //
 ////            Empty list of workplans

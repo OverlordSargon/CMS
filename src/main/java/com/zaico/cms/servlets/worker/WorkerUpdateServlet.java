@@ -1,17 +1,13 @@
 package com.zaico.cms.servlets.worker;
 
-import com.zaico.cms.entities.Role;
-import com.zaico.cms.entities.Skill;
-import com.zaico.cms.entities.User;
-import com.zaico.cms.entities.Worker;
+import com.zaico.cms.entities.*;
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
-import com.zaico.cms.servicies.interfaces.RoleService;
-import com.zaico.cms.servicies.interfaces.SkillService;
-import com.zaico.cms.servicies.interfaces.UserService;
-import com.zaico.cms.servicies.interfaces.WorkerService;
+import com.zaico.cms.servicies.interfaces.*;
+import com.zaico.cms.utility.DaySchedule;
 import com.zaico.cms.utility.ExceptionHandler;
+import com.zaico.cms.utility.WorkWeek;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,12 +54,44 @@ public class WorkerUpdateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        WorkplanService workplanService = FactoryService.getWorkplanServiceInstance();
+        ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
+//        Get parameters
         String workerName = request.getParameter("workername");
         int workerNum = Integer.parseInt(request.getParameter("workertele"));
         String[] skills = request.getParameterValues("skills");
+//      Sample of date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-y HH:mm");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+//      Dates for schedule and workplan
+        String beginDate = request.getParameter("begindate");
+        String endDate = request.getParameter("enddate");
+        String beginTime = request.getParameter("begintime");
+        String endTime = request.getParameter("endtime");
+        String breakHour = request.getParameter("breakhour");
+
         try {
-            worker.setName(workerName);
-            worker.setTelephone(workerNum);
+            /*Schedules*/
+            List<Schedule> scheduleList = DaySchedule.scheduleList(beginTime,endTime,breakHour);
+
+            /*Workplans*/
+//            Empty list of workplans
+            List<Workplan> workplanList = new ArrayList<Workplan>();
+//            Get list of dates & create workplan for these days
+            List<Date> workDays = WorkWeek.getWorkDays(beginDate,endDate);
+            for (Date day: workDays) {
+                Workplan workplan = new Workplan(day,workerName);
+                workplan.setSchedules(scheduleList);
+                workplanService.createWorkplan(workplan);
+//                Add workplan entity to workplan list
+                workplanList.add(workplan);
+            }
+            if (workplanList.size() == 0 ) {
+                String messa = "In period from "+beginDate+" to "+endDate+"only weekends";
+                request.setAttribute("infoMessage",messa);
+            }
+
+            /*Skills*/
             List<Skill> workerSkills = new ArrayList<Skill>();
 //            if skill id not null
             if (skills != null && skills.length != 0) {
@@ -73,6 +102,8 @@ public class WorkerUpdateServlet extends HttpServlet {
                 }
             }
 //            set all finded skill as user skill
+            worker.setName(workerName);
+            worker.setTelephone(workerNum);
             worker.setSkills(workerSkills);
             workerService.updateWorker(worker);
             LOG.info("Worker "+worker.getName()+ " updated at "+new Date());

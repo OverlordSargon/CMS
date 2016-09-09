@@ -20,12 +20,12 @@ public class WorkWeek {
         Calendar cal = Calendar.getInstance();
         cal.setTime(begin);
         while (cal.getTime().before(end)) {
-            cal.add(Calendar.DATE, 1);
             if ((Calendar.SATURDAY != cal.get(Calendar.DAY_OF_WEEK))
                     &&(Calendar.SUNDAY != cal.get(Calendar.DAY_OF_WEEK)))
             {
                 workDays.add(cal.getTime());
             }
+            cal.add(Calendar.DATE, 1);
         }
         return workDays;
     }

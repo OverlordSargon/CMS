@@ -1,8 +1,6 @@
 package com.zaico.cms.servlets.order;
 
-import com.zaico.cms.entities.Order;
-import com.zaico.cms.entities.Skill;
-import com.zaico.cms.entities.Worker;
+import com.zaico.cms.entities.*;
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
 import com.zaico.cms.servicies.interfaces.OrderService;
@@ -20,10 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+
+import static java.util.concurrent.TimeUnit.HOURS;
 
 /**
  * Created by nzaitsev on 03.09.2016.
@@ -72,9 +73,29 @@ public class OrderCreateSevlet extends HttpServlet {
 //            choose random worker
             Worker worker = workers.get(id);
 
-            /*Create order*/
+            /*Set flags*/
+            List<Workplan> workplanList = worker.getWorkplans();
+            List<Schedule> scheduleList = new ArrayList<Schedule>();
+            Calendar time = Calendar.getInstance();
+//            set dates from string
             Date dateFrom = dateFormat.parse(from);
             Date dateTo = dateFormat.parse(to);
+            time.setTime(dateFrom);
+            while(dateFrom.before(dateTo)) {
+                for(Workplan workplan: workplanList) {
+                    if(workplan.getDate() == time.getTime()) {
+                        scheduleList = workplan.getSchedules();
+                        for ( Schedule schedule: scheduleList) {
+                            if ( schedule.getInterval() == time.get(Calendar.HOUR+1)) {
+                                schedule.setFlag("W");
+                                time.add(Calendar.HOUR_OF_DAY,1);
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*Create order*/
             Order order = new Order(orderNum,orderDesc,
                     date,dateFrom,dateTo,orderCleintNum,orderClient,worker);
             orderService.createOrder(order);
