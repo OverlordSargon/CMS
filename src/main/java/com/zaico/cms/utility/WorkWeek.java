@@ -18,8 +18,11 @@ public class WorkWeek {
         Date end = dateFormat.parse(endDate);
         List<Date> workDays = new ArrayList<Date>();
         Calendar cal = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
         cal.setTime(begin);
-        while (cal.getTime().before(end)) {
+        cal2.setTime(end);
+        cal2.add(Calendar.DAY_OF_MONTH,1);
+        while (cal.getTime().before(cal2.getTime())) {
             if ((Calendar.SATURDAY != cal.get(Calendar.DAY_OF_WEEK))
                     &&(Calendar.SUNDAY != cal.get(Calendar.DAY_OF_WEEK)))
             {

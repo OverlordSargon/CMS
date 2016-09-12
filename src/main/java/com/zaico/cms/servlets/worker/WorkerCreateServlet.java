@@ -67,9 +67,6 @@ public class WorkerCreateServlet extends HttpServlet {
         String breakHour = request.getParameter("breakhour");
 
         try {
-            /*Schedules*/
-            List<Schedule> scheduleList = DaySchedule.scheduleList(beginTime,endTime,breakHour);
-
             /*Workplans*/
 //            Empty list of workplans
             List<Workplan> workplanList = new ArrayList<Workplan>();
@@ -77,7 +74,7 @@ public class WorkerCreateServlet extends HttpServlet {
             List<Date> workDays = WorkWeek.getWorkDays(beginDate,endDate);
             for (Date day: workDays) {
                 Workplan workplan = new Workplan(day,workerName);
-                workplan.setSchedules(scheduleList);
+                workplan.setSchedules(DaySchedule.scheduleList(beginTime,endTime,breakHour));
                 workplanService.createWorkplan(workplan);
 //                Add workplan entity to workplan list
                 workplanList.add(workplan);

@@ -60,10 +60,10 @@ public class OrderCreateSevlet extends HttpServlet {
         Date date = new Date();
         String from = request.getParameter("orderfrom");
         String to = request.getParameter("orderto");
-        DateFormat dateFormat = new SimpleDateFormat("MM-dd-y HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-y HH:mm");
+        DateFormat dateF2 = new SimpleDateFormat("dd-MM-y");
         String orderClient = request.getParameter("ordercname");
         int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
-        Long workerId = Long.parseLong(request.getParameter("orderworker"));
 
         try {
             /*Find workers by skill*/
@@ -83,15 +83,17 @@ public class OrderCreateSevlet extends HttpServlet {
             time.setTime(dateFrom);
             while(dateFrom.before(dateTo)) {
                 for(Workplan workplan: workplanList) {
-                    if(workplan.getDate() == time.getTime()) {
+                    Date wpDate = dateF2.parse(workplan.getDate().toString());
+                    Date calDate = dateF2.parse(time.getTime().toString());
+                    if(wpDate.equals(calDate) ) {
                         scheduleList = workplan.getSchedules();
                         for ( Schedule schedule: scheduleList) {
                             if ( schedule.getInterval() == time.get(Calendar.HOUR+1)) {
                                 schedule.setFlag("W");
-                                time.add(Calendar.HOUR_OF_DAY,1);
                             }
                         }
                     }
+                    time.add(Calendar.HOUR_OF_DAY,1);
                 }
             }
 

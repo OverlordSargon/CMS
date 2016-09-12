@@ -54,7 +54,7 @@
         <div class = "logoleft"></div>
         <div class="child"></div>
         <div class = "header-name">
-            Content Management System <%=userName%>
+            Capacity Management System <%=userName%>
         </div>
         <div class = "logoright"></div>
     </header>

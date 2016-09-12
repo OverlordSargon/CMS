@@ -14,7 +14,6 @@
                 <tr>
                     <th> ID </th>
                     <th> Order number </th>
-                    <th> Worktype </th>
                     <th> Description </th>
                     <th> Start </th>
                     <th> End </th>
@@ -28,7 +27,6 @@
                     <tr>
                         <td><c:out value="${order.id}"/></td>
                         <td><c:out value="${order.ordNumber}"/></td>
-                        <td><c:out value="${order.worktype}"/></td>
                         <td><c:out value="${order.description}"/></td>
                         <td>
                             <fmt:formatDate pattern="MM-dd-y HH:mm:ss" value="${order.from}" />
@@ -43,7 +41,7 @@
                                 <div class="attr-view">
                                     <form action="/viewworker" method="get">
                                         <input type="hidden"  name="id" value="${order.worker.id}">
-                                        <input type="submit" value="${order.worker.name}">
+                                        <input type="submit" class="btn view" value="${order.worker.name}">
                                     </form>
                                 </div>
                             </div>
