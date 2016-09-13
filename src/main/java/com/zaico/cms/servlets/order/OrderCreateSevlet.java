@@ -4,8 +4,10 @@ import com.zaico.cms.entities.*;
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
 import com.zaico.cms.servicies.interfaces.OrderService;
+import com.zaico.cms.servicies.interfaces.ScheduleService;
 import com.zaico.cms.servicies.interfaces.SkillService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
+import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,16 +56,17 @@ public class OrderCreateSevlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        Get parameters
+
         String orderNum = request.getParameter("ordernum");
         String orderDesc = request.getParameter("orderdesc");
         Long orderSkill = Long.parseLong(request.getParameter("orderworktype"));
-        Date date = new Date();
-        String from = request.getParameter("orderfrom");
-        String to = request.getParameter("orderto");
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-y HH:mm");
-        DateFormat dateF2 = new SimpleDateFormat("dd-MM-y");
+        String dateS = request.getParameter("orderday");
+        String fromS = request.getParameter("orderfrom");
+        String toS = request.getParameter("orderto");
         String orderClient = request.getParameter("ordercname");
         int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
+
+        ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
 
         try {
             /*Find workers by skill*/
@@ -73,33 +76,62 @@ public class OrderCreateSevlet extends HttpServlet {
 //            choose random worker
             Worker worker = workers.get(id);
 
-            /*Set flags*/
-            List<Workplan> workplanList = worker.getWorkplans();
-            List<Schedule> scheduleList = new ArrayList<Schedule>();
-            Calendar time = Calendar.getInstance();
-//            set dates from string
-            Date dateFrom = dateFormat.parse(from);
-            Date dateTo = dateFormat.parse(to);
-            time.setTime(dateFrom);
-            while(dateFrom.before(dateTo)) {
-                for(Workplan workplan: workplanList) {
-                    Date wpDate = dateF2.parse(workplan.getDate().toString());
-                    Date calDate = dateF2.parse(time.getTime().toString());
-                    if(wpDate.equals(calDate) ) {
-                        scheduleList = workplan.getSchedules();
-                        for ( Schedule schedule: scheduleList) {
-                            if ( schedule.getInterval() == time.get(Calendar.HOUR+1)) {
+//          string dates into dates
+            DateFormat timeF = new SimpleDateFormat("HH:mm");
+            DateFormat dateF = new SimpleDateFormat("dd-MM-y");
+
+//          create dates
+            Date fromDate = timeF.parse(fromS);
+            Date toDate = timeF.parse(toS);
+            Date dateDate = dateF.parse(dateS);
+
+//          create new order
+            Order order = new Order(orderNum,orderDesc,dateDate,fromDate,toDate,orderCleintNum,orderClient,worker);
+
+//          calendars for all dates
+            Calendar calFrom = Calendar.getInstance();
+            calFrom.setTime(fromDate);
+
+            Calendar calTo = Calendar.getInstance();
+            calTo.setTime(toDate);
+
+            Calendar calDate = Calendar.getInstance();
+            calDate.setTime(dateDate);
+
+//          find intervals of work
+            int intervalFrom = calFrom.get(Calendar.HOUR_OF_DAY)+1;
+            int intervalTo = calTo.get(Calendar.HOUR_OF_DAY);
+
+            List<Integer> orderedIntervals = new ArrayList<Integer>();
+            for (int i = intervalFrom; i <= intervalTo; i++) {
+                orderedIntervals.add(i);
+            }
+
+//            Calendar for workplan date, need to convert correctly
+            Calendar calWorkplan = Calendar.getInstance();
+
+//            Start of cycle, on all workplans of worker
+            for(Workplan workplan : worker.getWorkplans()) {
+//              set time to calendar for correct comparison
+                calWorkplan.setTime(workplan.getDate());
+                if (calWorkplan.getTime().equals(order.getDate())) {
+                    for (Integer orderedInterval : orderedIntervals) {
+                        boolean flag = false;
+                        for (Schedule schedule : workplan.getSchedules()) {
+                            if (schedule.getInterval().equals(orderedInterval) && schedule.getFlag() != "P" ) {
                                 schedule.setFlag("W");
+                                scheduleService.updateSchedule(schedule);
+                                flag = true;
+                                break;
                             }
                         }
+                        if (!flag) {
+                            throw new ExceptionCMS("Interval not found.", 0);
+                        }
                     }
-                    time.add(Calendar.HOUR_OF_DAY,1);
                 }
             }
 
-            /*Create order*/
-            Order order = new Order(orderNum,orderDesc,
-                    date,dateFrom,dateTo,orderCleintNum,orderClient,worker);
             orderService.createOrder(order);
             String message = "Order \""+orderNum+"\" created at "+new Date();
             LOG.info(message);
@@ -107,6 +139,7 @@ public class OrderCreateSevlet extends HttpServlet {
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage"+" Try again please, check parameters", errorMessage);
+            request.getRequestDispatcher("/neworder").forward(request, response);
         }
         request.getRequestDispatcher("/orders").forward(request, response);
     }

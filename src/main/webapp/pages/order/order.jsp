@@ -21,14 +21,19 @@
         </div>
 
         <div>
+            <label for=""> Day </label>
+            <input type="datetime" placeholder="MM-dd-y" name="orderday" value="${order.date}" ${disabled} >
+        </div>
+
+        <div>
             <label for=""> Start time </label>
-            <input type="datetime" placeholder="MM-dd-y HH:mm" name="orderfrom" value="${order.from}" ${disabled} >
+            <input type="datetime" placeholder="HH:mm" name="orderfrom" value="${order.from}" ${disabled} >
         </div>
 
 
         <div>
             <label for=""> End time </label>
-            <input type="datetime" placeholder="MM-dd-y HH:mm" name="orderto" value="${order.to}" ${disabled} >
+            <input type="datetime" placeholder="HH:mm" name="orderto" value="${order.to}" ${disabled} >
         </div>
 
         <div>

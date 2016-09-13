@@ -29,10 +29,10 @@
                         <td><c:out value="${order.ordNumber}"/></td>
                         <td><c:out value="${order.description}"/></td>
                         <td>
-                            <fmt:formatDate pattern="MM-dd-y HH:mm:ss" value="${order.from}" />
+                            <fmt:formatDate pattern="HH:mm:ss" value="${order.from}" />
                         </td>
                         <td>
-                            <fmt:formatDate pattern="MM-dd-y HH:mm:ss" value="${order.to}" />
+                            <fmt:formatDate pattern="HH:mm:ss" value="${order.to}" />
                         </td>
                         <td><c:out value="${order.clientName}"/></td>
                         <td><c:out value="${order.telNumber}"/></td>
