@@ -7,12 +7,17 @@
     }
 
 %>
-<div class="bodydiv">
-    <div>Try to login</div>
+<div class="form-view">
     <form action="/login" method="post">
-        <input type="login" name = "ulog">
-        <input type="password" name="upass">
-        <input type="submit">
+        <div>
+            <label for="">Login</label>
+            <input type="login" name = "ulog">
+        </div>
+        <div>
+            <label for="">Password</label>
+            <input type="password" name="upass">
+        </div>
+        <input type="submit" class="btn create">
     </form>
 </div>
 <%@include file="bottom.jsp"%>

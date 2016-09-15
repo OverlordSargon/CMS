@@ -20,13 +20,17 @@ public class AllSkillsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SkillDAO skillDAO = FactoryDAO.getSkillDAOInstance();
-        List<Skill> allSkills = skillDAO.getAll();
-        if ( allSkills.size() == 0 ) {
-            request.setAttribute("infoMessage","No skill ");
+        if (request.getSession().getAttribute("user") != null) {
+            SkillDAO skillDAO = FactoryDAO.getSkillDAOInstance();
+            List<Skill> allSkills = skillDAO.getAll();
+            if (allSkills.size() == 0) {
+                request.setAttribute("infoMessage", "No skill ");
+            }
+            request.setAttribute("skills", allSkills);
+            request.getRequestDispatcher("pages/skill/allskills.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/login");
         }
-        request.setAttribute("skills",allSkills);
-        request.getRequestDispatcher("pages/skill/allskills.jsp").forward(request, response);
     }
 
     @Override

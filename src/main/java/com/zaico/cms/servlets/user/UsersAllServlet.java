@@ -26,15 +26,19 @@ public class UsersAllServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService userService = FactoryService.getUserServiceInstance();
-        try {
-            List<User> users = userService.findAllUsers();
-            request.setAttribute("users",users);
-        } catch (Exception e) {
-            String errMes = ExceptionHandler.handleException(e);
-            LOG.info(errMes);
+        if (request.getSession().getAttribute("user") != null) {
+            UserService userService = FactoryService.getUserServiceInstance();
+            try {
+                List<User> users = userService.findAllUsers();
+                request.setAttribute("users", users);
+            } catch (Exception e) {
+                String errMes = ExceptionHandler.handleException(e);
+                LOG.info(errMes);
+            }
+            request.getRequestDispatcher("pages/user/allusers.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/login");
         }
-        request.getRequestDispatcher("pages/user/allusers.jsp").forward(request, response);
     }
 
     @Override

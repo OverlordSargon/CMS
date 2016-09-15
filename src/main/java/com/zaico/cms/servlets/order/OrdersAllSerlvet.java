@@ -33,15 +33,19 @@ public class OrdersAllSerlvet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        OrderService orderService = FactoryService.getOrderServiceInstance();
-        try {
-            List<Order> orders = orderService.findAllOrders();
-            request.setAttribute("orders",orders);
-        } catch (Exception e) {
-            String errMes = ExceptionHandler.handleException(e);
-            LOG.info(errMes);
+        if (request.getSession().getAttribute("user") != null) {
+            OrderService orderService = FactoryService.getOrderServiceInstance();
+            try {
+                List<Order> orders = orderService.findAllOrders();
+                request.setAttribute("orders", orders);
+            } catch (Exception e) {
+                String errMes = ExceptionHandler.handleException(e);
+                LOG.info(errMes);
+            }
+            request.getRequestDispatcher("pages/order/allorders.jsp").forward(request, response);
+        } else  {
+            response.sendRedirect("/login");
         }
-        request.getRequestDispatcher("pages/order/allorders.jsp").forward(request, response);
     }
 
     @Override

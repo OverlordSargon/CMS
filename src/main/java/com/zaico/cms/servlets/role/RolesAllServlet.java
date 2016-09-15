@@ -26,16 +26,19 @@ public class RolesAllServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        RoleService roleService = FactoryService.getRoleServiceInstance();
-        try {
-            List<Role> roles = roleService.findAllRoles();
-            request.setAttribute("roles",roles);
-        } catch (Exception e) {
-            String errMes = ExceptionHandler.handleException(e);
-            LOG.info(errMes);
+        if (request.getSession().getAttribute("user") != null) {
+            RoleService roleService = FactoryService.getRoleServiceInstance();
+            try {
+                List<Role> roles = roleService.findAllRoles();
+                request.setAttribute("roles",roles);
+            } catch (Exception e) {
+                String errMes = ExceptionHandler.handleException(e);
+                LOG.info(errMes);
+            }
+            request.getRequestDispatcher("pages/role/allroles.jsp").forward(request, response);
+        } else  {
+            response.sendRedirect("/login");
         }
-        request.getRequestDispatcher("pages/role/allroles.jsp").forward(request, response);
     }
 
     @Override

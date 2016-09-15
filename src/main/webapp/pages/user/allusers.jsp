@@ -29,7 +29,7 @@
                             <div class="attr-view">
                                 <form action="/viewrole" method="get">
                                     <input type="hidden"  name="id" value="${role.id}">
-                                    <input type="submit" value="${role.role}">
+                                    <input type="submit" value="${role.role}" class="btn view">
                                 </form>
                             </div>
                         </div>

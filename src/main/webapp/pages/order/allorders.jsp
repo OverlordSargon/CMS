@@ -1,4 +1,10 @@
 <%@include file="../head.jsp"%>
+<%
+    if (session == null)
+    {
+        %><jsp:forward page="/login" /><%
+    }
+%>
 <div class="grid-view">
 
     <div>

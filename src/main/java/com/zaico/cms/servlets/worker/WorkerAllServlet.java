@@ -28,14 +28,18 @@ public class WorkerAllServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         WorkerService workerService = FactoryService.getWorkerServiceInstance();
-        try {
-            List<Worker> workers = workerService.findAllWorkers();
-            request.setAttribute("workers",workers);
-        } catch (Exception e) {
-            String errMes = ExceptionHandler.handleException(e);
-            LOG.info(errMes);
+        if (request.getSession().getAttribute("user") != null) {
+            try {
+                List<Worker> workers = workerService.findAllWorkers();
+                request.setAttribute("workers",workers);
+            } catch (Exception e) {
+                String errMes = ExceptionHandler.handleException(e);
+                LOG.info(errMes);
+            }
+            request.getRequestDispatcher("pages/worker/allworkers.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/login");
         }
-        request.getRequestDispatcher("pages/worker/allworkers.jsp").forward(request, response);
     }
 
     @Override

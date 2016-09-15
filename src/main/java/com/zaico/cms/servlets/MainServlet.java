@@ -16,10 +16,13 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
-        req.setAttribute("name", "EnterOrderNumber");
-        req.setAttribute("date", new Date() );
-        req.getRequestDispatcher("pages/main.jsp").forward(req, resp);
+        if (req.getSession().getAttribute("user") == null) {
+            resp.sendRedirect("/login");
+        } else {
+            req.setAttribute("name", "EnterOrderNumber");
+            req.setAttribute("date", new Date() );
+            req.getRequestDispatcher("pages/main.jsp").forward(req, resp);
+        }
     }
 
 

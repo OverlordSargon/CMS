@@ -31,11 +31,16 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("user") == null) {
+            request.setAttribute("errMessage","You have no permission to use this!");
+            request.setAttribute("infoMessage","You must login to work with CMS");
+        }
         request.getRequestDispatcher("pages/login.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String name = request.getParameter("ulog");
         String password = request.getParameter("upass");
         UserService userService = FactoryService.getUserServiceInstance();
@@ -58,6 +63,7 @@ public class LoginServlet extends HttpServlet {
                 Cookie userRole = null;
                 for ( Role role : roleList) {
                     userRole = new Cookie("role",role.toString(1));
+                    session.setAttribute("role",role.toString(1));
                     userRole.setMaxAge(-1);
                 }
 //                Setting session to expiry in 30 mins

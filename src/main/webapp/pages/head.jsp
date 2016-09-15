@@ -14,34 +14,15 @@
 
     <title>${title}</title>
     <%
-        String sucMessage = "";
-        String errMessage = "";
-        String infoMessage = "";
         String logoutButt ;
+        String links ="";
         String userName = " ";
         if(session.getAttribute("user") != null) {
-            logoutButt = "<a>\n" +
-                    "<form action=\"/logout\" method=\"post\">" +
-                    "<input type=\"submit\" value=\"Logout\" ></form>" +
-                    "</a>";
+            userName = session.getAttribute("user").toString();
+            logoutButt ="<a href=\"/logout\">\n" +
+                    "Logout\n" +
+                    "</a>\n";
             Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("user")) {
-                        userName = cookie.getValue();
-                    }
-                    switch (cookie.getName()) {
-                        case "sucMessage":
-                            sucMessage = cookie.getValue();
-                            break;
-                        case "errMessage":
-                            errMessage = cookie.getValue();
-                            break;
-                        case "infoMessage":
-                            infoMessage = cookie.getValue();
-                    }
-                }
-            }
         } else {
             logoutButt ="<a href=\"/login\">\n" +
                     "Login\n" +
@@ -54,21 +35,28 @@
         <div class = "logoleft"></div>
         <div class="child"></div>
         <div class = "header-name">
-            Capacity Management System <%=userName%>
+            Capacity Management System
         </div>
         <div class = "logoright"></div>
     </header>
 
-
-
     <nav>
-        <a href="/main">Main Page</a>
-        <a href="/orders">Orders</a>
-        <a href="/skills">skills</a>
-        <a href="/roles">roles</a>
-        <a href="/users">users</a>
-        <a href="/workers">workers</a>
-        <%=logoutButt%>
+        <%
+            if( session.getAttribute("role")!=null) {
+                if (session.getAttribute("role").equals("Administrator")) {
+                    links = "<a href=\"/main\">Main Page</a>\n" +
+                            "<a href=\"/orders\">Orders</a>" +
+                            "<a href=\"/skills\">skills</a>\n" +
+                            "<a href=\"/roles\">roles</a>\n" +
+                            "<a href=\"/users\">users</a>\n" +
+                            "<a href=\"/workers\">workers</a>" + logoutButt;
+                } else {
+                    links = "<a href=\"/main\">Main Page</a>\n" +
+                            "<a href=\"/orders\">Orders</a>" + logoutButt;
+                }
+            }
+        %>
+        <%=links%>
     </nav>
 
     <div class="messages">
