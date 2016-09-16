@@ -1,11 +1,11 @@
 @font-face {
-    font-family: a_FuturicaBsLight;
-    src: "fonts/a_futuricabs-light.ttf"
+    font-family: a_MyriadProRegular;
+    src: "fonts/MyriadProRegular/MyriadProRegular.ttf";
 }
 
 @font-face {
-    font-family: a_FuturicaBsBold;
-    src: "fonts/a_futuricabs-bold.ttf"
+    font-family: a_MyriadProBold;
+    src: "fonts/MyriadProBold/MyriadProBold.ttf";
 }
 
 body {
@@ -15,7 +15,7 @@ body {
     box-sizing: border-box;
     font-size: 15px;
     background: black!important;
-    font-family: 'a_FuturicaBsLight', arial
+    font-family: 'a_MyriadProRegular', arial
 }
 
 header {
@@ -47,7 +47,7 @@ header .header-name {
     background: transparent;
     color: white;
     vertical-align: middle;
-    font-family: 'a_FuturicaBsBold', arial;
+    font-family: 'a_MyriadProBold', arial;
     font-size: 30px;
     font-weight: bold
 }
@@ -88,7 +88,8 @@ nav a {
     line-height: 50px;
     height: 49px;
     text-transform: uppercase;
-    color: black
+    color: black;
+    font-size: 1.6em;
 }
 
 nav a:first-child {
@@ -520,7 +521,6 @@ footer {
     margin: 1% 0;
 }
 .messages .error_message,.messages .success_message,.messages .info_message{
-    color: #0a0a0a;
     font-size: 25px;
     line-height: 50px;
     text-align: center;
@@ -532,12 +532,24 @@ footer {
 
 .messages .error_message {
     background: red;
+    color: white;
+
 }
 
 .messages .success_message {
     background: greenyellow;
+    color:black;
 }
 
 .messages .info_message {
     background: cornflowerblue;
+    color: white;
+}
+
+.checkboxform {
+    width: 10%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 100%;
 }

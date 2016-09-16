@@ -75,6 +75,8 @@ public class WorkerCreateServlet extends HttpServlet {
             for (Date day: workDays) {
                 Workplan workplan = new Workplan(day,workerName);
                 workplan.setSchedules(DaySchedule.scheduleList(beginTime,endTime,breakHour));
+                workplan.setUpdatedAt(new Date());
+                workplan.setCreatedAt(new Date());
                 workplanService.createWorkplan(workplan);
 //                Add workplan entity to workplan list
                 workplanList.add(workplan);

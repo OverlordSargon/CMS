@@ -28,8 +28,10 @@ public class DaySchedule {
             if ( time.getTime().compareTo(pause) == 0 ) {
                 flag = "P";
             }
-            int interval = time.get(Calendar.HOUR_OF_DAY)+1;
+            int interval = time.get(Calendar.HOUR_OF_DAY);
             Schedule schedule = new Schedule(interval,flag);
+            schedule.setCreatedAt(new Date());
+            schedule.setUpdatedAt(new Date());
             list.add(schedule);
             time.add(Calendar.HOUR_OF_DAY,1);
         }

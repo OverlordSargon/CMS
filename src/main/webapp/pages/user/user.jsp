@@ -19,8 +19,12 @@
                 </div>
                 <c:forEach items="${roles}" var="role">
                     <div>
-                        <input type="checkbox" name="roles" value="${role.id}">
-                        <c:out value="${role.role}"></c:out>
+                        <div>
+                            <c:out value="${role.role}"></c:out>
+                        </div>
+                        <div class="checkboxform">
+                            <input type="checkbox" name="roles" value="${role.id}">
+                        </div>
                     </div>
                 </c:forEach>
             </div>

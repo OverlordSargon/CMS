@@ -32,12 +32,12 @@
 </head>
 <body>
     <header>
-        <div class = "logoleft"></div>
+        <div class = "logoleft1"></div>
         <div class="child"></div>
         <div class = "header-name">
             Capacity Management System
         </div>
-        <div class = "logoright"></div>
+        <div class = "logoright1"></div>
     </header>
 
     <nav>

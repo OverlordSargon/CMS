@@ -15,50 +15,52 @@
             <input type="text" name="workertele" value="${worker.telephone}" ${disabled} >
         </div>
 
-        <div>
-            <%-- choose begin worker date--%>
-            <div>
-                <label for=""> Begin date </label>
-                <input type="text" name="begindate" value="" ${disabled} placeholder="dd-MM-y" >
-            </div>
 
-            <%-- choose end worker date--%>
-            <div>
-                <label for=""> End date </label>
-                <input type="text" name="enddate" value="" ${disabled} placeholder="dd-MM-y">
-            </div>
-        </div>
-
-        <div>
-            <%--choose time from--%>
-            <div>
-                <label for=""> Work from: </label>
-                <input type="text" name="begintime" value="" ${disabled}>
-            </div>
-
-            <%--choose time to--%>
-            <div>
-                <label for=""> to: </label>
-                <input type="text" name="endtime" value="" ${disabled}>
-            </div>
-            <%-- choose break for 1 hour--%>
-            <div>
-                <label for=""> Begin 1 hour break: </label>
-                <input type="text" name="breakhour" value="" ${disabled}>
-            </div>
-        </div>
 
     <c:choose>
         <c:when test="${action != \"/worker\"}">
             <%--If U or C print the following name--%>
                     <%-- choose skills --%>
+            <div>
+                    <%-- choose begin worker date--%>
+                <div>
+                    <label for=""> Begin date </label>
+                    <input type="text" name="begindate" value="" ${disabled} placeholder="dd-MM-y" >
+                </div>
+
+                    <%-- choose end worker date--%>
+                <div>
+                    <label for=""> End date </label>
+                    <input type="text" name="enddate" value="" ${disabled} placeholder="dd-MM-y">
+                </div>
+            </div>
+
+            <div>
+                    <%--choose time from--%>
+                <div>
+                    <label for=""> Work from: </label>
+                    <input type="text" name="begintime" value="" ${disabled}>
+                </div>
+
+                    <%--choose time to--%>
+                <div>
+                    <label for=""> to: </label>
+                    <input type="text" name="endtime" value="" ${disabled}>
+                </div>
+                    <%-- choose break for 1 hour--%>
+                <div>
+                    <label for=""> Begin 1 hour break: </label>
+                    <input type="text" name="breakhour" value="" ${disabled}>
+                </div>
+            </div>
+
             <div class="list">
                 <div class="list_label">
                     Choose skills for worker:
                 </div>
                 <c:forEach items="${skills}" var="skill">
                     <div>
-                        <input type="checkbox" name="skills" value="${skill.id}">
+                        <input type="checkbox" class="checkboxform" name="skills" value="${skill.id}">
                         <c:out value="${skill.name}"></c:out>
                     </div>
                 </c:forEach>
@@ -75,6 +77,16 @@
         <%--BUTTONS--%>
         <c:otherwise>
             </form>
+            <div>
+                Worker schedule:
+                <div>
+                    <div>First day: ${firstday}</div>
+                    <div>Last day: ${lastday}</div>
+                </div>
+                <div>
+                    <div> From: ${firsthour}:00 to: ${lasthour}:00</div>
+                </div>
+            </div>
             <div>
                 Worker ${worker.name} have the following skills:
                 <c:forEach items="${worker.skills}" var="skill">

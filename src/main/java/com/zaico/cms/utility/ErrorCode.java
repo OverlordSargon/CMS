@@ -43,6 +43,8 @@ public class ErrorCode {
 
     public static final int WORKER_NOT_FOUND_BY_SKILL = 29;
 
+    public static final int NO_REQUIRED_INTERVAL = 30;
+
 
 
 }

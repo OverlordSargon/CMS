@@ -39,7 +39,7 @@ public class UserUpdateServlet extends HttpServlet {
             user = userService.findUser(id);
             request.setAttribute("user",user);
             List<Role> allRoles = roleService.findAllRoles();
-            request.setAttribute("role",allRoles);
+            request.setAttribute("roles",allRoles);
 
         } catch (Exception e) {
             LOG.info("User \""+user.getLogin()+ "\" notfounded at "+new Date());

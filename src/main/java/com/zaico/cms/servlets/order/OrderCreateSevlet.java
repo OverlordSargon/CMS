@@ -69,13 +69,6 @@ public class OrderCreateSevlet extends HttpServlet {
         ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
 
         try {
-            /*Find workers by skill*/
-            List<Worker> workers  = workerService.findWorkersBySkill(orderSkill);
-            Random random = new Random();
-            int id = random.nextInt(workers.size());
-//            choose random worker
-            Worker worker = workers.get(id);
-
 //          string dates into dates
             DateFormat timeF = new SimpleDateFormat("HH:mm");
             DateFormat dateF = new SimpleDateFormat("dd-MM-y");
@@ -84,9 +77,6 @@ public class OrderCreateSevlet extends HttpServlet {
             Date fromDate = timeF.parse(fromS);
             Date toDate = timeF.parse(toS);
             Date dateDate = dateF.parse(dateS);
-
-//          create new order
-            Order order = new Order(orderNum,orderDesc,dateDate,fromDate,toDate,orderCleintNum,orderClient,worker);
 
 //          calendars for all dates
             Calendar calFrom = Calendar.getInstance();
@@ -98,8 +88,13 @@ public class OrderCreateSevlet extends HttpServlet {
             Calendar calDate = Calendar.getInstance();
             calDate.setTime(dateDate);
 
+        /*Find workers by skill*/
+
+//            choose random worker
+//          create new order
+
 //          find intervals of work
-            int intervalFrom = calFrom.get(Calendar.HOUR_OF_DAY)+1;
+            int intervalFrom = calFrom.get(Calendar.HOUR_OF_DAY);
             int intervalTo = calTo.get(Calendar.HOUR_OF_DAY);
 
             List<Integer> orderedIntervals = new ArrayList<Integer>();
@@ -110,23 +105,39 @@ public class OrderCreateSevlet extends HttpServlet {
 //            Calendar for workplan date, need to convert correctly
             Calendar calWorkplan = Calendar.getInstance();
 
+            Random random = new Random();
+            Worker workerOrder = null;
+            Order order = new Order(orderNum,orderDesc,dateDate,fromDate,toDate,orderCleintNum,orderClient,workerOrder);
+
+            List<Worker> workers  = workerService.findWorkersBySkill(orderSkill);
+            for(Worker worker:workers) {
+                int id = random.nextInt(workers.size());
+                worker = workers.get(id);
 //            Start of cycle, on all workplans of worker
-            for(Workplan workplan : worker.getWorkplans()) {
+                for(Workplan workplan : worker.getWorkplans()) {
 //              set time to calendar for correct comparison
-                calWorkplan.setTime(workplan.getDate());
-                if (calWorkplan.getTime().equals(order.getDate())) {
-                    for (Integer orderedInterval : orderedIntervals) {
-                        boolean flag = false;
-                        for (Schedule schedule : workplan.getSchedules()) {
-                            if (schedule.getInterval().equals(orderedInterval) && schedule.getFlag() != "P" ) {
-                                schedule.setFlag("W");
-                                scheduleService.updateSchedule(schedule);
-                                flag = true;
-                                break;
+                    calWorkplan.setTime(workplan.getDate());
+                    if (calWorkplan.getTime().equals(order.getDate())) {
+                        boolean flag = true;
+                        for (Integer orderedInterval : orderedIntervals) {
+                            for (Schedule schedule : workplan.getSchedules()) {
+                                if (!schedule.getInterval().equals(orderedInterval) && schedule.getFlag() != "F") {
+                                    flag = false;
+                                    break;
+                                }
                             }
                         }
-                        if (!flag) {
-                            throw new ExceptionCMS("Interval not found.", 0);
+                        for (Integer orderedInterval : orderedIntervals) {
+                            if (flag) {
+                                for (Schedule schedule : workplan.getSchedules()) {
+                                    if (schedule.getInterval().equals(orderedInterval)) {
+                                        schedule.setFlag("W");
+                                        scheduleService.updateSchedule(schedule);
+                                    }
+                                }
+                            } else {
+                                throw new ExceptionCMS("Interval not found.", 0);
+                            }
                         }
                     }
                 }
