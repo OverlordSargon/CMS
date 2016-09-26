@@ -103,7 +103,9 @@ public class OrderCreateSevlet extends HttpServlet {
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage", errorMessage);
-            request.getRequestDispatcher("/pages/order/order.jsp").forward(request, response);
+            String infoMessage = "Try again, please. Choose another time interval";
+            request.setAttribute("infoMessage", infoMessage);
+            doGet( request,  response);
         }
         request.getRequestDispatcher("/orders").forward(request, response);
     }

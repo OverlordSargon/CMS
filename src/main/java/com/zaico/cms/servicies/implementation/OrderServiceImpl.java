@@ -172,15 +172,11 @@ public class OrderServiceImpl implements OrderService {
                             break;
                         } else {
                         /* Error between schedules and booking time */
-                            throw  new ExceptionCMS("NO SUCH FREE INTERVAL",ErrorCode.ORDER_CREATION_ERROR);
+                            throw  new ExceptionCMS("NO FREE CAPACITY",ErrorCode.ORDER_CREATION_ERROR);
                         }
 
                     }
                 }
-            }
-            /* if no workers at all */
-            if (!existWorker) {
-                throw  new ExceptionCMS("NO FREE CAPACITY",ErrorCode.ORDER_CREATION_ERROR);
             }
 
         return orderWorker;

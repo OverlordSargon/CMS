@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -46,9 +49,29 @@ public class OrderDeleteServlet extends HttpServlet {
         try {
             if ( request.getParameter("id") != null) {
                 Integer id = Integer.parseInt(request.getParameter("id"));
-                order = orderService.findOrder((long) id);
+                order = orderService.findOrder(id);
+//            string dates into dates
+                DateFormat timeF = new SimpleDateFormat("HH:mm");
+                DateFormat dateF = new SimpleDateFormat("dd-MM-y");
+
+    //          create dates
+                Date fromDate = order.getFrom();
+                Date toDate = order.getTo();
+                Date dateDate = order.getDate();
+
+    //          calendars for all dates
+                Calendar calFrom = Calendar.getInstance();
+                calFrom.setTime(fromDate);
+
+                Calendar calTo = Calendar.getInstance();
+                calTo.setTime(toDate);
+
+                Calendar calDate = Calendar.getInstance();
+                calDate.setTime(dateDate);
+
+                orderService.deleteOrder(order);
             }
-            orderService.deleteOrder(order);
+
             String message = "Order \""+order.getOrdNumber()+"\" deleted successfully";
             logger.info(message);
             request.setAttribute("infoMessage",message);

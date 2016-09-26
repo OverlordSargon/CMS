@@ -42,7 +42,7 @@ public class SkillCreate extends HttpServlet {
             SkillService skillService = FactoryService.getSkillServiceInstance();
             Skill skill = new Skill(skillName,skillDesc);
             skillService.createSkill(skill);
-            String message = "Skill \""+skillName+"\" created at "+new Date();
+            String message = "Skill \""+skillName+"\" created!";
             LOG.info(message);
             request.setAttribute("sucMessage",message);
         } catch (Exception e) {

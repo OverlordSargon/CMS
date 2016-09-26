@@ -79,7 +79,7 @@ public class ExceptionCMS extends Exception {
         if (!message.endsWith(DOT)) {
             newMessage.append(DOT);
         }
-        newMessage.append(MISTAKE);
+//        newMessage.append(MISTAKE);
         return newMessage.toString();
     }
 }

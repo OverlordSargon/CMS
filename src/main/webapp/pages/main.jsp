@@ -10,6 +10,8 @@
                     role = cookie.getValue();
                 }
             }
+        } else {
+            response.sendRedirect("/login");
         }
     %>
     <%

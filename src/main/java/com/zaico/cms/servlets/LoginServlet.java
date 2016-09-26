@@ -80,8 +80,9 @@ public class LoginServlet extends HttpServlet {
             LOG.info("Failed login "+name+" password"+password+" "+new Date());
 //            Handle exception
             String errorMessage = ExceptionHandler.handleException(e);
-            request.setAttribute("message", errorMessage);
-            request.getRequestDispatcher("pages/main.jsp").forward(request, response);
+            request.setAttribute("errMessage", errorMessage);
+            request.setAttribute("infoMessage", "Try again, please");
+            request.getRequestDispatcher("pages/login.jsp").forward(request, response);
         }
     }
 }

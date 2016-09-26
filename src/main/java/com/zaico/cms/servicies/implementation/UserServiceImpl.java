@@ -122,9 +122,10 @@ public class UserServiceImpl implements UserService {
             result = userDAO.userLogin(login, password);
         }
         catch (Exception e) {
-            String errorMessage = "Login error. Login:" + login + " Password: "+password+" : "+new Date();
-            LOG.info(errorMessage);
-            throw new ExceptionCMS(errorMessage, ErrorCode.WRONG_CREDENTIALS);
+            String errorMessageLog = "Login error. Login:" + login + " Password: "+password+" : "+new Date();
+            LOG.info(errorMessageLog);
+            String errorMessage = "Login error. Wrong credentials.";
+             throw new ExceptionCMS(errorMessage, ErrorCode.WRONG_CREDENTIALS);
         }
         return result;
     }
