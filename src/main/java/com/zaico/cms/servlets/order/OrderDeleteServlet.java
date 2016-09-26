@@ -1,6 +1,7 @@
 package com.zaico.cms.servlets.order;
 
 import com.zaico.cms.entities.Order;
+import com.zaico.cms.entities.Worker;
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.utility.ExceptionHandler;
@@ -31,7 +32,7 @@ public class OrderDeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            order = orderService.findOrder((long)id);
+            order = orderService.findOrder(id);
             request.setAttribute("order",order);
             request.setAttribute("infoMessage","You want to delete Order \""+order.getOrdNumber()+"\". Are you sure?");
         } catch (Exception e) {
@@ -47,9 +48,6 @@ public class OrderDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            if ( request.getParameter("id") != null) {
-                Integer id = Integer.parseInt(request.getParameter("id"));
-                order = orderService.findOrder(id);
 //            string dates into dates
                 DateFormat timeF = new SimpleDateFormat("HH:mm");
                 DateFormat dateF = new SimpleDateFormat("dd-MM-y");
@@ -69,8 +67,9 @@ public class OrderDeleteServlet extends HttpServlet {
                 Calendar calDate = Calendar.getInstance();
                 calDate.setTime(dateDate);
 
+                orderService.findCapacity(calDate,calFrom,calTo,null,"F",order.getWorker());
+
                 orderService.deleteOrder(order);
-            }
 
             String message = "Order \""+order.getOrdNumber()+"\" deleted successfully";
             logger.info(message);

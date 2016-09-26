@@ -4,10 +4,7 @@ package com.zaico.cms.servicies.implementation;
 import com.zaico.cms.dao.implementation.FactoryDAO;
 import com.zaico.cms.dao.interfaces.OrderDAO;
 import com.zaico.cms.dao.interfaces.WorkerDAO;
-import com.zaico.cms.entities.Order;
-import com.zaico.cms.entities.Schedule;
-import com.zaico.cms.entities.Worker;
-import com.zaico.cms.entities.Workplan;
+import com.zaico.cms.entities.*;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.ErrorCode;
@@ -98,6 +95,7 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+
     /**
      * find free capacity. if true - `ll create order in sevlet
      * @param day
@@ -107,7 +105,7 @@ public class OrderServiceImpl implements OrderService {
      * @return  capacityExists
      * @throws ExceptionCMS
      */
-    public Worker findCapacity(Calendar day, Calendar timeFrom, Calendar timeTo, Long skill,String flag) throws ExceptionCMS {
+    public Worker findCapacity(Calendar day, Calendar timeFrom, Calendar timeTo, Long skill,String flag,Worker existingWorker) throws ExceptionCMS {
 
         WorkerService workerService = FactoryService.getWorkerServiceInstance();
         Worker orderWorker = null;
@@ -128,11 +126,20 @@ public class OrderServiceImpl implements OrderService {
 
 //            Calendar for workplan date, need to convert correctly
             Calendar calWorkplan = Calendar.getInstance();
+            /* handling flags */
+            String oldFlag = "";
+            if ( flag.equals("W") ) {
+                oldFlag = "F";
+            } else {
+                oldFlag = "W";
+            }
 
-            boolean existWorker = false;
-
-            List<Worker> workers  = workerService.findWorkersBySkill(skill);
-
+            List<Worker> workers = new ArrayList<Worker>();
+            if (existingWorker == null ) {
+                workers  = workerService.findWorkersBySkill(skill);
+            } else {
+                workers.add(existingWorker);
+            }
             for (Worker worker : workers) {
 
 //            Start of cycle, on all workplans of worker
@@ -149,7 +156,7 @@ public class OrderServiceImpl implements OrderService {
                         for (Integer orderedInterval : orderedIntervals) {
                             for (Schedule schedule : workplan.getSchedules()) {
                             /* Create list of right intervals */
-                                if (schedule.getInterval().equals(orderedInterval) & schedule.getFlag().equals("F") ) {
+                                if (schedule.getInterval().equals(orderedInterval) & schedule.getFlag().equals(oldFlag) ) {
                                     schedulesWork.add(schedule);
                                 }
                             }

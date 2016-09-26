@@ -34,7 +34,7 @@ public interface OrderService {
      */
     List<Order> findAllOrders() throws ExceptionCMS;
 
-    Worker findCapacity(Calendar day, Calendar tomeFrom, Calendar timeTo, Long skill,String flag) throws ExceptionCMS;
+    Worker findCapacity(Calendar day, Calendar tomeFrom, Calendar timeTo, Long skill,String flag,Worker worker) throws ExceptionCMS;
 
     /**
      * Update order entity

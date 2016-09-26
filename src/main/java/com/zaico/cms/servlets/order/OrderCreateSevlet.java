@@ -92,7 +92,7 @@ public class OrderCreateSevlet extends HttpServlet {
             calDate.setTime(dateDate);
 
         /*Find workers by skill*/
-            Worker workerOrder = orderService.findCapacity(calDate,calFrom,calTo,orderSkill,"W");
+            Worker workerOrder = orderService.findCapacity(calDate,calFrom,calTo,orderSkill,"W",null);
             if (workerOrder != null) {
                 Order order = new Order(orderNum,orderDesc,dateDate,fromDate,toDate,orderCleintNum,orderClient,workerOrder);
                 orderService.createOrder(order);
