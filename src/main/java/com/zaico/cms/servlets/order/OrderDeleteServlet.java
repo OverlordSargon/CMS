@@ -1,12 +1,9 @@
-package com.zaico.cms.servlets.user;
+package com.zaico.cms.servlets.order;
 
-import com.zaico.cms.entities.User;
+import com.zaico.cms.entities.Order;
 import com.zaico.cms.servicies.implementation.FactoryService;
-import com.zaico.cms.servicies.implementation.UserServiceImpl;
-import com.zaico.cms.servicies.interfaces.UserService;
+import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.utility.ExceptionHandler;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -18,30 +15,30 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * Created by nzaitsev on 02.09.2016.
+ * Created by nzaitsev on 20.09.2016.
  */
-@WebServlet("/deleteuser")
-public class UserDeleteServlet extends HttpServlet {
-    private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
-    UserService userService = FactoryService.getUserServiceInstance();
-    User user = null;
+@WebServlet("/deleteorder")
+public class OrderDeleteServlet extends HttpServlet {
+
+    Logger logger = Logger.getLogger(OrderDeleteServlet.class);
+    Order order = null;
+    OrderService orderService = FactoryService.getOrderServiceInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            user = userService.findUser((long)id);
-            request.setAttribute("user",user);
-            request.setAttribute("infoMessage","You want to delete this role. Are you sure?");
+            order = orderService.findOrder((long)id);
+            request.setAttribute("order",order);
+            request.setAttribute("infoMessage","You want to delete Order \""+order.getOrdNumber()+"\". Are you sure?");
         } catch (Exception e) {
-            LOG.info("User \""+user.getLogin()+ "\" notfounded at "+new Date());
+            logger.info("Order \""+order.getOrdNumber()+ "\" notfounded at "+new Date());
             String errMess = ExceptionHandler.handleException(e);
         }
-        request.setAttribute("action","/deleteuser");
+        request.setAttribute("action","/deleteorder");
         request.setAttribute("disabled","disabled");
         request.setAttribute("button","DELETE");
-        request.getRequestDispatcher("pages/user/user.jsp").forward(request, response);
-
+        request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
     }
 
     @Override
@@ -49,16 +46,16 @@ public class UserDeleteServlet extends HttpServlet {
         try {
             if ( request.getParameter("id") != null) {
                 Integer id = Integer.parseInt(request.getParameter("id"));
-                user = userService.findUser((long) id);
+                order = orderService.findOrder((long) id);
             }
-            userService.deleteUser(user);
-            String message = "User \""+user.getLogin()+"\" deleted successfully";
-            LOG.info(message);
+            orderService.deleteOrder(order);
+            String message = "Order \""+order.getOrdNumber()+"\" deleted successfully";
+            logger.info(message);
             request.setAttribute("infoMessage",message);
         } catch (Exception e) {
             String message = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage",message);
         }
-        request.getRequestDispatcher("/users").forward(request,response);
+        request.getRequestDispatcher("/orders").forward(request,response);
     }
 }

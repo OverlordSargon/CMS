@@ -1,19 +1,10 @@
 <%@include file="../head.jsp"%>
-<style>
-    <%@include file="/js/jquery.datetimepicker.css"%>
-</style>
-<script>
-    <%@include file="/js/jquery.js"%>
-    <%@include file="/js/jquery.datetimepicker.js"%>
-    $.datetimepicker.setLocale('en');
-    jQuery('#datetimepicker').datetimepicker();
-</script>
 <%--FORM BEGIN--%>
 <div class="form-view">
     <form action="${action}" method="post">
         <div>
             <label for=""> Order number </label>
-            <input type="text" name="ordernum" value="${order.name}" ${disabled} >
+            <input type="text" name="ordernum" value="${order.ordNumber}" ${disabled} >
         </div>
         <div>
             <label for=""> Description </label>
@@ -22,18 +13,21 @@
 
         <div>
             <label for=""> Day </label>
-            <input type="datetime" placeholder="MM-dd-y" name="orderday" value="${order.date}" ${disabled} >
+            <input type="datetime" placeholder="day-month-year" name="orderday"
+                   value="<fmt:formatDate pattern="dd-MM-y" value="${order.date}"/>" ${disabled} >
         </div>
 
         <div>
             <label for=""> Start time </label>
-            <input type="datetime" placeholder="HH:mm" name="orderfrom" value="${order.from}" ${disabled} >
+            <input type="datetime" placeholder="hour:00" name="orderfrom"
+                   value="<fmt:formatDate pattern="HH:mm" value="${order.from}" />" ${disabled} >
         </div>
 
 
         <div>
             <label for=""> End time </label>
-            <input type="datetime" placeholder="HH:mm" name="orderto" value="${order.to}" ${disabled} >
+            <input type="datetime" placeholder="hour:00" name="orderto"
+                   value="<fmt:formatDate pattern="HH:mm" value="${order.to}" />" ${disabled} >
         </div>
 
         <div>

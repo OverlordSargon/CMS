@@ -14,7 +14,7 @@ body {
     margin: 0 auto !important;
     box-sizing: border-box;
     font-size: 15px;
-    background: black!important;
+    background: white!important;
     font-family: 'a_MyriadProRegular', arial
 }
 
@@ -48,8 +48,8 @@ header .header-name {
     color: white;
     vertical-align: middle;
     font-family: 'a_MyriadProBold', arial;
-    font-size: 30px;
-    font-weight: bold
+    font-size: 3em;
+    line-height: 70px;
 }
 
 header .logoleft {
@@ -101,8 +101,10 @@ nav a:last-child {
 }
 
 nav a:hover {
-    color: #048bff;
-    font-weight: bold
+    /*color: #048bff;*/
+    color: black;
+    /*font-weight: bold;*/
+    text-shadow: 1px 1px 8px #e50e77;
 }
 
 nav a:active {
@@ -396,6 +398,12 @@ aside .news_aside .news_navigation .pagination li .next, aside .news_aside .news
     margin: 0px;
     background: white;
     padding: 0;
+    min-height: 500px;
+}
+
+.change_block .main {
+    text-align: center;
+    margin: 1% 0;
 }
 
 .center {
@@ -433,10 +441,18 @@ aside .news_aside .news_navigation .pagination li .next, aside .news_aside .news
 
 footer {
     clear: both;
-    height: 90px;
-    margin: 5% 0 0 0;
+    height: 50px;
     background: -webkit- linear-gradient(to right, #e91e79, #e20074, #e91e79);
     background: linear-gradient(to right, #e91e79, #e20074, #e91e79)
+}
+
+footer .footer-info {
+    color: white;
+}
+
+footer .footer-info .text {
+    text-align: left;
+    font-size:10px;
 }
 
 .helper {
@@ -504,6 +520,7 @@ footer {
 
 .form-view form label {
     display: block;
+    color: #e30174;
 }
 
 .form-view form input {
@@ -545,11 +562,21 @@ footer {
     background: cornflowerblue;
     color: white;
 }
-
-.checkboxform {
-    width: 10%;
+.checklabel {
     display: inline-block;
+    width: 10%;
+}
+.checkboxform {
+    width: 10%!important;
+    display: inline-block!important;
     vertical-align: middle;
     text-align: center;
     line-height: 100%;
+    transform: scale(1.4);
+}
+
+.info-frame {
+    display: inline-block;
+    width: 20%;
+    margin: 0 3%;
 }

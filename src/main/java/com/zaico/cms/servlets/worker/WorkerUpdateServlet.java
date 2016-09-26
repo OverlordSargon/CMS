@@ -10,6 +10,7 @@ import com.zaico.cms.utility.ExceptionHandler;
 import com.zaico.cms.utility.WorkWeek;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +29,7 @@ import java.util.List;
 @WebServlet("/updateworker")
 public class WorkerUpdateServlet extends HttpServlet {
 
-    private static final Log LOG = LogFactory.getLog(WorkerServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(WorkerServiceImpl.class);
     WorkerService workerService = FactoryService.getWorkerServiceInstance();
     SkillService skillService = FactoryService.getSkillServiceInstance();
     Worker worker = null;

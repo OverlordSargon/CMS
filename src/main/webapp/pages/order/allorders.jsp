@@ -21,6 +21,7 @@
                     <th> ID </th>
                     <th> Order number </th>
                     <th> Description </th>
+                    <th> Day </th>
                     <th> Start </th>
                     <th> End </th>
                     <th> Client name </th>
@@ -34,6 +35,9 @@
                         <td><c:out value="${order.id}"/></td>
                         <td><c:out value="${order.ordNumber}"/></td>
                         <td><c:out value="${order.description}"/></td>
+                        <td>
+                            <fmt:formatDate pattern="dd-MM-y" value="${order.date}" />
+                        </td>
                         <td>
                             <fmt:formatDate pattern="HH:mm:ss" value="${order.from}" />
                         </td>
@@ -69,7 +73,7 @@
                                 </form>
                             </div>
                             <div class="btn-delete">
-                                <form action="/deleteorder" method="post">
+                                <form action="/deleteorder" method="get">
                                     <input type="hidden"  name="id" value="${order.id}">
                                     <input type="submit" value="DELETE" class="btn delete">
                                 </form>

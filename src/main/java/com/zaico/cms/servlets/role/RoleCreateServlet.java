@@ -7,6 +7,7 @@ import com.zaico.cms.servicies.interfaces.RoleService;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,12 +23,14 @@ import java.util.Date;
  */
 @WebServlet("/newrole")
 public class RoleCreateServlet extends HttpServlet {
-    private static final Log LOG = LogFactory.getLog(RoleServiceImpl.class);
+
+    private static final Logger LOG = Logger.getLogger(RoleServiceImpl.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("action","/newrole");
         request.setAttribute("button","CREATE");
+        request.setAttribute("role",new Role());
         request.getRequestDispatcher("pages/role/role.jsp").forward(request, response);
     }
 
@@ -43,9 +46,6 @@ public class RoleCreateServlet extends HttpServlet {
             String message = "Role \""+roleName+"\" created at "+new Date();
             LOG.info(message);
             request.setAttribute("sucMessage",message);
-//            Cookie messa = new Cookie("sucMessage",message);
-//            messa.setMaxAge(60);
-//            response.addCookie(messa);
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage"+" Try again please, check parameters", errorMessage);

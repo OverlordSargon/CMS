@@ -11,6 +11,7 @@ import java.util.Date;
 @NamedQueries(
     {
         @NamedQuery(name = "Cmsorder.getAll", query = "SELECT cmsorder FROM Order cmsorder ORDER BY ORD_UPDATED_AT DESC "),
+        @NamedQuery(name = "Cmsorder.getByWorker", query = "SELECT o FROM Order o WHERE o.worker = :worker "),
         @NamedQuery(name = "Cmsorder.deleteAll", query = "DELETE FROM Order")
     })
 public class Order extends AbstractEntity {

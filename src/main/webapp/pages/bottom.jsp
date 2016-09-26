@@ -1,8 +1,11 @@
     </article>
-    <div class="footer">
-        <div class="info">
-            this is footer
+    <footer>
+        <div class="footer-info">
+            <div class="text">
+                this is footer
+            </div>
         </div>
+    </footer>
     </div>
     <style name="css">
         <%@include file="/css/maina.css"%>

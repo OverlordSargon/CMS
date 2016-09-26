@@ -9,6 +9,7 @@ import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
     /**
      *
      */
-    private static final Log LOG = LogFactory.getLog(UserServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
     private UserDAO userDAO = FactoryDAO.getUserDAOInstance();
 
     /**

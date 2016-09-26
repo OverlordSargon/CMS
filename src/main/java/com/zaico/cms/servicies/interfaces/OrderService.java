@@ -4,6 +4,7 @@ import com.zaico.cms.entities.Order;
 import com.zaico.cms.entities.Worker;
 import com.zaico.cms.utility.ExceptionCMS;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -33,6 +34,8 @@ public interface OrderService {
      */
     List<Order> findAllOrders() throws ExceptionCMS;
 
+    Worker findCapacity(Calendar day, Calendar tomeFrom, Calendar timeTo, Long skill,String flag) throws ExceptionCMS;
+
     /**
      * Update order entity
      * @param order
@@ -47,5 +50,13 @@ public interface OrderService {
      * @throws ExceptionCMS
      */
     void deleteOrder(Order order) throws ExceptionCMS;
+
+    /**
+     * Get all orders of certain worker
+     * @param worker
+     * @return
+     * @throws ExceptionCMS
+     */
+    List<Order> getByWorker(Worker worker) throws ExceptionCMS;
 
 }

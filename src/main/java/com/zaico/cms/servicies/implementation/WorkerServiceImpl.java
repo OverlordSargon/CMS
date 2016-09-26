@@ -6,10 +6,12 @@ import com.zaico.cms.entities.User;
 import com.zaico.cms.entities.Worker;
 import com.zaico.cms.servicies.interfaces.CommonService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
+import com.zaico.cms.servicies.interfaces.WorkplanService;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,7 +23,7 @@ import java.util.List;
  */
 public class WorkerServiceImpl implements WorkerService {
 
-    private static final Log LOG = LogFactory.getLog(UserServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(WorkplanService.class);
     private WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
 
     /**

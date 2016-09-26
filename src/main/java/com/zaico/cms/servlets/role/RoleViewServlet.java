@@ -7,6 +7,7 @@ import com.zaico.cms.servicies.interfaces.RoleService;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,7 @@ import java.util.Date;
 @WebServlet("/viewrole")
 public class RoleViewServlet extends HttpServlet {
 
-    private static final Log LOG = LogFactory.getLog(RoleServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(RoleServiceImpl.class);
 
     Role role = null;
     RoleService roleService = FactoryService.getRoleServiceInstance();
@@ -31,7 +32,7 @@ public class RoleViewServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            role = roleService.findRole((long)id);
+            role = roleService.findRole(id);
             request.setAttribute("role",role);
         } catch (Exception e) {
             LOG.info("Role \""+role.getRole()+ "\" notfounded at "+new Date());

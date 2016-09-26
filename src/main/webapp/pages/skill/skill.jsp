@@ -1,7 +1,6 @@
 <%@include file="../head.jsp"%>
 <div class="form-view">
-
-    <form action="${action}" method="post">
+        <form action="${action}" method="post">
         <div>
             <label for="">Skill name</label>
             <input type="text" name="skillname" value="${skill.name}" ${disabled}>

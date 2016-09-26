@@ -7,6 +7,7 @@ import com.zaico.cms.servicies.interfaces.RoleService;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +24,7 @@ import java.util.Date;
 @WebServlet("/deleterole")
 public class RoleDeleteServlet extends HttpServlet {
 
-    private static final Log LOG = LogFactory.getLog(RoleServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(RoleServiceImpl.class);
     RoleService roleService = FactoryService.getRoleServiceInstance();
 
     @Override

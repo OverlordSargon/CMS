@@ -1,25 +1,28 @@
 package com.zaico.cms.servicies.implementation;
 
-import com.mysql.jdbc.log.Log;
-import com.mysql.jdbc.log.LogFactory;
+
 import com.zaico.cms.dao.implementation.FactoryDAO;
 import com.zaico.cms.dao.interfaces.OrderDAO;
 import com.zaico.cms.dao.interfaces.WorkerDAO;
 import com.zaico.cms.entities.Order;
+import com.zaico.cms.entities.Schedule;
 import com.zaico.cms.entities.Worker;
+import com.zaico.cms.entities.Workplan;
 import com.zaico.cms.servicies.interfaces.OrderService;
+import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
+import org.apache.log4j.Logger;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by nzaitsev on 17.08.2016.
  */
 public class OrderServiceImpl implements OrderService {
 
-    private static final org.apache.commons.logging.Log LOG = org.apache.commons.logging.LogFactory.getLog(UserServiceImpl.class);
+    private static final Logger logger = Logger.getLogger(OrderService.class);
+//    private static final Log logger = LogFactory.getLog(OrderService.class);
     private OrderDAO orderDAO = FactoryDAO.getOrderDAOInstance();
 
     /**
@@ -33,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
             return orderDAO.create(order);
         } catch (Exception e) {
             String errMes = "Order creation error:"+new Date();
-            LOG.info(errMes);
+            logger.info(errMes);
             throw new ExceptionCMS(errMes, ErrorCode.ORDER_CREATION_ERROR);
         }
     }
@@ -49,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
             return orderDAO.read(id);
         } catch (Exception e) {
             String errMes = "Order not found:"+new Date();
-            LOG.info(errMes);
+            logger.info(errMes);
             throw new ExceptionCMS(errMes,ErrorCode.ORDER_NOT_FOUND);
         }
     }
@@ -59,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
             return orderDAO.getAll();
         } catch (Exception e) {
             String errMes = "ALL ORDERS ERROR:"+new Date();
-            LOG.info(errMes);
+            logger.info(errMes);
             throw new ExceptionCMS(errMes,ErrorCode.ORDER_NOT_FOUND);
         }
     }
@@ -75,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
             return orderDAO.update(order);
         } catch (Exception e) {
             String errMes = "Order update error :"+new Date();
-            LOG.info(errMes);
+            logger.info(errMes);
             throw new ExceptionCMS(errMes,ErrorCode.ORDER_CANNOT_BE_UPDATED);
         }
     }
@@ -90,9 +93,115 @@ public class OrderServiceImpl implements OrderService {
             orderDAO.delete(order);
         } catch (Exception e) {
             String errMes = "Order delete error :"+new Date();
-            LOG.info(errMes);
+            logger.info(errMes);
             throw new ExceptionCMS(errMes,ErrorCode.ORDER_CANNOT_BE_DELETED);
         }
     }
-    
+
+    /**
+     * find free capacity. if true - `ll create order in sevlet
+     * @param day
+     * @param timeFrom
+     * @param timeTo
+     * @param skill
+     * @return  capacityExists
+     * @throws ExceptionCMS
+     */
+    public Worker findCapacity(Calendar day, Calendar timeFrom, Calendar timeTo, Long skill,String flag) throws ExceptionCMS {
+
+        WorkerService workerService = FactoryService.getWorkerServiceInstance();
+        Worker orderWorker = null;
+
+
+        /*Find workers by skill*/
+//            choose random worker
+//          create new order
+
+//          find intervals of work
+            int intervalFrom = timeFrom.get(Calendar.HOUR_OF_DAY);
+            int intervalTo = timeTo.get(Calendar.HOUR_OF_DAY);
+
+            List<Integer> orderedIntervals = new ArrayList<Integer>();
+            for (int i = intervalFrom; i <= intervalTo; i++) {
+                orderedIntervals.add(i);
+            }
+
+//            Calendar for workplan date, need to convert correctly
+            Calendar calWorkplan = Calendar.getInstance();
+
+            boolean existWorker = false;
+
+            List<Worker> workers  = workerService.findWorkersBySkill(skill);
+
+            for (Worker worker : workers) {
+
+//            Start of cycle, on all workplans of worker
+                for (Workplan workplan : worker.getWorkplans()) {
+                    logger.info("in worker "+worker.getName()+" workplans");
+
+//              set time to calendar for correct comparison
+                    calWorkplan.setTime(workplan.getDate());
+
+                    if (calWorkplan.getTime().equals(day.getTime())) {
+                        List<Schedule> schedulesWork = new ArrayList<Schedule>();
+                        logger.info("in intervals");
+
+                        for (Integer orderedInterval : orderedIntervals) {
+                            for (Schedule schedule : workplan.getSchedules()) {
+                            /* Create list of right intervals */
+                                if (schedule.getInterval().equals(orderedInterval) & schedule.getFlag().equals("F") ) {
+                                    schedulesWork.add(schedule);
+                                }
+                            }
+                        }
+
+                        /* If number of booked interval match to number of right schedules */
+                        if (orderedIntervals.size() == schedulesWork.size()) {
+                            logger.info("Worker ");
+                            int i = 0;
+                            for (Schedule schedule : schedulesWork) {
+                                if (schedule.getInterval().equals(orderedIntervals.get(i))) {
+                                    schedule.setFlag(flag);
+                                    i++;
+                                    logger.info("Success update "+schedule.getInterval());
+                                }
+                            }
+                        /* Success creation of schedules */
+                            orderWorker = worker;
+                            logger.info("Successfull booking of "+worker.getName() );
+                            break;
+                        } else {
+                        /* Error between schedules and booking time */
+                            throw  new ExceptionCMS("NO SUCH FREE INTERVAL",ErrorCode.ORDER_CREATION_ERROR);
+                        }
+
+                    }
+                }
+            }
+            /* if no workers at all */
+            if (!existWorker) {
+                throw  new ExceptionCMS("NO FREE CAPACITY",ErrorCode.ORDER_CREATION_ERROR);
+            }
+
+        return orderWorker;
+    }
+
+    /**
+     *
+     * @param worker
+     * @return Order list
+     * @throws ExceptionCMS
+     */
+    public List<Order> getByWorker(Worker worker) throws ExceptionCMS {
+        List<Order> result = null;
+        try {
+            result = orderDAO.getByWorker(worker);
+
+        } catch (Exception e) {
+            String errMes = "Error with worker orders";
+            logger.info(errMes);
+            throw new ExceptionCMS(errMes,ErrorCode.CANT_GET_WORKERs_ORDERS);
+        }
+        return result;
+    }
 }

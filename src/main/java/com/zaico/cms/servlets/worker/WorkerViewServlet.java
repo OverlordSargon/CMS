@@ -1,10 +1,12 @@
 package com.zaico.cms.servlets.worker;
 
+import com.zaico.cms.entities.Order;
 import com.zaico.cms.entities.User;
 import com.zaico.cms.entities.Worker;
 import com.zaico.cms.entities.Workplan;
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
+import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.UserService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.ExceptionHandler;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by nzaitsev on 02.09.2016.
@@ -33,6 +36,7 @@ public class WorkerViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Worker worker = null;
+        OrderService orderService = FactoryService.getOrderServiceInstance();
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
             worker = workerService.findWorker((long)id);
@@ -49,7 +53,8 @@ public class WorkerViewServlet extends HttpServlet {
             
             String firstHour = workplan.getSchedules().get(0).getInterval().toString();
             String lasstHour = workplan.getSchedules().get(workplan.getSchedules().size()-1).getInterval().toString();
-
+            List<Order> orders = orderService.getByWorker(worker);
+            request.setAttribute("orders",orders);
             request.setAttribute("firstday",fistDay);
             request.setAttribute("lastday",lastDay);
             request.setAttribute("firsthour",firstHour);

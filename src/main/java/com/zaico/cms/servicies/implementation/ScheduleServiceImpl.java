@@ -10,6 +10,7 @@ import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class ScheduleServiceImpl implements ScheduleService {
 
-    private static final Log LOG = LogFactory.getLog(UserServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
     private ScheduleDAO scheduleDAO = FactoryDAO.getScheduleDAOInstance();
 
     /**

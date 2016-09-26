@@ -10,6 +10,7 @@ import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
     /**
      *
      */
-    private static final Log LOG = LogFactory.getLog(RoleServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(RoleServiceImpl.class);
     private RoleDAO roleDAO = FactoryDAO.getRoleDAOInstance();
 
     /**

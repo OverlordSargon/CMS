@@ -8,6 +8,7 @@ import com.zaico.cms.servicies.interfaces.SkillService;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +24,7 @@ import java.util.Date;
 @WebServlet("/deleteskill")
 public class SkillDelete extends HttpServlet {
 
-    private static final Log LOG = LogFactory.getLog(SkillServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(SkillServiceImpl.class);
     SkillService skillService = FactoryService.getSkillServiceInstance();
     Skill skill = null;
 

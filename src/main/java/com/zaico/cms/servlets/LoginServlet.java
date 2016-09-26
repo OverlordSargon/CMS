@@ -10,6 +10,7 @@ import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,12 +28,11 @@ import java.util.List;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    private static final Log LOG = LogFactory.getLog(UserServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(LoginServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
-            request.setAttribute("errMessage","You have no permission to use this!");
             request.setAttribute("infoMessage","You must login to work with CMS");
         }
         request.getRequestDispatcher("pages/login.jsp").forward(request, response);

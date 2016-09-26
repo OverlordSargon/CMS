@@ -25,13 +25,13 @@
                     <%-- choose begin worker date--%>
                 <div>
                     <label for=""> Begin date </label>
-                    <input type="text" name="begindate" value="" ${disabled} placeholder="dd-MM-y" >
+                    <input type="text" name="begindate" value="" ${disabled} placeholder="day-month-year" >
                 </div>
 
                     <%-- choose end worker date--%>
                 <div>
                     <label for=""> End date </label>
-                    <input type="text" name="enddate" value="" ${disabled} placeholder="dd-MM-y">
+                    <input type="text" name="enddate" value="" ${disabled} placeholder="day-month-year">
                 </div>
             </div>
 
@@ -39,18 +39,18 @@
                     <%--choose time from--%>
                 <div>
                     <label for=""> Work from: </label>
-                    <input type="text" name="begintime" value="" ${disabled}>
+                    <input type="text" name="begintime" value="" ${disabled} placeholder="hour:00">
                 </div>
 
                     <%--choose time to--%>
                 <div>
                     <label for=""> to: </label>
-                    <input type="text" name="endtime" value="" ${disabled}>
+                    <input type="text" name="endtime" value="" ${disabled} placeholder="hour:00">
                 </div>
                     <%-- choose break for 1 hour--%>
                 <div>
                     <label for=""> Begin 1 hour break: </label>
-                    <input type="text" name="breakhour" value="" ${disabled}>
+                    <input type="text" name="breakhour" value="" ${disabled} placeholder="hour:00">
                 </div>
             </div>
 
@@ -60,8 +60,10 @@
                 </div>
                 <c:forEach items="${skills}" var="skill">
                     <div>
+                        <div class="checklabel">
+                            <c:out value="${skill.name}"></c:out>
+                        </div>
                         <input type="checkbox" class="checkboxform" name="skills" value="${skill.id}">
-                        <c:out value="${skill.name}"></c:out>
                     </div>
                 </c:forEach>
             </div>
@@ -78,6 +80,12 @@
         <c:otherwise>
             </form>
             <div>
+                Worker ${worker.name} have the following skills:
+                <c:forEach items="${worker.skills}" var="skill">
+                    <br><c:out value="${skill.name}"></c:out>
+                </c:forEach>
+            </div>
+            <div>
                 Worker schedule:
                 <div>
                     <div>First day: ${firstday}</div>
@@ -87,11 +95,18 @@
                     <div> From: ${firsthour}:00 to: ${lasthour}:00</div>
                 </div>
             </div>
-            <div>
-                Worker ${worker.name} have the following skills:
-                <c:forEach items="${worker.skills}" var="skill">
-                    <br><c:out value="${skill.name}"></c:out>
-                </c:forEach>
+            <div class="grid-view">
+                <p style="text-align: center">Execute the following orders:</p>
+                    <c:forEach items="${orders}" var="order">
+                    <div class="info-frame">
+                        <table>
+                        <tr><th>Order: <c:out value="${order.ordNumber}"></c:out></th></tr>
+                        <tr><td>At: <fmt:formatDate pattern="dd-MM-y" value="${order.date}" /></td></tr>
+                        <tr><td>From: <fmt:formatDate pattern="HH:mm:ss" value="${order.from}" /></td></tr>
+                        <tr><td>To:  <fmt:formatDate pattern="HH:mm:ss" value="${order.to}" /></td></tr>
+                        </table>
+                    </div>
+                    </c:forEach>
             </div>
             <%-- if we view, print additional buttons--%>
             <div class="buttons-ud">
