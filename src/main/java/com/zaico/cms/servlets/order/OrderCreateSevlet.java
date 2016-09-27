@@ -93,13 +93,13 @@ public class OrderCreateSevlet extends HttpServlet {
 
         /*Find workers by skill*/
             Worker workerOrder = orderService.findCapacity(calDate,calFrom,calTo,orderSkill,"W",null);
-            if (workerOrder != null) {
-                Order order = new Order(orderNum,orderDesc,dateDate,fromDate,toDate,orderCleintNum,orderClient,workerOrder);
-                orderService.createOrder(order);
-            }
-            String message = "Order \""+orderNum+"\" created at "+new Date();
+            Order order = new Order(orderNum,orderDesc,dateDate,fromDate,toDate,orderCleintNum,orderClient,workerOrder);
+            LOG.info(order.toString());
+            orderService.createOrder(order);
+            String message = "Order \""+orderNum+"\" successfully";
             LOG.info(message);
             request.setAttribute("sucMessage",message);
+
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage", errorMessage);

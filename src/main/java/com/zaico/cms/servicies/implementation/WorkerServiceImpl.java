@@ -5,10 +5,12 @@ import com.zaico.cms.dao.interfaces.WorkerDAO;
 import com.zaico.cms.entities.User;
 import com.zaico.cms.entities.Worker;
 import com.zaico.cms.servicies.interfaces.CommonService;
+import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.servicies.interfaces.WorkplanService;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
+import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
@@ -129,11 +131,17 @@ public class WorkerServiceImpl implements WorkerService {
      * @throws ExceptionCMS
      */
     public void deleteWorker(Worker worker) throws ExceptionCMS {
+        OrderService orderService = FactoryService.getOrderServiceInstance();
         try {
-            workerDAO.delete(worker);
+            if (orderService.getByWorker(worker) == null) {
+                workerDAO.delete(worker);
+            } else {
+                String err = "This worker haven`t done his work!";
+                throw new ExceptionCMS(err,ErrorCode.WORKER_CANNOT_BE_DELETED);
+            }
         } catch (Exception e) {
-            String errMes = "Worker delete error :"+new Date();
-            LOG.info(errMes);
+            String errMes = ExceptionHandler.handleException(e);
+            LOG.info("DELETE ERROR "+errMes);
             throw new ExceptionCMS(errMes,ErrorCode.WORKER_CANNOT_BE_DELETED);
         }
     }

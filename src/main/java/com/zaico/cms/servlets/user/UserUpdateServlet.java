@@ -56,7 +56,7 @@ public class UserUpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("username");
         String userDesc = request.getParameter("userdesc");
-        String[] roles = request.getParameterValues("role");
+        String[] roles = request.getParameterValues("roles");
         try {
             user.setLogin(userName);
             user.setPassword(userDesc);

@@ -12,6 +12,7 @@ import java.util.List;
 @NamedQueries(
     {
         @NamedQuery(name = "Role.getAll", query = "SELECT roles FROM Role roles ORDER BY R_UPDATED_AT DESC"),
+        @NamedQuery(name = "Role.getRoleByUser", query = "SELECT r FROM Role r WHERE r.users = :users"),
         @NamedQuery(name = "Role.deleteAll", query = "DELETE FROM Role")
     })
 public class Role extends AbstractEntity {

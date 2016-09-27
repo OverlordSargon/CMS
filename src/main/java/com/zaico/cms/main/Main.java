@@ -29,56 +29,47 @@ public class Main {
 
     public static void main(String[] args)  throws ExceptionCMS, SQLException, ClassNotFoundException,InterruptedException , IllegalArgumentException,
             IllegalAccessException, ParseException {
-//        OrderService orderService = FactoryService.getOrderServiceInstance();
-//        WorkerService workerService = FactoryService.getWorkerServiceInstance();
-//        SkillService skillService = FactoryService.getSkillServiceInstance();
-//
-//        String orderNum = "FR2-X";
-//        String orderDesc = "orderdesc";
-//        Long orderSkill = 17L;
-//        String dateS = "21-09-2016";
-//        String fromS = "10:00:00";
-//        String toS = "12:00:00";
-//        String orderClient = "ordercname";
-//        int orderCleintNum = 123414;
-//
-//        ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
-//
-//        try {
-////          string dates into dates
-//            DateFormat timeF = new SimpleDateFormat("HH:mm");
-//            DateFormat dateF = new SimpleDateFormat("dd-MM-y");
-//
-////          create dates
-//            Date fromDate = timeF.parse(fromS);
-//            Date toDate = timeF.parse(toS);
-//            Date dateDate = dateF.parse(dateS);
-//
-////          calendars for all dates
-//            Calendar calFrom = Calendar.getInstance();
-//            calFrom.setTime(fromDate);
-//
-//            Calendar calTo = Calendar.getInstance();
-//            calTo.setTime(toDate);
-//
-//            Calendar calDate = Calendar.getInstance();
-//            calDate.setTime(dateDate);
-//
-//        /*Find workers by skill*/
-//            orderService.findCapacity(calDate,calFrom,calTo,orderSkill,"W");
-//
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-
-        WorkerService workerService = FactoryService.getWorkerServiceInstance();
-        Worker worker = workerService.findWorker(50);
-
-
         OrderService orderService = FactoryService.getOrderServiceInstance();
-        List<Order> orders = orderService.getByWorker(worker);
-        for (Order order : orders) {
-            System.out.println(order.getOrdNumber());
+        WorkerService workerService = FactoryService.getWorkerServiceInstance();
+        SkillService skillService = FactoryService.getSkillServiceInstance();
+
+        String orderNum = "FR2-X";
+        String orderDesc = "orderdesc";
+        Long orderSkill = 17L;
+        String dateS = "21-09-2016";
+        String fromS = "10:00:00";
+        String toS = "12:00:00";
+        String orderClient = "ordercname";
+        int orderCleintNum = 123414;
+
+        ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
+
+        try {
+//          string dates into dates
+            DateFormat timeF = new SimpleDateFormat("HH:mm");
+            DateFormat dateF = new SimpleDateFormat("dd-MM-y");
+
+//          create dates
+            Date fromDate = timeF.parse(fromS);
+            Date toDate = timeF.parse(toS);
+            Date dateDate = dateF.parse(dateS);
+
+//          calendars for all dates
+            Calendar calFrom = Calendar.getInstance();
+            calFrom.setTime(fromDate);
+
+            Calendar calTo = Calendar.getInstance();
+            calTo.setTime(toDate);
+
+            Calendar calDate = Calendar.getInstance();
+            calDate.setTime(dateDate);
+
+        /*Find workers by skill*/
+            orderService.findCapacity(calDate,calFrom,calTo,orderSkill,"W",null);
+
+        } catch (Exception e) {
+            System.out.println(e);
         }
+
     }
 }

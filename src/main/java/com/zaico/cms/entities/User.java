@@ -13,6 +13,7 @@ import java.util.List;
     {
         @NamedQuery(name = "User.getAll", query = "SELECT user FROM User user ORDER BY U_UPDATED_AT DESC"),
         @NamedQuery(name = "User.deleteAll", query = "DELETE FROM User"),
+        @NamedQuery(name = "User.getByRole", query = "SELECT u FROM User u WHERE u.roles = :roles"),
         @NamedQuery(name = "User.login", query = "SELECT u FROM User u WHERE u.login= :login AND u.password = :password")
     })
 public class User extends AbstractEntity {

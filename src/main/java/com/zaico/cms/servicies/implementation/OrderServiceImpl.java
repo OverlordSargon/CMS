@@ -167,7 +167,7 @@ public class OrderServiceImpl implements OrderService {
                             logger.info("Worker ");
                             int i = 0;
                             for (Schedule schedule : schedulesWork) {
-                                if (schedule.getInterval().equals(orderedIntervals.get(i))) {
+                            if (schedule.getInterval().equals(orderedIntervals.get(i))) {
                                     schedule.setFlag(flag);
                                     i++;
                                     logger.info("Success update "+schedule.getInterval());

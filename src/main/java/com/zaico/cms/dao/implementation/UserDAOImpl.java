@@ -1,7 +1,10 @@
 package com.zaico.cms.dao.implementation;
 
 import com.zaico.cms.dao.interfaces.UserDAO;
+import com.zaico.cms.entities.Order;
+import com.zaico.cms.entities.Role;
 import com.zaico.cms.entities.User;
+import com.zaico.cms.utility.ExceptionCMS;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -26,6 +29,25 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
         user.setParameter("password",password);
         return (User) user.getSingleResult();
     }
+
+    public List<User> findUserByRole(Role role) throws ExceptionCMS {
+        List<User> result = null;
+        try {
+            em.getTransaction().begin();
+            Query query = em.createNamedQuery("User.getByRole");
+            List<Role> roleList = new ArrayList<Role>();
+            roleList.add(role);
+            query.setParameter("roles",roleList);
+            result = query.getResultList();
+            em.getTransaction().commit();
+        }
+        catch (Exception exp) {
+            em.getTransaction().rollback();
+        }
+        return result;
+    }
+
+
     /**
      * Overrited methods for getAll & deleteAll by named queries
      */
