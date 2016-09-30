@@ -11,8 +11,7 @@ import java.util.List;
 @Table(name = "ROLE")
 @NamedQueries(
     {
-        @NamedQuery(name = "Role.getAll", query = "SELECT roles FROM Role roles ORDER BY R_UPDATED_AT DESC"),
-        @NamedQuery(name = "Role.getRoleByUser", query = "SELECT r FROM Role r WHERE r.users = :users"),
+        @NamedQuery(name = "Role.getAll", query = "SELECT roles FROM Role roles ORDER BY R_UPDATED_AT ASC "),
         @NamedQuery(name = "Role.deleteAll", query = "DELETE FROM Role")
     })
 public class Role extends AbstractEntity {
@@ -24,10 +23,6 @@ public class Role extends AbstractEntity {
 
     /* Description */
     private String description;
-
-    /* Users, with this role */
-    private List<User> users;
-
 
     /** CONSTRUCTORS */
     /* Default */
@@ -101,29 +96,6 @@ public class Role extends AbstractEntity {
      */
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    /* Users */
-    /**
-     * Gets the user with this role
-     * @return the user
-     */
-    @ManyToMany
-    @JoinTable
-    (
-        name = "USER_ROLE",
-        joinColumns = @JoinColumn(name = "R_ID", referencedColumnName = "R_ID "),
-        inverseJoinColumns = @JoinColumn(name = "U_ID",referencedColumnName = "U_ID")
-    )
-    public List<User> getUsers() {
-        return users;
-    }
-    /**
-     * Set user
-     * @param users
-     */
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     /* Created at */

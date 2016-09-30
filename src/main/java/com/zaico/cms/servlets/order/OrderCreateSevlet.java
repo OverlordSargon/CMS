@@ -96,9 +96,10 @@ public class OrderCreateSevlet extends HttpServlet {
             Order order = new Order(orderNum,orderDesc,dateDate,fromDate,toDate,orderCleintNum,orderClient,workerOrder);
             LOG.info(order.toString());
             orderService.createOrder(order);
-            String message = "Order \""+orderNum+"\" successfully";
+            String message = "Order \""+orderNum+"\" successfuly";
             LOG.info(message);
             request.setAttribute("sucMessage",message);
+            request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
 
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
@@ -107,6 +108,5 @@ public class OrderCreateSevlet extends HttpServlet {
             request.setAttribute("infoMessage", infoMessage);
             doGet( request,  response);
         }
-        request.getRequestDispatcher("/orders").forward(request, response);
     }
 }

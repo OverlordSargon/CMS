@@ -107,9 +107,18 @@ public class OrderServiceImpl implements OrderService {
      */
     public Worker findCapacity(Calendar day, Calendar timeFrom, Calendar timeTo, Long skill,String flag,Worker existingWorker) throws ExceptionCMS {
 
+        Calendar now = Calendar.getInstance();
+        now.setTime(new Date());
+        now.set(Calendar.HOUR_OF_DAY,0);
+        now.set(Calendar.MINUTE,0);
+        now.set(Calendar.SECOND,0);
+        day.add(Calendar.DAY_OF_MONTH,-1);
+        if( day.before(now)) {
+            throw  new ExceptionCMS("You choose a paste date",ErrorCode.DATE_BEFORE_TODAY);
+        }
+
         WorkerService workerService = FactoryService.getWorkerServiceInstance();
         Worker orderWorker = null;
-
 
         /*Find workers by skill*/
 //            choose random worker
@@ -120,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
             int intervalTo = timeTo.get(Calendar.HOUR_OF_DAY);
 
             List<Integer> orderedIntervals = new ArrayList<Integer>();
-            for (int i = intervalFrom; i <= intervalTo; i++) {
+            for (int i = intervalFrom; i < intervalTo; i++) {
                 orderedIntervals.add(i);
             }
 
@@ -181,7 +190,8 @@ public class OrderServiceImpl implements OrderService {
                         /* Error between schedules and booking time */
                             throw  new ExceptionCMS("NO FREE CAPACITY",ErrorCode.ORDER_CREATION_ERROR);
                         }
-
+                    } else {
+                        throw  new ExceptionCMS("NO FREE CAPACITY",ErrorCode.ORDER_CREATION_ERROR);
                     }
                 }
             }

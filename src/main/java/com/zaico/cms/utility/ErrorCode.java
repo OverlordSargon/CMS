@@ -45,6 +45,7 @@ public class ErrorCode {
 
     public static final int NO_REQUIRED_INTERVAL = 30;
     public static final int CANT_GET_WORKERs_ORDERS = 31;
+    public static final int DATE_BEFORE_TODAY = 32;
 
 
 

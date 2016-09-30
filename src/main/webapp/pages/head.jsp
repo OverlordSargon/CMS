@@ -31,55 +31,56 @@
     %>
 </head>
 <body>
-    <header>
-        <div class = "logoleft1"></div>
-        <div class="child"></div>
-        <div class = "header-name">
-            Capacity Management System
-        </div>
-        <div class = "logoright1"></div>
-    </header>
+    <div class="container footerholder">
+        <header>
+            <div class = "logoleft1"></div>
+            <div class="child"></div>
+            <div class = "header-name">
+                Capacity Management System
+            </div>
+            <div class = "logoright1"></div>
+        </header>
 
-    <nav>
-        <%
-            if( session.getAttribute("role")!=null) {
-                if (session.getAttribute("role").equals("Administrator")) {
-                    links = "<a href=\"/main\">Main Page</a>\n" +
-                            "<a href=\"/orders\">Orders</a>" +
-                            "<a href=\"/skills\">skills</a>\n" +
-                            "<a href=\"/roles\">roles</a>\n" +
-                            "<a href=\"/users\">users</a>\n" +
-                            "<a href=\"/workers\">workers</a>" + logoutButt;
-                } else {
-                    links = "<a href=\"/main\">Main Page</a>\n" +
-                            "<a href=\"/orders\">Orders</a>" + logoutButt;
+        <nav>
+            <%
+                if( session.getAttribute("role")!=null) {
+                    if (session.getAttribute("role").equals("Administrator")) {
+                        links = "<a href=\"/main\">Main Page</a>\n" +
+                                "<a href=\"/orders\">Orders</a>" +
+                                "<a href=\"/skills\">skills</a>\n" +
+                                "<a href=\"/roles\">roles</a>\n" +
+                                "<a href=\"/users\">users</a>\n" +
+                                "<a href=\"/workers\">workers</a>" + logoutButt;
+                    } else {
+                        links = "<a href=\"/main\">Main Page</a>\n" +
+                                "<a href=\"/orders\">Orders</a>" + logoutButt;
+                    }
                 }
-            }
-        %>
-        <%=links%>
-    </nav>
+            %>
+            <%=links%>
+        </nav>
 
-    <div class="messages">
-        <c:choose>
-            <c:when test="${errMessage != null}">
-                <div class="error_message">
-                    <c:out value="${errMessage}"></c:out>
-                </div>
-            </c:when>
-        </c:choose>
-        <c:choose>
-            <c:when test="${sucMessage != null}">
-                <div class="success_message">
-                    <c:out value="${sucMessage}"></c:out>
-                </div>
-            </c:when>
-        </c:choose>
-        <c:choose>
-        <c:when test="${infoMessage != null}">
-                <div class="info_message">
-                    <c:out value="${infoMessage}"></c:out>
-                </div>
-            </c:when>
-        </c:choose>
-    </div>
-    <article class="change_block">
+        <div class="messages">
+            <c:choose>
+                <c:when test="${errMessage != null}">
+                    <div class="error_message">
+                        <c:out value="${errMessage}"></c:out>
+                    </div>
+                </c:when>
+            </c:choose>
+            <c:choose>
+                <c:when test="${sucMessage != null}">
+                    <div class="success_message">
+                        <c:out value="${sucMessage}"></c:out>
+                    </div>
+                </c:when>
+            </c:choose>
+            <c:choose>
+            <c:when test="${infoMessage != null}">
+                    <div class="info_message">
+                        <c:out value="${infoMessage}"></c:out>
+                    </div>
+                </c:when>
+            </c:choose>
+        </div>
+        <article class="change_block">

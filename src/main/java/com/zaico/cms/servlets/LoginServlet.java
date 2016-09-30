@@ -77,7 +77,7 @@ public class LoginServlet extends HttpServlet {
          }
         catch (Exception e) {
 //            Logging failed login
-            LOG.info("Failed login "+name+" password"+password+" "+new Date());
+            LOG.info("Failed login "+name);
 //            Handle exception
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage", errorMessage);

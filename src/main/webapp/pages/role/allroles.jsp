@@ -33,18 +33,18 @@
                                     <input type="submit" value="VIEW" class="btn view">
                                 </form>
                             </div>
-                            <div class="btn-update">
-                                <form action="/updaterole" method="get">
-                                    <input type="hidden"  name="id" value="${role.id}">
-                                    <input type="submit" value="UPDATE" class="btn renew">
-                                </form>
-                            </div>
-                            <div class="btn-delete">
-                                <form action="/deleterole" method="post">
-                                    <input type="hidden"  name="id" value="${role.id}">
-                                    <input type="submit" value="DELETE" class="btn delete">
-                                </form>
-                            </div>
+                            <%--<div class="btn-update">--%>
+                                <%--<form action="/updaterole" method="get">--%>
+                                    <%--<input type="hidden"  name="id" value="${role.id}">--%>
+                                    <%--<input type="submit" value="UPDATE" class="btn renew">--%>
+                                <%--</form>--%>
+                            <%--</div>--%>
+                            <%--<div class="btn-delete">--%>
+                                <%--<form action="/deleterole" method="post">--%>
+                                    <%--<input type="hidden"  name="id" value="${role.id}">--%>
+                                    <%--<input type="submit" value="DELETE" class="btn delete">--%>
+                                <%--</form>--%>
+                            <%--</div>--%>
                         </td>
                     </tr>
                 </c:forEach>

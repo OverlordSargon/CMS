@@ -20,20 +20,20 @@
         <c:otherwise>
         </form>
             <%-- if we view print additional buttons--%>
-            <div class="buttons-ud">
-                <div class="">
-                    <form action="/updaterole" method="get">
-                        <input type="hidden"  name="id" value="${role.id}">
-                        <input type="submit" value="UPDATE" class="btn renew">
-                    </form>
-                </div>
-                <div class="btn-delete">
-                    <form action="/deleterole" method="post">
-                        <input type="hidden"  name="id" value="${role.id}">
-                        <input type="submit" value="DELETE" class="btn delete">
-                    </form>
-                </div>
-            </div>
+            <%--<div class="buttons-ud">--%>
+                <%--<div class="">--%>
+                    <%--<form action="/updaterole" method="get">--%>
+                        <%--<input type="hidden"  name="id" value="${role.id}">--%>
+                        <%--<input type="submit" value="UPDATE" class="btn renew">--%>
+                    <%--</form>--%>
+                <%--</div>--%>
+                <%--<div class="btn-delete">--%>
+                    <%--<form action="/deleterole" method="post">--%>
+                        <%--<input type="hidden"  name="id" value="${role.id}">--%>
+                        <%--<input type="submit" value="DELETE" class="btn delete">--%>
+                    <%--</form>--%>
+                <%--</div>--%>
+            <%--</div>--%>
         </c:otherwise>
         </c:choose>
 

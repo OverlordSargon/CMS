@@ -7,7 +7,7 @@
         </div>
         <div>
             <label for="">User password</label>
-            <input type="text" name="userdesc" value="${user.password}" ${disabled}>
+            <input type="text" name="password" value="${user.password}" ${disabled}>
         </div>
 
     <c:choose>

@@ -6,6 +6,8 @@ import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.RoleService;
 import com.zaico.cms.servicies.interfaces.UserService;
+import com.zaico.cms.utility.ErrorCode;
+import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -56,17 +58,18 @@ public class UserCreateSevlet extends HttpServlet {
             User user = new User(userName,userPass);
             List<Role> userRoles = new ArrayList<Role>();
 //            if role id not null
-            if (roles != null && roles.length != 0) {
+            if (roles.length != 0) {
                 for ( String roleId: roles) {
 //                    Find each role with id and add to role list
-                    long id = Long.parseLong(roleId);
-                    userRoles.add(roleService.findRole(id));
+                    userRoles.add(roleService.findRole(Integer.parseInt(roleId)));
                 }
+            } else {
+                throw new ExceptionCMS("You`ve choosen no roles", ErrorCode.ROLE_NOT_FOUND);
             }
 //            set all founded role as user role
             user.setRoles(userRoles);
             userService.createUser(user);
-            String message = "User \""+userName+"\" created at "+new Date();
+            String message = "User \""+userName+"\" created ";
             LOG.info(message);
             request.setAttribute("sucMessage",message);
             request.getRequestDispatcher("/users").forward(request, response);
