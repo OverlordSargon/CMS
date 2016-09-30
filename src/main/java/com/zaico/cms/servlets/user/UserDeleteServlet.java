@@ -13,10 +13,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.Date;
 
@@ -32,8 +29,7 @@ public class UserDeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Integer id = Integer.parseInt(request.getParameter("id"));
-            user = userService.findUser((long)id);
+
             request.setAttribute("user",user);
             request.setAttribute("infoMessage","You want to delete this role. Are you sure?");
         } catch (Exception e) {
@@ -52,12 +48,12 @@ public class UserDeleteServlet extends HttpServlet {
         try {
 
             String sessionUser = "";
-            for (Cookie cookie : request.getCookies()) {
-                if (cookie.getName().equals("user")) {
-                    sessionUser = cookie.getValue();                }
-            }
+            HttpSession session = request.getSession();
+            sessionUser = session.getAttribute("user").toString();
+            Integer id = Integer.parseInt(request.getParameter("id"));
+            user = userService.findUser(id);
 
-            if ( sessionUser == user.getLogin()) {
+            if ( sessionUser.equals(user.getLogin())) {
                 throw new ExceptionCMS("You can`t delete youself!", ErrorCode.USER_CANNOT_BE_DELETED);
             }
             userService.deleteUser(user);

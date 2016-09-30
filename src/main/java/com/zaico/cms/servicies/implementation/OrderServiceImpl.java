@@ -112,7 +112,6 @@ public class OrderServiceImpl implements OrderService {
         now.set(Calendar.HOUR_OF_DAY,0);
         now.set(Calendar.MINUTE,0);
         now.set(Calendar.SECOND,0);
-        day.add(Calendar.DAY_OF_MONTH,-1);
         if( day.before(now)) {
             throw  new ExceptionCMS("You choose a paste date",ErrorCode.DATE_BEFORE_TODAY);
         }
@@ -149,8 +148,8 @@ public class OrderServiceImpl implements OrderService {
             } else {
                 workers.add(existingWorker);
             }
+            boolean findAtLeastOneInterval = false;
             for (Worker worker : workers) {
-
 //            Start of cycle, on all workplans of worker
                 for (Workplan workplan : worker.getWorkplans()) {
                     logger.info("in worker "+worker.getName()+" workplans");
@@ -167,6 +166,7 @@ public class OrderServiceImpl implements OrderService {
                             /* Create list of right intervals */
                                 if (schedule.getInterval().equals(orderedInterval) & schedule.getFlag().equals(oldFlag) ) {
                                     schedulesWork.add(schedule);
+                                    findAtLeastOneInterval = true;
                                 }
                             }
                         }
@@ -190,10 +190,11 @@ public class OrderServiceImpl implements OrderService {
                         /* Error between schedules and booking time */
                             throw  new ExceptionCMS("NO FREE CAPACITY",ErrorCode.ORDER_CREATION_ERROR);
                         }
-                    } else {
-                        throw  new ExceptionCMS("NO FREE CAPACITY",ErrorCode.ORDER_CREATION_ERROR);
                     }
                 }
+            }
+            if (!findAtLeastOneInterval) {
+                throw  new ExceptionCMS("NO FREE CAPACITY",ErrorCode.ORDER_CREATION_ERROR);
             }
 
         return orderWorker;

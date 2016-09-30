@@ -55,7 +55,7 @@ public class UserUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("username");
-        String userDesc = request.getParameter("userdesc");
+        String userDesc = request.getParameter("password");
         String[] roles = request.getParameterValues("roles");
         try {
             user.setLogin(userName);
@@ -63,7 +63,7 @@ public class UserUpdateServlet extends HttpServlet {
             List<Role> userRoles = new ArrayList<Role>();
             userService.clearRoles(user);
 //            if role id not null
-            if (roles != null && roles.length != 0) {
+            if (roles != null || roles.length != 0) {
                 for ( String roleId: roles) {
 //                    Find each role with id and add to role list
                     long rid = Long.parseLong(roleId);

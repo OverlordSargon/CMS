@@ -72,8 +72,9 @@ public class WorkerUpdateServlet extends HttpServlet {
         String breakHour = request.getParameter("breakhour");
 
         try {
+
             /*Schedules*/
-            List<Schedule> scheduleList = DaySchedule.scheduleList(beginTime,endTime,breakHour);
+
 
             /*Workplans*/
 //            Empty list of workplans
@@ -81,31 +82,39 @@ public class WorkerUpdateServlet extends HttpServlet {
 //            Get list of dates & create workplan for these days
             List<Date> workDays = WorkWeek.getWorkDays(beginDate,endDate);
             for (Date day: workDays) {
+                List<Schedule> scheduleList = DaySchedule.scheduleList(beginTime,endTime,breakHour);
                 Workplan workplan = new Workplan(day,workerName);
                 workplan.setSchedules(scheduleList);
                 workplanService.createWorkplan(workplan);
 //                Add workplan entity to workplan list
                 workplanList.add(workplan);
             }
-            if (workplanList.size() == 0 ) {
-                String messa = "In period from "+beginDate+" to "+endDate+"only weekends";
-                request.setAttribute("infoMessage",messa);
-            }
 
             /*Skills*/
             List<Skill> workerSkills = new ArrayList<Skill>();
 //            if skill id not null
-            if (skills != null && skills.length != 0) {
+            if (skills != null || skills.length != 0) {
                 for ( String skillId: skills) {
 //                    Find each skill with id and add to skill list
                     long id = Long.parseLong(skillId);
                     workerSkills.add(skillService.findSkill(id));
                 }
             }
+
+            if (workplanList.size() == 0 ) {
+                String messa = "In period from "+beginDate+" to "+endDate+"only weekends";
+                request.setAttribute("infoMessage",messa);
+            } else {
+                //            Delete old workplans
+                for ( Workplan workplan: worker.getWorkplans()) {
+                    workplanService.deleteWorkplan(workplan);
+                }
+            }
 //            set all finded skill as user skill
             worker.setName(workerName);
             worker.setTelephone(workerNum);
             worker.setSkills(workerSkills);
+            worker.setWorkplans(workplanList);
             workerService.updateWorker(worker);
             LOG.info("Worker "+worker.getName()+ " updated at "+new Date());
             request.setAttribute("sucMessage","Worker \""+worker.getName()+ "\" updated successfully");

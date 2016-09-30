@@ -50,6 +50,8 @@ public class WorkerDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            Integer id = Integer.parseInt(request.getParameter("id"));
+            worker = workerService.findWorker((long)id);
             workerService.deleteWorker(worker);
             String message = "Worker \""+worker.getName()+"\" deleted successfully";
             LOG.info(message);

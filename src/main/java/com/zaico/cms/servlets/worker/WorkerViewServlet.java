@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +40,7 @@ public class WorkerViewServlet extends HttpServlet {
         OrderService orderService = FactoryService.getOrderServiceInstance();
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            worker = workerService.findWorker((long)id);
+            worker = workerService.findWorker(id);
             Workplan workplan = worker.getWorkplans().get(0);
             Date fist = workplan.getDate();
             Date last = worker.getWorkplans().get(worker.getWorkplans().size()-1).getDate();
@@ -48,15 +49,18 @@ public class WorkerViewServlet extends HttpServlet {
             calFirst.setTime(fist);
             calLast.setTime(last);
 
-            String fistDay = calFirst.get(Calendar.DAY_OF_MONTH)+"-"+calFirst.get(Calendar.MONTH)+"-"+calFirst.get(Calendar.YEAR);
-            String lastDay = calLast.get(Calendar.DAY_OF_MONTH)+"-"+calLast.get(Calendar.MONTH)+"-"+calLast.get(Calendar.YEAR);
-            
-            String firstHour = workplan.getSchedules().get(0).getInterval().toString();
-            String lasstHour = workplan.getSchedules().get(workplan.getSchedules().size()-1).getInterval().toString();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-y");
+            Date dateF = dateFormat.parse(calFirst.getTime().toString());
+            Date dateL = dateFormat.parse(calLast.getTime().toString());
+
+            int firstHour = workplan.getSchedules().get(0).getInterval();
+            int lasstHour = workplan.getSchedules().get(workplan.getSchedules().size()-1).getInterval()+1;
             List<Order> orders = orderService.getByWorker(worker);
-            request.setAttribute("orders",orders);
-            request.setAttribute("firstday",fistDay);
-            request.setAttribute("lastday",lastDay);
+            if ( orders.size() != 0) {
+                request.setAttribute("orders",orders);
+            }
+            request.setAttribute("firstday",dateF);
+            request.setAttribute("lastday",dateL);
             request.setAttribute("firsthour",firstHour);
             request.setAttribute("lasthour",lasstHour);
             request.setAttribute("worker",worker);

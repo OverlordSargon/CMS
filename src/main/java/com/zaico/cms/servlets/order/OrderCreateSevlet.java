@@ -7,6 +7,7 @@ import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.ScheduleService;
 import com.zaico.cms.servicies.interfaces.SkillService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
+import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.commons.logging.Log;
@@ -40,12 +41,14 @@ public class OrderCreateSevlet extends HttpServlet {
     OrderService orderService = FactoryService.getOrderServiceInstance();
     WorkerService workerService = FactoryService.getWorkerServiceInstance();
     SkillService skillService = FactoryService.getSkillServiceInstance();
+    Order order = null;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             List<Worker> allWorkers = workerService.findAllWorkers();
             List<Skill> allSkills = skillService.findAllSkills();
+            request.setAttribute("order",order);
             request.setAttribute("workers",allWorkers);
             request.setAttribute("skills",allSkills);
             request.setAttribute("action","/neworder");
@@ -69,9 +72,25 @@ public class OrderCreateSevlet extends HttpServlet {
         String orderClient = request.getParameter("ordercname");
         int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
 
+        List<Object> list = new ArrayList<Object>();
+        list.add(orderNum);
+        list.add(orderDesc);
+        list.add(orderSkill);
+        list.add(dateS);
+        list.add(fromS);
+        list.add(toS);
+        list.add(orderClient);
+        list.add(orderCleintNum);
+
         ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
 
         try {
+
+            for ( Object object: list) {
+                if ( object == null | object.equals("") | object.equals(0) ) {
+                    throw new ExceptionCMS("You must fill"+ object.toString()+ " field", ErrorCode.ORDER_CREATION_ERROR);
+                }
+            }
 //         string dates into dates
             DateFormat timeF = new SimpleDateFormat("HH:mm");
             DateFormat dateF = new SimpleDateFormat("dd-MM-y");
@@ -93,13 +112,13 @@ public class OrderCreateSevlet extends HttpServlet {
 
         /*Find workers by skill*/
             Worker workerOrder = orderService.findCapacity(calDate,calFrom,calTo,orderSkill,"W",null);
-            Order order = new Order(orderNum,orderDesc,dateDate,fromDate,toDate,orderCleintNum,orderClient,workerOrder);
+            order = new Order(orderNum,orderDesc,dateDate,fromDate,toDate,orderCleintNum,orderClient,workerOrder);
             LOG.info(order.toString());
             orderService.createOrder(order);
-            String message = "Order \""+orderNum+"\" successfuly";
+            String message = "Order \""+orderNum+"\"created successfuly";
             LOG.info(message);
             request.setAttribute("sucMessage",message);
-            request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
+            request.getRequestDispatcher("orders").forward(request, response);
 
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);

@@ -133,7 +133,7 @@ public class WorkerServiceImpl implements WorkerService {
     public void deleteWorker(Worker worker) throws ExceptionCMS {
         OrderService orderService = FactoryService.getOrderServiceInstance();
         try {
-            if (orderService.getByWorker(worker) == null) {
+            if (orderService.getByWorker(worker).size() == 0) {
                 workerDAO.delete(worker);
             } else {
                 String err = "This worker haven`t done his work!";
