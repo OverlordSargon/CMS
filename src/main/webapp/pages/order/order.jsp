@@ -41,7 +41,7 @@
         </div>
 
     <c:choose>
-        <c:when test="${action != \"/order\"}">
+        <c:when test="${action != \"/order\" and action !=\"/deleteorder\"}">
 
             <%--If U or C print the following name--%>
             <div class="list">

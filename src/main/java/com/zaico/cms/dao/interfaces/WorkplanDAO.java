@@ -10,4 +10,5 @@ public interface WorkplanDAO extends CommonDAO<Workplan> {
     /**
      * Methods
      */
+
 }

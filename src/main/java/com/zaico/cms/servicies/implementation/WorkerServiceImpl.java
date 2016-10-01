@@ -2,8 +2,10 @@ package com.zaico.cms.servicies.implementation;
 
 import com.zaico.cms.dao.implementation.FactoryDAO;
 import com.zaico.cms.dao.interfaces.WorkerDAO;
+import com.zaico.cms.entities.Order;
 import com.zaico.cms.entities.User;
 import com.zaico.cms.entities.Worker;
+import com.zaico.cms.entities.Workplan;
 import com.zaico.cms.servicies.interfaces.CommonService;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
@@ -11,10 +13,12 @@ import com.zaico.cms.servicies.interfaces.WorkplanService;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
 
+
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
+import org.omg.CORBA.Request;
+
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +29,7 @@ import java.util.List;
  */
 public class WorkerServiceImpl implements WorkerService {
 
-    private static final Logger LOG = Logger.getLogger(WorkplanService.class);
+    private static final Logger LOG = LogManager.getLogger(WorkplanService.class);
     private WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
 
     /**
@@ -144,5 +148,22 @@ public class WorkerServiceImpl implements WorkerService {
             LOG.info("DELETE ERROR "+errMes);
             throw new ExceptionCMS(errMes,ErrorCode.WORKER_CANNOT_BE_DELETED);
         }
+    }
+
+    public  void findWorkTime(Worker worker, HttpServletRequest request) {
+        Workplan workplan = worker.getWorkplans().get(0);
+        Date fist = workplan.getDate();
+        Date last = worker.getWorkplans().get(worker.getWorkplans().size()-1).getDate();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
+        String dateF = dateFormat.format(fist);
+        String dateL = dateFormat.format(last);
+
+        int firstHour = workplan.getSchedules().get(1).getInterval();
+        int lasstHour = workplan.getSchedules().get(workplan.getSchedules().size()-1).getInterval()+1;
+        request.setAttribute("firstday",dateF);
+        request.setAttribute("lastday",dateL);
+        request.setAttribute("firsthour",firstHour);
+        request.setAttribute("lasthour",lasstHour);
     }
 }

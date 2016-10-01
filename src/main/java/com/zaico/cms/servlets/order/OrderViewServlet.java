@@ -4,6 +4,8 @@ import com.zaico.cms.entities.Order;
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.utility.ExceptionHandler;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.logging.Logger;
 
 /**
  * Created by nzaitsev on 19.09.2016.
@@ -20,7 +21,7 @@ import java.util.logging.Logger;
 @WebServlet("/vieworder")
 public class OrderViewServlet extends HttpServlet  {
 
-    Logger LOG = Logger.getLogger(OrderViewServlet.class.toString());
+    Logger LOG = LogManager.getLogger(OrderViewServlet.class.toString());
     @Override
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

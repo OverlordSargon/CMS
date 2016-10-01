@@ -6,9 +6,9 @@ import com.zaico.cms.servicies.implementation.SkillServiceImpl;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.SkillService;
 import com.zaico.cms.utility.ExceptionHandler;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
+
+
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +24,7 @@ import java.util.Date;
 @WebServlet("/updateskill")
 public class SkillUpdate extends HttpServlet {
 
-    private static final Logger LOG = Logger.getLogger(SkillServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(SkillServiceImpl.class);
     Skill skill = null;
     SkillService skillService = FactoryService.getSkillServiceInstance();
 

@@ -7,9 +7,9 @@ import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.RoleService;
 import com.zaico.cms.servicies.interfaces.UserService;
 import com.zaico.cms.utility.ExceptionHandler;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
+
+
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +27,7 @@ import java.util.List;
 @WebServlet("/updateuser")
 public class UserUpdateServlet extends HttpServlet {
 
-    private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
     UserService userService = FactoryService.getUserServiceInstance();
     RoleService roleService = FactoryService.getRoleServiceInstance();
     User user = null;

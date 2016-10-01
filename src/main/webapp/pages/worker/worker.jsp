@@ -25,13 +25,13 @@
                 <%-- choose begin worker date--%>
             <div>
                 <label for=""> Begin date </label>
-                <input type="text" name="begindate" value="" ${disabled} placeholder="day-month-year" >
+                <input type="text" name="begindate" value="${firstday}" ${disabled} placeholder="day-month-year" >
             </div>
 
                 <%-- choose end worker date--%>
             <div>
                 <label for=""> End date </label>
-                <input type="text" name="enddate" value="" ${disabled} placeholder="day-month-year">
+                <input type="text" name="enddate" value="${lastday}" ${disabled} placeholder="day-month-year">
             </div>
         </div>
 
@@ -39,13 +39,21 @@
                 <%--choose time from--%>
             <div>
                 <label for=""> Work from: </label>
-                <input type="text" name="begintime" value="" ${disabled} placeholder="hour:00">
+                <input type="text" name="begintime"
+                       <c:if test="${not empty firsthour}">
+                           value="${firsthour}:00"
+                        </c:if>
+                       ${disabled} placeholder="hour:00">
             </div>
 
                 <%--choose time to--%>
             <div>
                 <label for=""> to: </label>
-                <input type="text" name="endtime" value="" ${disabled} placeholder="hour:00">
+                <input type="text" name="endtime"
+                    <c:if test="${not empty lasthour}">
+                           value="${lasthour}:00"
+                    </c:if>
+                    ${disabled} placeholder="hour:00">
             </div>
                 <%-- choose break for 1 hour--%>
             <div>
@@ -80,7 +88,7 @@
     <c:otherwise>
         </form>
         <div>
-            Worker ${worker.name} have the following skills:
+            Worker ${worker.name} has the following skills:
             <c:forEach items="${worker.skills}" var="skill">
                 <br><c:out value="${skill.name}"></c:out>
             </c:forEach>
@@ -95,7 +103,7 @@
                 <div> From: ${firsthour}:00 to: ${lasthour}:00</div>
             </div>
         </div>
-        <c:when test="${orders}">
+        <c:if test="${fn:length(orders) > 0}">
             <div class="grid-view">
                 <p style="text-align: center">Execute the following orders:</p>
                 <c:forEach items="${orders}" var="order">
@@ -109,7 +117,7 @@
                     </div>
                 </c:forEach>
             </div>
-        </c:when>
+        </c:if>
         <%-- if we view, print additional buttons--%>
         <div class="buttons-ud">
             <div class="btn-update">

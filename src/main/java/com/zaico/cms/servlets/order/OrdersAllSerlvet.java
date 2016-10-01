@@ -11,9 +11,9 @@ import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.ExceptionHandler;
 import com.zaico.cms.utility.PrintAttributes;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
+
+
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +30,7 @@ import java.util.List;
 public class OrdersAllSerlvet extends HttpServlet{
 
 
-    private static final Logger LOG = Logger.getLogger(OrderServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(OrderServiceImpl.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -5,9 +5,9 @@ import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.UserService;
 import com.zaico.cms.utility.ExceptionHandler;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
+
+
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +23,7 @@ import java.util.List;
 @WebServlet("/users")
 public class UsersAllServlet extends HttpServlet {
 
-    private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

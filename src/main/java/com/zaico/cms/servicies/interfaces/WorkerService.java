@@ -3,6 +3,7 @@ package com.zaico.cms.servicies.interfaces;
 import com.zaico.cms.entities.Worker;
 import com.zaico.cms.utility.ExceptionCMS;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -67,4 +68,12 @@ public interface WorkerService {
      */
     void deleteWorker(Worker worker) throws ExceptionCMS;
 
+
+    /**
+     * Get fist/last day/hour of work
+     * @param worker
+     * @param request
+     * @throws ExceptionCMS
+     */
+    void findWorkTime(Worker worker, HttpServletRequest request) throws ExceptionCMS;
 }

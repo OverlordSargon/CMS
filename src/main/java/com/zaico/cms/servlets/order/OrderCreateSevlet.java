@@ -10,9 +10,9 @@ import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
+
+
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,25 +36,22 @@ import static java.util.concurrent.TimeUnit.HOURS;
 @WebServlet("/neworder")
 public class OrderCreateSevlet extends HttpServlet {
 
-    private static final Logger LOG = Logger.getLogger(WorkerServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(WorkerServiceImpl.class);
 
     OrderService orderService = FactoryService.getOrderServiceInstance();
-    WorkerService workerService = FactoryService.getWorkerServiceInstance();
     SkillService skillService = FactoryService.getSkillServiceInstance();
     Order order = null;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<Worker> allWorkers = workerService.findAllWorkers();
             List<Skill> allSkills = skillService.findAllSkills();
             request.setAttribute("order",order);
-            request.setAttribute("workers",allWorkers);
             request.setAttribute("skills",allSkills);
             request.setAttribute("action","/neworder");
             request.setAttribute("button","CREATE");
         } catch (Exception e) {
-
+            LOG.info(e.toString());
         }
         request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
     }

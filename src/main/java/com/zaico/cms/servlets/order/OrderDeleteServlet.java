@@ -5,7 +5,7 @@ import com.zaico.cms.entities.Worker;
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.utility.ExceptionHandler;
-import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +24,7 @@ import java.util.Date;
 @WebServlet("/deleteorder")
 public class OrderDeleteServlet extends HttpServlet {
 
-    Logger logger = Logger.getLogger(OrderDeleteServlet.class);
+    Logger logger = LogManager.getLogger(OrderDeleteServlet.class);
     Order order = null;
     OrderService orderService = FactoryService.getOrderServiceInstance();
 

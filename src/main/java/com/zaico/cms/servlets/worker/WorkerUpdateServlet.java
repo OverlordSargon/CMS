@@ -8,9 +8,10 @@ import com.zaico.cms.servicies.interfaces.*;
 import com.zaico.cms.utility.DaySchedule;
 import com.zaico.cms.utility.ExceptionHandler;
 import com.zaico.cms.utility.WorkWeek;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
+
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +30,7 @@ import java.util.List;
 @WebServlet("/updateworker")
 public class WorkerUpdateServlet extends HttpServlet {
 
-    private static final Logger LOG = Logger.getLogger(WorkerServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(WorkerServiceImpl.class);
     WorkerService workerService = FactoryService.getWorkerServiceInstance();
     SkillService skillService = FactoryService.getSkillServiceInstance();
     Worker worker = null;
@@ -41,6 +42,7 @@ public class WorkerUpdateServlet extends HttpServlet {
             long id = Long.parseLong(request.getParameter("id"));
             worker = workerService.findWorker(id);
             request.setAttribute("worker",worker);
+            workerService.findWorkTime(worker,request);
             List<Skill> allSkills = skillService.findAllSkills();
             request.setAttribute("skills",allSkills);
 

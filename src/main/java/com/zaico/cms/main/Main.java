@@ -13,7 +13,8 @@ import com.zaico.cms.servicies.interfaces.SkillService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.servlets.HelloWorld;
 import com.zaico.cms.utility.*;
-import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 
 import java.awt.color.CMMException;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ import java.util.*;
  * Created by nzaitsev on 01.08.2016.
  */
 public class Main {
-    public static Logger logger = Logger.getLogger(HelloWorld.class);
+    public static Logger logger = LogManager.getLogger(HelloWorld.class);
 
     public static void main(String[] args)  throws ExceptionCMS, SQLException, ClassNotFoundException,InterruptedException , IllegalArgumentException,
             IllegalAccessException, ParseException {
@@ -48,35 +49,53 @@ public class Main {
 
         try {
 //          string dates into dates
-            DateFormat timeF = new SimpleDateFormat("HH:mm");
-            DateFormat dateF = new SimpleDateFormat("dd-MM-y");
-            DateFormat fullD = new SimpleDateFormat("HH:mm:ss dd-MM-y");
+//            DateFormat timeF = new SimpleDateFormat("HH:mm");
+//            DateFormat dateF = new SimpleDateFormat("dd-MM-y");
+//            DateFormat fullD = new SimpleDateFormat("HH:mm:ss dd-MM-y");
 
-//          create dates
-            Date fromDate = timeF.parse(fromS);
-            Date toDate = timeF.parse(toS);
-            Date dateDate = dateF.parse(dateS);
-            StringBuffer stringBuffer = new StringBuffer(fromS);
-            stringBuffer.append(" ");
-            stringBuffer.append(dateS);
-            Date fullDate = fullD.parse(stringBuffer.toString());
+////          create dates
+//            Date fromDate = timeF.parse(fromS);
+//            Date toDate = timeF.parse(toS);
+//            Date dateDate = dateF.parse(dateS);
+//            StringBuffer stringBuffer = new StringBuffer(fromS);
+//            stringBuffer.append(" ");
+//            stringBuffer.append(dateS);
+////            Date fullDate = fullD.parse(stringBuffer.toString());
+//
+////          calendars for all dates
+//            Calendar calFrom = Calendar.getInstance();
+//            calFrom.setTime(fromDate);
+//
+//            Calendar calTo = Calendar.getInstance();
+//            calTo.setTime(toDate);
+//
+//            Calendar calDate = Calendar.getInstance();
+//            calDate.setTime(dateDate);
+//
+//            Calendar orderDate = Calendar.getInstance();
+//            orderDate.setTime(fullDate);
+//
+//            Calendar today = Calendar.getInstance();
+//            today.setTime(new Date());
 
-//          calendars for all dates
-            Calendar calFrom = Calendar.getInstance();
-            calFrom.setTime(fromDate);
+            Worker worker = workerService.findWorker(55);
+            Workplan workplan = worker.getWorkplans().get(0);
+            Date fist = workplan.getDate();
+            Date last = worker.getWorkplans().get(worker.getWorkplans().size()-1).getDate();
 
-            Calendar calTo = Calendar.getInstance();
-            calTo.setTime(toDate);
+            Calendar calFirst = Calendar.getInstance();
 
-            Calendar calDate = Calendar.getInstance();
-            calDate.setTime(dateDate);
 
-            Calendar orderDate = Calendar.getInstance();
-            orderDate.setTime(fullDate);
+            Calendar calLast = Calendar.getInstance();
+            calFirst.setTime(fist);
+            calLast.setTime(last);
 
-            Calendar today = Calendar.getInstance();
-            today.setTime(new Date());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
+            String dateF = dateFormat.format(fist);
+            String dateL = dateFormat.format(last);
 
+            System.out.println(dateF);
+            System.out.println(dateL);
 
 //            System.out.println("Order date: "+orderDate.getTime());
 //            System.out.println("Today: "+today.getTime());
@@ -85,14 +104,14 @@ public class Main {
 //            } else {
 //                System.out.println("Right time!!!!");
 //            }
-            WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
-
-            Worker worker = workerService.findWorker(51);
-            if (orderService.getByWorker(worker).size() == 0) {
-                System.out.println("deletet");
-            } else {
-                System.out.println("catn delete");
-            }
+//            WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
+//
+//            Worker worker = workerService.findWorker(51);
+//            if (orderService.getByWorker(worker).size() == 0) {
+//                System.out.println("deletet");
+//            } else {
+//                System.out.println("catn delete");
+//            }
 
         /*Find workers by skill*/
 //            orderService.findCapacity(calDate,calFrom,calTo,orderSkill,"W",null);

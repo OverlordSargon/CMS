@@ -2,9 +2,9 @@ package com.zaico.cms.servlets;
 
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.utility.ExceptionCMS;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
+
+
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +18,7 @@ import java.util.Date;
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
 
-    private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
     private static final long serialVersionUID = 1L;
 
     @Override

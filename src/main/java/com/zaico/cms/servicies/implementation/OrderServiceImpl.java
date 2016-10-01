@@ -9,7 +9,8 @@ import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
-import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 
 import java.util.*;
 
@@ -18,7 +19,7 @@ import java.util.*;
  */
 public class OrderServiceImpl implements OrderService {
 
-    private static final Logger logger = Logger.getLogger(OrderService.class);
+    private static final Logger logger = LogManager.getLogger(OrderService.class);
 //    private static final Log logger = LogFactory.getLog(OrderService.class);
     private OrderDAO orderDAO = FactoryDAO.getOrderDAOInstance();
 
@@ -135,7 +136,7 @@ public class OrderServiceImpl implements OrderService {
 //            Calendar for workplan date, need to convert correctly
             Calendar calWorkplan = Calendar.getInstance();
             /* handling flags */
-            String oldFlag = "";
+           String oldFlag = "";
             if ( flag.equals("W") ) {
                 oldFlag = "F";
             } else {

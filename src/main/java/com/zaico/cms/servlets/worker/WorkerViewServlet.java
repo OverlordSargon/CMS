@@ -1,5 +1,6 @@
 package com.zaico.cms.servlets.worker;
 
+import com.mysql.jdbc.log.Log;
 import com.zaico.cms.entities.Order;
 import com.zaico.cms.entities.User;
 import com.zaico.cms.entities.Worker;
@@ -10,8 +11,9 @@ import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.UserService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.ExceptionHandler;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,7 +33,7 @@ import java.util.List;
 @WebServlet("/viewworker")
 public class WorkerViewServlet extends HttpServlet {
     
-    private  static final Log LOG = LogFactory.getLog(WorkerServiceImpl.class);
+    private  static final Logger LOG = LogManager.getLogger(WorkerServiceImpl.class);
     WorkerService workerService = FactoryService.getWorkerServiceInstance();
 
     @Override
@@ -41,28 +43,12 @@ public class WorkerViewServlet extends HttpServlet {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
             worker = workerService.findWorker(id);
-            Workplan workplan = worker.getWorkplans().get(0);
-            Date fist = workplan.getDate();
-            Date last = worker.getWorkplans().get(worker.getWorkplans().size()-1).getDate();
-            Calendar calFirst = Calendar.getInstance();
-            Calendar calLast = Calendar.getInstance();
-            calFirst.setTime(fist);
-            calLast.setTime(last);
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-y");
-            Date dateF = dateFormat.parse(calFirst.getTime().toString());
-            Date dateL = dateFormat.parse(calLast.getTime().toString());
-
-            int firstHour = workplan.getSchedules().get(0).getInterval();
-            int lasstHour = workplan.getSchedules().get(workplan.getSchedules().size()-1).getInterval()+1;
+            workerService.findWorkTime(worker,request);
             List<Order> orders = orderService.getByWorker(worker);
             if ( orders.size() != 0) {
                 request.setAttribute("orders",orders);
             }
-            request.setAttribute("firstday",dateF);
-            request.setAttribute("lastday",dateL);
-            request.setAttribute("firsthour",firstHour);
-            request.setAttribute("lasthour",lasstHour);
+
             request.setAttribute("worker",worker);
         } catch (Exception e) {
             LOG.info("Worker \""+worker.getName()+ "\" notfounded at "+new Date());
