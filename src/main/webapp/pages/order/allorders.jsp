@@ -18,7 +18,7 @@
         <c:when test="${orders != null}">
             <table>
                 <tr>
-                    <th> ID </th>
+                    <th <%=disabledField%> > ID </th>
                     <th> Order number </th>
                     <th> Description </th>
                     <th> Day </th>
@@ -27,12 +27,12 @@
                     <th> Client name </th>
                     <th> Client telephone </th>
                     <th> Worker </th>
-                    <th> Last update</th>
+                    <th <%=disabledField%> > Last update</th>
                     <th> Actions</th>
                 </tr>
                 <c:forEach var="order" items="${orders}">
                     <tr>
-                        <td><c:out value="${order.id}"/></td>
+                        <td <%=disabledField%> ><c:out value="${order.id}"/></td>
                         <td><c:out value="${order.ordNumber}"/></td>
                         <td><c:out value="${order.description}"/></td>
                         <td>
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td <%=disabledField%> >
                             <fmt:formatDate pattern="MM-dd-y HH:mm:ss" value="${order.updatedAt}" />
                         </td>
                         <td>

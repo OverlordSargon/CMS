@@ -18,6 +18,7 @@
         String logoutButt ;
         String links ="";
         String userName = " ";
+        String disabledField = "";
         if(session.getAttribute("user") != null) {
             userName = session.getAttribute("user").toString();
             logoutButt ="<a href=\"/logout\">\n" +
@@ -55,6 +56,7 @@
                     } else {
                         links = "<a href=\"/main\">Main Page</a>\n" +
                                 "<a href=\"/orders\">Orders</a>" + logoutButt;
+                        disabledField = "style=display:none";
                     }
                 }
             %>

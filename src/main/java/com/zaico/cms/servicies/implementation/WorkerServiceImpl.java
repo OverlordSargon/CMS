@@ -2,10 +2,7 @@ package com.zaico.cms.servicies.implementation;
 
 import com.zaico.cms.dao.implementation.FactoryDAO;
 import com.zaico.cms.dao.interfaces.WorkerDAO;
-import com.zaico.cms.entities.Order;
-import com.zaico.cms.entities.User;
-import com.zaico.cms.entities.Worker;
-import com.zaico.cms.entities.Workplan;
+import com.zaico.cms.entities.*;
 import com.zaico.cms.servicies.interfaces.CommonService;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
@@ -159,11 +156,18 @@ public class WorkerServiceImpl implements WorkerService {
         String dateF = dateFormat.format(fist);
         String dateL = dateFormat.format(last);
 
-        int firstHour = workplan.getSchedules().get(1).getInterval();
+        int firstHour = workplan.getSchedules().get(0).getInterval();
         int lasstHour = workplan.getSchedules().get(workplan.getSchedules().size()-1).getInterval()+1;
+        int pauseHour = 0;
+        for (Schedule schedule: workplan.getSchedules()) {
+            if (schedule.getFlag().equals("P")) {
+                pauseHour = schedule.getInterval();
+            }
+        }
         request.setAttribute("firstday",dateF);
         request.setAttribute("lastday",dateL);
         request.setAttribute("firsthour",firstHour);
         request.setAttribute("lasthour",lasstHour);
+        request.setAttribute("pausehour",pauseHour);
     }
 }

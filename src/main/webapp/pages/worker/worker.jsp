@@ -87,20 +87,28 @@
         <%--BUTTONS--%>
     <c:otherwise>
         </form>
-        <div>
-            Worker ${worker.name} has the following skills:
-            <c:forEach items="${worker.skills}" var="skill">
-                <br><c:out value="${skill.name}"></c:out>
-            </c:forEach>
-        </div>
-        <div>
-            Worker schedule:
-            <div>
-                <div>First day: ${firstday}</div>
-                <div>Last day: ${lastday}</div>
+        <div class="workerinfo">
+            <div class="worker_skills_info">
+                Worker ${worker.name} has the following skills:
+                <c:forEach items="${worker.skills}" var="skill">
+                    <div class="attr-view">
+                        <form action="/viewskill" method="get">
+                            <input type="hidden"  name="id" value="${skill.id}">
+                            <input type="submit" value="${skill.name}" class="btn view">
+                        </form>
+                    </div>
+                </c:forEach>
             </div>
-            <div>
-                <div> From: ${firsthour}:00 to: ${lasthour}:00</div>
+            <div class="worker_schedule_info">
+                Worker schedule:
+                <div class="worker_days">
+                    <div>First day: ${firstday}</div>
+                    <div>Last day: ${lastday}</div>
+                </div>
+                <div>
+                    <div class="worker_time"> Working from ${firsthour}:00 to ${lasthour}:00</div>
+                    <div> Pause from ${pausehour}:00 to ${pausehour+1}:00 </div>
+                </div>
             </div>
         </div>
         <c:if test="${fn:length(orders) > 0}">

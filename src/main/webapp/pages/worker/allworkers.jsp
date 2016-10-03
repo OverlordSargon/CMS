@@ -27,14 +27,12 @@
                         <td><c:out value="${worker.telephone}"/></td>
                         <td>
                             <c:forEach var="skill" items="${worker.skills}">
-                                <div>
                                     <div class="attr-view">
                                         <form action="/viewskill" method="get">
                                             <input type="hidden"  name="id" value="${skill.id}">
                                             <input type="submit" value="${skill.name}" class="btn view">
                                         </form>
                                     </div>
-                                </div>
                             </c:forEach>
                         </td>
                         <td>

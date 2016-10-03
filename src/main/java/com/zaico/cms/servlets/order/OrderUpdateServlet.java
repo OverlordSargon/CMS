@@ -1,18 +1,17 @@
 package com.zaico.cms.servlets.order;
 
-import com.zaico.cms.entities.*;
+import com.zaico.cms.entities.Order;
+import com.zaico.cms.entities.Skill;
+import com.zaico.cms.entities.Worker;
 import com.zaico.cms.servicies.implementation.FactoryService;
-import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.ScheduleService;
 import com.zaico.cms.servicies.interfaces.SkillService;
-import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
-
-
-import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,41 +21,45 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static java.util.concurrent.TimeUnit.HOURS;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
- * Created by nzaitsev on 03.09.2016.
+ * Created by nzaitsev on 01.10.2016.
  */
-@WebServlet("/neworder")
-public class OrderCreateSevlet extends HttpServlet {
-
-    private static final Logger LOG = LogManager.getLogger(WorkerServiceImpl.class);
-
+@WebServlet("/updateorder")
+public class OrderUpdateServlet extends HttpServlet {
+    Logger logger = LogManager.getLogger(OrderDeleteServlet.class);
+    Order order = null;
     OrderService orderService = FactoryService.getOrderServiceInstance();
     SkillService skillService = FactoryService.getSkillServiceInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Order order = null;
-
-            List<Skill> allSkills = skillService.findAllSkills();
+            Integer id = Integer.parseInt(request.getParameter("id"));
+            order = orderService.findOrder(id);
             request.setAttribute("order",order);
+            List<Skill> allSkills = skillService.findAllSkills();
             request.setAttribute("skills",allSkills);
-            request.setAttribute("action","/neworder");
-            request.setAttribute("button","CREATE");
+
         } catch (Exception e) {
-            LOG.info(e.toString());
+            logger.info("Order \""+order.getOrdNumber()+ "\" notfounded at "+new Date());
+            String errMess = ExceptionHandler.handleException(e);
+            request.setAttribute("errMessage",errMess);
+            request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
         }
+        request.setAttribute("button","UPDATE");
+        request.setAttribute("action","/updateorder");
+        request.setAttribute("button","UPDATE");
         request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        Get parameters
-        Order order = null;
 
         String orderNum = request.getParameter("ordernum");
         String orderDesc = request.getParameter("orderdesc");
@@ -66,26 +69,19 @@ public class OrderCreateSevlet extends HttpServlet {
         String toS = request.getParameter("orderto");
         String orderClient = request.getParameter("ordercname");
         int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
-
-        List<Object> list = new ArrayList<Object>();
-        list.add(orderNum);
-        list.add(orderDesc);
-        list.add(orderSkill);
-        list.add(dateS);
-        list.add(fromS);
-        list.add(toS);
-        list.add(orderClient);
-        list.add(orderCleintNum);
+        Worker workerOrder = null;
 
         ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
 
         try {
+            /*Set old flags as F*/
+            Calendar calendarD = Calendar.getInstance();
+            Calendar calendarF = Calendar.getInstance();
+            Calendar calendarT = Calendar.getInstance();
+            calendarD.setTime(order.getDate());
+            calendarF.setTime(order.getFrom());
+            calendarT.setTime(order.getTo());
 
-            for ( Object object: list) {
-                if ( object == null | object.equals("") | object.equals(0) ) {
-                    throw new ExceptionCMS("You must fill"+ object.toString()+ " field", ErrorCode.ORDER_CREATION_ERROR);
-                }
-            }
 //         string dates into dates
             DateFormat timeF = new SimpleDateFormat("HH:mm");
             DateFormat dateF = new SimpleDateFormat("dd-MM-y");
@@ -106,19 +102,29 @@ public class OrderCreateSevlet extends HttpServlet {
             calDate.setTime(dateDate);
 
         /*Find workers by skill*/
-            Worker workerOrder = orderService.findCapacity(calDate,calFrom,calTo,orderSkill,"W",null);
-            order = new Order(orderNum,orderDesc,dateDate,fromDate,toDate,orderCleintNum,orderClient,workerOrder);
-            LOG.info(order.toString());
-            orderService.createOrder(order);
-            String message = "Order \""+orderNum+"\"created successfuly";
-            LOG.info(message);
+            orderService.findCapacity(calDate,calFrom,calTo,orderSkill,"W",null);
+            workerOrder = orderService.findCapacity(calendarD,calendarF,calendarT,null,"F",order.getWorker());
+
+            order.setOrdNumber(orderNum);
+            order.setDescription(orderDesc);
+            order.setDate(dateDate);
+            order.setFrom(fromDate);
+            order.setTo(toDate);
+            order.setTelNumber(orderCleintNum);
+            order.setClientName(orderClient);
+            order.setWorker(workerOrder);
+            logger.info(order.toString());
+
+            orderService.updateOrder(order);
+            String message = "Order \""+orderNum+"\"updated successfully";
+            logger.info(message);
             request.setAttribute("sucMessage",message);
             request.getRequestDispatcher("orders").forward(request, response);
 
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage", errorMessage);
-            String infoMessage = "Try again, please. Choose another time interval";
+            String infoMessage = "Try again, please.";
             request.setAttribute("infoMessage", infoMessage);
             doGet( request,  response);
         }
