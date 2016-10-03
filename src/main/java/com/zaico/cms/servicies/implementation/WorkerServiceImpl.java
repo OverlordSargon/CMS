@@ -147,6 +147,11 @@ public class WorkerServiceImpl implements WorkerService {
         }
     }
 
+    /**
+     * Get info about worker`s schedule
+     * @param worker Worker object
+     * @param request HttpServletRequest object
+     */
     public  void findWorkTime(Worker worker, HttpServletRequest request) {
         Workplan workplan = worker.getWorkplans().get(0);
         Date fist = workplan.getDate();

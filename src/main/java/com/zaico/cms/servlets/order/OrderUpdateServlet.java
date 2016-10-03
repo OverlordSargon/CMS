@@ -59,8 +59,8 @@ public class OrderUpdateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        Get parameters
-
+        logger.info("START: update order "+order.getOrdNumber());
+        //Get parameters
         String orderNum = request.getParameter("ordernum");
         String orderDesc = request.getParameter("orderdesc");
         Long orderSkill = Long.parseLong(request.getParameter("orderworktype"));

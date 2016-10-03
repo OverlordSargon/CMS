@@ -1,11 +1,6 @@
 <%@include file="../head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="grid-view">
-    <div>
-        <button class="cmsbutton">
-            <a href="/newrole">Create new role</a>
-        </button>
-    </div>
     <div class="table_header"> Roles </div>
 
         <c:choose>

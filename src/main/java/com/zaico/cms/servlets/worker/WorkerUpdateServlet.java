@@ -74,10 +74,6 @@ public class WorkerUpdateServlet extends HttpServlet {
         String breakHour = request.getParameter("breakhour");
 
         try {
-
-            /*Schedules*/
-
-
             /*Workplans*/
 //            Empty list of workplans
             List<Workplan> workplanList = new ArrayList<Workplan>();

@@ -51,12 +51,10 @@ public class LoginServlet extends HttpServlet {
             String username = user.getLogin();
             if (user != null) {
 //                Logging user login
-                LOG.info("Success login "+username+" "+new Date());
-//                Success message
-                request.setAttribute("message", "Success login " + username);
+                LOG.info("Success login "+username);
 //                Star session
                 HttpSession session = request.getSession();
-                session.setAttribute("user", username);
+                session.setAttribute("user", user);
 //                Set role as cookies
                 List<Role> roleList;
                 roleList = user.getRoles();

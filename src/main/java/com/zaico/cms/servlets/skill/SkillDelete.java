@@ -5,6 +5,9 @@ import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.SkillServiceImpl;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.SkillService;
+import com.zaico.cms.servicies.interfaces.WorkerService;
+import com.zaico.cms.utility.ErrorCode;
+import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 
 
@@ -26,6 +29,7 @@ public class SkillDelete extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(SkillServiceImpl.class);
     SkillService skillService = FactoryService.getSkillServiceInstance();
+    WorkerService workerService = FactoryService.getWorkerServiceInstance();
     Skill skill = null;
 
     @Override
@@ -33,6 +37,7 @@ public class SkillDelete extends HttpServlet {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
             skill = skillService.findSkill((long)id);
+
             request.setAttribute("skill",skill);
             request.setAttribute("infoMessage","You want to delete this Skill. Are you sure?");
         } catch (Exception e) {
@@ -49,17 +54,18 @@ public class SkillDelete extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            if ( request.getParameter("id") != null) {
-                Integer id = Integer.parseInt(request.getParameter("id"));
-                skill = skillService.findSkill((long) id);
+            if (workerService.findWorkersBySkill(skill.getId()).size() == 0) {
+                skillService.deleteSkill(skill);
+            } else {
+                throw new ExceptionCMS("Can`t delete this skill", ErrorCode.SKILL_CANNOT_BE_DELETED);
             }
-            skillService.deleteSkill(skill);
             String message = "Skill \""+skill.getName()+"\" deleted successfully";
             LOG.info(message);
             request.setAttribute("infoMessage",message);
         } catch (Exception e) {
             String message = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage",message);
+            request.setAttribute("infoMessage","Worker need this!");
         }
         request.getRequestDispatcher("/skills").forward(request,response);
     }

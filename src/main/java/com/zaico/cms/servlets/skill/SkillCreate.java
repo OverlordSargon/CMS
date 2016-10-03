@@ -44,11 +44,13 @@ public class SkillCreate extends HttpServlet {
             skillService.createSkill(skill);
             String message = "Skill \""+skillName+"\" created!";
             LOG.info(message);
-            request.setAttribute("sucMessage",message);
+//            request.setAttribute("sucMessage",message);
+            request.getSession().setAttribute("sucMessage",message);
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage"+" Try again please, check parameters", errorMessage);
         }
-        request.getRequestDispatcher("/skills").forward(request, response);
+//        request.getRequestDispatcher("/skills").forward(request, response);
+        response.sendRedirect("/skills");
     }
 }

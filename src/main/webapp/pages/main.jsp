@@ -25,6 +25,9 @@
         <div class="main">
             <h1> Hello <%=userName %> <%= role %> </h1>
         </div>
+        <div>
+            ${accessmessage}
+        </div>
     </div>
 
 

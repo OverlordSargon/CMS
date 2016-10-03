@@ -19,6 +19,9 @@ public class MainServlet extends HttpServlet {
         if (req.getSession().getAttribute("user") == null) {
             resp.sendRedirect("/login");
         } else {
+//            String string ="";
+//            string = req.getAttribute("errMessage").toString();
+//            req.setAttribute("errMessage",string);
             req.setAttribute("name", "EnterOrderNumber");
             req.setAttribute("date", new Date() );
             req.getRequestDispatcher("pages/main.jsp").forward(req, resp);
