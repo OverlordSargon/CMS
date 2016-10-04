@@ -52,6 +52,8 @@ public class WorkerUpdateServlet extends HttpServlet {
         }
         request.setAttribute("action","/updateworker");
         request.setAttribute("button","UPDATE");
+        request.setAttribute("title","CMS Update worker");
+        request.setAttribute("cmsheader","Update worker");
         request.getRequestDispatcher("pages/worker/worker.jsp").forward(request, response);
     }
 

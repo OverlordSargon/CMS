@@ -42,6 +42,8 @@ public class WorkerCreateServlet extends HttpServlet {
             request.setAttribute("skills",allSkills);
             request.setAttribute("action","/newworker");
             request.setAttribute("button","CREATE");
+            request.setAttribute("title","CMS Create worker");
+            request.setAttribute("cmsheader","Create worker");
         } catch (Exception e) {
 
         }

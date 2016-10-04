@@ -44,6 +44,8 @@ public class SkillDelete extends HttpServlet {
             LOG.info("Skill \""+skill.getName()+ "\" notfounded at "+new Date());
             String errMess = ExceptionHandler.handleException(e);
         }
+        request.setAttribute("title","CMS Delete skill");
+        request.setAttribute("cmsheader","Delete skill");
         request.setAttribute("action","/deleteskill");
         request.setAttribute("disabled","disabled");
         request.setAttribute("button","DELETE");

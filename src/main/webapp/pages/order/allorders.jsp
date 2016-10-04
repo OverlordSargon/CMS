@@ -84,10 +84,7 @@
             </table>
         </c:when>
         <c:otherwise>
-            <div class="no_yet">
-                Don`t Worry!<br>
-                Just no orders yet :)
-            </div>
+
         </c:otherwise>
     </c:choose>
 </div>

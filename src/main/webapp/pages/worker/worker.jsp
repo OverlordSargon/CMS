@@ -67,7 +67,7 @@
                 Choose skills for worker:
             </div>
             <c:forEach items="${skills}" var="skill">
-                <div>
+                <div >
                     <div class="checklabel">
                         <c:out value="${skill.name}"></c:out>
                     </div>
@@ -88,16 +88,18 @@
     <c:otherwise>
         </form>
         <div class="workerinfo">
-            <div class="worker_skills_info">
-                Worker ${worker.name} has the following skills:
+            <div class="worker_skills_info col-xs-12">
+                Worker has the following skills:
+                <div class="attr-view ">
                 <c:forEach items="${worker.skills}" var="skill">
-                    <div class="attr-view">
+                    <div class="col-xs-3">
                         <form action="/viewskill" method="get">
                             <input type="hidden"  name="id" value="${skill.id}">
                             <input type="submit" value="${skill.name}" class="btn view">
                         </form>
                     </div>
                 </c:forEach>
+                </div>
             </div>
             <div class="worker_schedule_info">
                 Worker schedule:

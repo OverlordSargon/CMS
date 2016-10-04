@@ -33,7 +33,6 @@
     %>
 </head>
 <body>
-    <div class="container footerholder">
         <header>
             <div class = "logoleft1"></div>
             <div class="child"></div>
@@ -62,7 +61,11 @@
             %>
             <%=links%>
         </nav>
-
+        <c:if test="${not empty cmsheader}">
+            <div class="article-header">
+                <h2 class="header">${cmsheader}</h2>
+            </div>
+        </c:if>
         <div class="messages">
             <c:choose>
                 <c:when test="${errMessage != null}">

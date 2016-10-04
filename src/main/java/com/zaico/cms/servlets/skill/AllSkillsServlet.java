@@ -27,6 +27,8 @@ public class AllSkillsServlet extends HttpServlet {
                 request.setAttribute("infoMessage", "No skill ");
             }
             request.setAttribute("skills", allSkills);
+            request.setAttribute("title","CMS Skills");
+            request.setAttribute("cmsheader","Skills");
             request.getRequestDispatcher("pages/skill/allskills.jsp").forward(request, response);
         } else {
             response.sendRedirect("/login");

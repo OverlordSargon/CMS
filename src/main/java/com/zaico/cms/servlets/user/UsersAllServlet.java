@@ -36,6 +36,8 @@ public class UsersAllServlet extends HttpServlet {
                 String errMes = ExceptionHandler.handleException(e);
                 LOG.info(errMes);
             }
+            request.setAttribute("title","CMS Users");
+            request.setAttribute("cmsheader","Users");
             request.getRequestDispatcher("pages/user/allusers.jsp").forward(request, response);
         } else {
             response.sendRedirect("/login");

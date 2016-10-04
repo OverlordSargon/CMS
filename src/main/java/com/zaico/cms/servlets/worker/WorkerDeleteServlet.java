@@ -43,6 +43,8 @@ public class WorkerDeleteServlet extends HttpServlet {
         request.setAttribute("action","/deleteworker");
         request.setAttribute("disabled","disabled");
         request.setAttribute("button","DELETE");
+        request.setAttribute("title","CMS Delete worker");
+        request.setAttribute("cmsheader","Delete worker");
         request.getRequestDispatcher("pages/worker/worker.jsp").forward(request, response);
 
     }

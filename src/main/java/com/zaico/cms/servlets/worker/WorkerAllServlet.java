@@ -33,10 +33,15 @@ public class WorkerAllServlet extends HttpServlet {
             try {
                 List<Worker> workers = workerService.findAllWorkers();
                 request.setAttribute("workers",workers);
+                if ( workers.size() == 0 ) {
+                    request.setAttribute("infoMessage","No workers yet!");
+                }
             } catch (Exception e) {
                 String errMes = ExceptionHandler.handleException(e);
                 LOG.info(errMes);
             }
+            request.setAttribute("title","CMS Workers");
+            request.setAttribute("cmsheader","Workers");
             request.getRequestDispatcher("pages/worker/allworkers.jsp").forward(request, response);
         } else {
             response.sendRedirect("/login");

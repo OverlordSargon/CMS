@@ -38,6 +38,8 @@ public class SkillViewServlet extends HttpServlet {
             LOG.info("Skill \""+skill.getName()+ "\" notfounded at "+new Date());
             String errMess = ExceptionHandler.handleException(e);
         }
+        request.setAttribute("title","CMS Skill "+skill.getName());
+        request.setAttribute("cmsheader","Skill "+skill.getName());
         request.setAttribute("action","/skill");
         request.setAttribute("disabled","disabled");
         request.setAttribute("button","BACK");

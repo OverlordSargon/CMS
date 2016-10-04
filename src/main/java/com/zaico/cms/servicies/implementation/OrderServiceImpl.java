@@ -121,9 +121,8 @@ public class OrderServiceImpl implements OrderService {
         Worker orderWorker = null;
 
         /*Find workers by skill*/
-//            choose random worker
+//          choose random worker
 //          create new order
-
 //          find intervals of work
             int intervalFrom = timeFrom.get(Calendar.HOUR_OF_DAY);
             int intervalTo = timeTo.get(Calendar.HOUR_OF_DAY);

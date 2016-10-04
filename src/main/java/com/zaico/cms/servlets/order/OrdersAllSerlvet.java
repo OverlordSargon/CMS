@@ -39,10 +39,15 @@ public class OrdersAllSerlvet extends HttpServlet{
             try {
                 List<Order> orders = orderService.findAllOrders();
                 request.setAttribute("orders", orders);
+                if ( orders.size() == 0 ) {
+                    request.setAttribute("infoMessage","No orders yet!");
+                }
             } catch (Exception e) {
                 String errMes = ExceptionHandler.handleException(e);
                 LOG.info(errMes);
             }
+            request.setAttribute("title","CMS Orders");
+            request.setAttribute("cmsheader","Orders");
             request.getRequestDispatcher("pages/order/allorders.jsp").forward(request, response);
         } else  {
             response.sendRedirect("/login");

@@ -22,6 +22,7 @@ public class MainServlet extends HttpServlet {
 //            String string ="";
 //            string = req.getAttribute("errMessage").toString();
 //            req.setAttribute("errMessage",string);
+            req.setAttribute("title","CMS main");
             req.setAttribute("name", "EnterOrderNumber");
             req.setAttribute("date", new Date() );
             req.getRequestDispatcher("pages/main.jsp").forward(req, resp);

@@ -57,6 +57,8 @@ public class WorkerViewServlet extends HttpServlet {
         request.setAttribute("action","/worker");
         request.setAttribute("disabled","disabled");
         request.setAttribute("button","BACK");
+        request.setAttribute("title","CMS Worker ");
+        request.setAttribute("cmsheader","Worker "+worker.getName());
         request.getRequestDispatcher("pages/worker/worker.jsp").forward(request, response);
     }
 

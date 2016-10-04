@@ -32,6 +32,8 @@ public class OrderViewServlet extends HttpServlet  {
             order = orderService.findOrder(id);
             request.setAttribute("order",order);
             LOG.info("Order \""+order.getOrdNumber()+ "\" founded");
+            request.setAttribute("title","CMS Update Orders");
+            request.setAttribute("cmsheader","Order "+order.getOrdNumber());
         } catch (Exception e) {
             LOG.info("Order \""+order.getOrdNumber()+ "\" notfounded at "+new Date());
                 String errMess = ExceptionHandler.handleException(e);

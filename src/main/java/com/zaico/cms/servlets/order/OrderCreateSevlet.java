@@ -48,10 +48,10 @@ public class OrderCreateSevlet extends HttpServlet {
 	Order order = null;
 
 	/**
-	 * Bla bla bla.
+	 * Get method handler
 	 *
-	 * @param request
-	 * @param response          The HttpServletResponse object.
+	 * @param request The HttpServletRequest object.
+	 * @param response The HttpServletResponse object.
 	 * @throws ServletException
 	 * @throws IOException
 	 */
@@ -63,6 +63,8 @@ public class OrderCreateSevlet extends HttpServlet {
             request.setAttribute("skills",allSkills);
             request.setAttribute("action","/neworder");
             request.setAttribute("button","CREATE");
+			request.setAttribute("title","CMS Create Orders");
+			request.setAttribute("cmsheader","Create order");
         } catch (Exception e) {
             LOG.info(e.toString());
         }
@@ -70,10 +72,10 @@ public class OrderCreateSevlet extends HttpServlet {
     }
 
 	/**
-	 * ljhnkjb
+	 * Post method handler
 	 *
-	 * @param request
-	 * @param response
+	 * @param request The HttpServletRequest object.
+	 * @param response The HttpServletResponse object.
 	 * @throws ServletException
 	 * @throws IOException
 	 */

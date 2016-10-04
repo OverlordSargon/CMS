@@ -36,6 +36,8 @@ public class RolesAllServlet extends HttpServlet {
                 String errMes = ExceptionHandler.handleException(e);
                 LOG.info(errMes);
             }
+            request.setAttribute("title","CMS Roles");
+            request.setAttribute("cmsheader","Roles");
             request.getRequestDispatcher("pages/role/allroles.jsp").forward(request, response);
         } else  {
             response.sendRedirect("/login");

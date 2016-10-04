@@ -38,6 +38,8 @@ public class SkillUpdate extends HttpServlet {
             LOG.info("Skill \""+skill.getName()+ "\" notfounded at "+new Date());
             String errMess = ExceptionHandler.handleException(e);
         }
+        request.setAttribute("title","CMS Update skill");
+        request.setAttribute("cmsheader","Update skill");
         request.setAttribute("action","/updateskill");
         request.setAttribute("button","UPDATE");
         request.getRequestDispatcher("pages/skill/skill.jsp").forward(request, response);
