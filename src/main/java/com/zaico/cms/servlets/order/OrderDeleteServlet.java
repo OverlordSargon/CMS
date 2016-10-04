@@ -52,8 +52,8 @@ public class OrderDeleteServlet extends HttpServlet {
         request.setAttribute("action","/deleteorder");
         request.setAttribute("disabled","disabled");
         request.setAttribute("button","DELETE");
-        request.setAttribute("title","CMS Delete Orders");
-        request.setAttribute("cmsheader","Delete order");
+        request.setAttribute("title","CMS Delete Order");
+        request.setAttribute("cmsheader","Delete order "+ order.getOrdNumber());
         request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
     }
 

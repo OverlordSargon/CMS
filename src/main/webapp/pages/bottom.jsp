@@ -2,7 +2,7 @@
         <footer>
             <div class="footer-info">
                 <div class="text">
-                   © Capacity Management System 2016. All rights reserved.
+                   Capacity Management System 2016. All rights reserved.
                 </div>
             </div>
         </footer>

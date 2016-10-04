@@ -80,6 +80,7 @@ public class LoginServlet extends HttpServlet {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage", errorMessage);
             request.setAttribute("infoMessage", "Try again, please");
+            request.setAttribute("title", "CMS Login page");
             request.getRequestDispatcher("pages/login.jsp").forward(request, response);
         }
     }

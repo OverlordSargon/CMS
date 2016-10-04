@@ -48,6 +48,8 @@ public class UserUpdateServlet extends HttpServlet {
         }
         request.setAttribute("action","/updateuser");
         request.setAttribute("button","UPDATE");
+        request.setAttribute("title","CMS Update user");
+        request.setAttribute("cmsheader","Update user "+user.getLogin());
         request.getRequestDispatcher("pages/user/user.jsp").forward(request, response);
 
     }

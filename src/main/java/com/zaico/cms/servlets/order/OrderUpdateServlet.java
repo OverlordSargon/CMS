@@ -65,7 +65,7 @@ public class OrderUpdateServlet extends HttpServlet {
         request.setAttribute("action","/updateorder");
         request.setAttribute("button","UPDATE");
         request.setAttribute("title","CMS Update Orders");
-        request.setAttribute("cmsheader","Update order");
+        request.setAttribute("cmsheader","Update order "+order.getOrdNumber());
         request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
     }
 

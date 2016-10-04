@@ -49,7 +49,7 @@ public class SkillUpdate extends HttpServlet {
             String errMess = ExceptionHandler.handleException(e);
         }
         request.setAttribute("title","CMS Update skill");
-        request.setAttribute("cmsheader","Update skill");
+        request.setAttribute("cmsheader","Update skill "+skill.getName());
         request.setAttribute("action","/updateskill");
         request.setAttribute("button","UPDATE");
         request.getRequestDispatcher("pages/skill/skill.jsp").forward(request, response);
