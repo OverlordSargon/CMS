@@ -74,6 +74,11 @@ public class ExceptionCMS extends Exception {
         return message;
     }
 
+    /**
+     * Creates message string
+     * @param message
+     * @return Message string
+     */
     private String addCMSException(String message) {
         StringBuilder newMessage = new StringBuilder(message);
         if (!message.endsWith(DOT)) {

@@ -12,6 +12,13 @@ import java.util.List;
  * Created by nzaitsev on 03.09.2016.
  */
 public class WorkWeek {
+    /**
+     * Create a list of working days of worker
+     * @param beginDate
+     * @param endDate
+     * @return List of days
+     * @throws ParseException
+     */
     public static List<Date> getWorkDays(String beginDate, String endDate) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
         Date begin = dateFormat.parse(beginDate);

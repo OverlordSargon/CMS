@@ -29,9 +29,16 @@ import java.util.List;
 @WebServlet("/orders")
 public class OrdersAllSerlvet extends HttpServlet{
 
-
+    // logger
     private static final Logger LOG = LogManager.getLogger(OrderServiceImpl.class);
 
+    /**
+     * Get method handler
+     * @param request HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") != null) {
@@ -42,6 +49,7 @@ public class OrdersAllSerlvet extends HttpServlet{
                 if ( orders.size() == 0 ) {
                     request.setAttribute("infoMessage","No orders yet!");
                 }
+                LOG.info("START: get all orders");
             } catch (Exception e) {
                 String errMes = ExceptionHandler.handleException(e);
                 LOG.info(errMes);
@@ -54,6 +62,13 @@ public class OrdersAllSerlvet extends HttpServlet{
         }
     }
 
+    /**
+     * Post method handler
+     * @param req HttpServletRequest object
+     * @param resp HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);

@@ -24,10 +24,20 @@ import java.util.Date;
 @WebServlet("/deleteorder")
 public class OrderDeleteServlet extends HttpServlet {
 
+    //logger
     Logger logger = LogManager.getLogger(OrderDeleteServlet.class);
+    // Order entity
     Order order = null;
+    // Services
     OrderService orderService = FactoryService.getOrderServiceInstance();
 
+    /**
+     * Get method handler
+     * @param request HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -47,37 +57,39 @@ public class OrderDeleteServlet extends HttpServlet {
         request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
     }
 
+    /**
+     * Post method handler
+     * @param request HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-//            string dates into dates
-                DateFormat timeF = new SimpleDateFormat("HH:mm");
-                DateFormat dateF = new SimpleDateFormat("dd-MM-y");
-
-    //          create dates
-                Date fromDate = order.getFrom();
-                Date toDate = order.getTo();
-                Date dateDate = order.getDate();
-
-    //          calendars for all dates
-                Calendar calFrom = Calendar.getInstance();
-                calFrom.setTime(fromDate);
-
-                Calendar calTo = Calendar.getInstance();
-                calTo.setTime(toDate);
-
-                Calendar calDate = Calendar.getInstance();
-                calDate.setTime(dateDate);
-
-                orderService.findCapacity(calDate,calFrom,calTo,null,"F",order.getWorker());
-
-                orderService.deleteOrder(order);
-
+            logger.info("START: delete order "+order.getOrdNumber());
+            // string dates into dates
+            DateFormat timeF = new SimpleDateFormat("HH:mm");
+            DateFormat dateF = new SimpleDateFormat("dd-MM-y");
+            // create dates
+            Date fromDate = order.getFrom();
+            Date toDate = order.getTo();
+            Date dateDate = order.getDate();
+            // calendars for all dates
+            Calendar calFrom = Calendar.getInstance();
+            calFrom.setTime(fromDate);
+            Calendar calTo = Calendar.getInstance();
+            calTo.setTime(toDate);
+            Calendar calDate = Calendar.getInstance();
+            calDate.setTime(dateDate);
+            orderService.findCapacity(calDate,calFrom,calTo,null,"F",order.getWorker());
+            orderService.deleteOrder(order);
             String message = "Order \""+order.getOrdNumber()+"\" deleted successfully";
-            logger.info(message);
             request.setAttribute("infoMessage",message);
+            logger.info("END: delete order "+order.getOrdNumber());
         } catch (Exception e) {
             String message = ExceptionHandler.handleException(e);
+            logger.error("ERROR:order delete "+order.getOrdNumber());
             request.setAttribute("errMessage",message);
         }
         request.getRequestDispatcher("/orders").forward(request,response);

@@ -21,7 +21,9 @@ import java.util.List;
  */
 public class WorkplanServiceImpl implements WorkplanService {
 
+    // Logger
     private static final Logger LOG = LogManager.getLogger(WorkplanService.class);
+    // DAO
     private WorkplanDAO workplanDAO = FactoryDAO.getWorkplanDAOInstance();
 
     /**

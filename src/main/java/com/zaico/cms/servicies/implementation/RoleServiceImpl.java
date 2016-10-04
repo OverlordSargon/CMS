@@ -20,10 +20,9 @@ import java.util.List;
  */
 public class RoleServiceImpl implements RoleService {
 
-    /**
-     *
-     */
+    // Logger
     private static final Logger LOG = LogManager.getLogger(RoleServiceImpl.class);
+    // DAO
     private RoleDAO roleDAO = FactoryDAO.getRoleDAOInstance();
 
     /**

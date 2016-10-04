@@ -31,9 +31,11 @@ public class ExceptionHandler {
 	        } else {
 		        return TECHNICAL_ERROR;
 	        }
-        } else {
-	        LOG.error("Unexpected error.");
-            return TECHNICAL_ERROR;
-        }
+        } else if (e instanceof java.lang.NumberFormatException) {
+			return "Form error! Check fields!";
+		} else {
+				LOG.error("Unexpected error.");
+				return TECHNICAL_ERROR;
+			}
+		}
     }
-}

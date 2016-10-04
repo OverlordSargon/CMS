@@ -31,11 +31,21 @@ import java.util.List;
  */
 @WebServlet("/updateorder")
 public class OrderUpdateServlet extends HttpServlet {
-    Logger logger = LogManager.getLogger(OrderDeleteServlet.class);
+    //logger
+    Logger logger = LogManager.getLogger(OrderUpdateServlet.class);
+    // order entity
     Order order = null;
+    // servecies
     OrderService orderService = FactoryService.getOrderServiceInstance();
     SkillService skillService = FactoryService.getSkillServiceInstance();
 
+    /**
+     * Get method handler
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -59,23 +69,29 @@ public class OrderUpdateServlet extends HttpServlet {
         request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
     }
 
+    /**
+     * Post method handler
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("START: update order "+order.getOrdNumber());
         //Get parameters
-        String orderNum = request.getParameter("ordernum");
-        String orderDesc = request.getParameter("orderdesc");
-        Long orderSkill = Long.parseLong(request.getParameter("orderworktype"));
-        String dateS = request.getParameter("orderday");
-        String fromS = request.getParameter("orderfrom");
-        String toS = request.getParameter("orderto");
-        String orderClient = request.getParameter("ordercname");
-        int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
-        Worker workerOrder = null;
-
-        ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
-
         try {
+            String orderNum = request.getParameter("ordernum");
+            String orderDesc = request.getParameter("orderdesc");
+            Long orderSkill = Long.parseLong(request.getParameter("orderworktype"));
+            String dateS = request.getParameter("orderday");
+            String fromS = request.getParameter("orderfrom");
+            String toS = request.getParameter("orderto");
+            String orderClient = request.getParameter("ordercname");
+            int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
+            Worker workerOrder = null;
+
+            ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
             /*Set old flags as F*/
             Calendar calendarD = Calendar.getInstance();
             Calendar calendarF = Calendar.getInstance();
@@ -84,16 +100,16 @@ public class OrderUpdateServlet extends HttpServlet {
             calendarF.setTime(order.getFrom());
             calendarT.setTime(order.getTo());
 
-//         string dates into dates
+            //string dates into dates
             DateFormat timeF = new SimpleDateFormat("HH:mm");
             DateFormat dateF = new SimpleDateFormat("dd-MM-y");
 
-//          create dates
+            //create dates
             Date fromDate = timeF.parse(fromS);
             Date toDate = timeF.parse(toS);
             Date dateDate = dateF.parse(dateS);
 
-//          calendars for all dates
+            //calendars for all dates
             Calendar calFrom = Calendar.getInstance();
             calFrom.setTime(fromDate);
 
@@ -103,7 +119,7 @@ public class OrderUpdateServlet extends HttpServlet {
             Calendar calDate = Calendar.getInstance();
             calDate.setTime(dateDate);
 
-        /*Find workers by skill*/
+            /*Find workers by skill*/
             orderService.findCapacity(calDate,calFrom,calTo,orderSkill,"W",null);
             workerOrder = orderService.findCapacity(calendarD,calendarF,calendarT,null,"F",order.getWorker());
 
@@ -115,19 +131,21 @@ public class OrderUpdateServlet extends HttpServlet {
             order.setTelNumber(orderCleintNum);
             order.setClientName(orderClient);
             order.setWorker(workerOrder);
-            logger.info(order.toString());
+
+            logger.info("New "+order.toString());
 
             orderService.updateOrder(order);
             String message = "Order \""+orderNum+"\"updated successfully";
-            logger.info(message);
             request.setAttribute("sucMessage",message);
             request.getRequestDispatcher("orders").forward(request, response);
 
+            logger.info("END: successful update order "+order.getOrdNumber());
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage", errorMessage);
             String infoMessage = "Try again, please.";
             request.setAttribute("infoMessage", infoMessage);
+            logger.error("END:update order error "+order.getOrdNumber());
             doGet( request,  response);
         }
     }

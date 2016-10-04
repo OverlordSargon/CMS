@@ -15,6 +15,14 @@ import java.util.List;
  */
 public class DaySchedule {
 
+    /**
+     * Create list of work intervals
+     * @param beginTime
+     * @param endTime
+     * @param breakHour
+     * @return Schedule list
+     * @throws ParseException
+     */
     public static List<Schedule> scheduleList(String beginTime, String endTime, String breakHour) throws ParseException{
         List<Schedule> list = new ArrayList<Schedule>();
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");

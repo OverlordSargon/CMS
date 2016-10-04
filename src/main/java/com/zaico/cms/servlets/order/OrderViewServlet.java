@@ -21,9 +21,17 @@ import java.util.Date;
 @WebServlet("/vieworder")
 public class OrderViewServlet extends HttpServlet  {
 
+    // Logger
     Logger LOG = LogManager.getLogger(OrderViewServlet.class.toString());
-    @Override
 
+    /**
+     * Get method handler
+     * @param request HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = FactoryService.getOrderServiceInstance();
         Order order = null;
@@ -31,11 +39,11 @@ public class OrderViewServlet extends HttpServlet  {
             Integer id = Integer.parseInt(request.getParameter("id"));
             order = orderService.findOrder(id);
             request.setAttribute("order",order);
-            LOG.info("Order \""+order.getOrdNumber()+ "\" founded");
+            LOG.info("VIEW: Order \""+order.getOrdNumber()+ "\"");
             request.setAttribute("title","CMS Update Orders");
             request.setAttribute("cmsheader","Order "+order.getOrdNumber());
         } catch (Exception e) {
-            LOG.info("Order \""+order.getOrdNumber()+ "\" notfounded at "+new Date());
+            LOG.info("VIEW: Error Order \""+order.getOrdNumber()+ "\" notfounded at "+new Date());
                 String errMess = ExceptionHandler.handleException(e);
             }
             request.setAttribute("action","/order");

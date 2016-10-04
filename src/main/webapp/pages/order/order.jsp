@@ -54,17 +54,6 @@
                     </c:forEach>
                 </select>
             </div>
-            <%--If U or C print the following name--%>
-            <%--<div class="list">--%>
-                <%--<div class="list_label">--%>
-                    <%--Choose worker:--%>
-                <%--</div>--%>
-                <%--<select name="orderworker" size="5" id="">--%>
-                <%--<c:forEach items="${workers}" var="worker" >--%>
-                            <%--<option value="${worker.id}">${worker.name}</option>--%>
-                <%--</c:forEach>--%>
-                <%--</select>--%>
-            <%--</div>--%>
             <div>
                <input type="submit" class="btn create" value="${button}">
             </div>

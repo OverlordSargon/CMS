@@ -20,10 +20,9 @@ import java.util.List;
  */
 public class UserServiceImpl implements UserService {
 
-    /**
-     *
-     */
+    // Logger
     private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
+    // DAO
     private UserDAO userDAO = FactoryDAO.getUserDAOInstance();
 
     /**
@@ -99,6 +98,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Clear all user roles
+     * @param user
+     * @throws ExceptionCMS
+     */
     public void clearRoles(User user) throws ExceptionCMS {
         try {
             List<Role> userRoles = new ArrayList<Role>();

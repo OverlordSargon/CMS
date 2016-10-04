@@ -71,7 +71,11 @@
                     <div class="checklabel">
                         <c:out value="${skill.name}"></c:out>
                     </div>
-                    <input type="checkbox" class="checkboxform" name="skills" value="${skill.id}">
+                    <input type="checkbox" class="checkboxform" name="skills"
+                        <c:if test="${fn}">
+
+                        </c:if>
+                       value="${skill.id}">
                 </div>
             </c:forEach>
         </div>

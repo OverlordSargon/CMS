@@ -19,8 +19,9 @@ import java.util.*;
  */
 public class OrderServiceImpl implements OrderService {
 
-    private static final Logger logger = LogManager.getLogger(OrderService.class);
-//    private static final Log logger = LogFactory.getLog(OrderService.class);
+    // Logger
+    private static final Logger logger = LogManager.getLogger(OrderServiceImpl.class);
+    // DAO
     private OrderDAO orderDAO = FactoryDAO.getOrderDAOInstance();
 
     /**
@@ -55,6 +56,11 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * Get all orders
+     * @return List of all orders
+     * @throws ExceptionCMS
+     */
     public List<Order> findAllOrders() throws ExceptionCMS {
         try {
             return orderDAO.getAll();
@@ -107,7 +113,7 @@ public class OrderServiceImpl implements OrderService {
      * @throws ExceptionCMS
      */
     public Worker findCapacity(Calendar day, Calendar timeFrom, Calendar timeTo, Long skill,String flag,Worker existingWorker) throws ExceptionCMS {
-        logger.debug("Start: find capacity and booking intervals");
+        logger.debug("START: find capacity and booking intervals");
         Calendar now = Calendar.getInstance();
         now.setTime(new Date());
         now.set(Calendar.HOUR_OF_DAY,0);
@@ -121,81 +127,82 @@ public class OrderServiceImpl implements OrderService {
         Worker orderWorker = null;
 
         /*Find workers by skill*/
-//          choose random worker
-//          create new order
-//          find intervals of work
-            int intervalFrom = timeFrom.get(Calendar.HOUR_OF_DAY);
-            int intervalTo = timeTo.get(Calendar.HOUR_OF_DAY);
+        //choose random worker
+        //create new order
+        //find intervals of work
+        int intervalFrom = timeFrom.get(Calendar.HOUR_OF_DAY);
+        int intervalTo = timeTo.get(Calendar.HOUR_OF_DAY);
 
-            List<Integer> orderedIntervals = new ArrayList<Integer>();
-            for (int i = intervalFrom; i < intervalTo; i++) {
-                orderedIntervals.add(i);
-            }
+        List<Integer> orderedIntervals = new ArrayList<Integer>();
+        for (int i = intervalFrom; i < intervalTo; i++) {
+            orderedIntervals.add(i);
+        }
 
-//            Calendar for workplan date, need to convert correctly
-            Calendar calWorkplan = Calendar.getInstance();
-            /* handling flags */
-           String oldFlag = "";
-            if ( flag.equals("W") ) {
-                oldFlag = "F";
-            } else {
-                oldFlag = "W";
-            }
+        //Calendar for workplan date, need to convert correctly
+        Calendar calWorkplan = Calendar.getInstance();
+        /* handling flags */
+        String oldFlag = "";
+        if ( flag.equals("W") ) {
+            oldFlag = "F";
+        } else {
+            oldFlag = "W";
+        }
 
-                List<Worker> workers = new ArrayList<Worker>();
-            if (existingWorker == null ) {
-                workers  = workerService.findWorkersBySkill(skill);
-            } else {
-                workers.add(existingWorker);
-            }
-            boolean findAtLeastOneInterval = false;
-            for (Worker worker : workers) {
-            //if at least one interval not found
-                if ( !findAtLeastOneInterval ) {
-                    //Start of cycle, on all workplans of worker
-                    for (Workplan workplan : worker.getWorkplans()) {
-                        //set time to calendar for correct comparison
-                        calWorkplan.setTime(workplan.getDate());
-                        if (calWorkplan.getTime().equals(day.getTime())) {
-                            List<Schedule> schedulesWork = new ArrayList<Schedule>();
-                            for (Integer orderedInterval : orderedIntervals) {
-                                for (Schedule schedule : workplan.getSchedules()) {
-                            /* Create list of right intervals */
-                                    if (schedule.getInterval().equals(orderedInterval) && (schedule.getFlag().equals(oldFlag) || schedule.getFlag().equals("F")) ) {
-                                        schedulesWork.add(schedule);
-                                        findAtLeastOneInterval = true;
-                                    }
+        List<Worker> workers = new ArrayList<Worker>();
+        if (existingWorker == null ) {
+            workers  = workerService.findWorkersBySkill(skill);
+        } else {
+            workers.add(existingWorker);
+        }
+        boolean findAtLeastOneInterval = false;
+        for (Worker worker : workers) {
+        //if at least one interval not found
+            if ( !findAtLeastOneInterval ) {
+                //Start of cycle, on all workplans of worker
+                for (Workplan workplan : worker.getWorkplans()) {
+                    //set time to calendar for correct comparison
+                    calWorkplan.setTime(workplan.getDate());
+                    if (calWorkplan.getTime().equals(day.getTime())) {
+                        List<Schedule> schedulesWork = new ArrayList<Schedule>();
+                        for (Integer orderedInterval : orderedIntervals) {
+                            for (Schedule schedule : workplan.getSchedules()) {
+                                /* Create list of right intervals */
+                                if (schedule.getInterval().equals(orderedInterval) && (schedule.getFlag().equals(oldFlag) || schedule.getFlag().equals("F")) ) {
+                                    schedulesWork.add(schedule);
+                                    findAtLeastOneInterval = true;
                                 }
                             }
+                        }
                         /* If number of booked interval match to number of right schedules */
-                            if (orderedIntervals.size() == schedulesWork.size()) {
-                                logger.info("Matched worker " + worker.getName());
-                                int i = 0;
-                                for (Schedule schedule : schedulesWork) {
-                                    if (schedule.getInterval().equals(orderedIntervals.get(i))) {
-                                        schedule.setFlag(flag);
-                                        i++;
-                                        logger.info("Success update " + schedule.getInterval()+" interval");
-                                    }
+                        if (orderedIntervals.size() == schedulesWork.size()) {
+                            logger.info("Matched worker " + worker.getName());
+                            int i = 0;
+                            for (Schedule schedule : schedulesWork) {
+                                if (schedule.getInterval().equals(orderedIntervals.get(i))) {
+                                    schedule.setFlag(flag);
+                                    i++;
+                                    logger.info("Update " + schedule.getInterval()+" interval");
                                 }
-                        /* Success creation of schedules */
-                                orderWorker = worker;
-                                logger.info("Successful booking ");
-                                break;
                             }
+                            /* Success creation of schedules */
+                            orderWorker = worker;
+                            logger.info("Successful booking ");
+                            break;
                         }
                     }
                 }
             }
-            if (!findAtLeastOneInterval) {
-                throw  new ExceptionCMS("NO FREE CAPACITY",ErrorCode.ORDER_CREATION_ERROR);
-            }
-        logger.info("End: find capacity and booking intervals");
+        }
+        if (!findAtLeastOneInterval) {
+            logger.error("END: booking ERROR");
+            throw  new ExceptionCMS("NO FREE CAPACITY",ErrorCode.ORDER_CREATION_ERROR);
+        }
+        logger.info("END: find capacity and booking intervals");
         return orderWorker;
     }
 
     /**
-     *
+     *  Get all orders of worker
      * @param worker
      * @return Order list
      * @throws ExceptionCMS

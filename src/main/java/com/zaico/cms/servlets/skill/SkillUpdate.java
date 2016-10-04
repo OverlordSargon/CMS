@@ -24,10 +24,20 @@ import java.util.Date;
 @WebServlet("/updateskill")
 public class SkillUpdate extends HttpServlet {
 
+    // Logger
     private static final Logger LOG = LogManager.getLogger(SkillServiceImpl.class);
-    Skill skill = null;
+    // Skill service class instance
     SkillService skillService = FactoryService.getSkillServiceInstance();
+    // Skill entity
+    Skill skill = null;
 
+    /**
+     * Get method handler
+     * @param request The HttpServletRequest object.
+     * @param response The HttpServletResponse object.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -46,15 +56,23 @@ public class SkillUpdate extends HttpServlet {
 
     }
 
+    /**
+     * Post method handler
+     * @param request The HttpServletRequest object.
+     * @param response The HttpServletResponse object.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String skillName = request.getParameter("skillname");
         String skillDesc = request.getParameter("skilldesc");
         try {
+            LOG.info("START: update skill "+skillName);
             skill.setName(skillName);
             skill.setDescription(skillDesc);
             skillService.updateSkill(skill);
-            LOG.info("Skill "+skill.getName()+ " updated at "+new Date());
+            LOG.info("END: Skill "+skill.getName()+ " updated");
             request.setAttribute("sucMessage","Skill \""+skill.getName()+ "\" updated successfully");
         } catch (Exception e) {
             String errMess = ExceptionHandler.handleException(e);

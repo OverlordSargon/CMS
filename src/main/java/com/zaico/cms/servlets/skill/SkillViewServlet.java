@@ -23,14 +23,25 @@ import java.util.Date;
  */
 @WebServlet("/viewskill")
 public class SkillViewServlet extends HttpServlet {
-    private static final Logger LOG = LogManager.getLogger(SkillServiceImpl.class);
 
+    // Logger
+    private static final Logger LOG = LogManager.getLogger(SkillServiceImpl.class);
+    // Skill entity
     Skill skill = null;
+    // Skill service class instance
     SkillService skillService = FactoryService.getSkillServiceInstance();
 
+    /**
+     * Get method handler
+     * @param request The HttpServletRequest object.
+     * @param response The HttpServletResponse object.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            LOG.info("VIEW: skill "+skill.getName());
             Integer id = Integer.parseInt(request.getParameter("id"));
             skill = skillService.findSkill((long)id);
             request.setAttribute("skill",skill);

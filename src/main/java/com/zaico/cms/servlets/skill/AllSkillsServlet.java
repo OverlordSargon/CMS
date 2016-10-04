@@ -18,6 +18,13 @@ import java.util.List;
 @WebServlet("/skills")
 public class AllSkillsServlet extends HttpServlet {
 
+    /**
+     * Get method handler
+     * @param request HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") != null) {
@@ -35,6 +42,13 @@ public class AllSkillsServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Post method handler
+     * @param request HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);

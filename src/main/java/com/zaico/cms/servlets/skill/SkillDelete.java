@@ -27,17 +27,27 @@ import java.util.Date;
 @WebServlet("/deleteskill")
 public class SkillDelete extends HttpServlet {
 
+    // The logger
     private static final Logger LOG = LogManager.getLogger(SkillServiceImpl.class);
+    // Skill service class instance
     SkillService skillService = FactoryService.getSkillServiceInstance();
+    // Worker service class instance
     WorkerService workerService = FactoryService.getWorkerServiceInstance();
+    // Skill entity
     Skill skill = null;
 
+    /**
+     * Get method handler
+     * @param request The HttpServletRequest object.
+     * @param response The HttpServletResponse object.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
             skill = skillService.findSkill((long)id);
-
             request.setAttribute("skill",skill);
             request.setAttribute("infoMessage","You want to delete this Skill. Are you sure?");
         } catch (Exception e) {
@@ -53,9 +63,17 @@ public class SkillDelete extends HttpServlet {
 
     }
 
+    /**
+     * Post method handler
+     * @param request The HttpServletRequest object.
+     * @param response The HttpServletResponse object.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            LOG.info("START: delete skill"+skill.getName());
             if (workerService.findWorkersBySkill(skill.getId()).size() == 0) {
                 skillService.deleteSkill(skill);
             } else {
@@ -64,6 +82,7 @@ public class SkillDelete extends HttpServlet {
             String message = "Skill \""+skill.getName()+"\" deleted successfully";
             LOG.info(message);
             request.setAttribute("infoMessage",message);
+            LOG.info("END: deleted "+skill.getName());
         } catch (Exception e) {
             String message = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage",message);

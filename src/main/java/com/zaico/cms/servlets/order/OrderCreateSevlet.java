@@ -49,7 +49,6 @@ public class OrderCreateSevlet extends HttpServlet {
 
 	/**
 	 * Get method handler
-	 *
 	 * @param request The HttpServletRequest object.
 	 * @param response The HttpServletResponse object.
 	 * @throws ServletException
@@ -73,7 +72,6 @@ public class OrderCreateSevlet extends HttpServlet {
 
 	/**
 	 * Post method handler
-	 *
 	 * @param request The HttpServletRequest object.
 	 * @param response The HttpServletResponse object.
 	 * @throws ServletException
@@ -82,29 +80,27 @@ public class OrderCreateSevlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    LOG.debug("Start: create new order ...");
+		try {
+			// Get parameters
+			LOG.debug("Get parameters for new order");
+			String orderNum = request.getParameter("ordernum");
+			String orderDesc = request.getParameter("orderdesc");
+			Long skillId = Long.parseLong(request.getParameter("orderworktype"));
+			String dateS = request.getParameter("orderday");
+			String fromS = request.getParameter("orderfrom");
+			String toS = request.getParameter("orderto");
+			String orderClient = request.getParameter("ordercname");
+			int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
 
-	    // Get parameters
-	    LOG.debug("Get parameters for new order");
-        String orderNum = request.getParameter("ordernum");
-        String orderDesc = request.getParameter("orderdesc");
-        Long skillId = Long.parseLong(request.getParameter("orderworktype"));
-        String dateS = request.getParameter("orderday");
-        String fromS = request.getParameter("orderfrom");
-        String toS = request.getParameter("orderto");
-        String orderClient = request.getParameter("ordercname");
-        int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
-
-	    List<Object> list = new ArrayList<Object>();
-	    list.add(orderNum);
-	    list.add(orderDesc);
-	    list.add(skillId);
-	    list.add(dateS);
-	    list.add(fromS);
-	    list.add(toS);
-	    list.add(orderClient);
-	    list.add(orderCleintNum);
-
-        try {
+			List<Object> list = new ArrayList<Object>();
+			list.add(orderNum);
+			list.add(orderDesc);
+			list.add(skillId);
+			list.add(dateS);
+			list.add(fromS);
+			list.add(toS);
+			list.add(orderClient);
+			list.add(orderCleintNum);
 	        // Validate input fields
 	        LOG.debug("Validation of the fields");
 	        validateFields(list);

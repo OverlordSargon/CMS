@@ -20,7 +20,9 @@ import java.util.List;
  */
 public class ScheduleServiceImpl implements ScheduleService {
 
+    // Logger
     private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
+    // DAO
     private ScheduleDAO scheduleDAO = FactoryDAO.getScheduleDAOInstance();
 
     /**
@@ -76,11 +78,17 @@ public class ScheduleServiceImpl implements ScheduleService {
     /**
      * UpdateSchedule method implementation
      */
-
+    /**
+     * Update schedule
+     * @param schedule
+     * @return updated schedule
+     * @throws ExceptionCMS
+     */
     public Schedule updateSchedule(Schedule schedule) throws ExceptionCMS {
         Schedule upSchedule = null;
         try {
             upSchedule = scheduleDAO.update(schedule);
+            LOG.info("DAO: update "+upSchedule.getInterval());
         }
         catch (Exception e) {
             String errorMessage = "Schedule "+schedule.getInterval()+ " updat error "+new Date();

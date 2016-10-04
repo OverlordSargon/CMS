@@ -23,8 +23,16 @@ import java.util.List;
 @WebServlet("/roles")
 public class RolesAllServlet extends HttpServlet {
 
+    // Logger
     private static final Logger LOG = LogManager.getLogger(RoleServiceImpl.class);
 
+    /**
+     * Get method handler
+     * @param request HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") != null) {
@@ -32,6 +40,7 @@ public class RolesAllServlet extends HttpServlet {
             try {
                 List<Role> roles = roleService.findAllRoles();
                 request.setAttribute("roles",roles);
+                LOG.info("VIEW ALL: roles");
             } catch (Exception e) {
                 String errMes = ExceptionHandler.handleException(e);
                 LOG.info(errMes);
@@ -44,6 +53,13 @@ public class RolesAllServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Post method handler
+     * @param request HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);

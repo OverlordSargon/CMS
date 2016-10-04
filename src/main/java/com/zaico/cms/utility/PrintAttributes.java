@@ -11,6 +11,7 @@ import java.util.Map;
  * Created by nzaitsev on 25.08.2016.
  */
 public class PrintAttributes {
+
     public static String result = "";
     public static String header = "";
     private boolean HEAD_EXIST = false;
@@ -19,14 +20,14 @@ public class PrintAttributes {
             IllegalAccessException
     {
         result = "";
-//        System.out.println("Begin - getFieldNamesAndValues");
+        //System.out.println("Begin - getFieldNamesAndValues");
         Class c1 = valueObj.getClass();
-//        System.out.println("Class name got is:: " + c1.getName());
-//        Map fieldMap = new HashMap();
+        // System.out.println("Class name got is:: " + c1.getName());
+        // Map fieldMap = new HashMap();
         Field[] parentFields = c1.getSuperclass().getDeclaredFields();
         Field[] valueObjFields = c1.getDeclaredFields();
-//        parentFields[1] = parentFields[valueObjFields.length+1];
-//        parentFields[2] = parentFields[valueObjFields.length+1];
+        //parentFields[1] = parentFields[valueObjFields.length+1];
+        //parentFields[2] = parentFields[valueObjFields.length+1];
         List<Field[]> af = new ArrayList<Field[]>();
         af.add(parentFields);
         af.add(valueObjFields);
@@ -34,8 +35,7 @@ public class PrintAttributes {
         result +="<tr>";
         addFieldInfo(af,valueObj);
         result +="</tr>";
-//        System.out.println("End - getFieldNamesAndValues");
-
+        //system.out.println("End - getFieldNamesAndValues");
         return result;
     }
 

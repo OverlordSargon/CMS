@@ -21,7 +21,9 @@ import java.util.List;
  */
 public class SkillServiceImpl implements SkillService {
 
+    // Logger
     private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
+    // DAO
     private SkillDAO skillDAO = FactoryDAO.getSkillDAOInstance();
 
     /**
@@ -77,7 +79,12 @@ public class SkillServiceImpl implements SkillService {
     /**
      * UpdateSkill method implementation
      */
-
+    /**
+     * Update skill
+     * @param skill
+     * @return updated skill
+     * @throws ExceptionCMS
+     */
     public Skill updateSkill(Skill skill) throws ExceptionCMS {
         Skill upSkill = null;
         try {

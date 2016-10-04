@@ -23,16 +23,26 @@ import java.util.Date;
 @WebServlet("/viewrole")
 public class RoleViewServlet extends HttpServlet {
 
+    // Logger
     private static final Logger LOG = LogManager.getLogger(RoleServiceImpl.class);
-
+    // Role entity
     Role role = null;
+    // Services
     RoleService roleService = FactoryService.getRoleServiceInstance();
 
+    /**
+     * Get method handler
+     * @param request HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
             role = roleService.findRole(id);
+            LOG.info("VIEW: role "+role.getRole());
             request.setAttribute("role",role);
         } catch (Exception e) {
             LOG.info("Role \""+role.getRole()+ "\" notfounded at "+new Date());

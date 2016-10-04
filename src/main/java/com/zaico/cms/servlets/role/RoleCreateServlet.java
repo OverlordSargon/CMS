@@ -24,16 +24,32 @@ import java.util.Date;
 @WebServlet("/newrole")
 public class RoleCreateServlet extends HttpServlet {
 
+    // Logger
     private static final Logger LOG = LogManager.getLogger(RoleServiceImpl.class);
 
+    /**
+     * Get method handler
+     * @param request HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        LOG.info("START: create new role");
         request.setAttribute("action","/newrole");
         request.setAttribute("button","CREATE");
         request.setAttribute("role",new Role());
         request.getRequestDispatcher("pages/role/role.jsp").forward(request, response);
     }
 
+    /**
+     * Post method handler
+     * @param request HttpServletRequest object
+     * @param response HttpServletResponse object
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String roleName = request.getParameter("rolename");
