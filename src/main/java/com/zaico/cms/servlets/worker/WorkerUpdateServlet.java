@@ -5,9 +5,7 @@ import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
 import com.zaico.cms.servicies.interfaces.*;
-import com.zaico.cms.utility.DaySchedule;
-import com.zaico.cms.utility.ExceptionHandler;
-import com.zaico.cms.utility.WorkWeek;
+import com.zaico.cms.utility.*;
 
 
 import org.apache.log4j.LogManager;
@@ -30,12 +28,28 @@ import java.util.List;
 @WebServlet("/updateworker")
 public class WorkerUpdateServlet extends HttpServlet {
 
+    // Logger
     private static final Logger LOG = LogManager.getLogger(WorkerServiceImpl.class);
+    /**
+     * Worker service class instance
+     */
     WorkerService workerService = FactoryService.getWorkerServiceInstance();
+    /**
+     * SKill service class instance
+     */
     SkillService skillService = FactoryService.getSkillServiceInstance();
+    /**
+     * Worker entity
+     */
     Worker worker = null;
 
-
+    /**
+     * GET method handler
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -53,49 +67,57 @@ public class WorkerUpdateServlet extends HttpServlet {
         request.setAttribute("action","/updateworker");
         request.setAttribute("button","UPDATE");
         request.setAttribute("title","CMS Update worker");
-        request.setAttribute("cmsheader","Update worker");
+        request.setAttribute("cmsheader","Update worker "+worker.getName() );
         request.getRequestDispatcher("pages/worker/worker.jsp").forward(request, response);
     }
 
+    /**
+     * POST method handler
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         WorkplanService workplanService = FactoryService.getWorkplanServiceInstance();
         ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
-//        Get parameters
-        String workerName = request.getParameter("workername");
-        int workerNum = Integer.parseInt(request.getParameter("workertele"));
-        String[] skills = request.getParameterValues("skills");
-//      Sample of date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-y HH:mm");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-//      Dates for schedule and workplan
-        String beginDate = request.getParameter("begindate");
-        String endDate = request.getParameter("enddate");
-        String beginTime = request.getParameter("begintime");
-        String endTime = request.getParameter("endtime");
-        String breakHour = request.getParameter("breakhour");
 
         try {
+            //Get parameters
+            String workerName = request.getParameter("workername");
+            int workerNum = Integer.parseInt(request.getParameter("workertele"));
+            String[] skills = request.getParameterValues("skills");
+            // Sample of date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-y HH:mm");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            // Dates for schedule and workplan
+            String beginDate = request.getParameter("begindate");
+            String endDate = request.getParameter("enddate");
+            String beginTime = request.getParameter("begintime");
+            String endTime = request.getParameter("endtime");
+            String breakHour = request.getParameter("breakhour");
+
             /*Workplans*/
-//            Empty list of workplans
+            // Empty list of workplans
             List<Workplan> workplanList = new ArrayList<Workplan>();
-//            Get list of dates & create workplan for these days
+            // Get list of dates & create workplan for these days
             List<Date> workDays = WorkWeek.getWorkDays(beginDate,endDate);
             for (Date day: workDays) {
                 List<Schedule> scheduleList = DaySchedule.scheduleList(beginTime,endTime,breakHour);
                 Workplan workplan = new Workplan(day,workerName);
                 workplan.setSchedules(scheduleList);
                 workplanService.createWorkplan(workplan);
-//                Add workplan entity to workplan list
+                // Add workplan entity to workplan list
                 workplanList.add(workplan);
             }
-
             /*Skills*/
             List<Skill> workerSkills = new ArrayList<Skill>();
-//            if skill id not null
+            // if skill id not null
             if (skills != null || skills.length != 0) {
                 for ( String skillId: skills) {
-//                    Find each skill with id and add to skill list
+                    // Find each skill with id and add to skill list
                     long id = Long.parseLong(skillId);
                     workerSkills.add(skillService.findSkill(id));
                 }
@@ -104,13 +126,14 @@ public class WorkerUpdateServlet extends HttpServlet {
             if (workplanList.size() == 0 ) {
                 String messa = "In period from "+beginDate+" to "+endDate+"only weekends";
                 request.setAttribute("infoMessage",messa);
+                throw new ExceptionCMS(messa, ErrorCode.WORKER_CANNOT_BE_UPDATED);
             } else {
-                //            Delete old workplans
+                // Delete old workplans
                 for ( Workplan workplan: worker.getWorkplans()) {
                     workplanService.deleteWorkplan(workplan);
                 }
             }
-//            set all finded skill as user skill
+            // set all finded skill as user skill
             worker.setName(workerName);
             worker.setTelephone(workerNum);
             worker.setSkills(workerSkills);

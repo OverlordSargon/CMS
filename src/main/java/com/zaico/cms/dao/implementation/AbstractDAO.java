@@ -100,7 +100,7 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
     public void delete(T t) {
         try {
             em.getTransaction().begin();
-            em.remove(t);
+            em.remove(em.contains(t) ? t : em.merge(t));
             em.getTransaction().commit();
         }
             catch (Exception exp) {
