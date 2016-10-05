@@ -152,10 +152,21 @@ public class WorkerUpdateServlet extends HttpServlet {
                     workplan.setSchedules(DaySchedule.scheduleList(beginTime, endTime, breakHour));
                     worker.getWorkplans().add(workplan);
                     calendar.add(Calendar.DAY_OF_MONTH, 1);
+//                    String date = calendar.getTime().toString();
+//                    Date dayDate = calendar.getTime();
+//                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-y");
+//                    String date1 = simpleDateFormat.format(dayDate);
+//                    Date date2 = simpleDateFormat.parse(date1);
+//                    Workplan workplan = new Workplan(date2, worker.getName());
+//                    workplan.setUpdatedAt(new Date());
+//                    workplan.setUpdatedAt(new Date());
+//                    workplan.setSchedules(DaySchedule.scheduleList(beginTime, endTime, breakHour));
+//                    worker.getWorkplans().add(workplan);
+//                    calendar.add(Calendar.DAY_OF_MONTH, 1);
                 }
             }
 
-            // если новая дата Больше чем первая, проверить что нет W флага и удалить старое
+            // если новая дата Больше чем первая, проверить что нет W флага и удалить cnfhjt
             if ( newBeginDate.after(fistWorkplan.getDate()) ) {
                 LOG.debug("new date > old date");
             /* if date today of already in workplans */
