@@ -45,7 +45,7 @@ public class OrderCreateSevlet extends HttpServlet {
 	 * Skill service class instance.
 	 */
     SkillService skillService = FactoryService.getSkillServiceInstance();
-	Order order = null;
+
 
 	/**
 	 * Get method handler
@@ -56,6 +56,7 @@ public class OrderCreateSevlet extends HttpServlet {
 	 */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Order order = null;
         try {
             List<Skill> allSkills = skillService.findAllSkills();
             request.setAttribute("order",order);
@@ -80,6 +81,7 @@ public class OrderCreateSevlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    LOG.debug("Start: create new order ...");
+		Order order = null;
 		try {
 			// Get parameters
 			LOG.debug("Get parameters for new order");

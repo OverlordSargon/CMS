@@ -167,7 +167,7 @@ public class OrderServiceImpl implements OrderService {
                         for (Integer orderedInterval : orderedIntervals) {
                             for (Schedule schedule : workplan.getSchedules()) {
                                 /* Create list of right intervals */
-                                if (schedule.getInterval().equals(orderedInterval) && (schedule.getFlag().equals(oldFlag) || schedule.getFlag().equals("F")) ) {
+                                if (schedule.getInterval().equals(orderedInterval) && (schedule.getFlag().equals(oldFlag) && !schedule.getFlag().equals("P")) ) {
                                     schedulesWork.add(schedule);
                                     findAtLeastOneInterval = true;
                                 }
