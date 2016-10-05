@@ -142,6 +142,7 @@ public class Worker extends AbstractEntity {
      */
     @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn( name = "W_ID", referencedColumnName = "W_ID")
+    @OrderBy("date ASC")
     public List<Workplan> getWorkplans() {
         return workplans;
     }

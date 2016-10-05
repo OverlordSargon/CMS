@@ -52,6 +52,7 @@ public class WorkerViewServlet extends HttpServlet {
             request.setAttribute("worker",worker);
         } catch (Exception e) {
             LOG.info("Worker \""+worker.getName()+ "\" notfounded at "+new Date());
+            LOG.error(e);
             String errMess = ExceptionHandler.handleException(e);
         }
         request.setAttribute("action","/worker");

@@ -78,24 +78,27 @@ public class Main {
 //            Calendar today = Calendar.getInstance();
 //            today.setTime(new Date());
 
-            Worker worker = workerService.findWorker(55);
+            Worker worker = workerService.findWorker(70);
             Workplan workplan = worker.getWorkplans().get(0);
             Date fist = workplan.getDate();
             Date last = worker.getWorkplans().get(worker.getWorkplans().size()-1).getDate();
 
             Calendar calFirst = Calendar.getInstance();
-
-
             Calendar calLast = Calendar.getInstance();
+
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
+
             calFirst.setTime(fist);
             calLast.setTime(last);
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
             String dateF = dateFormat.format(fist);
             String dateL = dateFormat.format(last);
 
-            System.out.println(dateF);
-            System.out.println(dateL);
+            for (Workplan workplan1: worker.getWorkplans()) {
+                System.out.println(dateFormat.format(workplan1.getDate()));
+            }
+
+
 
 //            System.out.println("Order date: "+orderDate.getTime());
 //            System.out.println("Today: "+today.getTime());
