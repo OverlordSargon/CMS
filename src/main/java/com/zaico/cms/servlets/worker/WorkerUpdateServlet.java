@@ -61,6 +61,7 @@ public class WorkerUpdateServlet extends HttpServlet {
             worker = workerService.findWorker(id);
             request.setAttribute("worker",worker);
             workerService.findWorkTime(worker,request);
+            request.setAttribute("workerskills",worker.getSkills());
             List<Skill> allSkills = skillService.findAllSkills();
             request.setAttribute("skills",allSkills);
 
@@ -102,7 +103,7 @@ public class WorkerUpdateServlet extends HttpServlet {
             String endTime = request.getParameter("endtime");
             String breakHour = request.getParameter("breakhour");
             //Check FROM & TO
-            CheckFromTo.checkHours(beginDate,endDate);
+            CheckFromTo.checkDays(beginDate,endDate);
             CheckFromTo.checkHours(beginTime,endTime);
             /*Skills*/
             List<Skill> workerSkills = new ArrayList<Skill>();

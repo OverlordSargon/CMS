@@ -58,7 +58,11 @@
                 <%-- choose break for 1 hour--%>
             <div>
                 <label for=""> Begin 1 hour break: </label>
-                <input type="text" name="breakhour" value="" ${disabled} placeholder="hour:00">
+                <input type="text" name="breakhour"
+                    <c:if test="${not empty pausehour}">
+                        value="${pausehour}:00"
+                    </c:if>
+                ${disabled} placeholder="hour:00">
             </div>
         </div>
 
@@ -70,12 +74,14 @@
                 <div >
                     <div class="checklabel">
                         <c:out value="${skill.name}"></c:out>
-                    </div>
-                    <input type="checkbox" class="checkboxform" name="skills"
-                        <c:if test="${fn}">
-
-                        </c:if>
+                        <input type="checkbox" class="checkboxform" name="skills"
+                            <c:forEach items="${workerskills}" var="workerskill">
+                                <c:if test="${skill.id == workerskill.id}">
+                                       checked
+                                </c:if>
+                            </c:forEach>
                        value="${skill.id}">
+                    </div>
                 </div>
             </c:forEach>
         </div>
