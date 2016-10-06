@@ -137,7 +137,8 @@ public class WorkerCreateServlet extends HttpServlet {
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage", errorMessage);
-            request.getRequestDispatcher("pages/order/worker.jsp").forward(request, response);
+            doGet(request,response);
+//            request.getRequestDispatcher("pages/order/worker.jsp").forward(request, response);
         }
     }
 }

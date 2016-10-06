@@ -82,6 +82,7 @@ public class OrderCreateSevlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    LOG.debug("Start: create new order ...");
+		Order order = null;
 		try {
 			// Get parameters
 			LOG.debug("Get parameters for new order");
@@ -95,6 +96,23 @@ public class OrderCreateSevlet extends HttpServlet {
 			int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
 
 			CheckFromTo.checkHours(fromS,toS);
+			// String dates into dates
+			DateFormat timeF = new SimpleDateFormat("HH:mm");
+			DateFormat dateF = new SimpleDateFormat("dd-MM-y");
+			// Create dates
+			Date hoursFrom = timeF.parse(fromS);
+			Date hoursTo = timeF.parse(toS);
+			Date orderDate = dateF.parse(dateS);
+			// calendars for all dates
+			Calendar calFrom = Calendar.getInstance();
+			calFrom.setTime(hoursFrom);
+			Calendar calTo = Calendar.getInstance();
+			calTo.setTime(hoursTo);
+			Calendar calDate = Calendar.getInstance();
+			calDate.setTime(orderDate);
+
+			order = new Order(orderNum, orderDesc, orderDate, hoursFrom, hoursTo, orderCleintNum, orderClient, null);
+
 			List<Object> list = new ArrayList<Object>();
 			list.add(orderNum);
 			list.add(orderDesc);
@@ -107,34 +125,15 @@ public class OrderCreateSevlet extends HttpServlet {
 	        // Validate input fields
 	        LOG.debug("Validation of the fields");
 	        validateFields(list);
-
-			// String dates into dates
-            DateFormat timeF = new SimpleDateFormat("HH:mm");
-            DateFormat dateF = new SimpleDateFormat("dd-MM-y");
-
-			// Create dates
-            Date hoursFrom = timeF.parse(fromS);
-            Date hoursTo = timeF.parse(toS);
-            Date orderDate = dateF.parse(dateS);
-
-//          calendars for all dates
-            Calendar calFrom = Calendar.getInstance();
-            calFrom.setTime(hoursFrom);
-
-            Calendar calTo = Calendar.getInstance();
-            calTo.setTime(hoursTo);
-
-            Calendar calDate = Calendar.getInstance();
-            calDate.setTime(orderDate);
-
 	        // Find workers by skill
 	        LOG.debug("Find free workers by skill id = " + skillId);
             Worker orderWorker = orderService.findCapacity(calDate, calFrom, calTo, skillId, "W", null);
+			order.setWorker(orderWorker);
 			if ( orderWorker == null) {
 				throw new ExceptionCMS("No capacity!",ErrorCode.ORDER_CREATION_ERROR);
 			}
 	        LOG.info("Create new order with parameters...");
-	        Order order = new Order(orderNum, orderDesc, orderDate, hoursFrom, hoursTo, orderCleintNum, orderClient, orderWorker);
+	        order = new Order(orderNum, orderDesc, orderDate, hoursFrom, hoursTo, orderCleintNum, orderClient, orderWorker);
             orderService.createOrder(order);
 	        LOG.info("Order " + order.toString() + " has been created successfully.");
 
@@ -147,8 +146,9 @@ public class OrderCreateSevlet extends HttpServlet {
             request.setAttribute("errMessage", errorMessage);
             String infoMessage = "Try again, please";
             request.setAttribute("infoMessage", infoMessage);
-//            doGet(request,  response);
-			request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
+			request.setAttribute("order",order);
+            doGet(request,  response);
+//			request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
 
 		}
     }

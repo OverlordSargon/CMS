@@ -47,9 +47,11 @@ public class OrderUpdateServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer id = Integer.parseInt(request.getParameter("id"));
         try {
-            order = orderService.findOrder(id);
+            if ( order == null ) {
+                Integer id = Integer.parseInt(request.getParameter("id"));
+                order = orderService.findOrder(id);
+            }
             request.setAttribute("order",order);
             List<Skill> allSkills = skillService.findAllSkills();
             request.setAttribute("skills",allSkills);
@@ -145,8 +147,8 @@ public class OrderUpdateServlet extends HttpServlet {
             String infoMessage = "Try again, please.";
             request.setAttribute("infoMessage", infoMessage);
             logger.error("END:update order error "+order.getOrdNumber());
-            request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
-//            doGet(request,response);
+//            request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
+            doGet(request,response);
         }
     }
 }

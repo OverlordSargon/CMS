@@ -57,8 +57,10 @@ public class WorkerUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            long id = Long.parseLong(request.getParameter("id"));
-            worker = workerService.findWorker(id);
+            if ( worker == null) {
+                long id = Long.parseLong(request.getParameter("id"));
+                worker = workerService.findWorker(id);
+            }
             request.setAttribute("worker",worker);
             workerService.findWorkTime(worker,request);
             request.setAttribute("workerskills",worker.getSkills());
