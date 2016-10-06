@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Created by nzaitsev on 02.09.2016.
  */
-@WebServlet("/viewworker")
+@WebServlet("/admin/viewworker")
 public class WorkerViewServlet extends HttpServlet {
     /**
      * Logger

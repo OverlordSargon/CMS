@@ -49,7 +49,7 @@
                         <td>
                             <div>
                                 <div class="attr-view">
-                                    <form action="/viewworker" method="get">
+                                    <form action="/admin/viewworker" method="get">
                                         <input type="hidden"  name="id" value="${order.worker.id}">
                                         <input type="submit" class="btn view" value="${order.worker.name}">
                                     </form>

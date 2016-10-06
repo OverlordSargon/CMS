@@ -51,7 +51,7 @@
                                 "<a href=\"/skills\">skills</a>\n" +
                                 "<a href=\"/roles\">roles</a>\n" +
                                 "<a href=\"/users\">users</a>\n" +
-                                "<a href=\"/workers\">workers</a>" + logoutButt;
+                                "<a href=\"/admin/workers\">workers</a>" + logoutButt;
                     } else {
                         links = "<a href=\"/main\">Main Page</a>\n" +
                                 "<a href=\"/orders\">Orders</a>" + logoutButt;

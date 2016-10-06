@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Created by nzaitsev on 02.09.2016.
  */
-@WebServlet("/newworker")
+@WebServlet("/admin/newworker")
 public class WorkerCreateServlet extends HttpServlet {
 
     /**

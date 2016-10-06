@@ -1,10 +1,10 @@
-<%@include file="../head.jsp"%>
+<%@include file="/pages/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="grid-view">
 
     <div>
         <button class="cmsbutton">
-            <a href="/newworker">Create new worker</a>
+            <a href="/admin/newworker">Create new worker</a>
         </button>
     </div>
     <div class="table_header"> Workers </div>
@@ -40,19 +40,19 @@
                         </td>
                         <td>
                             <div class="btn-view">
-                                <form action="/viewworker" method="get">
+                                <form action="/admin/viewworker" method="get">
                                     <input type="hidden"  name="id" value="${worker.id}">
                                     <input type="submit" value="VIEW" class="btn view">
                                 </form>
                             </div>
                             <div class="btn-update">
-                                <form action="/updateworker" method="get">
+                                <form action="/admin/updateworker" method="get">
                                     <input type="hidden"  name="id" value="${worker.id}">
                                     <input type="submit" value="UPDATE" class="btn renew">
                                 </form>
                             </div>
                             <div class="btn-delete">
-                                <form action="/deleteworker" method="post">
+                                <form action="/admin/deleteworker" method="post">
                                     <input type="hidden"  name="id" value="${worker.id}">
                                     <input type="submit" value="DELETE" class="btn delete">
                                 </form>
@@ -67,4 +67,4 @@
         </c:otherwise>
     </c:choose>
 </div>
-<%@include file="../bottom.jsp"%>
+<%@include file="/pages/bottom.jsp"%>

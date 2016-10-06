@@ -1,4 +1,5 @@
-<%@include file="../head.jsp"%>
+<%@include file="/pages/head.jsp"%>
+
 <div class="form-view">
 
     <%--FORM BEGIN--%>
@@ -141,13 +142,13 @@
         <%-- if we view, print additional buttons--%>
         <div class="buttons-ud">
             <div class="btn-update">
-                <form action="/updateworker" method="get">
+                <form action="/admin/updateworker" method="get">
                     <input type="hidden"  name="id" value="${worker.id}">
                     <input type="submit" value="UPDATE" class="btn renew">
                 </form>
             </div>
             <div class="btn-delete">
-                <form action="/deleteworker" method="post">
+                <form action="/admin/deleteworker" method="post">
                     <input type="hidden"  name="id" value="${worker.id}">
                     <input type="submit" value="DELETE" class="btn delete">
                 </form>
@@ -157,7 +158,7 @@
     </c:choose>
     <div>
         <button type="button" name="back" onclick="history.back()">BACK</button>
-        <button><a href="/workers">Workers</a></button>
+        <button><a href="/admin/workers">Workers</a></button>
     </div>
 </div>
-<%@include file="../bottom.jsp"%>
+<%@include file="/pages/bottom.jsp"%>

@@ -21,8 +21,6 @@
                     <div>
                         <div class="checklabel">
                             <c:out value="${role.role}"></c:out>
-                        </div>
-                        <div class="checkboxform">
                             <input class="checkboxform" type="checkbox" name="roles" value="${role.id}">
                         </div>
                     </div>

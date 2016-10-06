@@ -21,6 +21,7 @@ import java.util.Set;
 /**
  * Created by nzaitsev on 03.10.2016.
  */
+@WebFilter("/admin/*")
 public class AccessFilter implements Filter {
 
     /**
@@ -37,7 +38,6 @@ public class AccessFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         String url = req.getRequestURI();
-        if (!req.getRequestURI().contains("login")) {
             if (session != null) {
                 User user = (User) session.getAttribute("user");
                 if (user != null) {
@@ -62,11 +62,10 @@ public class AccessFilter implements Filter {
                             request.getRequestDispatcher("/main").forward(request, response);
                         }
                     }
-                }
+                } else request.getRequestDispatcher("/login").forward(request, response);
             } else request.getRequestDispatcher("/login").forward(request, response);
 
-        } else request.getRequestDispatcher("/login").forward(request, response);
-    }
+        }
 
     public void destroy() {
 
