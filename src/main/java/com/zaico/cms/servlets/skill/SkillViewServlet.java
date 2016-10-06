@@ -41,9 +41,9 @@ public class SkillViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            LOG.info("VIEW: skill "+skill.getName());
             Integer id = Integer.parseInt(request.getParameter("id"));
             skill = skillService.findSkill((long)id);
+            LOG.info("VIEW: skill "+skill.getName());
             request.setAttribute("skill",skill);
         } catch (Exception e) {
             LOG.info("Skill \""+skill.getName()+ "\" notfounded at "+new Date());

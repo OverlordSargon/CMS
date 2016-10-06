@@ -7,6 +7,7 @@ import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.ScheduleService;
 import com.zaico.cms.servicies.interfaces.SkillService;
+import com.zaico.cms.utility.CheckFromTo;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
@@ -92,7 +93,7 @@ public class OrderUpdateServlet extends HttpServlet {
             String orderClient = request.getParameter("ordercname");
             int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
             Worker workerOrder = null;
-
+            CheckFromTo.checkHours(fromS,toS);
             ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
             /*Set old flags as F*/
             Calendar calendarD = Calendar.getInstance();
@@ -148,7 +149,7 @@ public class OrderUpdateServlet extends HttpServlet {
             String infoMessage = "Try again, please.";
             request.setAttribute("infoMessage", infoMessage);
             logger.error("END:update order error "+order.getOrdNumber());
-            request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
+            doGet(request,response);
         }
     }
 }

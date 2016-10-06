@@ -1,6 +1,7 @@
 package com.zaico.cms.servicies.interfaces;
 
 import com.zaico.cms.entities.Worker;
+import com.zaico.cms.entities.Workplan;
 import com.zaico.cms.utility.ExceptionCMS;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,4 +77,12 @@ public interface WorkerService {
      * @throws ExceptionCMS
      */
     void findWorkTime(Worker worker, HttpServletRequest request) throws ExceptionCMS;
+
+    /**
+     * Get fist and last workplans
+     * @param worker
+     * @return List of two workplans
+     * @throws ExceptionCMS
+     */
+    List<Workplan> findEdges(Worker worker) throws ExceptionCMS;
 }

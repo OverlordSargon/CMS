@@ -96,8 +96,9 @@ public class Workplan extends AbstractEntity {
      * Get workplan date (day)
      * @return date
      */
-    @Temporal(TemporalType.DATE)
-    @Column(name = "WP_DATE")
+
+    @Column(name = "WP_DATE",columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getDate() {
         return date;
     }

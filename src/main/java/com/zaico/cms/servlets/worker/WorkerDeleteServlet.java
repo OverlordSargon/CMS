@@ -25,10 +25,26 @@ import java.util.Date;
  */
 @WebServlet("/deleteworker")
 public class WorkerDeleteServlet extends HttpServlet {
+    /**
+     * Logger
+     */
     private static final Logger LOG = LogManager.getLogger(WorkerServiceImpl.class);
+    /**
+     * Worker service class instance
+     */
     WorkerService workerService = FactoryService.getWorkerServiceInstance();
+    /**
+     * Worker class instance
+     */
     Worker worker = null;
 
+    /**
+     * GET method handler
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -37,7 +53,6 @@ public class WorkerDeleteServlet extends HttpServlet {
             request.setAttribute("worker",worker);
             request.setAttribute("infoMessage","You want to delete this role. Are you sure?");
         } catch (Exception e) {
-            LOG.info("Worker \""+worker.getName()+ "\" notfounded at "+new Date());
             String errMess = ExceptionHandler.handleException(e);
         }
         request.setAttribute("action","/deleteworker");
@@ -49,6 +64,13 @@ public class WorkerDeleteServlet extends HttpServlet {
 
     }
 
+    /**
+     * POST method handler
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {

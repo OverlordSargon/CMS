@@ -48,25 +48,28 @@ public class UserCreateSevlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userName = request.getParameter("username");
-        String userPass = request.getParameter("password");
-//        get all role id as string massive
-        String[] roles = request.getParameterValues("roles");
 
         try {
+            String userName = request.getParameter("username");
+            String userPass = request.getParameter("password");
+            // get all role id as string massive
+            String[] roles = request.getParameterValues("roles");
+            if ( userName.equals("") || userPass.equals("") || roles.length==0) {
+                throw new ExceptionCMS("Fill all fields!",ErrorCode.USER_CREATION_ERROR);
+            }
             UserService userService = FactoryService.getUserServiceInstance();
             User user = new User(userName,userPass);
             List<Role> userRoles = new ArrayList<Role>();
-//            if role id not null
+            // if role id not null
             if (roles.length != 0) {
                 for ( String roleId: roles) {
-//                    Find each role with id and add to role list
+                    // Find each role with id and add to role list
                     userRoles.add(roleService.findRole(Integer.parseInt(roleId)));
                 }
             } else {
                 throw new ExceptionCMS("You`ve choosen no roles", ErrorCode.ROLE_NOT_FOUND);
             }
-//            set all founded role as user role
+            // set all founded role as user role
             user.setRoles(userRoles);
             userService.createUser(user);
             String message = "User \""+userName+"\" created ";
@@ -75,7 +78,8 @@ public class UserCreateSevlet extends HttpServlet {
             request.getRequestDispatcher("/users").forward(request, response);
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
-            request.setAttribute("errMessage"+" Try again please, check parameters", errorMessage);
+            request.setAttribute("errMessage", errorMessage);
+            doGet(request,response);
         }
     }
 }

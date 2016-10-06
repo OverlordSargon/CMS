@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -78,26 +79,58 @@ public class Main {
 //            Calendar today = Calendar.getInstance();
 //            today.setTime(new Date());
 
-            Worker worker = workerService.findWorker(70);
+            Worker worker = workerService.findWorker(73);
             Workplan workplan = worker.getWorkplans().get(0);
-            Date fist = workplan.getDate();
-            Date last = worker.getWorkplans().get(worker.getWorkplans().size()-1).getDate();
 
-            Calendar calFirst = Calendar.getInstance();
-            Calendar calLast = Calendar.getInstance();
-
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
-
-            calFirst.setTime(fist);
-            calLast.setTime(last);
-
-            String dateF = dateFormat.format(fist);
-            String dateL = dateFormat.format(last);
-
-            for (Workplan workplan1: worker.getWorkplans()) {
-                System.out.println(dateFormat.format(workplan1.getDate()));
+            List<Workplan> workplanList = workerService.findEdges(worker);
+            for ( Workplan workplan1: workplanList) {
+                System.out.println(workplan1.getDate());
             }
+//            Date fist = workplan.getDate();
+//            Date last = worker.getWorkplans().get(worker.getWorkplans().size()-1).getDate();
+//
+//            Calendar calFirst = Calendar.getInstance();
+//            Calendar calLast = Calendar.getInstance();
+//
+//            DateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
+//
+//            calFirst.setTime(fist);
+//            calLast.setTime(last);
+//
+//            String dateF = dateFormat.format(fist);
+//            String dateL = dateFormat.format(last);
+//
+//            for (Workplan workplan1: worker.getWorkplans()) {
+//                System.out.println(workplan1.getDate());
+//                if ( workplan1.getDate().before(new Date())) {
+//                    System.out.println(new Date());
+//                    System.out.println(dateFormat.format(workplan1.getDate()));
+//                    System.out.println("WP date before today");
+//                }
+//                if (workplan1.getDate().after(new Date())) {
+//                    System.out.println("WP DAte after today");
+//                }
+//                if ( workplan1.getDate().before(calLast.getTime())) {
+//                    System.out.println(calLast.getTime());
+//                    System.out.println("WP date befor calendar");
+//                }
+//            }
+//
+//            SimpleDateFormat ft = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a", Locale.US);
+//            java.util.Date t= new Date();
+//            System.out.println(t);
+//            ft.applyPattern("dd-MM-y");
+//            System.out.println(ft.format(t));
+////            System.out.println(date);
 
+            String date = "Thu Feb 02 00:00:00 WET 2012";
+            SimpleDateFormat formatnow = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH);
+            SimpleDateFormat formatneeded=new SimpleDateFormat("YYYY-MM-dd");
+            Date date1 = formatnow.parse(date);
+            String date2 = formatneeded.format(date1);
+            Date date3 = formatneeded.parse(date2);
+            System.out.println(date2.toString());
+            System.out.println(date3);
 
 
 //            System.out.println("Order date: "+orderDate.getTime());

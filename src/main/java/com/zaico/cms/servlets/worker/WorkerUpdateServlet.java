@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class WorkerUpdateServlet extends HttpServlet {
      * Worker entity
      */
     Worker worker = null;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
 
     /**
      * GET method handler
@@ -63,7 +65,6 @@ public class WorkerUpdateServlet extends HttpServlet {
             request.setAttribute("skills",allSkills);
 
         } catch (Exception e) {
-            LOG.info("Worker \""+worker.getName()+ "\" notfounded at "+new Date());
             String errMess = ExceptionHandler.handleException(e);
         }
         request.setAttribute("action","/updateworker");
@@ -93,7 +94,6 @@ public class WorkerUpdateServlet extends HttpServlet {
             int workerNum = Integer.parseInt(request.getParameter("workertele"));
             String[] skills = request.getParameterValues("skills");
             // Sample of date
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             // Dates for schedule and workplan
             String beginDate = request.getParameter("begindate");
@@ -101,20 +101,9 @@ public class WorkerUpdateServlet extends HttpServlet {
             String beginTime = request.getParameter("begintime");
             String endTime = request.getParameter("endtime");
             String breakHour = request.getParameter("breakhour");
-
-//            /*Workplans*/
-//            // Empty list of workplans
-//            List<Workplan> workplanList = new ArrayList<Workplan>();
-//            // Get list of dates & create workplan for these days
-//            List<Date> workDays = WorkWeek.getWorkDays(beginDate,endDate);
-//            for (Date day: workDays) {
-//                List<Schedule> scheduleList = DaySchedule.scheduleList(beginTime,endTime,breakHour);
-//                Workplan workplan = new Workplan(day,workerName);
-//                workplan.setSchedules(scheduleList);
-//                workplanService.createWorkplan(workplan);
-//                // Add workplan entity to workplan list
-//                workplanList.add(workplan);
-//            }
+            //Check FROM & TO
+            CheckFromTo.checkHours(beginDate,endDate);
+            CheckFromTo.checkHours(beginTime,endTime);
             /*Skills*/
             List<Skill> workerSkills = new ArrayList<Skill>();
             // if skill id not null
@@ -125,81 +114,66 @@ public class WorkerUpdateServlet extends HttpServlet {
                     workerSkills.add(skillService.findSkill(id));
                 }
             }
-//            updateWorkerWorkdays(dateFormat.parse(beginDate),worker,beginTime,endTime,breakHour);
             Date newBeginDate = dateFormat.parse(beginDate);
             Date newEndDate = dateFormat.parse(endDate);
-
-
-
-
-            Workplan fistWorkplan = worker.getWorkplans().get(0);
-            Workplan lastWorkplan = worker.getWorkplans().get(worker.getWorkplans().size()-1);
-
+            // Get first & last W_P
+            List<Workplan> workplanEdges = workerService.findEdges(worker);
+            Workplan fistWorkplan = workplanEdges.get(0);
+            Workplan lastWorkplan = workplanEdges.get(1);
+            // UPDATE DATE
+            // START FIRST W_P DATE (FIRST DATE)
+            // NEW DATE b4 FIRST DATE
             if ( newBeginDate.before(fistWorkplan.getDate()) ) {
 
-                // если новая дата МЕНЬШЕ чем первая воркера, просто доделываем еще
+                // CREATE NEW W_P
                 LOG.debug("new date < old date");
-            /* Create new workplan with newbigindate */
+                /* Create new workplan with newbigindate */
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(newBeginDate);
-
+                // UNTIL CALENDAR = FIRST DATE
                 while (calendar.getTime().before(fistWorkplan.getDate())) {
-                    String date = calendar.getTime().toString();
-                    Date dayDate = calendar.getTime();
+                    Timestamp dayDate = new Timestamp(calendar.getTimeInMillis());
                     Workplan workplan = new Workplan(dayDate, worker.getName());
                     workplan.setUpdatedAt(new Date());
                     workplan.setUpdatedAt(new Date());
                     workplan.setSchedules(DaySchedule.scheduleList(beginTime, endTime, breakHour));
                     worker.getWorkplans().add(workplan);
                     calendar.add(Calendar.DAY_OF_MONTH, 1);
-//                    String date = calendar.getTime().toString();
-//                    Date dayDate = calendar.getTime();
-//                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-y");
-//                    String date1 = simpleDateFormat.format(dayDate);
-//                    Date date2 = simpleDateFormat.parse(date1);
-//                    Workplan workplan = new Workplan(date2, worker.getName());
-//                    workplan.setUpdatedAt(new Date());
-//                    workplan.setUpdatedAt(new Date());
-//                    workplan.setSchedules(DaySchedule.scheduleList(beginTime, endTime, breakHour));
-//                    worker.getWorkplans().add(workplan);
-//                    calendar.add(Calendar.DAY_OF_MONTH, 1);
                 }
             }
 
-            // если новая дата Больше чем первая, проверить что нет W флага и удалить cnfhjt
+            //NEW DATE AFTER FIST DATE
             if ( newBeginDate.after(fistWorkplan.getDate()) ) {
                 LOG.debug("new date > old date");
-            /* if date today of already in workplans */
-
+                /* if date today of already in workplans */
                 // check for W flags
                 List<Workplan> deleteWorkplanList = new ArrayList<Workplan>();
                 for (Workplan workplan : worker.getWorkplans()) {
+                    // FIND AND DELETE ALL W_P b4 NEW DATE
                     if (workplan.getDate().before(newBeginDate)) {
                         LOG.debug("workplan " + workplan.getDate() + " after " + newBeginDate);
                         // if date of workplan < newBeginDate
-                        for (Schedule schedule : workplan.getSchedules()) {
-                            // If worker have some work at that day, we throw exc
-                            if (schedule.getFlag().equals("W")) {
-                                throw new ExceptionCMS();
-                            }
-                        }
+                        checkScheduleFlag(workplan);
+                        deleteWorkplanList.add(workplan);
                     }
-                    deleteWorkplanList.add(workplan);
                 }
-                // Удалить
+                // UNSET AND DELETE W_P
                 for (Workplan workplan : deleteWorkplanList) {
+                    worker.getWorkplans().remove(workplan);
                     workplanService.deleteWorkplan(workplan);
                 }
             }
+            // END FIST DATE
 
+            // START LAST W_P DATE (LAST DATE)
+            // NEW DATE after LAST DATE
             if ( newEndDate.after(lastWorkplan.getDate()) ) {
-
-                // если новая дата МЕНЬШЕ чем первая воркера, просто доделываем еще
-                LOG.debug("new date < old date");
-            /* Create new workplan with newbigindate */
+                // CREATE NEW
+                LOG.debug("new date > old date");
+                /* Create new workplan with newbigindate */
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTime(newBeginDate);
-
+                calendar.setTime(newEndDate);
+                // UNTIL CALENDAR = FIRST DATE
                 while (calendar.getTime().after(lastWorkplan.getDate())) {
                     String date = calendar.getTime().toString();
                     Date dayDate = calendar.getTime();
@@ -208,105 +182,58 @@ public class WorkerUpdateServlet extends HttpServlet {
                     workplan.setUpdatedAt(new Date());
                     workplan.setSchedules(DaySchedule.scheduleList(beginTime, endTime, breakHour));
                     worker.getWorkplans().add(workplan);
-                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                    calendar.add(Calendar.DAY_OF_MONTH, -1);
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            // NEW DATE before LAST DATE
+            if ( newEndDate.before(lastWorkplan.getDate())) {
+                LOG.debug("new date > old date");
+                /* if date today of already in workplans */
+                // check for W flags
+                List<Workplan> deleteWorkplanList = new ArrayList<Workplan>();
+                for (Workplan workplan : worker.getWorkplans()) {
+                    if (workplan.getDate().after(newEndDate)) {
+                        LOG.debug("workplan " + workplan.getDate() + " after " + newBeginDate);
+                        // if date of workplan < newBeginDate
+                        checkScheduleFlag(workplan);
+                        deleteWorkplanList.add(workplan);
+                    }
+                }
+                // Unset & delete W_P
+                for (Workplan workplan : deleteWorkplanList) {
+                    worker.getWorkplans().remove(workplan);
+                    workplanService.deleteWorkplan(workplan);
+                }
+            }
+            //END LAST DATE
             // set all finded skill as user skill
             worker.setName(workerName);
             worker.setTelephone(workerNum);
             worker.setSkills(workerSkills);
-//            worker.setWorkplans(workplanList);
             workerService.updateWorker(worker);
             LOG.info("Worker "+worker.getName()+ " updated at "+new Date());
             request.setAttribute("sucMessage","Worker \""+worker.getName()+ "\" updated successfully");
+            request.getRequestDispatcher("/workers").forward(request, response);
         } catch (Exception e) {
             String errMess = ExceptionHandler.handleException(e);
-            LOG.info(errMess);
             request.setAttribute("errMessage",errMess);
+            doGet(request,response);
         }
-        request.getRequestDispatcher("/workers").forward(request, response);
     }
 
-//    private void updateWorkerWorkdays(Date newBeginDate, Worker worker, String beginTime, String endTime, String breakHour) throws ExceptionCMS, ParseException {
-//        WorkplanService workplanService = FactoryService.getWorkplanServiceInstance();
-//        Date newEndDate = null ;
-//
-//        // List of workplens of worker
-//        List<Workplan> workerWorkplen = new ArrayList<Workplan>();
-//
-//        Workplan fistWorkplan = workerWorkplen.get(0);
-//        Workplan lastWorkplan = workerWorkplen.get(workerWorkplen.size()-1);
-//
-//        // Check уменьшение с начала
-//        // START
-//
-//
-////        } else if (newBeginDate.after(fistWorkplan.getDate()) || newBeginDate.equals(fistWorkplan.getDate())) {
-//
-////        } else if ( newBeginDate.after(fistWorkplan.getDate()) ) {
-////
-////            // если новая дата Больше чем первая, проверить что нет W флага и удалить
-////            LOG.debug("new date > old date");
-////            /* if date today of already in workplans */
-////
-////            // check for W flags
-////            List<Workplan> deleteWorkplanList = new ArrayList<Workplan>();
-////            for (Workplan workplan : workerWorkplen) {
-////                if ( workplan.getDate().before(newBeginDate)) {
-////                    LOG.debug("workplan "+workplan.getDate()+" after "+newBeginDate);
-////                    // if date of workplan < newBeginDate
-////                    for (Schedule schedule : workplan.getSchedules()) {
-////                        // If worker have some work at that day, we throw exc
-////                        if (schedule.getFlag().equals("W")) {
-////                            throw new ExceptionCMS();
-////                        }
-////                    }
-////                }
-////                deleteWorkplanList.add(workplan);
-////            }
-////            // Удалить
-////            for (Workplan workplan: deleteWorkplanList) {
-////                workplanService.deleteWorkplan(workplan);
-////            }
-//        }
-//        // END
-//
-//    }
+    /**
+     * Check that schedule , we want to delete without workflags
+     * @param workplan
+     * @throws ExceptionCMS
+     */
+    private void checkScheduleFlag(Workplan workplan) throws ExceptionCMS {
+        for (Schedule schedule : workplan.getSchedules()) {
+            // IF W_P HAS WORK - EXC
+            if (schedule.getFlag().equals("W")) {
+                String mess = "Worker has orders on "+dateFormat.format(workplan.getDate())+" at "+schedule.getInterval()+":00";
+                LOG.error(mess);
+                throw new ExceptionCMS(mess,ErrorCode.WORKER_CANNOT_BE_UPDATED);
+            }
+        }
+    }
 }

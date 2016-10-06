@@ -12,14 +12,14 @@ import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 
 
+import com.zaico.cms.utility.WorkplanComparator;
 import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 import org.omg.CORBA.Request;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by nzaitsev on 17.08.2016.
@@ -154,10 +154,12 @@ public class WorkerServiceImpl implements WorkerService {
      * @param worker Worker object
      * @param request HttpServletRequest object
      */
-    public  void findWorkTime(Worker worker, HttpServletRequest request) {
-        Workplan workplan = worker.getWorkplans().get(0);
+    public  void findWorkTime(Worker worker, HttpServletRequest request) throws ExceptionCMS {
+
+        List<Workplan> edges =  findEdges(worker);
+        Workplan workplan = edges.get(0);
         Date fist = workplan.getDate();
-        Date last = worker.getWorkplans().get(worker.getWorkplans().size()-1).getDate();
+        Date last = edges.get(1).getDate();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
         String dateF = dateFormat.format(fist);
@@ -177,4 +179,22 @@ public class WorkerServiceImpl implements WorkerService {
         request.setAttribute("lasthour",lasstHour);
         request.setAttribute("pausehour",pauseHour);
     }
+
+    /**
+     * Get fist and last workplans
+     * @param worker
+     * @return List of two workplans
+     * @throws ExceptionCMS
+     */
+    public List<Workplan> findEdges(Worker worker) throws ExceptionCMS {
+        List<Workplan> workplanList = worker.getWorkplans();
+        WorkplanComparator workplanComparator = new WorkplanComparator();
+        Collections.sort(workplanList,workplanComparator);
+        List<Workplan> result = new ArrayList<Workplan>();
+        result.add(workplanList.get(0));
+        result.add(workplanList.get(workplanList.size()-1));
+        return  result;
+    }
+
+
 }

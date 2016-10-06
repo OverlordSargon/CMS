@@ -6,6 +6,7 @@ import com.zaico.cms.entities.Worker;
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.SkillService;
+import com.zaico.cms.utility.CheckFromTo;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
@@ -94,6 +95,7 @@ public class OrderCreateSevlet extends HttpServlet {
 			String orderClient = request.getParameter("ordercname");
 			int orderCleintNum = Integer.parseInt(request.getParameter("ordertele"));
 
+			CheckFromTo.checkHours(fromS,toS);
 			List<Object> list = new ArrayList<Object>();
 			list.add(orderNum);
 			list.add(orderDesc);

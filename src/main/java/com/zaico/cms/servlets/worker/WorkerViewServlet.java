@@ -32,10 +32,22 @@ import java.util.List;
  */
 @WebServlet("/viewworker")
 public class WorkerViewServlet extends HttpServlet {
-    
+    /**
+     * Logger
+     */
     private  static final Logger LOG = LogManager.getLogger(WorkerServiceImpl.class);
+    /**
+     * Worker service class instance
+     */
     WorkerService workerService = FactoryService.getWorkerServiceInstance();
 
+    /**
+     * GET method handler
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Worker worker = null;
