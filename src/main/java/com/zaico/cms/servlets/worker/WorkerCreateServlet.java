@@ -93,7 +93,7 @@ public class WorkerCreateServlet extends HttpServlet {
             String beginTime = request.getParameter("begintime");
             String endTime = request.getParameter("endtime");
             String breakHour = request.getParameter("breakhour");
-            
+
             CheckFromTo.checkDays(beginDate,endDate);
             CheckFromTo.checkHours(beginTime,endTime);
             /*Workplans*/
@@ -137,7 +137,7 @@ public class WorkerCreateServlet extends HttpServlet {
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage", errorMessage);
-            doGet(request,response);
+            request.getRequestDispatcher("pages/order/worker.jsp").forward(request, response);
         }
     }
 }

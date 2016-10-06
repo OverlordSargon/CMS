@@ -5,6 +5,8 @@ import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.SkillServiceImpl;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.SkillService;
+import com.zaico.cms.utility.ErrorCode;
+import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 
 
@@ -68,6 +70,9 @@ public class SkillUpdate extends HttpServlet {
         String skillName = request.getParameter("skillname");
         String skillDesc = request.getParameter("skilldesc");
         try {
+            if ( skillName.equals("") || skillDesc.equals("")) {
+                throw new ExceptionCMS("Fill all fields!", ErrorCode.SKILL_CREATE_ERROR);
+            }
             LOG.info("START: update skill "+skillName);
             skill.setName(skillName);
             skill.setDescription(skillDesc);
@@ -78,6 +83,7 @@ public class SkillUpdate extends HttpServlet {
             String errMess = ExceptionHandler.handleException(e);
             LOG.info(errMess);
             request.setAttribute("errMessage",errMess);
+            doGet(request,response);
         }
         request.getRequestDispatcher("/skills").forward(request, response);
 

@@ -82,7 +82,6 @@ public class OrderCreateSevlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    LOG.debug("Start: create new order ...");
-		Order order = null;
 		try {
 			// Get parameters
 			LOG.debug("Get parameters for new order");
@@ -131,9 +130,11 @@ public class OrderCreateSevlet extends HttpServlet {
 	        // Find workers by skill
 	        LOG.debug("Find free workers by skill id = " + skillId);
             Worker orderWorker = orderService.findCapacity(calDate, calFrom, calTo, skillId, "W", null);
-
+			if ( orderWorker == null) {
+				throw new ExceptionCMS("No capacity!",ErrorCode.ORDER_CREATION_ERROR);
+			}
 	        LOG.info("Create new order with parameters...");
-	        order = new Order(orderNum, orderDesc, orderDate, hoursFrom, hoursTo, orderCleintNum, orderClient, orderWorker);
+	        Order order = new Order(orderNum, orderDesc, orderDate, hoursFrom, hoursTo, orderCleintNum, orderClient, orderWorker);
             orderService.createOrder(order);
 	        LOG.info("Order " + order.toString() + " has been created successfully.");
 
@@ -146,8 +147,10 @@ public class OrderCreateSevlet extends HttpServlet {
             request.setAttribute("errMessage", errorMessage);
             String infoMessage = "Try again, please";
             request.setAttribute("infoMessage", infoMessage);
-            doGet(request,  response);
-        }
+//            doGet(request,  response);
+			request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
+
+		}
     }
 
 	/**

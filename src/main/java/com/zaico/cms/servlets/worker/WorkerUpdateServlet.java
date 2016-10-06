@@ -218,7 +218,7 @@ public class WorkerUpdateServlet extends HttpServlet {
         } catch (Exception e) {
             String errMess = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage",errMess);
-            doGet(request,response);
+            request.getRequestDispatcher("pages/order/worker.jsp").forward(request, response);
         }
     }
 

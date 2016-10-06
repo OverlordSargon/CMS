@@ -188,6 +188,8 @@ public class OrderServiceImpl implements OrderService {
                             orderWorker = worker;
                             logger.info("Successful booking ");
                             break;
+                        } else {
+                            throw new ExceptionCMS("No free capacity",ErrorCode.NO_REQUIRED_INTERVAL);
                         }
                     }
                 }

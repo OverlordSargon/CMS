@@ -37,7 +37,7 @@ public class OrderUpdateServlet extends HttpServlet {
     // servecies
     OrderService orderService = FactoryService.getOrderServiceInstance();
     SkillService skillService = FactoryService.getSkillServiceInstance();
-
+    Order order = null;
     /**
      * Get method handler
      * @param request HttpServletRequest
@@ -47,9 +47,8 @@ public class OrderUpdateServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Order order = null;
+        Integer id = Integer.parseInt(request.getParameter("id"));
         try {
-            Integer id = Integer.parseInt(request.getParameter("id"));
             order = orderService.findOrder(id);
             request.setAttribute("order",order);
             List<Skill> allSkills = skillService.findAllSkills();
@@ -78,11 +77,8 @@ public class OrderUpdateServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Order order = null;
         //Get parameters
         try {
-            Integer id = Integer.parseInt(request.getParameter("id"));
-            order = orderService.findOrder(id);
             logger.info("START: update order "+order.getOrdNumber());
             String orderNum = request.getParameter("ordernum");
             String orderDesc = request.getParameter("orderdesc");
@@ -149,7 +145,8 @@ public class OrderUpdateServlet extends HttpServlet {
             String infoMessage = "Try again, please.";
             request.setAttribute("infoMessage", infoMessage);
             logger.error("END:update order error "+order.getOrdNumber());
-            doGet(request,response);
+            request.getRequestDispatcher("pages/order/order.jsp").forward(request, response);
+//            doGet(request,response);
         }
     }
 }

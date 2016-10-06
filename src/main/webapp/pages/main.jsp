@@ -23,7 +23,10 @@
         }
     %>
         <div class="main">
-            <h1> Hello <%=userName %> <%= role %> </h1>
+            <h1> Welcome to CMS! </h1>
+            <div>
+                Here You can no longer bother about your workers capacity!
+            </div>
         </div>
         <div>
             ${accessmessage}

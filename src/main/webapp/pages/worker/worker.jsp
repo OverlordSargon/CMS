@@ -118,7 +118,7 @@
                     <div>Last day: ${lastday}</div>
                 </div>
                 <div>
-                    <div class="worker_time"> Working from ${firsthour}:00 ${pausehour}:00, from ${pausehour+1}:00  to ${lasthour}:00</div>
+                    <div class="worker_time"> Working from ${firsthour}:00 to ${pausehour}:00; from ${pausehour+1}:00  to ${lasthour}:00</div>
                     <%--<div> Pause from ${pausehour}:00 to ${pausehour+1}:00 </div>--%>
                 </div>
             </div>
