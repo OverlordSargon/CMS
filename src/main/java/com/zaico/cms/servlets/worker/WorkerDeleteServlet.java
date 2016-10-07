@@ -60,7 +60,7 @@ public class WorkerDeleteServlet extends HttpServlet {
         request.setAttribute("button","DELETE");
         request.setAttribute("title","CMS Delete worker");
         request.setAttribute("cmsheader","Delete worker");
-        request.getRequestDispatcher("pages/worker/worker.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/pages/worker/worker.jsp").forward(request, response);
 
     }
 
@@ -84,6 +84,6 @@ public class WorkerDeleteServlet extends HttpServlet {
             String message = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage",message);
         }
-        request.getRequestDispatcher("/workers").forward(request,response);
+        request.getRequestDispatcher("/admin/workers").forward(request,response);
     }
 }

@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Created by nzaitsev on 02.09.2016.
  */
-@WebServlet("/admin/newworker")
+@WebServlet("/newworker")
 public class WorkerCreateServlet extends HttpServlet {
 
     /**
@@ -137,8 +137,7 @@ public class WorkerCreateServlet extends HttpServlet {
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage", errorMessage);
-            doGet(request,response);
-//            request.getRequestDispatcher("pages/order/worker.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/pages/order/worker.jsp").forward(request, response);
         }
     }
 }

@@ -216,11 +216,12 @@ public class WorkerUpdateServlet extends HttpServlet {
             workerService.updateWorker(worker);
             LOG.info("Worker "+worker.getName()+ " updated at "+new Date());
             request.setAttribute("sucMessage","Worker \""+worker.getName()+ "\" updated successfully");
-            request.getRequestDispatcher("/workers").forward(request, response);
+            request.getRequestDispatcher("/admin/workers").forward(request, response);
         } catch (Exception e) {
             String errMess = ExceptionHandler.handleException(e);
             request.setAttribute("errMessage",errMess);
-            request.getRequestDispatcher("pages/order/worker.jsp").forward(request, response);
+//            request.getRequestDispatcher("/admin/pages/order/worker.jsp").forward(request, response);
+            doGet(request,response);
         }
     }
 
