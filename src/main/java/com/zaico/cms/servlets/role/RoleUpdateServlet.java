@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-@WebServlet("/updaterole")
+
 /**
  * Created by nzaitsev on 01.09.2016.
  */

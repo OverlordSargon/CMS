@@ -21,7 +21,7 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 02.09.2016.
  */
-@WebServlet("/deleterole")
+
 public class RoleDeleteServlet extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(RoleServiceImpl.class);

@@ -21,7 +21,7 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 01.09.2016.
  */
-@WebServlet("/newrole")
+
 public class RoleCreateServlet extends HttpServlet {
 
     // Logger
