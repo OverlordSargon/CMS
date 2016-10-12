@@ -37,7 +37,7 @@
         <maven.tomcat.version>2.2</maven.tomcat.version>
 
         <maven.deploy.version>2.7</maven.deploy.version>
-
+        <org.springframework.version>4.3.3.RELEASE</org.springframework.version>
     </properties>
 
 
@@ -108,7 +108,6 @@
             <version>1.2.17</version>
         </dependency>
 
-
         <!-- ********************************************************************** -->
         <!--                            JSTL                                        -->
         <!-- ********************************************************************** -->
@@ -120,7 +119,24 @@
             <version>1.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
 
     </dependencies>
 
