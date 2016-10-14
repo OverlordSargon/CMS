@@ -11,7 +11,6 @@ import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.ScheduleService;
 import com.zaico.cms.servicies.interfaces.SkillService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
-import com.zaico.cms.servlets.HelloWorld;
 import com.zaico.cms.utility.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
@@ -29,7 +28,7 @@ import java.util.*;
  * Created by nzaitsev on 01.08.2016.
  */
 public class Main {
-    public static Logger logger = LogManager.getLogger(HelloWorld.class);
+    public static Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args)  throws ExceptionCMS, SQLException, ClassNotFoundException,InterruptedException , IllegalArgumentException,
             IllegalAccessException, ParseException {
@@ -79,13 +78,17 @@ public class Main {
 //            Calendar today = Calendar.getInstance();
 //            today.setTime(new Date());
 
-            Worker worker = workerService.findWorker(73);
-            Workplan workplan = worker.getWorkplans().get(0);
-
-            List<Workplan> workplanList = workerService.findEdges(worker);
-            for ( Workplan workplan1: workplanList) {
-                System.out.println(workplan1.getDate());
+            Worker worker = workerService.findWorker(87);
+            for ( Workplan workplan: worker.getWorkplans()) {
+                for (Schedule schedule : workplan.getSchedules()) {
+                    System.out.println(schedule.getFlag());
+                }
             }
+
+//            List<Workplan> workplanList = workerService.findEdges(worker);
+//            for ( Workplan workplan1: workplanList) {
+//                System.out.println(workplan1.getDate());
+//            }
 //            Date fist = workplan.getDate();
 //            Date last = worker.getWorkplans().get(worker.getWorkplans().size()-1).getDate();
 //
@@ -123,14 +126,14 @@ public class Main {
 //            System.out.println(ft.format(t));
 ////            System.out.println(date);
 
-            String date = "Thu Feb 02 00:00:00 WET 2012";
-            SimpleDateFormat formatnow = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH);
-            SimpleDateFormat formatneeded=new SimpleDateFormat("YYYY-MM-dd");
-            Date date1 = formatnow.parse(date);
-            String date2 = formatneeded.format(date1);
-            Date date3 = formatneeded.parse(date2);
-            System.out.println(date2.toString());
-            System.out.println(date3);
+//            String date = "Thu Feb 02 00:00:00 WET 2012";
+//            SimpleDateFormat formatnow = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH);
+//            SimpleDateFormat formatneeded=new SimpleDateFormat("YYYY-MM-dd");
+//            Date date1 = formatnow.parse(date);
+//            String date2 = formatneeded.format(date1);
+//            Date date3 = formatneeded.parse(date2);
+//            System.out.println(date2.toString());
+//            System.out.println(date3);
 
 
 //            System.out.println("Order date: "+orderDate.getTime());
