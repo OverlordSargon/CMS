@@ -12,6 +12,9 @@ import com.zaico.cms.utility.ExceptionCMS;
 
 
 import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -19,12 +22,15 @@ import java.util.List;
 /**
  * Created by nzaitsev on 17.08.2016.
  */
+@Service("skillService")
 public class SkillServiceImpl implements SkillService {
 
     // Logger
     private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
     // DAO
-    private SkillDAO skillDAO = FactoryDAO.getSkillDAOInstance();
+//    private SkillDAO skillDAO = FactoryDAO.getSkillDAOInstance();
+    @Autowired
+    private SkillDAO skillDAO;
 
     /**
      * Create new skill
@@ -32,6 +38,7 @@ public class SkillServiceImpl implements SkillService {
      * @return
      * @throws ExceptionCMS
      */
+    @Transactional
     public Skill createSkill(Skill skill) throws ExceptionCMS {
         Skill result = null;
         try {
@@ -49,6 +56,7 @@ public class SkillServiceImpl implements SkillService {
      * @return
      * @throws ExceptionCMS
      */
+    @Transactional
     public Skill findSkill(Long id) throws ExceptionCMS {
         Skill skill = null;
         try {
@@ -66,6 +74,7 @@ public class SkillServiceImpl implements SkillService {
      * @return Skill list
      * @throws ExceptionCMS
      */
+    @Transactional
     public List<Skill> findAllSkills() throws ExceptionCMS {
         try {
             return skillDAO.getAll();
@@ -85,6 +94,7 @@ public class SkillServiceImpl implements SkillService {
      * @return updated skill
      * @throws ExceptionCMS
      */
+    @Transactional
     public Skill updateSkill(Skill skill) throws ExceptionCMS {
         Skill upSkill = null;
         try {
@@ -103,6 +113,7 @@ public class SkillServiceImpl implements SkillService {
      * @param skill
      * @throws ExceptionCMS
      */
+    @Transactional
     public void deleteSkill(Skill skill) throws ExceptionCMS {
         try {
             skillDAO.delete(skill);

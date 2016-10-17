@@ -2,9 +2,12 @@ package com.zaico.cms.dao.implementation;
 
 import com.zaico.cms.dao.interfaces.CommonDAO;
 import com.zaico.cms.entities.AbstractEntity;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
  * @author ZAITNIK
  * Abstract DAO with CRUD and basic operations
  */
+
 public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO<T>{
 
     /**
@@ -26,7 +30,9 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
     /**
      * The entity manager, 4 handy CRUD.
      */
-    protected EntityManager em = Persistence.createEntityManagerFactory("cms").createEntityManager();
+    @PersistenceContext
+    protected EntityManager em ;
+//    protected EntityManager em = Persistence.createEntityManagerFactory("cms").createEntityManager();
 
     /**
      * The constructor.
@@ -113,19 +119,10 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
      * @return user like result list
      */
     public List<T> getAll() {
-        List<T> result = null;
-        try {
-            em.getTransaction().begin();
-            if (entityName.equals("Order")) {
-                entityName = "Cmsorder";
-            }
-            result = em.createNamedQuery(entityName+".getAll").getResultList();
-            em.getTransaction().commit();
+        if (entityName.equals("Order")) {
+            entityName = "Cmsorder";
         }
-        catch (Exception exp) {
-            em.getTransaction().rollback();
-        }
-        return result;
+        return em.createNamedQuery(entityName+".getAll").getResultList();
     }
 
     /**

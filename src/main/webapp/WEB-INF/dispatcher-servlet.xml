@@ -11,7 +11,7 @@
 
     <!--&lt;!&ndash; Handles HTTP GET requests for /resources/** by efficiently serving-->
         <!--up static resources in the ${webappRoot}/resources directory &ndash;&gt;-->
-    <!--<mvc:resources mapping="k/resources/**" location="${webappRoot}/resources/" />-->
+    <!--<mvc:resources mapping="/resources/**" location="${webappRoot}/resources/" />-->
 
     <context:component-scan base-package="com.zaico.cms.controllers" />
 

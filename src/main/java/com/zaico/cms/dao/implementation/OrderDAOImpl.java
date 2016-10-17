@@ -21,7 +21,6 @@ public class OrderDAOImpl extends AbstractDAO<Order> implements OrderDAO {
      * @param worker
      * @return list of orders
      */
-    @Override
     public List<Order> getByWorker(Worker worker) {
         List<Order> result = null;
         try {
