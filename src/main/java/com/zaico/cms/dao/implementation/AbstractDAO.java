@@ -52,6 +52,8 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
      * @param t Entity type
      */
     public T create(T t) {
+        t.setCreatedAt(new Date());
+        t.setUpdatedAt(new Date());
         em.persist(t);
         return t;
     }
@@ -68,17 +70,9 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
      * @param t Entity object
      */
     public T update(T t) {
-        T result = null;
-        try {
-            t.setUpdatedAt(new Date());
-            em.getTransaction().begin();
-            result = em.merge(t);
-            em.getTransaction().commit();
-        }
-        catch (Exception exp) {
-            em.getTransaction().rollback();
-        }
-        return result;
+        t.setUpdatedAt(new Date());
+        em.getTransaction().commit();
+        return t;
     }
 
     /**
@@ -86,14 +80,7 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
      * @param t Entity, we want to delete
      */
     public void delete(T t) {
-        try {
-            em.getTransaction().begin();
-            em.remove(em.contains(t) ? t : em.merge(t));
-            em.getTransaction().commit();
-        }
-            catch (Exception exp) {
-            em.getTransaction().rollback();
-        }
+        em.remove(em.contains(t) ? t : em.merge(t));
     }
 
     /**
@@ -111,13 +98,6 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
      * Deletes all existing user
      */
     public void deleteAll() {
-        try {
-            em.getTransaction().begin();
-            em.createNamedQuery(entityName+".deleteAll").executeUpdate();
-            em.getTransaction().commit();
-        }
-        catch (Exception exp) {
-            em.getTransaction().rollback();
-        }
+        em.createNamedQuery(entityName+".deleteAll").executeUpdate();
     }
 }

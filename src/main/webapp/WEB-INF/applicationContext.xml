@@ -25,23 +25,29 @@
         <property name="password" value="1234" />
     </bean>
 
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-          p:packagesToScan="hu.daniel.hari.learn.spring.orm.model"
-          p:dataSource-ref="dataSource"
-    >
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="generateDdl" value="true" />
-                <property name="showSql" value="true" />
-            </bean>
-        </property>
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+        <property name="persistenceUnitName" value="cms" />
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+        <property name="jpaDialect" ref="jpaDialect" />
+    </bean>
+
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="generateDdl" value="true" />
+        <property name="showSql" value="true" />
+        <property name="database" value="MYSQL" />
+        <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
     </bean>
 
     <!-- Transactions -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaDialect" ref="jpaDialect" />
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
 
+    <tx:annotation-driven transaction-manager="transactionManager" />
 </beans>
