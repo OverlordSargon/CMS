@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author ZAITNIK
  * Class for implementation abstract & interfaces
  */
-@Component
+@Repository("skillDao")
 public class SkillDAOImpl extends AbstractDAO<Skill> implements SkillDAO {
 
 }

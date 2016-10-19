@@ -4,6 +4,7 @@ import com.zaico.cms.dao.interfaces.RoleDAO;
 import com.zaico.cms.dao.interfaces.UserDAO;
 import com.zaico.cms.entities.Role;
 import com.zaico.cms.entities.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @author ZAITNIK
  * Class for implementation abstract & interfaces
  */
+@Repository("roleDao")
 public class RoleDAOImpl extends AbstractDAO<Role> implements RoleDAO {
     /**
      * Overrited methods for getAll & deleteAll by named queries

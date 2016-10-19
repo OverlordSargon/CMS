@@ -3,6 +3,7 @@ package com.zaico.cms.dao.implementation;
 import com.zaico.cms.dao.interfaces.OrderDAO;
 import com.zaico.cms.entities.Order;
 import com.zaico.cms.entities.Worker;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author ZAITNIK
  * Class for implementation abstract & interfaces
  */
+@Repository("orderDao")
 public class OrderDAOImpl extends AbstractDAO<Order> implements OrderDAO {
     /**
      * Overrited methods for getAll & deleteAll by named queries
