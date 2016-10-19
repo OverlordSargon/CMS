@@ -52,16 +52,7 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
      * @param t Entity type
      */
     public T create(T t) {
-        try {
-            t.setCreatedAt(new Date());
-            t.setUpdatedAt(new Date());
-            em.getTransaction().begin();
-            em.persist(t);
-            em.getTransaction().commit();
-        }
-        catch ( Exception exp ) {
-            em.getTransaction().rollback();
-        }
+        em.persist(t);
         return t;
     }
 
@@ -69,16 +60,7 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
      * Get object by id
      */
     public T read(Long id) {
-        T result = null;
-        try {
-            em.getTransaction().begin();
-            result = em.find(type, id);
-            em.getTransaction().commit();
-        }
-        catch (Exception exp) {
-            em.getTransaction().rollback();
-        }
-        return result;
+        return  em.find(type, id);
     }
 
     /**

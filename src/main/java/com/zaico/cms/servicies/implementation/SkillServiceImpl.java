@@ -13,6 +13,7 @@ import com.zaico.cms.utility.ExceptionCMS;
 
 import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * Created by nzaitsev on 17.08.2016.
  */
-@Service("skillService")
+@Component
 public class SkillServiceImpl implements SkillService {
 
     // Logger

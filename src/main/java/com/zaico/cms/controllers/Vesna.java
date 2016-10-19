@@ -26,9 +26,10 @@ public class Vesna  {
             List<Skill> allSkills = skillService.findAllSkills();
             modelAndView.setViewName("allskills");
             modelAndView.addObject("skills", allSkills);
+            modelAndView.addObject("mes", "Good!");
 
         } catch (Exception e) {
-
+            modelAndView.addObject("mes", "BAD!!!!");
         }
         return modelAndView;
     }

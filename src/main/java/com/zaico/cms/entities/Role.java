@@ -53,7 +53,8 @@ public class Role extends AbstractEntity {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "R_ID")public Long getId() {
+    @Column(name = "R_ID")
+    public Long getId() {
         return id;
     }
     /**

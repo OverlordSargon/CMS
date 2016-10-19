@@ -5,6 +5,8 @@ import com.zaico.cms.entities.Order;
 import com.zaico.cms.entities.Role;
 import com.zaico.cms.entities.User;
 import com.zaico.cms.utility.ExceptionCMS;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -18,11 +20,13 @@ import java.util.List;
  *         Class for implementation abstract & interfaces
  */
 
+@Component
 public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
 
     /**
      * Get user by login&password
      */
+    @Transactional
     public User userLogin(String login, String password) {
         Query user = em.createNamedQuery("User.login",User.class);
         user.setParameter("login",login);
@@ -30,6 +34,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
         return (User) user.getSingleResult();
     }
 
+    @Transactional
     public List<User> findUserByRole(Role role) throws ExceptionCMS {
         List<User> result = null;
         try {

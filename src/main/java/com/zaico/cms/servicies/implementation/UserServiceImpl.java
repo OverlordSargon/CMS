@@ -10,6 +10,9 @@ import com.zaico.cms.utility.ExceptionCMS;
 
 
 import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,12 +21,15 @@ import java.util.List;
 /**
  * Created by nzaitsev on 17.08.2016.
  */
+@Component
 public class UserServiceImpl implements UserService {
 
     // Logger
     private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
     // DAO
-    private UserDAO userDAO = FactoryDAO.getUserDAOInstance();
+    @Autowired
+    private UserDAO userDAO;
+//    private UserDAO userDAO = FactoryDAO.getUserDAOInstance();
 
     /**
      * Create new User
@@ -31,6 +37,7 @@ public class UserServiceImpl implements UserService {
      * @return
      * @throws ExceptionCMS
      */
+    @Transactional
     public User createUser(User user) throws ExceptionCMS {
         try {
             return userDAO.create(user);
@@ -47,6 +54,7 @@ public class UserServiceImpl implements UserService {
      * @return
      * @throws ExceptionCMS
      */
+    @Transactional
     public User findUser(long id) throws ExceptionCMS {
         try {
             return userDAO.read(id);
@@ -73,6 +81,7 @@ public class UserServiceImpl implements UserService {
      * @return
      * @throws ExceptionCMS
      */
+    @Transactional
     public User updateUser(User user) throws ExceptionCMS {
         try {
             return userDAO.update(user);
@@ -88,6 +97,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @throws ExceptionCMS
      */
+    @Transactional
     public void deleteUser(User user) throws ExceptionCMS {
         try {
             userDAO.delete(user);
@@ -103,6 +113,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @throws ExceptionCMS
      */
+    @Transactional
     public void clearRoles(User user) throws ExceptionCMS {
         try {
             List<Role> userRoles = new ArrayList<Role>();
@@ -120,6 +131,7 @@ public class UserServiceImpl implements UserService {
      * @param password
      * @return User
      */
+    @Transactional
     public User login(String login, String password) throws ExceptionCMS {
         User result = null;
         try {

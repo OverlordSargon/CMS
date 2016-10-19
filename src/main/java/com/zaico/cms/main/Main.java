@@ -2,10 +2,7 @@ package com.zaico.cms.main;
 
 import com.zaico.cms.dao.implementation.FactoryDAO;
 import com.zaico.cms.dao.interfaces.WorkerDAO;
-import com.zaico.cms.entities.Order;
-import com.zaico.cms.entities.Schedule;
-import com.zaico.cms.entities.Worker;
-import com.zaico.cms.entities.Workplan;
+import com.zaico.cms.entities.*;
 import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.ScheduleService;
@@ -14,13 +11,14 @@ import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.DataAccessException;
 
 import java.awt.color.CMMException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -30,134 +28,36 @@ import java.util.*;
 public class Main {
     public static Logger logger = LogManager.getLogger(Main.class);
 
-    public static void main(String[] args)  throws ExceptionCMS, SQLException, ClassNotFoundException,InterruptedException , IllegalArgumentException,
-            IllegalAccessException, ParseException {
-        OrderService orderService = FactoryService.getOrderServiceInstance();
-        WorkerService workerService = FactoryService.getWorkerServiceInstance();
-//        SkillService skillService = FactoryService.getSkillServiceInstance();
-//        ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
+        public static void main(String[] args) {
 
-        String orderNum = "FR2-X";
-        String orderDesc = "orderdesc";
-        Long orderSkill = 17L;
-        String dateS = "30-09-2016";
-        String fromS = "18:03:00";
-        String toS = "12:00:00";
-        String orderClient = "ordercname";
-        int orderCleintNum = 123414;
+            //Create Spring application context
+            ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
 
+            //Get service from context. (service's dependency (ProductDAO) is autowired in ProductService)
+//            ProductService productService = ctx.getBean(ProductService.class);
+            SkillService skillService = ctx.getBean(SkillService.class);
 
-        try {
-//          string dates into dates
-//            DateFormat timeF = new SimpleDateFormat("HH:mm");
-//            DateFormat dateF = new SimpleDateFormat("dd-MM-y");
-//            DateFormat fullD = new SimpleDateFormat("HH:mm:ss dd-MM-y");
+            //Do some data operation
 
-////          create dates
-//            Date fromDate = timeF.parse(fromS);
-//            Date toDate = timeF.parse(toS);
-//            Date dateDate = dateF.parse(dateS);
-//            StringBuffer stringBuffer = new StringBuffer(fromS);
-//            stringBuffer.append(" ");
-//            stringBuffer.append(dateS);
-////            Date fullDate = fullD.parse(stringBuffer.toString());
+//            productService.add(new Product(1, "Bulb"));
+//            productService.add(new Product(2, "Dijone mustard"));
 //
-////          calendars for all dates
-//            Calendar calFrom = Calendar.getInstance();
-//            calFrom.setTime(fromDate);
-//
-//            Calendar calTo = Calendar.getInstance();
-//            calTo.setTime(toDate);
-//
-//            Calendar calDate = Calendar.getInstance();
-//            calDate.setTime(dateDate);
-//
-//            Calendar orderDate = Calendar.getInstance();
-//            orderDate.setTime(fullDate);
-//
-//            Calendar today = Calendar.getInstance();
-//            today.setTime(new Date());
+//            System.out.println("listAll: " + productService.listAll());
 
-            Worker worker = workerService.findWorker(87);
-            for ( Workplan workplan: worker.getWorkplans()) {
-                for (Schedule schedule : workplan.getSchedules()) {
-                    System.out.println(schedule.getFlag());
-                }
+            //Test transaction rollback (duplicated key)
+
+            try {
+                Skill skill = skillService.createSkill(new Skill("TEst spring","Test Spring"));
+                System.out.println(skill);
+//                productService.addAll(Arrays.asList(new Product(3, "Book"), new Product(4, "Soap"), new Product(1, "Computer")));
+            } catch (Exception e) {
+                System.out.println(e);
             }
 
-//            List<Workplan> workplanList = workerService.findEdges(worker);
-//            for ( Workplan workplan1: workplanList) {
-//                System.out.println(workplan1.getDate());
-//            }
-//            Date fist = workplan.getDate();
-//            Date last = worker.getWorkplans().get(worker.getWorkplans().size()-1).getDate();
-//
-//            Calendar calFirst = Calendar.getInstance();
-//            Calendar calLast = Calendar.getInstance();
-//
-//            DateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
-//
-//            calFirst.setTime(fist);
-//            calLast.setTime(last);
-//
-//            String dateF = dateFormat.format(fist);
-//            String dateL = dateFormat.format(last);
-//
-//            for (Workplan workplan1: worker.getWorkplans()) {
-//                System.out.println(workplan1.getDate());
-//                if ( workplan1.getDate().before(new Date())) {
-//                    System.out.println(new Date());
-//                    System.out.println(dateFormat.format(workplan1.getDate()));
-//                    System.out.println("WP date before today");
-//                }
-//                if (workplan1.getDate().after(new Date())) {
-//                    System.out.println("WP DAte after today");
-//                }
-//                if ( workplan1.getDate().before(calLast.getTime())) {
-//                    System.out.println(calLast.getTime());
-//                    System.out.println("WP date befor calendar");
-//                }
-//            }
-//
-//            SimpleDateFormat ft = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a", Locale.US);
-//            java.util.Date t= new Date();
-//            System.out.println(t);
-//            ft.applyPattern("dd-MM-y");
-//            System.out.println(ft.format(t));
-////            System.out.println(date);
+            //Test element list after rollback
+//            System.out.println("listAll: " + productService.listAll());
 
-//            String date = "Thu Feb 02 00:00:00 WET 2012";
-//            SimpleDateFormat formatnow = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH);
-//            SimpleDateFormat formatneeded=new SimpleDateFormat("YYYY-MM-dd");
-//            Date date1 = formatnow.parse(date);
-//            String date2 = formatneeded.format(date1);
-//            Date date3 = formatneeded.parse(date2);
-//            System.out.println(date2.toString());
-//            System.out.println(date3);
+            ctx.close();
 
-
-//            System.out.println("Order date: "+orderDate.getTime());
-//            System.out.println("Today: "+today.getTime());
-//            if ( orderDate.getTime().before(today.getTime())) {
-//                System.out.println("Wrong time!!!!");
-//            } else {
-//                System.out.println("Right time!!!!");
-//            }
-//            WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
-//
-//            Worker worker = workerService.findWorker(51);
-//            if (orderService.getByWorker(worker).size() == 0) {
-//                System.out.println("deletet");
-//            } else {
-//                System.out.println("catn delete");
-//            }
-
-        /*Find workers by skill*/
-//            orderService.findCapacity(calDate,calFrom,calTo,orderSkill,"W",null);
-
-        } catch (Exception e) {
-            System.out.println(e);
         }
-
     }
-}
