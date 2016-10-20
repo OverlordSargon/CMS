@@ -21,7 +21,6 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 02.09.2016.
  */
-@WebServlet("/viewskill")
 public class SkillViewServlet extends HttpServlet {
 
     // Logger

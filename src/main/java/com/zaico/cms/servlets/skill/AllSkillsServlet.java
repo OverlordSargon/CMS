@@ -15,7 +15,6 @@ import java.util.List;
 /**
  * Created by nzaitsev on 25.08.2016.
  */
-@WebServlet("/skills")
 public class AllSkillsServlet extends HttpServlet {
 
     /**

@@ -11,7 +11,9 @@ import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.dao.DataAccessException;
 
 import java.awt.color.CMMException;
@@ -31,11 +33,11 @@ public class Main {
         public static void main(String[] args) {
 
             //Create Spring application context
-            ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
 
             //Get service from context. (service's dependency (ProductDAO) is autowired in ProductService)
 //            ProductService productService = ctx.getBean(ProductService.class);
-            SkillService skillService = ctx.getBean(SkillService.class);
+            ApplicationContext context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/applicationContext.xml");
+            SkillService skillService = (SkillService) context.getBean("skillService");
 
             //Do some data operation
 
@@ -56,8 +58,6 @@ public class Main {
 
             //Test element list after rollback
 //            System.out.println("listAll: " + productService.listAll());
-
-            ctx.close();
 
         }
     }

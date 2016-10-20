@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by nzaitsev on 17.08.2016.
  */
-@Component
+@Service("skillService")
 public class SkillServiceImpl implements SkillService {
 
     // Logger

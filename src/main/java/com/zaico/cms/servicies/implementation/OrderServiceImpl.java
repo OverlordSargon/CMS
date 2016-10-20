@@ -11,18 +11,22 @@ import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 /**
  * Created by nzaitsev on 17.08.2016.
  */
+@Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
     // Logger
     private static final Logger logger = LogManager.getLogger(OrderServiceImpl.class);
     // DAO
-    private OrderDAO orderDAO = FactoryDAO.getOrderDAOInstance();
+    @Autowired
+    private OrderDAO orderDAO ;
 
     /**
      * Create new Order

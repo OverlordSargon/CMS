@@ -23,7 +23,6 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 31.08.2016.
  */
-@WebServlet("/newskill")
 public class SkillCreate extends HttpServlet {
 
     // The logger

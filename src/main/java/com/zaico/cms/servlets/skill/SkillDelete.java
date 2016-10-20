@@ -24,7 +24,6 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 01.09.2016.
  */
-@WebServlet("/deleteskill")
 public class SkillDelete extends HttpServlet {
 
     // The logger

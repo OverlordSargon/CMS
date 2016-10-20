@@ -15,6 +15,8 @@ import com.zaico.cms.utility.ExceptionHandler;
 import com.zaico.cms.utility.WorkplanComparator;
 import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 import org.omg.CORBA.Request;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
@@ -24,12 +26,14 @@ import java.util.*;
 /**
  * Created by nzaitsev on 17.08.2016.
  */
+@Service("workerService")
 public class WorkerServiceImpl implements WorkerService {
 
     // Logger
     private static final Logger LOG = LogManager.getLogger(WorkplanService.class);
     // DAO
-    private WorkerDAO workerDAO = FactoryDAO.getWorkerDAOInstance();
+    @Autowired
+    private WorkerDAO workerDAO;
 
     /**
      * Create new Worker
