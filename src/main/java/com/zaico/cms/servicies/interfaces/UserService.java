@@ -21,18 +21,24 @@ public interface UserService {
     /**
      * Find user by id
      * @param id
-     * @return
+     * @return  User
      * @throws ExceptionCMS
      */
     User findUser(long id) throws ExceptionCMS;
 
     /**
      * Find all user by entity query
-     * @return
+     * @return List of users
      * @throws ExceptionCMS
      */
     List<User> findAllUsers() throws ExceptionCMS;
 
+    /**
+     * Find user by name
+     * @return  User
+     * @throws ExceptionCMS
+     */
+    User findByName(String name) throws ExceptionCMS;
     /**
      * Update user
      * @param user

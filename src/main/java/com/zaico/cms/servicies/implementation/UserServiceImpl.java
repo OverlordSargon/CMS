@@ -11,26 +11,28 @@ import com.zaico.cms.utility.ExceptionCMS;
 
 import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.GrantedAuthority;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by nzaitsev on 17.08.2016.
  */
 @Service("userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService,UserDetailsService {
 
     // Logger
     private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
     // DAO
     @Autowired
     private UserDAO userDAO;
-//    private UserDAO userDAO = FactoryDAO.getUserDAOInstance();
 
     /**
      * Create new User
@@ -44,7 +46,7 @@ public class UserServiceImpl implements UserService {
             return userDAO.create(user);
         } catch (Exception e) {
             String errMes = "User creation error:"+new Date();
-            LOG.info(errMes);
+            LOG.error(errMes);
             throw new ExceptionCMS(errMes,ErrorCode.USER_CREATION_ERROR);
         }
     }
@@ -61,18 +63,38 @@ public class UserServiceImpl implements UserService {
             return userDAO.read(id);
         } catch (Exception e) {
             String errMes = "User not found:"+new Date();
-            LOG.info(errMes);
+            LOG.error(errMes);
             throw new ExceptionCMS(errMes,ErrorCode.USER_NOT_FOUND);
         }
     }
 
+    /**
+     * Find all users
+     * @return List of users
+     * @throws ExceptionCMS
+     */
     public List<User> findAllUsers() throws ExceptionCMS {
         try {
             return userDAO.getAll();
         } catch (Exception e) {
             String errMes = "ALL USERS ERRRRPOR:"+new Date();
-            LOG.info(errMes);
+            LOG.error(errMes);
             throw new ExceptionCMS(errMes,ErrorCode.USER_NOT_FOUND);
+        }
+    }
+
+    /**
+     * Find user by name
+     * @return User
+     * @throws ExceptionCMS
+     */
+    public User findByName(String name) throws ExceptionCMS {
+        try {
+            return userDAO.findByName(name);
+        } catch (Exception e) {
+            String err = "User "+name+" not found";
+            LOG.error(err);
+            throw new ExceptionCMS(err,1);
         }
     }
 
@@ -88,7 +110,7 @@ public class UserServiceImpl implements UserService {
             return userDAO.update(user);
         } catch (Exception e) {
             String errMes = "User update error :"+new Date();
-            LOG.info(errMes);
+            LOG.error(errMes);
             throw new ExceptionCMS(errMes,ErrorCode.USER_CANNOT_BE_UPDATED);
         }
     }
@@ -104,7 +126,7 @@ public class UserServiceImpl implements UserService {
             userDAO.delete(user);
         } catch (Exception e) {
             String errMes = "User delete error :"+new Date();
-            LOG.info(errMes);
+            LOG.error(errMes);
             throw new ExceptionCMS(errMes,ErrorCode.USER_CANNOT_BE_DELETED);
         }
     }
@@ -122,7 +144,7 @@ public class UserServiceImpl implements UserService {
             user.setRoles(userRoles);
             userDAO.update(user);
         } catch ( Exception e ) {
-
+            throw new ExceptionCMS("Roles cant be cleared",e);
         }
     }
 
@@ -140,10 +162,32 @@ public class UserServiceImpl implements UserService {
         }
         catch (Exception e) {
             String errorMessageLog = "Login error. Login:" + login + " Password: "+password+" : "+new Date();
-            LOG.info(errorMessageLog);
+            LOG.error(errorMessageLog);
             String errorMessage = "Login error. Wrong credentials.";
              throw new ExceptionCMS(errorMessage, ErrorCode.WRONG_CREDENTIALS);
         }
         return result;
+    }
+
+    /**
+     * Spring authentication method
+     */
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        User user = null;
+        try {
+            user = findByName(username);
+        } catch (Exception e ) {
+
+        }
+
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
+        for (Role role : user.getRoles() ) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));
+        }
+
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), grantedAuthorities);
+
     }
 }

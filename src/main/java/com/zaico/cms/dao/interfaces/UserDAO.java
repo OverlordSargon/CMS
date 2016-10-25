@@ -18,4 +18,6 @@ public interface UserDAO  extends CommonDAO<User> {
 
     List<User> findUserByRole(Role role) throws ExceptionCMS;
 
+    User findByName(String name) throws ExceptionCMS;
+
 }
