@@ -1,4 +1,4 @@
-package com.zaico.cms.controllers;
+package com.zaico.cms.controllers.skill;
 
 import com.zaico.cms.entities.Skill;
 import com.zaico.cms.servicies.implementation.SkillServiceImpl;
@@ -26,11 +26,6 @@ import java.util.List;
  */
 @Controller
 public class SkillController {
-
-    /**
-     * Skill class instance for methods interaction
-     */
-    Skill skillIntercator = null;
 
     /**
      * Logger
@@ -71,11 +66,15 @@ public class SkillController {
 
     @RequestMapping(value = "/skill*", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView skillView(@RequestParam(value = "id") int id) {
+    public ModelAndView skillView(
+            @RequestParam(value = "id") int id,
+            Model model
+    ) {
         ModelAndView modelAndView = new ModelAndView();
         Skill skill = null;
         try {
             skill = skillService.findSkill((long)id);
+            model.addAttribute("skill",skill);
             LOG.info("VIEW: skill "+skill.getName());
             modelAndView.addObject("skill",skill);
             modelAndView.addObject("title","CMS Skill "+skill.getName());
@@ -93,14 +92,17 @@ public class SkillController {
 
 
     @RequestMapping(value = "/delete_skill", method = RequestMethod.GET)
-    public ModelAndView deleteSkill(@RequestParam(value = "id") int id) {
+    public ModelAndView deleteSkill(
+            @RequestParam(value = "id") int id,
+            Model model
+    ) {
         ModelAndView modelAndView = new ModelAndView();
         Skill skill = null;
         try {
             skill = skillService.findSkill((long)id);
+            model.addAttribute("skill",skill);
             modelAndView.addObject("skill",skill);
             modelAndView.addObject("infoMessage","You want to delete this Skill. Are you sure?");
-            skillIntercator = skill;
         } catch (Exception e) {
             LOG.info("Skill \""+skill.getName()+ "\" notfounded at "+new Date());
             String errMess = ExceptionHandler.handleException(e);
@@ -117,7 +119,8 @@ public class SkillController {
     @RequestMapping(value = "/delete_skill", method = RequestMethod.POST)
     public String deleteSkill(
             Model model,
-            RedirectAttributes redirectAttributes
+            RedirectAttributes redirectAttributes,
+            @ModelAttribute("skill") Skill skillIntercator
     ) {
         Skill skill = skillIntercator;
         try {
@@ -141,57 +144,4 @@ public class SkillController {
         }
     }
 
-    Skill skillUpdate = null;
-    @RequestMapping(value = "/update_skill", method = RequestMethod.GET)
-    public  ModelAndView skillUpdate(@RequestParam(value = "id") int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        try {
-            skillUpdate = skillService.findSkill((long)id);
-        } catch (Exception e) {
-            LOG.error("Skill \""+skillUpdate.getName()+ "\" notfounded at "+new Date());
-            String errMess = ExceptionHandler.handleException(e);
-            ModelAndView tmp = allSkills();
-            tmp.addObject("errMessage",errMess);
-            return tmp;
-        }
-        modelAndView.addObject("skill",skillUpdate);
-        modelAndView.addObject("title","CMS Update skill");
-        modelAndView.addObject("cmsheader","Update skill "+skillUpdate.getName());
-        modelAndView.addObject("action","/update_skill");
-        modelAndView.addObject("button","UPDATE");
-        modelAndView.setViewName("skill/skill");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/update_skill", method = RequestMethod.POST)
-    public String skillUpdateExecute(
-            @RequestParam(value = "skillname") String skillName,
-            @RequestParam(value = "skilldesc") String skillDesc,
-            Model model,
-            RedirectAttributes redirectAttributes
-    ) {
-        try {
-            if ( skillName.equals("") || skillDesc.equals("")) {
-                throw new ExceptionCMS("Fill all fields!", ErrorCode.SKILL_CREATE_ERROR);
-            }
-            LOG.info("START: update skill "+skillName);
-            skillUpdate.setName(skillName);
-            skillUpdate.setDescription(skillDesc);
-            skillService.updateSkill(skillUpdate);
-            LOG.info("END: Skill "+skillUpdate.getName()+ " updated");
-            redirectAttributes.addFlashAttribute("sucMessage","Skill \""+skillUpdate.getName()+ "\" updated successfully");
-            skillUpdate = null;
-            return "redirect:/skills";
-        } catch (Exception e) {
-            ModelAndView model1 = new ModelAndView();
-            String errMess = ExceptionHandler.handleException(e);
-            LOG.info(errMess);
-            model1.addObject("errMessage",errMess);
-            model1.addObject("skill",skillUpdate);
-            model1.addObject("action","/update_skill");
-            model1.addObject("button","UPDATE");
-            model1.setViewName("skill/skill");
-            return "redirect:/skill";
-        }
-    }
 }

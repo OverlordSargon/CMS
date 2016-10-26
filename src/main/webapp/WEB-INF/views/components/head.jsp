@@ -19,17 +19,6 @@
         String links ="";
         String userName = " ";
         String disabledField = "";
-//        if(session.getAttribute("user") != null) {
-//            userName = session.getAttribute("user").toString();
-//            logoutButt ="<a href=\"/logout\">\n" +
-//                    "Logout\n" +
-//                    "</a>\n";
-//            Cookie[] cookies = request.getCookies();
-//        } else {
-//            logoutButt ="<a href=\"/login\">\n" +
-//                    "Login\n" +
-//                    "</a>\n";
-//        }
     %>
 </head>
 <body>
@@ -44,13 +33,12 @@
 
         <nav>
             <%
-
-                        links = "<a href=\"/main\">Main Page</a>\n" +
-                                "<a href=\"/orders\">Orders</a>" +
-                                "<a href=\"/skills\">skills</a>\n" +
-                                "<a href=\"/roles\">roles</a>\n" +
-                                "<a href=\"/users\">users</a>\n" +
-                                "<a href=\"/admin/workers\">workers</a>" + logoutButt;
+            links = "<a href=\"/main\">Main Page</a>\n" +
+                    "<a href=\"/orders\">Orders</a>" +
+                    "<a href=\"/skills\">skills</a>\n" +
+                    "<a href=\"/roles\">roles</a>\n" +
+                    "<a href=\"/users\">users</a>\n" +
+                    "<a href=\"/admin/workers\">workers</a>" + logoutButt;
             %>
             <%=links%>
         </nav>

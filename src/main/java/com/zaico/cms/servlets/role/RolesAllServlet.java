@@ -20,7 +20,6 @@ import java.util.List;
 /**
  * Created by nzaitsev on 01.09.2016.
  */
-@WebServlet("/roles")
 public class RolesAllServlet extends HttpServlet {
 
     // Logger

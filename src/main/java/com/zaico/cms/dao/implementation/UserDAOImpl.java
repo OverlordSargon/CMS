@@ -30,6 +30,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
     /**
      * Get user by login&password
      */
+
     public User userLogin(String login, String password) {
         Query user = em.createNamedQuery("User.login",User.class);
         user.setParameter("login",login);

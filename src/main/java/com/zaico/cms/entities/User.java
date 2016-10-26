@@ -107,7 +107,7 @@ public class User extends AbstractEntity {
      * Get all user role
      * @return role
      */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     (
         name = "USER_ROLE",

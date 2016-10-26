@@ -11,7 +11,6 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 22.08.2016.
  */
-@WebServlet("/main")
 public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

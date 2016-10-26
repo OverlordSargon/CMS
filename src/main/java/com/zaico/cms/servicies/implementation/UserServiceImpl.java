@@ -73,6 +73,7 @@ public class UserServiceImpl implements UserService,UserDetailsService {
      * @return List of users
      * @throws ExceptionCMS
      */
+    @Transactional
     public List<User> findAllUsers() throws ExceptionCMS {
         try {
             return userDAO.getAll();
@@ -88,6 +89,7 @@ public class UserServiceImpl implements UserService,UserDetailsService {
      * @return User
      * @throws ExceptionCMS
      */
+    @Transactional
     public User findByName(String name) throws ExceptionCMS {
         try {
             return userDAO.findByName(name);

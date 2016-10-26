@@ -16,7 +16,6 @@ import java.util.List;
 /**
  * Created by nzaitsev on 20.10.2016.
  */
-@Controller
 public class AccessController {
 
     @Autowired
@@ -44,6 +43,6 @@ public class AccessController {
         } catch (Exception e) {
             request.setAttribute("errMessage","FUCK U!");
         }
-        return "login";
+        return "/roles";
     }
 }

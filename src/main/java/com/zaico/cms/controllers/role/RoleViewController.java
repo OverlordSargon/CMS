@@ -34,8 +34,8 @@ public class RoleViewController {
     @Autowired
     RoleService roleService;
 
-    @RequestMapping(value = "/hjkb", method = RequestMethod.GET)
-    protected ModelAndView allRoles() {
+    @RequestMapping(value = "/roles", method = RequestMethod.GET)
+    public ModelAndView allRoles() {
         ModelAndView modelAndView = new ModelAndView();
         try {
             List<Role> roles = roleService.findAllRoles();
@@ -51,14 +51,14 @@ public class RoleViewController {
         return  modelAndView;
     }
 
-    @RequestMapping(value = "/view_role**/", method = RequestMethod.GET)
+    @RequestMapping(value = "/view_role*", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView skillView(@RequestParam(value = "id") int id) {
+    public ModelAndView roleView(@RequestParam(value = "id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         Role role = null;
         try {
             role = roleService.findRole(id);
-            LOG.info("VIEW: skill "+role.getRole());
+            LOG.info("VIEW: role "+role.getRole());
             modelAndView.addObject("role",role);
             modelAndView.addObject("title","CMS role"+role.getRole());
             modelAndView.addObject("cmsheader","Role "+role.getRole());

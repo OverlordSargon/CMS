@@ -15,7 +15,6 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 22.08.2016.
  */
-@WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);

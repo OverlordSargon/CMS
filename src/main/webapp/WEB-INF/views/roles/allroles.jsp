@@ -23,7 +23,7 @@
                         </td>
                         <td>
                             <div class="btn-view">
-                                <form action="/viewrole" method="get">
+                                <form action="/view_role" method="get">
                                     <input type="hidden"  name="id" value="${role.id}">
                                     <input type="submit" value="VIEW" class="btn view">
                                 </form>
