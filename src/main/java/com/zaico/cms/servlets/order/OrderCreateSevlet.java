@@ -29,7 +29,6 @@ import java.util.List;
 /**
  * Created by nzaitsev on 03.09.2016.
  */
-@WebServlet("/neworder")
 public class OrderCreateSevlet extends HttpServlet {
 
 	/**

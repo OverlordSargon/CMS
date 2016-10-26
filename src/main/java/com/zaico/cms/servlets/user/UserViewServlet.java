@@ -20,7 +20,6 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 02.09.2016.
  */
-@WebServlet("/viewuser")
 public class UserViewServlet extends HttpServlet {
 
 

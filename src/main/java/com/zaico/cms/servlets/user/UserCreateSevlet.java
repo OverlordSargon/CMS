@@ -26,7 +26,6 @@ import java.util.List;
 /**
  * Created by nzaitsev on 02.09.2016.
  */
-@WebServlet("/newuser")
 public class UserCreateSevlet extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);

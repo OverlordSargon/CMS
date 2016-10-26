@@ -20,7 +20,6 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 02.09.2016.
  */
-@WebServlet("/deleteuser")
 public class UserDeleteServlet extends HttpServlet {
     private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
     UserService userService = FactoryService.getUserServiceInstance();

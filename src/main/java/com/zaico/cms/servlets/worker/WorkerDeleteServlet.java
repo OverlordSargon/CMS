@@ -23,7 +23,6 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 03.09.2016.
  */
-@WebServlet("/admin/deleteworker")
 public class WorkerDeleteServlet extends HttpServlet {
     /**
      * Logger

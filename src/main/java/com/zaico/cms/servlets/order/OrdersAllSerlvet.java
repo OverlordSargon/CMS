@@ -26,7 +26,6 @@ import java.util.List;
 /**
  * Created by nzaitsev on 24.08.2016.
  */
-@WebServlet("/orders")
 public class OrdersAllSerlvet extends HttpServlet{
 
     // logger

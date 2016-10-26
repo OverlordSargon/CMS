@@ -4,7 +4,7 @@
 
     <div>
         <button  class="cmsbutton">
-            <a href="/newskill">Create new skill</a>
+            <a href="/create_skill">Create new skill</a>
         </button>
     </div>
     <div class="table_header"> SKills </div>
@@ -34,13 +34,13 @@
                         </form>
                     </div>
                     <div class="btn-update">
-                        <form action="/update" method="get">
+                        <form action="/update_skill" method="get">
                             <input type="hidden"  name="id" value="${skill.id}">
                             <input type="submit" value="UPDATE" class="btn renew">
                         </form>
                     </div>
                     <div class="btn-delete">
-                        <form action="/delete" method="get">
+                        <form action="/delete_skill" method="get">
                             <input type="hidden"  name="id" value="${skill.id}">
                             <input type="submit" value="DELETE" class="btn delete">
                         </form>

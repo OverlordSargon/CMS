@@ -20,16 +20,9 @@ public class WorkerDAOImpl extends AbstractDAO<Worker> implements WorkerDAO {
      */
     public List<Worker> getBySkill(long skillId) {
         List<Worker> result = null;
-        try {
-            em.getTransaction().begin();
-            Query query = em.createNamedQuery("Worker.getBySkill");
-            query.setParameter("skill",skillId);
-            result = query.getResultList();
-            em.getTransaction().commit();
-        }
-        catch (Exception exp) {
-            em.getTransaction().rollback();
-        }
+        Query query = em.createNamedQuery("Worker.getBySkill");
+        query.setParameter("skill",skillId);
+        result = query.getResultList();
         return result;
     }
 }

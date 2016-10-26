@@ -30,7 +30,6 @@ import java.util.List;
 /**
  * Created by nzaitsev on 01.10.2016.
  */
-@WebServlet("/updateorder")
 public class OrderUpdateServlet extends HttpServlet {
     //logger
     Logger logger = LogManager.getLogger(OrderUpdateServlet.class);

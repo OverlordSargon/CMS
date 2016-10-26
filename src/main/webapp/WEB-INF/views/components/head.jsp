@@ -15,21 +15,21 @@
 
     <title>${title}</title>
     <%
-        String logoutButt ;
+        String logoutButt = "";
         String links ="";
         String userName = " ";
         String disabledField = "";
-        if(session.getAttribute("user") != null) {
-            userName = session.getAttribute("user").toString();
-            logoutButt ="<a href=\"/logout\">\n" +
-                    "Logout\n" +
-                    "</a>\n";
-            Cookie[] cookies = request.getCookies();
-        } else {
-            logoutButt ="<a href=\"/login\">\n" +
-                    "Login\n" +
-                    "</a>\n";
-        }
+//        if(session.getAttribute("user") != null) {
+//            userName = session.getAttribute("user").toString();
+//            logoutButt ="<a href=\"/logout\">\n" +
+//                    "Logout\n" +
+//                    "</a>\n";
+//            Cookie[] cookies = request.getCookies();
+//        } else {
+//            logoutButt ="<a href=\"/login\">\n" +
+//                    "Login\n" +
+//                    "</a>\n";
+//        }
     %>
 </head>
 <body>
@@ -44,20 +44,13 @@
 
         <nav>
             <%
-                if( session.getAttribute("role")!=null) {
-                    if (session.getAttribute("role").equals("Administrator")) {
+
                         links = "<a href=\"/main\">Main Page</a>\n" +
                                 "<a href=\"/orders\">Orders</a>" +
                                 "<a href=\"/skills\">skills</a>\n" +
                                 "<a href=\"/roles\">roles</a>\n" +
                                 "<a href=\"/users\">users</a>\n" +
                                 "<a href=\"/admin/workers\">workers</a>" + logoutButt;
-                    } else {
-                        links = "<a href=\"/main\">Main Page</a>\n" +
-                                "<a href=\"/orders\">Orders</a>" + logoutButt;
-                        disabledField = "style=display:none";
-                    }
-                }
             %>
             <%=links%>
         </nav>

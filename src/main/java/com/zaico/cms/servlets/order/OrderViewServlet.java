@@ -18,7 +18,6 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 19.09.2016.
  */
-@WebServlet("/vieworder")
 public class OrderViewServlet extends HttpServlet  {
 
     // Logger

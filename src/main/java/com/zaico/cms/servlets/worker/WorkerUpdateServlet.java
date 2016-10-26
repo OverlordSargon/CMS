@@ -28,7 +28,6 @@ import java.util.List;
 /**
  * Created by nzaitsev on 02.09.2016.
  */
-@WebServlet("/admin/updateworker")
 public class WorkerUpdateServlet extends HttpServlet {
 
     // Logger

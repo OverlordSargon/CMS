@@ -71,7 +71,7 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO
      */
     public T update(T t) {
         t.setUpdatedAt(new Date());
-        em.getTransaction().commit();
+        em.merge(t);
         return t;
     }
 

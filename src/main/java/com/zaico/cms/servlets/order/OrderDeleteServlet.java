@@ -21,7 +21,6 @@ import java.util.Date;
 /**
  * Created by nzaitsev on 20.09.2016.
  */
-@WebServlet("/deleteorder")
 public class OrderDeleteServlet extends HttpServlet {
 
     //logger

@@ -23,13 +23,13 @@
             <%-- if we view, print additional buttons--%>
             <div class="buttons-ud">
                 <div class="btn-update">
-                    <form action="/updateskill" method="get">
+                    <form action="/update_skill" method="get">
                         <input type="hidden"  name="id" value="${skill.id}">
                         <input type="submit" value="UPDATE" class="btn renew">
                     </form>
                 </div>
                 <div class="btn-delete">
-                    <form action="/deleteskill" method="post">
+                    <form action="/delete_skill" method="post">
                         <input type="hidden"  name="id" value="${skill.id}">
                         <input type="submit" value="DELETE" class="btn delete">
                     </form>
