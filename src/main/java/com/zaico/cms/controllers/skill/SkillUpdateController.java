@@ -30,7 +30,6 @@ public class SkillUpdateController {
      * Logger
      */
     private  final Logger LOG = LogManager.getLogger(SkillServiceImpl.class);
-    SkillController skillController = new SkillController();
     /**
      * Instances
      */
@@ -72,10 +71,11 @@ public class SkillUpdateController {
     public String skillUpdateExecute(
             @RequestParam(value = "skillname") String skillName,
             @RequestParam(value = "skilldesc") String skillDesc,
-            @ModelAttribute("skill") Skill skillUpdate,
+            @ModelAttribute("skill") Skill skill,
             Model model,
             RedirectAttributes redirectAttributes
     ) {
+        Skill skillUpdate = skill;
         try {
             if ( skillName.equals("") || skillDesc.equals("")) {
                 throw new ExceptionCMS("Fill all fields!", ErrorCode.SKILL_CREATE_ERROR);
@@ -86,7 +86,6 @@ public class SkillUpdateController {
             skillService.updateSkill(skillUpdate);
             LOG.info("END: Skill "+skillUpdate.getName()+ " updated");
             redirectAttributes.addFlashAttribute("sucMessage","Skill \""+skillUpdate.getName()+ "\" updated successfully");
-            skillUpdate = null;
             return "redirect:/skills";
         } catch (Exception e) {
             ModelAndView model1 = new ModelAndView();

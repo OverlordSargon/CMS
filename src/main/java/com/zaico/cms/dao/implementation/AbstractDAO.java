@@ -17,6 +17,7 @@ import java.util.List;
  * @author ZAITNIK
  * Abstract DAO with CRUD and basic operations
  */
+@Transactional
 public abstract class AbstractDAO<T extends AbstractEntity> implements CommonDAO<T>{
 
     /**

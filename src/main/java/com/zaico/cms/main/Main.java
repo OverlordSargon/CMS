@@ -49,7 +49,10 @@ public class Main {
             //Test transaction rollback (duplicated key)
 
             try {
-                Skill skill = skillService.createSkill(new Skill("TEst spring","Test Spring"));
+                Skill skill = skillService.findSkill((long)20);
+                System.out.println(skill);
+                skill.setName("testDoubleSpring");
+                skillService.updateSkill(skill);
                 System.out.println(skill);
 //                productService.addAll(Arrays.asList(new Product(3, "Book"), new Product(4, "Soap"), new Product(1, "Computer")));
             } catch (Exception e) {

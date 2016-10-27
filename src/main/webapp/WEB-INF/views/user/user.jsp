@@ -11,7 +11,7 @@
         </div>
 
     <c:choose>
-        <c:when test="${action != \"/user\"}">
+        <c:when test="${action != \"/user\" and action != \"/delete_user\" }">
             <%--If U or C print the following name--%>
             <div class="roles_list">
                 <div class="roles_list_label">

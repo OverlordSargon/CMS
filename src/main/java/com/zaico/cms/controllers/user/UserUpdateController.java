@@ -40,6 +40,9 @@ public class UserUpdateController {
     @Autowired
     RoleService roleService ;
 
+
+//    Костыль, замена передаче сущности в модель
+    User kostilUser = null;
     @RequestMapping(value = "update_user**", method = RequestMethod.GET)
     public ModelAndView userUpdate(
             @RequestParam(value = "id") String idi,
@@ -53,7 +56,8 @@ public class UserUpdateController {
             mav.addObject("user",user);
             List<Role> allRoles = roleService.findAllRoles();
             mav.addObject("roles",allRoles);
-            model.addAttribute("user",user);
+            kostilUser = user;
+//            model.addAttribute("user",user);
             mav.addObject("title","CMS Update skill");
             mav.addObject("cmsheader","Update skill "+user.getLogin());
             mav.addObject("action","/update_user");
@@ -72,10 +76,11 @@ public class UserUpdateController {
             @RequestParam("username") String userName,
             @RequestParam("password") String userPass,
             @RequestParam("roles") String [] roles,
-            @ModelAttribute("user") User user,
+//            @ModelAttribute("user") User user,
             RedirectAttributes redirectAttributes,
             Model model
     ) {
+        User user = kostilUser;
         try {
             user.setLogin(userName);
             user.setPassword(userPass);
@@ -99,6 +104,7 @@ public class UserUpdateController {
             String errMess = ExceptionHandler.handleException(e);
             LOG.info(errMess);
             redirectAttributes.addFlashAttribute("errMessage",errMess);
+            redirectAttributes.addFlashAttribute("user",kostilUser);
             return "redirect:/";
         }
         return "redirect:/users";
