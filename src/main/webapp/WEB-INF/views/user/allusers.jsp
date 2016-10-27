@@ -27,7 +27,7 @@
                     <c:forEach var="role" items="${user.roles}">
                         <div>
                             <div class="attr-view">
-                                <form action="/viewrole" method="get">
+                                <form action="/view_role" method="get">
                                     <input type="hidden"  name="id" value="${role.id}">
                                     <input type="submit" value="${role.role}" class="btn view">
                                 </form>
