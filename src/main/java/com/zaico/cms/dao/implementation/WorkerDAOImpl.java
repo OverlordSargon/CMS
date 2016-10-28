@@ -3,6 +3,7 @@ package com.zaico.cms.dao.implementation;
 import com.zaico.cms.dao.interfaces.WorkerDAO;
 import com.zaico.cms.entities.Worker;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -18,6 +19,7 @@ public class WorkerDAOImpl extends AbstractDAO<Worker> implements WorkerDAO {
      * Get all user
      * @return user like result list
      */
+    @Transactional
     public List<Worker> getBySkill(long skillId) {
         List<Worker> result = null;
         Query query = em.createNamedQuery("Worker.getBySkill");

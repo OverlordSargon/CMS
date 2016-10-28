@@ -48,7 +48,7 @@
                     </form>
                 </div>
                 <div class="btn-delete">
-                    <form action="/deleteuser" method="post">
+                    <form action="/delete_user" method="post">
                         <input type="hidden"  name="id" value="${user.id}">
                         <input type="submit" value="DELETE" class="btn delete">
                     </form>

@@ -4,6 +4,7 @@ import com.zaico.cms.dao.interfaces.OrderDAO;
 import com.zaico.cms.entities.Order;
 import com.zaico.cms.entities.Worker;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -23,6 +24,7 @@ public class OrderDAOImpl extends AbstractDAO<Order> implements OrderDAO {
      * @param worker
      * @return list of orders
      */
+    @Transactional
     public List<Order> getByWorker(Worker worker) {
         List<Order> result = null;
         try {

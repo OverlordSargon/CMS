@@ -40,7 +40,7 @@
                 </td>
                 <td>
                     <div class="btn-update">
-                        <form action="/vi" method="get">
+                        <form action="/view_user" method="get">
                             <input type="hidden"  name="id" value="${user.id}">
                             <input type="submit" value="VIEW" class="btn view">
                         </form>

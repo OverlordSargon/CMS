@@ -90,23 +90,24 @@ public class SkillController {
         return modelAndView;
     }
 
-
+    Skill skillIntercator = null;
     @RequestMapping(value = "/delete_skill", method = RequestMethod.GET)
     public ModelAndView deleteSkill(
             @RequestParam(value = "id") int id,
             Model model
     ) {
         ModelAndView modelAndView = new ModelAndView();
-        Skill skill = null;
         try {
-            skill = skillService.findSkill((long)id);
-            model.addAttribute("skill",skill);
-            modelAndView.addObject("skill",skill);
+            skillIntercator = null;
+            skillIntercator = skillService.findSkill((long)id);
+            model.addAttribute("skill",skillIntercator);
+            modelAndView.addObject("skill",skillIntercator);
             modelAndView.addObject("infoMessage","You want to delete this Skill. Are you sure?");
         } catch (Exception e) {
-            LOG.info("Skill \""+skill.getName()+ "\" notfounded at "+new Date());
+            LOG.info("Skill \""+skillIntercator.getName()+ "\" notfounded at "+new Date());
             String errMess = ExceptionHandler.handleException(e);
         }
+
         modelAndView.addObject("title","CMS Delete skill");
         modelAndView.addObject("cmsheader","Delete skill");
         modelAndView.addObject("action","/delete_skill");
@@ -119,8 +120,8 @@ public class SkillController {
     @RequestMapping(value = "/delete_skill", method = RequestMethod.POST)
     public String deleteSkill(
             Model model,
-            RedirectAttributes redirectAttributes,
-            @ModelAttribute("skill") Skill skillIntercator
+            RedirectAttributes redirectAttributes
+//            @ModelAttribute("skill") Skill skillIntercator
     ) {
         Skill skill = skillIntercator;
         try {

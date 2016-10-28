@@ -25,6 +25,7 @@ import java.util.List;
  */
 
 @Repository("userDao")
+@Transactional
 public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
 
     /**
