@@ -1,21 +1,20 @@
-<%@include file="/pages/head.jsp"%>
+<%@include file="../components/head.jsp"%>
 
 <div class="form-view">
 
     <%--FORM BEGIN--%>
-    <form action="${action}" method="post">
+    <form action="${action}" method="post" >
         <%-- set name --%>
-        <div>
-            <label for=""> Name </label>
-            <input type="text" name="workername" value="${worker.name}" ${disabled} >
-        </div>
+            <div class="input_div">
+                <label for=""> Name </label>
+                <input type="text" name="workername" value="${worker.name}" ${disabled} >
+            </div>
 
         <%-- set telephone --%>
-        <div>
-            <label for=""> Telephone number </label>
-            <input type="text" name="workertele" value="${worker.telephone}" ${disabled} >
-        </div>
-
+            <div class="input_div">
+                <label for=""> Telephone number </label>
+                <input type="text" name="workertele" value="${worker.telephone}" ${disabled} >
+            </div>
 
 
         <c:choose>
@@ -24,13 +23,13 @@
             <%-- choose skills --%>
         <div>
                 <%-- choose begin worker date--%>
-            <div>
+            <div class="input_div">
                 <label for=""> Begin date </label>
                 <input type="text" name="begindate" value="${firstday}" ${disabled} placeholder="day-month-year" >
             </div>
 
                 <%-- choose end worker date--%>
-            <div>
+            <div class="input_div">
                 <label for=""> End date </label>
                 <input type="text" name="enddate" value="${lastday}" ${disabled} placeholder="day-month-year">
             </div>
@@ -38,7 +37,7 @@
 
         <div>
                 <%--choose time from--%>
-            <div>
+            <div class="input_div">
                 <label for=""> Work from: </label>
                 <input type="text" name="begintime"
                        <c:if test="${not empty firsthour}">
@@ -48,7 +47,7 @@
             </div>
 
                 <%--choose time to--%>
-            <div>
+            <div class="input_div">
                 <label for=""> to: </label>
                 <input type="text" name="endtime"
                     <c:if test="${not empty lasthour}">
@@ -57,7 +56,7 @@
                     ${disabled} placeholder="hour:00">
             </div>
                 <%-- choose break for 1 hour--%>
-            <div>
+            <div class="input_div">
                 <label for=""> Begin 1 hour break: </label>
                 <input type="text" name="breakhour"
                     <c:if test="${not empty pausehour}">
@@ -102,14 +101,16 @@
             <div class="worker_skills_info col-xs-12">
                 Worker has the following skills:
                 <div class="attr-view ">
-                <c:forEach items="${worker.skills}" var="skill">
-                    <div class="col-xs-3">
-                        <form action="/viewskill" method="get">
-                            <input type="hidden"  name="id" value="${skill.id}">
-                            <input type="submit" value="${skill.name}" class="btn view">
-                        </form>
-                    </div>
-                </c:forEach>
+                <spring:bind path="worker.skills">
+                    <c:forEach items="${worker.skills}" var="skill">
+                        <div class="col-xs-3">
+                            <form action="/viewskill" method="get">
+                                <input type="hidden"  name="id" value="${skill.id}">
+                                <input type="submit" value="${skill.name}" class="btn view">
+                            </form>
+                        </div>
+                    </c:forEach>
+                </spring:bind>
                 </div>
             </div>
             <div class="worker_schedule_info">
@@ -161,4 +162,4 @@
         <button><a href="/admin/workers">Workers</a></button>
     </div>
 </div>
-<%@include file="/pages/bottom.jsp"%>
+<%@include file="../components/bottom.jsp"%>

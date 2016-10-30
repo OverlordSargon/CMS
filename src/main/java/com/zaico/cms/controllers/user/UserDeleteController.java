@@ -43,7 +43,7 @@ public class UserDeleteController {
             mav.addObject("action","/delete_user");
             mav.addObject("button","DELETE");
             mav.addObject("disabled","disabled");
-            mav.setViewName("user/user");
+            mav.setViewName("user/userview");
         } catch (Exception e) {
             LOG.info("User \""+userExecutor.getLogin()+ "\" not founded at ");
             String errMess = ExceptionHandler.handleException(e);

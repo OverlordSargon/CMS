@@ -1,61 +1,33 @@
 <%@include file="../components/head.jsp"%>
 <div class="form-view">
-    <form action="${action}" method="post">
-        <div>
+    <form:form modelAttribute="user" action="${action}" method="post">
+        <div class="input_div">
             <label for="">User name</label>
-            <input type="text" name="username" value="${user.login}" ${disabled}>
+            <input path="login" type="text" name="username" value="${user.login}">
         </div>
-        <div>
+        <div class="input_div">
             <label for="">User password</label>
-            <input type="text" name="password" value="${user.password}" ${disabled}>
+            <input path="password" type="text" name="ss" value="${user.password}">
         </div>
 
-    <c:choose>
-        <c:when test="${action != \"/user\" and action != \"/delete_user\" }">
-            <%--If U or C print the following name--%>
-            <div class="roles_list">
-                <div class="roles_list_label">
-                    Choose roles for new user:
-                </div>
-                <c:forEach items="${roles}" var="role">
-                    <div>
-                        <div class="checklabel">
-                            <c:out value="${role.role}"></c:out>
-                            <input class="checkboxform" type="checkbox" name="roles" value="${role.id}">
-                        </div>
+        <%--If U or C print the following name--%>
+        <div class="roles_list">
+            <div class="roles_list_label">
+                Choose roles for new user:
+            </div>
+            <c:forEach items="${roles}" var="role" varStatus="count">
+                <div>
+                    <div class="checklabel">
+                        <c:out value="${role.role}"></c:out>
                     </div>
-                </c:forEach>
-            </div>
-            <div>
-               <input type="submit" class="btn create" value="${button}">
-            </div>
-            </form>
-        </c:when>
-        <c:otherwise>
-            </form>
-            <div>
-                Executing the following roles:
-                <c:forEach items="${user.roles}" var="role">
-                    <br><c:out value="${role.role}"></c:out>
-                </c:forEach>
-            </div>
-            <%-- if we view, print additional buttons--%>
-            <div class="buttons-ud">
-                <div class="btn-update">
-                    <form action="/updateuser" method="get">
-                        <input type="hidden"  name="id" value="${user.id}">
-                        <input type="submit" value="UPDATE" class="btn renew">
-                    </form>
+                    <input type="checkbox" class="checkboxform" name="roles[${count.index}].role" value="${role.id}" />
                 </div>
-                <div class="btn-delete">
-                    <form action="/delete_user" method="post">
-                        <input type="hidden"  name="id" value="${user.id}">
-                        <input type="submit" value="DELETE" class="btn delete">
-                    </form>
-                </div>
-            </div>
-        </c:otherwise>
-    </c:choose>
+            </c:forEach>
+        </div>
+        <div>
+           <input type="submit" class="btn create" value="${button}">
+        </div>
+        </form:form>
     <div>
         <button type="button" name="back" onclick="history.back()">BACK</button>
         <button><a href="/users">Users</a></button>
