@@ -2,11 +2,11 @@
 
 <div class="form-view">
         <form action="${action}" method="post">
-        <div>
+        <div class="input_div">
             <label for="">Skill name</label>
             <input type="text" name="skillname" value="${skill.name}" ${disabled}>
         </div>
-        <div>
+        <div class="input_div">
             <label for="">Skill description</label>
             <input type="text" name="skilldesc" value="${skill.description}" ${disabled}>
         </div>

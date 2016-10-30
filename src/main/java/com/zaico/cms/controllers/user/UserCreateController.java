@@ -14,9 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -64,6 +62,7 @@ public class UserCreateController {
             modelAndView.addObject("title","CMS new user");
             modelAndView.addObject("cmsheader","New user");
             modelAndView.setViewName("user/user");
+            modelAndView.addObject("user",new User());
         } catch (Exception e) {
 
         }
@@ -72,29 +71,26 @@ public class UserCreateController {
 
     @RequestMapping(value = "/create_user", method = RequestMethod.POST)
     protected String  createUserExecute(
-            @RequestParam("username") String userName,
-            @RequestParam("password") String userPass,
-            @RequestParam("roles") String [] roles,
+            @ModelAttribute("user") User user,
             RedirectAttributes redirectAttributes,
             Model model
     ) {
-        User user = null;
         try {
-            user = new User(userName,userPass);
             List<Role> userRoles = new ArrayList<Role>();
-            // if role id not null
-            if (roles.length != 0) {
-                for ( String roleId: roles) {
-                    // Find each role with id and add to role list
-                    userRoles.add(roleService.findRole(Integer.parseInt(roleId)));
-                }
+            List<Role> rawRoles = user.getRoles();
+//            // if role id not null
+            if (user.getRoles().size()!= 0) {
+            for ( Role roleId: user.getRoles()) {
+                // Find each role with id and add to role list
+                userRoles.add(roleService.findRole(Integer.parseInt(roleId.getRole())));
+            }
             } else {
                 throw new ExceptionCMS("You`ve choosen no roles", ErrorCode.ROLE_NOT_FOUND);
             }
-            // set all founded role as user role
+            userService.clearRoles(user);
             user.setRoles(userRoles);
             userService.createUser(user);
-            String message = "User \""+userName+"\" created ";
+            String message = "User \""+user.getLogin()+"\" created ";
             LOG.info(message);
             redirectAttributes.addFlashAttribute("sucMessage",message);
             return "redirect:/users";
@@ -104,6 +100,5 @@ public class UserCreateController {
             redirectAttributes.addFlashAttribute("user",user);
             return  "redirect:/create_user";
         }
-
     }
 }

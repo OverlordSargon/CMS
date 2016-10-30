@@ -1,10 +1,10 @@
-<%@include file="/pages/head.jsp"%>
+<%@include file="../components/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="grid-view">
 
     <div>
         <button class="cmsbutton">
-            <a href="/admin/newworker">Create new worker</a>
+            <a href="/create_worker">Create new worker</a>
         </button>
     </div>
     <div class="table_header"> Workers </div>
@@ -28,7 +28,7 @@
                         <td>
                             <c:forEach var="skill" items="${worker.skills}">
                                     <div class="attr-view">
-                                        <form action="/viewskill" method="get">
+                                        <form action="/skill" method="get">
                                             <input type="hidden"  name="id" value="${skill.id}">
                                             <input type="submit" value="${skill.name}" class="btn view">
                                         </form>
@@ -67,4 +67,4 @@
         </c:otherwise>
     </c:choose>
 </div>
-<%@include file="/pages/bottom.jsp"%>
+<%@include file="../components/bottom.jsp"%>

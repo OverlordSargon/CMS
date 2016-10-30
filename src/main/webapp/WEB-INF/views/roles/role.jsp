@@ -1,11 +1,11 @@
 <%@include file="../components/head.jsp"%>
 <div class="form-view">
     <form action="${action}" method="post">
-        <div class="form-part">
+        <div class="input_div">
             <label for="">Role name</label>
             <input type="text" name="rolename" value="${role.role}" ${disabled}>
         </div>
-        <div>
+        <div class="input_div">
             <label for="">Role description</label>
             <input type="text" name="roledesc" value="${role.description}" ${disabled}>
         </div>
