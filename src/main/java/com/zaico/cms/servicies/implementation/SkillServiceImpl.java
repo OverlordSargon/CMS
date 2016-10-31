@@ -24,6 +24,7 @@ import java.util.List;
  * Created by nzaitsev on 17.08.2016.
  */
 @Service("skillService")
+@Transactional
 public class SkillServiceImpl implements SkillService {
 
     // Logger

@@ -17,6 +17,7 @@ import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
@@ -27,6 +28,7 @@ import java.util.*;
  * Created by nzaitsev on 17.08.2016.
  */
 @Service("workerService")
+@Transactional
 public class WorkerServiceImpl implements WorkerService {
 
     // Logger

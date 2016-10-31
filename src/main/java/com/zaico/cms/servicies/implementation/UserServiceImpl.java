@@ -26,6 +26,7 @@ import java.util.*;
  * Created by nzaitsev on 17.08.2016.
  */
 @Service("userService")
+@Transactional
 public class UserServiceImpl implements UserService,UserDetailsService {
 
     // Logger

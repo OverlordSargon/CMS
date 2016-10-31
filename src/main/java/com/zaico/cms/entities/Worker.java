@@ -159,7 +159,7 @@ public class Worker extends AbstractEntity {
      * Get list of worker skill
      * @return skill
      */
-    @ManyToMany
+    @ManyToMany( fetch = FetchType.EAGER )
     @JoinTable
     (
         name = "WORKER_SKILL",
