@@ -29,7 +29,7 @@ public class WorkerViewServlet {
     WorkerService workerService ;
 
     @RequestMapping(value = "/workers", method = RequestMethod.GET)
-    protected ModelAndView viewAllWorkers(
+    public ModelAndView viewAllWorkers(
 
     ) {
         ModelAndView mav = new ModelAndView();
@@ -48,4 +48,11 @@ public class WorkerViewServlet {
         mav.setViewName("worker/allworkers");
         return mav;
     }
+
+    @RequestMapping(value = "/view_worker*",method = RequestMethod.POST)
+    public ModelAndView viewWorker() {
+        return null;
+    }
+
+
 }
