@@ -72,7 +72,7 @@ public class UserViewController {
             LOG.info("Skill \""+username+ "\" notfounded at "+new Date());
             String errMess = ExceptionHandler.handleException(e);
         }
-        modelAndView.setViewName("user/user");
+        modelAndView.setViewName("user/userview");
         return modelAndView;
     }
 
