@@ -1,21 +1,23 @@
 <%@include file="../components/head.jsp"%>
 
 <div class="form-view">
-
     <%--FORM BEGIN--%>
     <form action="${action}" method="post" >
         <%-- set name --%>
+            <spring:bind path="worker.name">
             <div class="input_div">
                 <label for=""> Name </label>
-                <input type="text" name="workername" value="${worker.name}" ${disabled} >
+                    <input type="text" name="name" value="${worker.name}" ${disabled} >
             </div>
+            </spring:bind>
 
         <%-- set telephone --%>
+            <spring:bind path="worker.telephone">
             <div class="input_div">
                 <label for=""> Telephone number </label>
-                <input type="text" name="workertele" value="${worker.telephone}" ${disabled} >
+                <input type="text" name="telephone" value="${worker.telephone}" ${disabled} >
             </div>
-
+            </spring:bind>
 
         <c:choose>
         <c:when test="${action != \"/worker\"}">
@@ -23,59 +25,70 @@
             <%-- choose skills --%>
         <div>
                 <%-- choose begin worker date--%>
+            <spring:bind path="dates.begindate">
             <div class="input_div">
                 <label for=""> Begin date </label>
                 <input type="text" name="begindate" value="${firstday}" ${disabled} placeholder="day-month-year" >
             </div>
-
+            </spring:bind>
                 <%-- choose end worker date--%>
+            <spring:bind path="dates.enddate">
             <div class="input_div">
                 <label for=""> End date </label>
                 <input type="text" name="enddate" value="${lastday}" ${disabled} placeholder="day-month-year">
             </div>
+            </spring:bind>
         </div>
 
         <div>
                 <%--choose time from--%>
+            <spring:bind path="dates.beginhour">
             <div class="input_div">
                 <label for=""> Work from: </label>
-                <input type="text" name="begintime"
+                <input type="text" name="beginhour"
                        <c:if test="${not empty firsthour}">
                            value="${firsthour}:00"
                         </c:if>
                        ${disabled} placeholder="hour:00">
             </div>
+            </spring:bind>
 
                 <%--choose time to--%>
+            <spring:bind path="dates.endhour">
             <div class="input_div">
                 <label for=""> to: </label>
-                <input type="text" name="endtime"
+                <input type="text" name="endhour"
                     <c:if test="${not empty lasthour}">
                            value="${lasthour}:00"
                     </c:if>
                     ${disabled} placeholder="hour:00">
             </div>
+            </spring:bind>
+
                 <%-- choose break for 1 hour--%>
+            <spring:bind path="dates.breakstart">
             <div class="input_div">
                 <label for=""> Begin 1 hour break: </label>
-                <input type="text" name="breakhour"
+                <input type="text" name="breakstart"
                     <c:if test="${not empty pausehour}">
                         value="${pausehour}:00"
                     </c:if>
                 ${disabled} placeholder="hour:00">
             </div>
+            </spring:bind>
         </div>
 
+        <spring:bind path="worker.skills">
         <div class="list">
             <div class="list_label">
                 Choose skills for worker:
             </div>
-            <c:forEach items="${skills}" var="skill">
+            <c:forEach items="${skills}" var="skill" varStatus="count">
                 <div >
                     <div class="checklabel">
                         <c:out value="${skill.name}"></c:out>
-                        <input type="checkbox" class="checkboxform" name="skills"
-                            <c:forEach items="${workerskills}" var="workerskill">
+                        <input type="checkbox" class="checkboxform" name="skills[${count.index}].name"
+                        <c:forEach items="${workerskills}" var="workerskill">
                                 <c:if test="${skill.id == workerskill.id}">
                                        checked
                                 </c:if>
@@ -85,6 +98,7 @@
                 </div>
             </c:forEach>
         </div>
+        </spring:bind>
 
 
         <div>

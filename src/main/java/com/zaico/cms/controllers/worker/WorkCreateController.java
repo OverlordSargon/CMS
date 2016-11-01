@@ -16,10 +16,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -70,6 +67,7 @@ public class WorkCreateController {
             mav.addObject("title", "CMS Create worker");
             mav.addObject("cmsheader", "Create worker");
             mav.addObject("worker", new Worker());
+            mav.addObject("dates", new WorkerDates());
         } catch (Exception e) {
 
         }
@@ -79,50 +77,60 @@ public class WorkCreateController {
 
     @RequestMapping(value = "/create_worker", method = RequestMethod.POST)
     public String newWorkerExecute(
-        RedirectAttributes redirectAttributes
+        RedirectAttributes redirectAttributes,
+        @ModelAttribute(value = "worker") Worker worker,
+        @ModelAttribute(value = "dates") WorkerDates dates
     ) {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-y");
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-//            CheckFromTo.checkDays(beginDate,endDate);
-//            CheckFromTo.checkHours(beginTime,endTime);
-//            /*Workplans*/
-//            // Empty list of workplans
-//            List<Workplan> workplanList = new ArrayList<Workplan>();
-//            // Get list of dates & create workplan for these days
-//            List<Date> workDays = WorkWeek.getWorkDays(beginDate,endDate);
-//            for (Date day: workDays) {
-//                Workplan workplan = new Workplan(day,worker.getName());
-//                workplan.setSchedules(DaySchedule.scheduleList(beginTime,endTime,breakHour));
-//                workplan.setUpdatedAt(new Date());
-//                workplan.setCreatedAt(new Date());
-//                workplanService.createWorkplan(workplan);
-//                // Add workplan entity to workplan list
-//                workplanList.add(workplan);
-//            }
+            String beginDate = dates.begindate;
+            String endDate = dates.enddate;
+            String beginTime = dates.beginhour;
+            String endTime = dates.endhour;
+            String breakHour = dates.breakstart;
+
+            CheckFromTo.checkDays(beginDate,endDate);
+            CheckFromTo.checkHours(beginTime,endTime);
+            //            /*Workplans*/
+            // Empty list of workplans
+            List<Workplan> workplanList = new ArrayList<Workplan>();
+            // Get list of dates & create workplan for these days
+            List<Date> workDays = WorkWeek.getWorkDays(beginDate,endDate);
+            for (Date day: workDays) {
+                Workplan workplan = new Workplan(day,worker.getName());
+                workplan.setSchedules(DaySchedule.scheduleList(beginTime,endTime,breakHour));
+                workplan.setUpdatedAt(new Date());
+                workplan.setCreatedAt(new Date());
+                workplanService.createWorkplan(workplan);
+                // Add workplan entity to workplan list
+                workplanList.add(workplan);
+            }
 //
-//            /*Skills*/
-//            List<Skill> workerSkills = new ArrayList<Skill>();
-//            // if skill id not null
-//            if (worker.getSkills() != null && worker.getSkills().size() != 0) {
-//                for ( Skill skillId: worker.getSkills()) {
-//                    // Find each skill with id and add to skill list
-//                    long id = (skillId.getId());
-//                    workerSkills.add(skillService.findSkill(id));
-//                }
-//            }
+            /*Skills*/
+            // if skill id not null
+            List<Skill> workerSkills = new ArrayList<Skill>();
+            if (worker.getSkills() != null && worker.getSkills().size() != 0) {
+                for ( Skill skillId: worker.getSkills()) {
+                    // Find each skill with id and add to skill list
+                    if ( !skillId.getName().equals(null) ) {
+                        long id = (Long.parseLong(skillId.getName()));
+                        workerSkills.add(skillService.findSkill(id));
+                    }
+                }
+            }
+            List<Skill> workerNullSkills = new ArrayList<Skill>();
+            worker.setSkills(workerNullSkills);
 //            // set all finded skill as user skill
-//            workerService.createWorker(worker);
-//            worker.setSkills(workerSkills);
-//            worker.setWorkplans(workplanList);
-//            workerService.updateWorker(worker);
-//            String message = "Worker \""+worker.getName()+"\" created at "+new Date();
-//            LOG.info(message);
-//            redirectAttributes.addFlashAttribute("sucMessage",message);
+            workerService.createWorker(worker);
+            worker.setSkills(workerSkills);
+            worker.setWorkplans(workplanList);
+            workerService.updateWorker(worker);
+            String message = "Worker \""+worker.getName()+"\" created at "+new Date();
+            LOG.info(message);
+            redirectAttributes.addFlashAttribute("sucMessage",message);
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
         }
-        return "/workers";
+        return "redirect:/workers";
     }
 }
