@@ -20,7 +20,7 @@
                     <div class="checklabel">
                         <c:out value="${role.role}"></c:out>
                     </div>
-                    <input type="checkbox" class="checkboxform" name="roles[${count.index}].role" value="${role.id}" />
+                    <input type="checkbox" class="checkboxform" name="roles[${count.index}]" value="${role.id}" />
                 </div>
             </c:forEach>
         </div>

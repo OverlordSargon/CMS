@@ -1,5 +1,6 @@
 package com.zaico.cms.servicies.interfaces;
 
+import com.zaico.cms.controllers.worker.WorkerDates;
 import com.zaico.cms.entities.Worker;
 import com.zaico.cms.entities.Workplan;
 import com.zaico.cms.utility.ExceptionCMS;
@@ -52,15 +53,6 @@ public interface WorkerService {
          */
     Worker updateWorker(Worker worker) throws ExceptionCMS;
 
-    /**
-     * Set new flags for worker
-     * @param worker
-     * @param timeFrom
-     * @param timeTo
-     * @return
-     * @throws ExceptionCMS
-     */
-    Worker updateFlag(Worker worker,String timeFrom, String timeTo) throws ExceptionCMS;
 
     /**
      * Delete worker by id
@@ -73,10 +65,9 @@ public interface WorkerService {
     /**
      * Get fist/last day/hour of work
      * @param worker
-     * @param request
      * @throws ExceptionCMS
      */
-    void findWorkTime(Worker worker, HttpServletRequest request) throws ExceptionCMS;
+    WorkerDates findWorkTime(Worker worker) throws ExceptionCMS;
 
     /**
      * Get fist and last workplans
@@ -85,4 +76,22 @@ public interface WorkerService {
      * @throws ExceptionCMS
      */
     List<Workplan> findEdges(Worker worker) throws ExceptionCMS;
+
+
+    /**
+     * Updates workplan for current worker
+     * @param worker
+     * @param workerDates
+     * @return Worker with updated workplans
+     * @throws ExceptionCMS
+     */
+    Worker updateWorkplans(Worker worker, WorkerDates workerDates) throws ExceptionCMS;
+
+    /**
+     * Set wo
+     * @param worker
+     * @return
+     * @throws ExceptionCMS
+     */
+    Worker setSkillsFromForm(Worker worker) throws ExceptionCMS;
 }

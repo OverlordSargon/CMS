@@ -40,19 +40,19 @@
                         </td>
                         <td>
                             <div class="btn-view">
-                                <form action="/admin/viewworker" method="get">
+                                <form action=" " method="get">
                                     <input type="hidden"  name="id" value="${worker.id}">
                                     <input type="submit" value="VIEW" class="btn view">
                                 </form>
                             </div>
                             <div class="btn-update">
-                                <form action="/admin/updateworker" method="get">
+                                <form action="/update_worker" method="get">
                                     <input type="hidden"  name="id" value="${worker.id}">
                                     <input type="submit" value="UPDATE" class="btn renew">
                                 </form>
                             </div>
                             <div class="btn-delete">
-                                <form action="/admin/deleteworker" method="post">
+                                <form action=" " method="post">
                                     <input type="hidden"  name="id" value="${worker.id}">
                                     <input type="submit" value="DELETE" class="btn delete">
                                 </form>

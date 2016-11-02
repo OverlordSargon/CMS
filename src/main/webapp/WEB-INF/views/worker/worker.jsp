@@ -28,14 +28,14 @@
             <spring:bind path="dates.begindate">
             <div class="input_div">
                 <label for=""> Begin date </label>
-                <input type="text" name="begindate" value="${firstday}" ${disabled} placeholder="day-month-year" >
+                <input type="text" name="begindate" value="${dates.begindate}" ${disabled} placeholder="day-month-year" >
             </div>
             </spring:bind>
                 <%-- choose end worker date--%>
             <spring:bind path="dates.enddate">
             <div class="input_div">
                 <label for=""> End date </label>
-                <input type="text" name="enddate" value="${lastday}" ${disabled} placeholder="day-month-year">
+                <input type="text" name="enddate" value="${dates.enddate}" ${disabled} placeholder="day-month-year">
             </div>
             </spring:bind>
         </div>
@@ -46,8 +46,8 @@
             <div class="input_div">
                 <label for=""> Work from: </label>
                 <input type="text" name="beginhour"
-                       <c:if test="${not empty firsthour}">
-                           value="${firsthour}:00"
+                       <c:if test="${not empty dates.beginhour}">
+                           value="${dates.beginhour}:00"
                         </c:if>
                        ${disabled} placeholder="hour:00">
             </div>
@@ -58,8 +58,8 @@
             <div class="input_div">
                 <label for=""> to: </label>
                 <input type="text" name="endhour"
-                    <c:if test="${not empty lasthour}">
-                           value="${lasthour}:00"
+                    <c:if test="${not empty dates.endhour}">
+                           value="${dates.endhour}:00"
                     </c:if>
                     ${disabled} placeholder="hour:00">
             </div>
@@ -70,8 +70,8 @@
             <div class="input_div">
                 <label for=""> Begin 1 hour break: </label>
                 <input type="text" name="breakstart"
-                    <c:if test="${not empty pausehour}">
-                        value="${pausehour}:00"
+                    <c:if test="${not empty dates.breakstart}">
+                        value="${dates.breakstart}:00"
                     </c:if>
                 ${disabled} placeholder="hour:00">
             </div>

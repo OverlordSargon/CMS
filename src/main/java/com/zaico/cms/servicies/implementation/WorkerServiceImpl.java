@@ -1,18 +1,13 @@
 package com.zaico.cms.servicies.implementation;
 
+import com.zaico.cms.controllers.worker.WorkerDates;
 import com.zaico.cms.dao.implementation.FactoryDAO;
 import com.zaico.cms.dao.interfaces.WorkerDAO;
 import com.zaico.cms.entities.*;
-import com.zaico.cms.servicies.interfaces.CommonService;
-import com.zaico.cms.servicies.interfaces.OrderService;
-import com.zaico.cms.servicies.interfaces.WorkerService;
-import com.zaico.cms.servicies.interfaces.WorkplanService;
-import com.zaico.cms.utility.ErrorCode;
-import com.zaico.cms.utility.ExceptionCMS;
-import com.zaico.cms.utility.ExceptionHandler;
+import com.zaico.cms.servicies.interfaces.*;
+import com.zaico.cms.utility.*;
 
 
-import com.zaico.cms.utility.WorkplanComparator;
 import org.apache.log4j.LogManager; import org.apache.log4j.Logger;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -31,11 +27,18 @@ import java.util.*;
 @Transactional
 public class WorkerServiceImpl implements WorkerService {
 
+    @Autowired
+    WorkerService workerService;
+    @Autowired
+    WorkplanService workplanService;
+
     // Logger
     private static final Logger LOG = LogManager.getLogger(WorkplanService.class);
     // DAO
     @Autowired
     private WorkerDAO workerDAO;
+    //Date format for methods
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
 
     /**
      * Create new Worker
@@ -119,22 +122,6 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     /**
-     * Set new flags 4 worker
-     * @param worker
-     * @param timeFrom
-     * @param timeTo
-     * @return
-     * @throws ExceptionCMS
-     */
-    public Worker updateFlag(Worker worker, String timeFrom, String timeTo) throws ExceptionCMS {
-        DateFormat date = new SimpleDateFormat("dd-MM-y");
-        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
-
-        return worker;
-    }
-
-    /**
      * Delete worker entity
      * @param worker
      * @throws ExceptionCMS
@@ -158,9 +145,9 @@ public class WorkerServiceImpl implements WorkerService {
     /**
      * Get info about worker`s schedule
      * @param worker Worker object
-     * @param request HttpServletRequest object
      */
-    public  void findWorkTime(Worker worker, HttpServletRequest request) throws ExceptionCMS {
+
+    public WorkerDates findWorkTime(Worker worker) throws ExceptionCMS {
 
         List<Workplan> edges =  findEdges(worker);
         Workplan workplan = edges.get(0);
@@ -168,8 +155,8 @@ public class WorkerServiceImpl implements WorkerService {
         Date last = edges.get(1).getDate();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
-        String dateF = dateFormat.format(fist);
-        String dateL = dateFormat.format(last);
+        String dateFrom = dateFormat.format(fist);
+        String dateTo = dateFormat.format(last);
 
         int firstHour = workplan.getSchedules().get(0).getInterval();
         int lasstHour = workplan.getSchedules().get(workplan.getSchedules().size()-1).getInterval()+1;
@@ -179,13 +166,14 @@ public class WorkerServiceImpl implements WorkerService {
                 pauseHour = schedule.getInterval();
             }
         }
-        request.setAttribute("firstday",dateF);
-        request.setAttribute("lastday",dateL);
-        request.setAttribute("firsthour",firstHour);
-        request.setAttribute("lasthour",lasstHour);
-        request.setAttribute("pausehour",pauseHour);
+        WorkerDates workerDates = new WorkerDates();
+        workerDates.setBegindate(dateFrom);
+        workerDates.setEnddate(dateTo);
+        workerDates.setBeginhour(Integer.toString(firstHour));
+        workerDates.setEndhour(Integer.toString(lasstHour));
+        workerDates.setBreakstart(Integer.toString(pauseHour));
+        return workerDates;
     }
-
     /**
      * Get fist and last workplans
      * @param worker
@@ -202,5 +190,155 @@ public class WorkerServiceImpl implements WorkerService {
         return  result;
     }
 
+    /**
+     * Updates workplan for current worker
+     * @param worker
+     * @param workerDates
+     * @return Worker with updated workplans
+     * @throws ExceptionCMS
+     */
+    public Worker updateWorkplans(Worker worker, WorkerDates workerDates) throws ExceptionCMS {
+
+        try {
+            String beginDate = workerDates.getBegindate();
+            String endDate = workerDates.getEnddate();
+            String beginTime = workerDates.getBeginhour();
+            String endTime = workerDates.getEndhour();
+            String breakHour = workerDates.getBreakstart();
+            //Check FROM & TO
+            CheckFromTo.checkDays(beginDate, endDate);
+            CheckFromTo.checkHours(beginTime, endTime);
+
+            Date newBeginDate = dateFormat.parse(beginDate);
+            Date newEndDate = dateFormat.parse(endDate);
+            // Get first & last W_P
+            List<Workplan> workplanEdges = workerService.findEdges(worker);
+            Workplan fistWorkplan = workplanEdges.get(0);
+            Workplan lastWorkplan = workplanEdges.get(1);
+            // UPDATE DATE
+            // START FIRST W_P DATE (FIRST DATE)
+            // NEW DATE b4 FIRST DATE
+            if (newBeginDate.before(fistWorkplan.getDate())) {
+
+                // CREATE NEW W_P
+                LOG.debug("new date < old date");
+                /* Create new workplan with newbigindate */
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(newBeginDate);
+                // UNTIL CALENDAR = FIRST DATE
+                while (calendar.getTime().before(fistWorkplan.getDate())) {
+                    Timestamp dayDate = new Timestamp(calendar.getTimeInMillis());
+                    Workplan workplan = new Workplan(dayDate, worker.getName());
+                    workplan.setUpdatedAt(new Date());
+                    workplan.setUpdatedAt(new Date());
+                    workplan.setSchedules(DaySchedule.scheduleList(beginTime, endTime, breakHour));
+                    worker.getWorkplans().add(workplan);
+                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                }
+            }
+            //NEW DATE AFTER FIST DATE
+            if (newBeginDate.after(fistWorkplan.getDate())) {
+                LOG.debug("new date > old date");
+                /* if date today of already in workplans */
+                // check for W flags
+                List<Workplan> deleteWorkplanList = new ArrayList<Workplan>();
+                for (Workplan workplan : worker.getWorkplans()) {
+                    // FIND AND DELETE ALL W_P b4 NEW DATE
+                    if (workplan.getDate().before(newBeginDate)) {
+                        LOG.debug("workplan " + workplan.getDate() + " after " + newBeginDate);
+                        // if date of workplan < newBeginDate
+                        checkScheduleFlag(workplan);
+                        deleteWorkplanList.add(workplan);
+                    }
+                }
+                // UNSET AND DELETE W_P
+                for (Workplan workplan : deleteWorkplanList) {
+                    worker.getWorkplans().remove(workplan);
+                    workplanService.deleteWorkplan(workplan);
+                }
+            }
+            // END FIST DATE
+
+            // START LAST W_P DATE (LAST DATE)
+            // NEW DATE after LAST DATE
+            if (newEndDate.after(lastWorkplan.getDate())) {
+                // CREATE NEW
+                LOG.debug("new date > old date");
+                /* Create new workplan with newbigindate */
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(newEndDate);
+                // UNTIL CALENDAR = FIRST DATE
+                while (calendar.getTime().after(lastWorkplan.getDate())) {
+                    String date = calendar.getTime().toString();
+                    Date dayDate = calendar.getTime();
+                    Workplan workplan = new Workplan(dayDate, worker.getName());
+                    workplan.setUpdatedAt(new Date());
+                    workplan.setUpdatedAt(new Date());
+                    workplan.setSchedules(DaySchedule.scheduleList(beginTime, endTime, breakHour));
+                    worker.getWorkplans().add(workplan);
+                    calendar.add(Calendar.DAY_OF_MONTH, -1);
+                }
+            }
+            // NEW DATE before LAST DATE
+            if (newEndDate.before(lastWorkplan.getDate())) {
+                LOG.debug("new date > old date");
+                /* if date today of already in workplans */
+                // check for W flags
+                List<Workplan> deleteWorkplanList = new ArrayList<Workplan>();
+                for (Workplan workplan : worker.getWorkplans()) {
+                    if (workplan.getDate().after(newEndDate)) {
+                        LOG.debug("workplan " + workplan.getDate() + " after " + newBeginDate);
+                        // if date of workplan < newBeginDate
+                        checkScheduleFlag(workplan);
+                        deleteWorkplanList.add(workplan);
+                    }
+                }
+                // Unset & delete W_P
+                for (Workplan workplan : deleteWorkplanList) {
+                    worker.getWorkplans().remove(workplan);
+                    workplanService.deleteWorkplan(workplan);
+                }
+                //END LAST DATE
+            }
+        } catch (Exception e) {
+            throw new ExceptionCMS("Worker update workplnas error",ErrorCode.WORKER_CANNOT_BE_UPDATED);
+        }
+        return worker;
+    }
+
+    /**
+     * Check that schedule , we want to delete without workflags
+     * @param workplan
+     * @throws ExceptionCMS
+     */
+    private void checkScheduleFlag(Workplan workplan) throws ExceptionCMS {
+        for (Schedule schedule : workplan.getSchedules()) {
+            // IF W_P HAS WORK - EXC
+            if (schedule.getFlag().equals("W")) {
+                String mess = "Worker has orders on "+dateFormat.format(workplan.getDate())+" at "+schedule.getInterval()+":00";
+                LOG.error(mess);
+                throw new ExceptionCMS(mess,ErrorCode.WORKER_CANNOT_BE_UPDATED);
+            }
+        }
+    }
+    @Autowired
+    SkillService skillService;
+
+    public Worker setSkillsFromForm(Worker worker) throws ExceptionCMS {
+        List<Skill> workerSkills = new ArrayList<Skill>();
+        if (worker.getSkills() != null && worker.getSkills().size() != 0) {
+            for ( Skill skillId: worker.getSkills()) {
+                // Find each skill with id and add to skill list
+                if ( !skillId.getName().equals(null) ) {
+                    long id = (Long.parseLong(skillId.getName()));
+                    workerSkills.add(skillService.findSkill(id));
+                }
+            }
+        }
+        List<Skill> workerNullSkills = new ArrayList<Skill>();
+        worker.setSkills(workerNullSkills);
+        worker.setSkills(workerSkills);
+        return worker;
+    }
 
 }

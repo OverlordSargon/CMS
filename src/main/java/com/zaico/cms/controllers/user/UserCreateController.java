@@ -55,8 +55,10 @@ public class UserCreateController {
     protected ModelAndView createUser(Model model) throws ServletException, IOException {
         ModelAndView modelAndView = new ModelAndView();
         try {
+            List<String> roles = new ArrayList<String>();
             List<Role> roleList = roleService.findAllRoles();
             modelAndView.addObject("roles",roleList);
+            modelAndView.addObject("setRoles",roles);
             modelAndView.addObject("action","/create_user");
             modelAndView.addObject("button","CREATE");
             modelAndView.addObject("title","CMS new user");
@@ -72,6 +74,7 @@ public class UserCreateController {
     @RequestMapping(value = "/create_user", method = RequestMethod.POST)
     protected String  createUserExecute(
             @ModelAttribute("user") User user,
+            @ModelAttribute("setRoles") List<String> roles,
             RedirectAttributes redirectAttributes,
             Model model
     ) {
@@ -79,11 +82,11 @@ public class UserCreateController {
             List<Role> userRoles = new ArrayList<Role>();
             List<Role> rawRoles = user.getRoles();
 //            // if role id not null
-            if (user.getRoles().size()!= 0) {
-            for ( Role roleId: user.getRoles()) {
-                // Find each role with id and add to role list
-                userRoles.add(roleService.findRole(Integer.parseInt(roleId.getRole())));
-            }
+            if (roles.size()!= 0) {
+                for ( String roleId: roles) {
+                    // Find each role with id and add to role list
+                    userRoles.add(roleService.findRole(Integer.parseInt(roleId)));
+                }
             } else {
                 throw new ExceptionCMS("You`ve choosen no roles", ErrorCode.ROLE_NOT_FOUND);
             }

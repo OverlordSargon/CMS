@@ -105,24 +105,10 @@ public class WorkCreateController {
                 // Add workplan entity to workplan list
                 workplanList.add(workplan);
             }
-//
-            /*Skills*/
-            // if skill id not null
-            List<Skill> workerSkills = new ArrayList<Skill>();
-            if (worker.getSkills() != null && worker.getSkills().size() != 0) {
-                for ( Skill skillId: worker.getSkills()) {
-                    // Find each skill with id and add to skill list
-                    if ( !skillId.getName().equals(null) ) {
-                        long id = (Long.parseLong(skillId.getName()));
-                        workerSkills.add(skillService.findSkill(id));
-                    }
-                }
-            }
-            List<Skill> workerNullSkills = new ArrayList<Skill>();
-            worker.setSkills(workerNullSkills);
-//            // set all finded skill as user skill
+
+            workerService.setSkillsFromForm(worker);
+
             workerService.createWorker(worker);
-            worker.setSkills(workerSkills);
             worker.setWorkplans(workplanList);
             workerService.updateWorker(worker);
             String message = "Worker \""+worker.getName()+"\" created at "+new Date();

@@ -54,7 +54,7 @@ public class WorkerViewServlet extends HttpServlet {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
             worker = workerService.findWorker(id);
-            workerService.findWorkTime(worker,request);
+            workerService.findWorkTime(worker);
             List<Order> orders = orderService.getByWorker(worker);
             if ( orders.size() != 0) {
                 request.setAttribute("orders",orders);
