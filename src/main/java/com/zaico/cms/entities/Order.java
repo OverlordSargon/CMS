@@ -198,7 +198,7 @@ public class Order extends AbstractEntity {
      * Gets the worker, who implement this order
      *  @return the worker
      */
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="W_ID", referencedColumnName = "W_ID")
     public Worker getWorker() {
         return worker;

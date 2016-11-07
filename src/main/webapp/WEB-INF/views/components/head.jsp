@@ -43,6 +43,8 @@
     <%
         String logoutButt = "<li><a href=\"/\">Login</a></li>";
         String links ="";
+        String userName = " ";
+        String disabledField = "";
         links =
 //                "<li><a href=\"/main\">Main Page</a></li>\n" +
                 "<li><a href=\"/orders\">Orders</a></li>" +
