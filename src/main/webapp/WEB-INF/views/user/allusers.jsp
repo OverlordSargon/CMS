@@ -11,7 +11,7 @@
     <div class="table_header"> Users </div>
     <c:choose>
         <c:when test="${users != null}">
-    <table>
+    <table class="cmstable">
         <tr>
             <th> ID </th>
             <th> Name </th>

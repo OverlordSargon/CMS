@@ -2,7 +2,6 @@ package com.zaico.cms.controllers.user;
 
 import com.zaico.cms.entities.Role;
 import com.zaico.cms.entities.User;
-import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.UserServiceImpl;
 import com.zaico.cms.servicies.interfaces.RoleService;
 import com.zaico.cms.servicies.interfaces.UserService;
@@ -14,15 +13,14 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +72,6 @@ public class UserCreateController {
     @RequestMapping(value = "/create_user", method = RequestMethod.POST)
     protected String  createUserExecute(
             @ModelAttribute("user") User user,
-            @ModelAttribute("setRoles") List<String> roles,
             RedirectAttributes redirectAttributes,
             Model model
     ) {
@@ -82,10 +79,12 @@ public class UserCreateController {
             List<Role> userRoles = new ArrayList<Role>();
             List<Role> rawRoles = user.getRoles();
 //            // if role id not null
-            if (roles.size()!= 0) {
-                for ( String roleId: roles) {
+            if (rawRoles.size()!= 0) {
+                for ( Role roleId: rawRoles) {
                     // Find each role with id and add to role list
-                    userRoles.add(roleService.findRole(Integer.parseInt(roleId)));
+                    if ( roleId.getId()!= null) {
+                        userRoles.add(roleService.findRole(roleId.getId()));
+                    }
                 }
             } else {
                 throw new ExceptionCMS("You`ve choosen no roles", ErrorCode.ROLE_NOT_FOUND);

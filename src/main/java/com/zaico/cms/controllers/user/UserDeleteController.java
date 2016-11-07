@@ -72,9 +72,9 @@ public class UserDeleteController {
         } catch (Exception e) {
             String message = ExceptionHandler.handleException(e);
             redirectAttributes.addFlashAttribute("errMessage",message);
-            return "/skills";
+            return "/users";
         }
-        return "redirect:/skills";
+        return "redirect:/users";
     }
 
 }

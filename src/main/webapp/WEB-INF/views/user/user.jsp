@@ -3,11 +3,11 @@
     <form:form modelAttribute="user" action="${action}" method="post">
         <div class="input_div">
             <label for="">User name</label>
-            <input path="login" type="text" name="username" value="${user.login}">
+            <input path="login" type="text" name="login" value="${user.login}">
         </div>
         <div class="input_div">
             <label for="">User password</label>
-            <input path="password" type="text" name="ss" value="${user.password}">
+            <input path="password" type="text" name="password" value="${user.password}">
         </div>
 
         <%--If U or C print the following name--%>
@@ -20,7 +20,7 @@
                     <div class="checklabel">
                         <c:out value="${role.role}"></c:out>
                     </div>
-                    <input type="checkbox" class="checkboxform" name="roles[${count.index}]" value="${role.id}" />
+                    <input type="checkbox" class="checkboxform" name="roles[${count.index}].id" value="${role.id}" />
                 </div>
             </c:forEach>
         </div>

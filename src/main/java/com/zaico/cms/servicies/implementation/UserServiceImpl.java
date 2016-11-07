@@ -145,7 +145,6 @@ public class UserServiceImpl implements UserService,UserDetailsService {
             List<Role> userRoles = new ArrayList<Role>();
             userRoles = null;
             user.setRoles(userRoles);
-            userDAO.update(user);
         } catch ( Exception e ) {
             throw new ExceptionCMS("Roles cant be cleared",e);
         }

@@ -11,7 +11,7 @@
 
     <c:choose>
         <c:when test="${workers != null}">
-            <table>
+            <table class="cmstable">
                 <tr>
                     <th> ID </th>
                     <th> Name </th>
@@ -40,7 +40,7 @@
                         </td>
                         <td>
                             <div class="btn-view">
-                                <form action=" " method="get">
+                                <form action="/view_worker" method="get">
                                     <input type="hidden"  name="id" value="${worker.id}">
                                     <input type="submit" value="VIEW" class="btn view">
                                 </form>

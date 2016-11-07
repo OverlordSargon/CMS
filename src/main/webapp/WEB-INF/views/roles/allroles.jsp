@@ -5,7 +5,7 @@
 
         <c:choose>
             <c:when test="${roles != null}">
-                <table>
+                <table class="cmstable">
                     <tr>
                         <th> ID </th>
                         <th> Name </th>

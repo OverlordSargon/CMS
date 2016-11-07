@@ -12,24 +12,37 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+
+
 <html>
 <head>
+
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-theme.min.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/css/adaptive.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/css/cms.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/css/itempage.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/css/table.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/css/table.css" />">
 
+    <script src="/resources/js/jquery.js"></script>
+    <script src="/resources/js/bootstrap.min.js"></script>
+
+    <script src="/resources/js/validation/core.js"></script>
+
+    <script src="/resources/js/header/headhesive.min.js"></script>
+    <script src="/resources/js/header/hhhelper.js"></script>
+
+    <script src="/resources/js/timepicker/moment-with-locals.js"></script>
+    <script src="/resources/js/timepicker/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="/resources/js/timepicker/bootstrap-datetimepicker.min.css">
+
+
     <title>${title}</title>
     <%
         String logoutButt = "<li><a href=\"/\">Login</a></li>";
         String links ="";
-        String userName = " ";
-        String disabledField = "";
-    %>
-    <%
         links =
 //                "<li><a href=\"/main\">Main Page</a></li>\n" +
                 "<li><a href=\"/orders\">Orders</a></li>" +

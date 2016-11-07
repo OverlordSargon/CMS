@@ -37,7 +37,7 @@ public class SkillUpdateController {
      * Skill service instance
      */
     @Autowired
-     SkillService skillService;
+    SkillService skillService;
     /**
      * Skill class instance
      */

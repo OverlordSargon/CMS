@@ -10,7 +10,7 @@
     <div class="table_header"> SKills </div>
     <c:choose>
         <c:when test="${skills != null}">
-    <table>
+    <table class="cmstable">
         <tr>
             <th> ID </th>
             <th> Name </th>

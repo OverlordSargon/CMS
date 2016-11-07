@@ -2,12 +2,9 @@ package com.zaico.cms.controllers.worker;
 
 import com.zaico.cms.entities.Skill;
 import com.zaico.cms.entities.Worker;
-import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
-import com.zaico.cms.servicies.interfaces.ScheduleService;
 import com.zaico.cms.servicies.interfaces.SkillService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
-import com.zaico.cms.servicies.interfaces.WorkplanService;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -21,11 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -54,23 +48,18 @@ public class WorkerUpdateController {
      */
     @RequestMapping(value = "/update_worker", method = RequestMethod.GET)
     private ModelAndView updateWorker(
-            @ModelAttribute("worker") Worker worker,
+
             @RequestParam(value = "id") int id
     ) {
         ModelAndView mav = new ModelAndView();
+        Worker worker = null;
         try {
-            if ( worker == null) {
-                worker = workerService.findWorker(id);
-            }
+            worker = workerService.findWorker(id);
             mav.addObject("worker",worker);
+            worker.getWorkplans();
             // Find worker dates and times for display
             WorkerDates workerDates = workerService.findWorkTime(worker);
             mav.addObject("dates",workerDates);
-//            mav.addObject("firstday",workerDates.getBegindate());
-//            mav.addObject("lastday",workerDates.getEnddate());
-//            mav.addObject("firsthour",workerDates.getBeginhour());
-//            mav.addObject("lasthour",workerDates.getEndhour());
-//            mav.addObject("pausehour",workerDates.getBreakstart());
             // Find worker dates to display
             mav.addObject("workerskills",worker.getSkills());
             List<Skill> allSkills = skillService.findAllSkills();
@@ -97,9 +86,9 @@ public class WorkerUpdateController {
      */
     @RequestMapping(value = "update_worker", method = RequestMethod.POST)
     public String updateWorkerExecute(
-      @ModelAttribute("worker") Worker worker,
-      @ModelAttribute("dates") WorkerDates workerDates,
-      RedirectAttributes redirectAttributes
+            @ModelAttribute("worker") Worker worker,
+            @ModelAttribute("dates") WorkerDates workerDates,
+            RedirectAttributes redirectAttributes
     ) {
 
         try {

@@ -4,11 +4,11 @@
         <form action="${action}" method="post">
         <div class="input_div">
             <label for="">Skill name</label>
-            <input type="text" name="skillname" value="${skill.name}" ${disabled}>
+            <input type="text"  name="skillname" value="${skill.name}" ${disabled}>
         </div>
         <div class="input_div">
             <label for="">Skill description</label>
-            <input type="text" name="skilldesc" value="${skill.description}" ${disabled}>
+            <input type="text" class="" name="skilldesc" value="${skill.description}" ${disabled}>
         </div>
     <c:choose>
         <c:when test="${action != \"/skill\"}">
@@ -42,4 +42,37 @@
         <button><a href="/roles">Skills</a></button>
     </div>
 </div>
+<script>
+    $('form').validate({
+        rules: {
+            skillname: {
+                minlength: 3,
+                required: true
+            },
+            skilldesc: {
+                minlength: 3,
+                required: true
+            }
+        },
+        highlight: function(element) {
+            var id_attr = "#" + $( element ).attr("id") + "1";
+            $(element).closest('.input_div').removeClass('has-success').addClass('has-error');
+            $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+        },
+        unhighlight: function(element) {
+            var id_attr = "#" + $( element ).attr("id") + "1";
+            $(element).closest('.input_div').removeClass('has-error').addClass('has-success');
+            $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function(error, element) {
+            if(element.length) {
+                error.insertAfter(element);
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+</script>
 <%@include file="../components/bottom.jsp"%>

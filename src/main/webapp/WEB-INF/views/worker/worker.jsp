@@ -26,16 +26,16 @@
         <div>
                 <%-- choose begin worker date--%>
             <spring:bind path="dates.begindate">
-            <div class="input_div">
+            <div class=" input_div " >
                 <label for=""> Begin date </label>
-                <input type="text" name="begindate" value="${dates.begindate}" ${disabled} placeholder="day-month-year" >
+                <input id="begindatepicker" type="text" name="begindate" value="${dates.begindate}" ${disabled} placeholder="day-month-year" >
             </div>
             </spring:bind>
-                <%-- choose end worker date--%>
+            <%-- choose end worker date--%>
             <spring:bind path="dates.enddate">
             <div class="input_div">
                 <label for=""> End date </label>
-                <input type="text" name="enddate" value="${dates.enddate}" ${disabled} placeholder="day-month-year">
+                <input id="enddatepicker" type="text" name="enddate" value="${dates.enddate}" ${disabled} placeholder="day-month-year">
             </div>
             </spring:bind>
         </div>
@@ -45,7 +45,7 @@
             <spring:bind path="dates.beginhour">
             <div class="input_div">
                 <label for=""> Work from: </label>
-                <input type="text" name="beginhour"
+                <input id="beginhourpicker" type="text" name="beginhour"
                        <c:if test="${not empty dates.beginhour}">
                            value="${dates.beginhour}:00"
                         </c:if>
@@ -57,7 +57,7 @@
             <spring:bind path="dates.endhour">
             <div class="input_div">
                 <label for=""> to: </label>
-                <input type="text" name="endhour"
+                <input id="endhourpicker" type="text" name="endhour"
                     <c:if test="${not empty dates.endhour}">
                            value="${dates.endhour}:00"
                     </c:if>
@@ -69,7 +69,7 @@
             <spring:bind path="dates.breakstart">
             <div class="input_div">
                 <label for=""> Begin 1 hour break: </label>
-                <input type="text" name="breakstart"
+                <input id="breakpicker" type="text" name="breakstart"
                     <c:if test="${not empty dates.breakstart}">
                         value="${dates.breakstart}:00"
                     </c:if>
@@ -87,7 +87,7 @@
                 <div >
                     <div class="checklabel">
                         <c:out value="${skill.name}"></c:out>
-                        <input type="checkbox" class="checkboxform" name="skills[${count.index}].name"
+                        <input type="checkbox" class="checkboxform" name="skills[${count.index}].id"
                         <c:forEach items="${workerskills}" var="workerskill">
                                 <c:if test="${skill.id == workerskill.id}">
                                        checked
@@ -106,6 +106,25 @@
         </div>
     </form>
     </form>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#begindatepicker,#enddatepicker').datetimepicker(
+                {
+                    pickTime: false,
+                    language: 'ru',
+                    minDate: new Date(),
+                    format: 'DD-MM-YYYY'
+                });
+            $('#beginhourpicker,#endhourpicker,#breakpicker').datetimepicker(
+                {
+                    pickDate: false,
+                    language: 'ru',
+                    useMinutes: false,
+                    defaultDate:"1/1/1900 00:00"
+                });
+        });
+    </script>
     </c:when>
         <%--FORM END--%>
         <%--BUTTONS--%>
@@ -144,7 +163,7 @@
                 <p style="text-align: center">Execute the following orders:</p>
                 <c:forEach items="${orders}" var="order">
                     <div class="info-frame">
-                        <table>
+                        <table class="cmstable">
                             <tr><th>Order: <c:out value="${order.ordNumber}"></c:out></th></tr>
                             <tr><td>At: <fmt:formatDate pattern="dd-MM-y" value="${order.date}" /></td></tr>
                             <tr><td>From: <fmt:formatDate pattern="HH:mm:ss" value="${order.from}" /></td></tr>
