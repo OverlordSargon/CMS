@@ -61,7 +61,7 @@
                         </td>
                         <td>
                             <div class="btn-view">
-                                <form action="/vieworder" method="get">
+                                <form action="/view_order" method="get">
                                     <input type="hidden"  name="id" value="${order.id}">
                                     <input type="submit" value="VIEW" class="btn view">
                                 </form>
