@@ -181,12 +181,17 @@ public class WorkerServiceImpl implements WorkerService {
      * @throws ExceptionCMS
      */
     public List<Workplan> findEdges(Worker worker) throws ExceptionCMS {
-        List<Workplan> workplanList = worker.getWorkplans();
-        WorkplanComparator workplanComparator = new WorkplanComparator();
-        Collections.sort(workplanList,workplanComparator);
         List<Workplan> result = new ArrayList<Workplan>();
+        try {
+            List<Workplan> workplanList = worker.getWorkplans();
+
+            WorkplanComparator workplanComparator = new WorkplanComparator();
+            Collections.sort(workplanList,workplanComparator);
         result.add(workplanList.get(0));
         result.add(workplanList.get(workplanList.size()-1));
+        } catch (Exception e) {
+            String f = e.toString();
+        }
         return  result;
     }
 
@@ -329,9 +334,8 @@ public class WorkerServiceImpl implements WorkerService {
         if (worker.getSkills() != null && worker.getSkills().size() != 0) {
             for ( Skill skillId: worker.getSkills()) {
                 // Find each skill with id and add to skill list
-                if ( !skillId.getName().equals(null) ) {
-                    long id = (Long.parseLong(skillId.getName()));
-                    workerSkills.add(skillService.findSkill(id));
+                if ( skillId.getId() != null ) {
+                    workerSkills.add(skillService.findSkill(skillId.getId()));
                 }
             }
         }

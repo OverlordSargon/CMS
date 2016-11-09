@@ -1,6 +1,9 @@
+<%@ page import="com.zaico.cms.entities.Role" %>
+<%@ page import="java.util.List" %>
 <%@include file="../components/head.jsp"%>
 <div class="form-view">
     <form:form modelAttribute="user" action="${action}" method="post">
+        <input type="hidden" name="id" value="${user.id}">
         <div class="input_div">
             <label for="">User name</label>
             <input path="login" type="text" name="login" value="${user.login}">
@@ -20,7 +23,13 @@
                     <div class="checklabel">
                         <c:out value="${role.role}"></c:out>
                     </div>
-                    <input type="checkbox" class="checkboxform" name="roles[${count.index}].id" value="${role.id}" />
+                    <input type="checkbox" class="checkboxform"
+                    <c:forEach items="${userRoles}" var="userole">
+                        <c:if test="${userole.id == role.id}">
+                            checked
+                        </c:if>
+                    </c:forEach>
+                    name="roles[${count.index}].id" value="${role.id}" />
                 </div>
             </c:forEach>
         </div>

@@ -1,7 +1,9 @@
 package com.zaico.cms.controllers.worker;
 
+ import com.zaico.cms.entities.Schedule;
 import com.zaico.cms.entities.Skill;
 import com.zaico.cms.entities.Worker;
+import com.zaico.cms.entities.Workplan;
 import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
 import com.zaico.cms.servicies.interfaces.SkillService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
@@ -55,6 +57,11 @@ public class WorkerUpdateController {
         Worker worker = null;
         try {
             worker = workerService.findWorker(id);
+            for ( Workplan workplan: worker.getWorkplans()) {
+                for ( Schedule schedule: workplan.getSchedules() ) {
+                    schedule.getId();
+                }
+            }
             mav.addObject("worker",worker);
             worker.getWorkplans();
             // Find worker dates and times for display
@@ -92,6 +99,7 @@ public class WorkerUpdateController {
     ) {
 
         try {
+            Worker workerUpdated = workerService.findWorker(worker.getId());
             //Get parameters
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             // Dates for schedule and workplan

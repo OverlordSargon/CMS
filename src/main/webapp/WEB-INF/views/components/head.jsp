@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/itempage.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/css/table.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/css/table.css" />">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="/resources/js/jquery.js"></script>
     <script src="/resources/js/bootstrap.min.js"></script>
@@ -59,7 +60,7 @@
         <div class="container">
             <div class="row">
                 <div class="main-header">
-                    <a href="/">
+                    <a href="/main">
                         <div class="logo">
                             СMS
                             <div class="label_logo">Capacity Management System</div>

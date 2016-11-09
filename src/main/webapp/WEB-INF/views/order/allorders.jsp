@@ -9,14 +9,14 @@
 
     <div>
         <button class="cmsbutton">
-            <a href="/neworder">Create new order</a>
+            <a href="/order_create">Create new order</a>
         </button>
     </div>
     <div class="table_header"> Orders </div>
 
     <c:choose>
         <c:when test="${orders != null}">
-            <table>
+            <table  class="cmstable">
                 <tr>
                     <th <%=disabledField%> > ID </th>
                     <th> Order number </th>
@@ -49,9 +49,9 @@
                         <td>
                             <div>
                                 <div class="attr-view">
-                                    <form action="/admin/viewworker" method="get">
+                                    <form action="/view_worker" method="get">
                                         <input type="hidden"  name="id" value="${order.worker.id}">
-                                        <%--<input type="submit" class="btn view" value="${order.worker.name}">--%>
+                                        <input type="submit" class="btn view" value="${order.worker.name}">
                                     </form>
                                 </div>
                             </div>
@@ -88,4 +88,5 @@
         </c:otherwise>
     </c:choose>
 </div>
+
 <%@include file="../components/bottom.jsp"%>

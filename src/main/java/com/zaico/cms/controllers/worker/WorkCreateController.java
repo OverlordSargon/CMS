@@ -115,9 +115,11 @@ public class WorkCreateController {
             String message = "Worker \""+worker.getName()+"\" created at "+new Date();
             LOG.info(message);
             redirectAttributes.addFlashAttribute("sucMessage",message);
+            return "redirect:/workers";
         } catch (Exception e) {
             String errorMessage = ExceptionHandler.handleException(e);
+            redirectAttributes.addFlashAttribute("errMessage",errorMessage);
+            return "redirect:/workers";
         }
-        return "redirect:/workers";
     }
 }

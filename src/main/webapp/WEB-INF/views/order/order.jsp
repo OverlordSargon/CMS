@@ -13,20 +13,20 @@
 
         <div>
             <label for=""> Day </label>
-            <input type="datetime" placeholder="day-month-year" name="orderday"
+            <input id="orderdatepicker" type="datetime" placeholder="day-month-year" name="orderday"
                    value="<fmt:formatDate pattern="dd-MM-y" value="${order.date}"/>" ${disabled} >
         </div>
 
         <div>
             <label for=""> Start time </label>
-            <input type="datetime" placeholder="hour:00" name="orderfrom"
+            <input id="beginhourpicker" type="datetime" placeholder="hour:00" name="orderfrom"
                    value="<fmt:formatDate pattern="HH:mm" value="${order.from}" />" ${disabled} >
         </div>
 
 
         <div>
             <label for=""> End time </label>
-            <input type="datetime" placeholder="hour:00" name="orderto"
+            <input id="endhourpicker" type="datetime" placeholder="hour:00" name="orderto"
                    value="<fmt:formatDate pattern="HH:mm" value="${order.to}" />" ${disabled} >
         </div>
 
@@ -39,7 +39,31 @@
             <label for=""> Client telephone number </label>
             <input type="text" name="ordertele" value="${order.telNumber}" ${disabled} >
         </div>
-
+        <script type="text/javascript">
+            $(function () {
+                $('#orderdatepicker').datetimepicker(
+                        {
+                            pickTime: false,
+                            language: 'ru',
+                            minDate: new Date(),
+                            format: 'DD-MM-YYYY'
+                        });
+                $('#beginhourpicker').datetimepicker(
+                        {
+                            pickDate: false,
+                            language: 'ru',
+                            useMinutes: false,
+                            defaultDate:"1/1/1900 09:00"
+                        });
+                $('#endhourpicker').datetimepicker(
+                        {
+                            pickDate: false,
+                            language: 'ru',
+                            useMinutes: false,
+                            defaultDate:"1/1/1900 11:00"
+                        });
+            });
+        </script>
     <c:choose>
         <c:when test="${action != \"/order\" and action !=\"/deleteorder\"}">
 
@@ -48,7 +72,7 @@
                 <div class="list_label">
                     Choose worktype:
                 </div>
-                <select name="orderworktype" size="5" id="">
+                <select name="skill" size="5" id="">
                     <c:forEach items="${skills}" var="skill" >
                         <option value="${skill.id}">${skill.name}</option>
                     </c:forEach>
@@ -89,4 +113,5 @@
         <button><a href="/orders">Orders</a></button>
     </div>
 </div>
+
 <%@include file="../components/bottom.jsp"%>

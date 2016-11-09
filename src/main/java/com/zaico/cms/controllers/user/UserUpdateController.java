@@ -56,7 +56,9 @@ public class UserUpdateController {
             user = userService.findUser(id);
             mav.addObject("user",user);
             List<Role> allRoles = roleService.findAllRoles();
+            List<Role> userRoles = user.getRoles();
             mav.addObject("roles",allRoles);
+            mav.addObject("userRoles",userRoles);
             mav.addObject("title","CMS Update skill");
             mav.addObject("cmsheader","Update skill "+user.getLogin());
             mav.addObject("action","/update_user");

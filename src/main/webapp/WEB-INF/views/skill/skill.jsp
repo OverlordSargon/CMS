@@ -2,6 +2,7 @@
 
 <div class="form-view">
         <form action="${action}" method="post">
+        <input type="hidden" value="${skill.id}" name="id">
         <div class="input_div">
             <label for="">Skill name</label>
             <input type="text"  name="skillname" value="${skill.name}" ${disabled}>

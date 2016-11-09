@@ -25,24 +25,19 @@
             <%-- choose skills --%>
         <div>
                 <%-- choose begin worker date--%>
-            <spring:bind path="dates.begindate">
             <div class=" input_div " >
                 <label for=""> Begin date </label>
                 <input id="begindatepicker" type="text" name="begindate" value="${dates.begindate}" ${disabled} placeholder="day-month-year" >
             </div>
-            </spring:bind>
             <%-- choose end worker date--%>
-            <spring:bind path="dates.enddate">
             <div class="input_div">
                 <label for=""> End date </label>
                 <input id="enddatepicker" type="text" name="enddate" value="${dates.enddate}" ${disabled} placeholder="day-month-year">
             </div>
-            </spring:bind>
         </div>
 
         <div>
                 <%--choose time from--%>
-            <spring:bind path="dates.beginhour">
             <div class="input_div">
                 <label for=""> Work from: </label>
                 <input id="beginhourpicker" type="text" name="beginhour"
@@ -51,10 +46,8 @@
                         </c:if>
                        ${disabled} placeholder="hour:00">
             </div>
-            </spring:bind>
 
                 <%--choose time to--%>
-            <spring:bind path="dates.endhour">
             <div class="input_div">
                 <label for=""> to: </label>
                 <input id="endhourpicker" type="text" name="endhour"
@@ -63,10 +56,8 @@
                     </c:if>
                     ${disabled} placeholder="hour:00">
             </div>
-            </spring:bind>
 
                 <%-- choose break for 1 hour--%>
-            <spring:bind path="dates.breakstart">
             <div class="input_div">
                 <label for=""> Begin 1 hour break: </label>
                 <input id="breakpicker" type="text" name="breakstart"
@@ -75,7 +66,6 @@
                     </c:if>
                 ${disabled} placeholder="hour:00">
             </div>
-            </spring:bind>
         </div>
 
         <spring:bind path="worker.skills">

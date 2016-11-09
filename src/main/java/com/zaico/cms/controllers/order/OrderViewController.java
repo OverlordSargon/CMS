@@ -62,7 +62,7 @@ public class OrderViewController {
 //     * @throws ServletException
 //     * @throws IOException
 //     */
-    @RequestMapping(value = "/view_order**", method = RequestMethod.GET)
+    @RequestMapping(value = "/view_order*", method = RequestMethod.GET)
     public ModelAndView viewOrder(
             @RequestParam("id") int id
     ) throws ServletException, IOException {

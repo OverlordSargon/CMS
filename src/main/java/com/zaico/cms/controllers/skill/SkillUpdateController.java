@@ -75,8 +75,9 @@ public class SkillUpdateController {
             Model model,
             RedirectAttributes redirectAttributes
     ) {
-        Skill skillUpdate = skill;
+        Skill skillUpdate = null;
         try {
+            skillUpdate = skillService.findSkill(skill.getId());
             if ( skillName.equals("") || skillDesc.equals("")) {
                 throw new ExceptionCMS("Fill all fields!", ErrorCode.SKILL_CREATE_ERROR);
             }
