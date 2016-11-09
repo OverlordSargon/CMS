@@ -140,7 +140,7 @@ public class Worker extends AbstractEntity {
      * Get worker`s workplans
      * @return workplans
      */
-    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn( name = "W_ID", referencedColumnName = "W_ID")
 //    @OrderBy("date ASC")
     public List<Workplan> getWorkplans() {
@@ -159,7 +159,7 @@ public class Worker extends AbstractEntity {
      * Get list of worker skill
      * @return skill
      */
-    @ManyToMany( fetch = FetchType.EAGER )
+    @ManyToMany( fetch = FetchType.LAZY )
     @JoinTable
     (
         name = "WORKER_SKILL",

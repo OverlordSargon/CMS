@@ -75,7 +75,7 @@ public class WorkerUpdateController {
             mav.addObject("button","UPDATE");
             mav.addObject("title","CMS Update worker");
             mav.addObject("cmsheader","Update worker "+worker.getName() );
-            mav.setViewName("worker/allworkers");
+            mav.setViewName("worker/worker");
 
         } catch (Exception e) {
             String errMess = ExceptionHandler.handleException(e);
