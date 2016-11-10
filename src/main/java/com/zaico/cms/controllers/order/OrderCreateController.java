@@ -56,8 +56,8 @@ public class OrderCreateController {
         ModelAndView mav = new ModelAndView();
         try {
             List<Skill> allSkills = skillService.findAllSkills();
-            model.addAttribute("order",order);
-            model.addAttribute("orderDates",new OrderDates());
+            mav.addObject("order",order);
+            mav.addObject("orderDates",new OrderDates());
             mav.addObject("skills",allSkills);
             mav.addObject("action","/order_create");
             mav.addObject("button","CREATE");
@@ -111,6 +111,9 @@ public class OrderCreateController {
             }
             LOG.info("Create new order with parameters...");
             order.setWorker(orderWorker);
+            order.setDate(orderDate);
+            order.setFrom(hoursFrom);
+            order.setTo(hoursTo);
             orderService.createOrder(order);
             LOG.info("Order " + order.toString() + " has been created successfully.");
 
@@ -124,7 +127,7 @@ public class OrderCreateController {
             String infoMessage = "Try again, please";
             redirectAttributes.addFlashAttribute("infoMessage", infoMessage);
             redirectAttributes.addFlashAttribute("order",order);
-            return "/orders";
+            return "redirect:/order_create";
         }
     }
 }

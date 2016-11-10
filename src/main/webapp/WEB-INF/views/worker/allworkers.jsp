@@ -28,7 +28,7 @@
                         <td>
                             <c:forEach var="skill" items="${worker.skills}">
                                     <div class="attr-view">
-                                        <form action="/skill" method="get">
+                                        <form action="/view_skill" method="get">
                                             <input type="hidden"  name="id" value="${skill.id}">
                                             <input type="submit" value="${skill.name}" class="btn view">
                                         </form>
@@ -52,7 +52,7 @@
                                 </form>
                             </div>
                             <div class="btn-delete">
-                                <form action=" " method="post">
+                                <form action="/delete_worker" method="post">
                                     <input type="hidden"  name="id" value="${worker.id}">
                                     <input type="submit" value="DELETE" class="btn delete">
                                 </form>

@@ -65,7 +65,7 @@ public class SkillController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/skill*", method = RequestMethod.GET)
+    @RequestMapping(value = "/view_skill*", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView skillView(
             @RequestParam(value = "id") int id,

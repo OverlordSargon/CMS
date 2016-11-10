@@ -2,42 +2,43 @@
 <%--FORM BEGIN--%>
 <div class="form-view">
     <form action="${action}" method="post">
+        <input type="hidden" value="${order.id}">
         <div>
             <label for=""> Order number </label>
-            <input type="text" name="ordernum" value="${order.ordNumber}" ${disabled} >
+            <input type="text" name="ordNumber" value="${order.ordNumber}" ${disabled} >
         </div>
         <div>
             <label for=""> Description </label>
-            <input type="text" name="orderdesc" value="${order.description}" ${disabled} >
+            <input type="text" name="description" value="${order.description}" ${disabled} >
         </div>
 
         <div>
             <label for=""> Day </label>
-            <input id="orderdatepicker" type="datetime" placeholder="day-month-year" name="orderday"
+            <input id="orderdatepicker" type="datetime" placeholder="day-month-year" name="orderDay"
                    value="<fmt:formatDate pattern="dd-MM-y" value="${order.date}"/>" ${disabled} >
         </div>
 
         <div>
             <label for=""> Start time </label>
-            <input id="beginhourpicker" type="datetime" placeholder="hour:00" name="orderfrom"
+            <input id="beginhourpicker" type="datetime" placeholder="hour:00" name="orgerBeginHour"
                    value="<fmt:formatDate pattern="HH:mm" value="${order.from}" />" ${disabled} >
         </div>
 
 
         <div>
             <label for=""> End time </label>
-            <input id="endhourpicker" type="datetime" placeholder="hour:00" name="orderto"
+            <input id="endhourpicker" type="datetime" placeholder="hour:00" name="orgerEndHour"
                    value="<fmt:formatDate pattern="HH:mm" value="${order.to}" />" ${disabled} >
         </div>
 
         <div>
             <label for=""> Client name </label>
-            <input type="text" name="ordercname" value="${order.clientName}" ${disabled} >
+            <input type="text" name="clientName" value="${order.clientName}" ${disabled} >
         </div>
 
         <div>
             <label for=""> Client telephone number </label>
-            <input type="text" name="ordertele" value="${order.telNumber}" ${disabled} >
+            <input type="text" name="telNumber" value="${order.telNumber}" ${disabled} >
         </div>
         <script type="text/javascript">
             $(function () {
@@ -94,13 +95,13 @@
             <%-- if we view, print additional buttons--%>
             <div class="buttons-ud">
                 <div class="btn-update">
-                    <form action="/updateorder" method="get">
+                    <form action="/update_order" method="get">
                         <input type="hidden"  name="id" value="${order.id}">
                         <input type="submit" value="UPDATE" class="btn renew">
                     </form>
                 </div>
                 <div class="btn-delete">
-                    <form action="/deleteorder" method="post">
+                    <form action="/delete_order" method="post">
                         <input type="hidden"  name="id" value="${order.id}">
                         <input type="submit" value="DELETE" class="btn delete">
                     </form>

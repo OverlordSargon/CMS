@@ -45,4 +45,6 @@ public interface ScheduleService {
      * @throws ExceptionCMS
      */
     void deleteSchedule(Schedule schedule) throws ExceptionCMS;
+
+    Schedule updateFlag(Schedule schedule, String flag) throws ExceptionCMS;
 }

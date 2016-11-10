@@ -119,4 +119,10 @@ public class ScheduleServiceImpl implements ScheduleService {
             throw new ExceptionCMS(errMess,ErrorCode.SCHEDULE_CANNOT_BE_DELETED);
         }
     }
+
+    @Override
+    public Schedule updateFlag(Schedule schedule, String flag) throws ExceptionCMS {
+        schedule.setFlag(flag);
+        return schedule;
+    }
 }

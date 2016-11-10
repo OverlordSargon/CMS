@@ -184,7 +184,6 @@ public class WorkerServiceImpl implements WorkerService {
         List<Workplan> result = new ArrayList<Workplan>();
         try {
             List<Workplan> workplanList = worker.getWorkplans();
-
             WorkplanComparator workplanComparator = new WorkplanComparator();
             Collections.sort(workplanList,workplanComparator);
         result.add(workplanList.get(0));

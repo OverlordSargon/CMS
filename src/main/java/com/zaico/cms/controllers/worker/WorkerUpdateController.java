@@ -71,7 +71,7 @@ public class WorkerUpdateController {
             mav.addObject("workerskills",worker.getSkills());
             List<Skill> allSkills = skillService.findAllSkills();
             mav.addObject("skills",allSkills);
-            mav.addObject("action","/updateworker");
+            mav.addObject("action","/update_worker");
             mav.addObject("button","UPDATE");
             mav.addObject("title","CMS Update worker");
             mav.addObject("cmsheader","Update worker "+worker.getName() );
@@ -104,14 +104,14 @@ public class WorkerUpdateController {
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             // Dates for schedule and workplan
 
-            workerService.updateWorkplans(worker,workerDates);
+            workerService.updateWorkplans(workerUpdated,workerDates);
             workerService.setSkillsFromForm(worker);
 
             // set all finded skill as user skill
-//            worker.setName(workerName);
-//            worker.setTelephone(workerNum);
-//            worker.setSkills(workerSkills);
-            workerService.updateWorker(worker);
+            workerUpdated.setName(worker.getName());
+            workerUpdated.setTelephone(worker.getTelephone());
+            workerUpdated.setSkills(worker.getSkills());
+            workerService.updateWorker(workerUpdated);
             LOG.info("Worker "+worker.getName()+ " updated at "+new Date());
             redirectAttributes.addFlashAttribute("sucMessage","Worker \""+worker.getName()+ "\" updated successfully");
             return "redirect:/workers";
@@ -120,7 +120,7 @@ public class WorkerUpdateController {
             redirectAttributes.addFlashAttribute("errMessage",errMess);
             redirectAttributes.addFlashAttribute("worker",worker);
             redirectAttributes.addAttribute("dates",workerDates);
-            return "/wor";
+            return "/workers";
         }
     }
 

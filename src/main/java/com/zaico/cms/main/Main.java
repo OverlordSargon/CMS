@@ -40,9 +40,9 @@ public class Main {
 //
 //            //Create Spring application context
 //
-//            //Get service from context. (service's dependency (ProductDAO) is autowired in ProductService)
-////            ProductService productService = ctx.getBean(ProductService.class);
+//            Get service from context. (service's dependency (ProductDAO) is autowired in ProductService)
 //            ApplicationContext context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/applicationContext.xml");
+//            ProductService productService = ctx.getBean(ProductService.class);
 //            SkillService skillService = (SkillService) context.getBean("skillService");
 //
 //            //Do some data operation

@@ -12,8 +12,6 @@ $(document).before(function() {
     var bodyH = $('body').height();
     if( windowH > bodyH) {
         $('body').css({'height':(windowH-30)+'px'});
-        // alert(windowH);
-        // alert(bodyH);
         $('footer').css({'width':'85%','position':'absolute','bottom':'0'});
     }
 });

@@ -1,11 +1,13 @@
 package com.zaico.cms.servicies.implementation;
 
 
+import com.zaico.cms.controllers.order.OrderDates;
 import com.zaico.cms.dao.implementation.FactoryDAO;
 import com.zaico.cms.dao.interfaces.OrderDAO;
 import com.zaico.cms.dao.interfaces.WorkerDAO;
 import com.zaico.cms.entities.*;
 import com.zaico.cms.servicies.interfaces.OrderService;
+import com.zaico.cms.servicies.interfaces.ScheduleService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
@@ -30,6 +32,10 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDAO orderDAO ;
 
+    @Autowired
+    WorkerService workerService;
+    @Autowired
+    ScheduleService scheduleService;
     /**
      * Create new Order
      * @param order
@@ -129,7 +135,6 @@ public class OrderServiceImpl implements OrderService {
             throw  new ExceptionCMS("You choose a paste date",ErrorCode.DATE_BEFORE_TODAY);
         }
 
-        WorkerService workerService = FactoryService.getWorkerServiceInstance();
         Worker orderWorker = null;
 
         /*Find workers by skill*/
@@ -185,7 +190,7 @@ public class OrderServiceImpl implements OrderService {
                             int i = 0;
                             for (Schedule schedule : schedulesWork) {
                                 if (schedule.getInterval().equals(orderedIntervals.get(i))) {
-                                    schedule.setFlag(flag);
+                                    scheduleService.updateFlag(schedule,flag);
                                     i++;
                                     logger.info("Update " + schedule.getInterval()+" interval");
                                 }

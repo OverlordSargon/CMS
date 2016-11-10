@@ -4,20 +4,23 @@
     <%--FORM BEGIN--%>
     <form action="${action}" method="post" >
         <%-- set name --%>
-            <spring:bind path="worker.name">
-            <div class="input_div">
-                <label for=""> Name </label>
-                    <input type="text" name="name" value="${worker.name}" ${disabled} >
-            </div>
-            </spring:bind>
+        <spring:bind path="worker.id">
+        <input type="hidden" name="id" value="${worker.id}">
+        </spring:bind>
+        <spring:bind path="worker.name">
+        <div class="input_div">
+            <label for=""> Name </label>
+                <input type="text" name="name" value="${worker.name}" ${disabled} >
+        </div>
+        </spring:bind>
 
-        <%-- set telephone --%>
-            <spring:bind path="worker.telephone">
-            <div class="input_div">
-                <label for=""> Telephone number </label>
-                <input type="text" name="telephone" value="${worker.telephone}" ${disabled} >
-            </div>
-            </spring:bind>
+    <%-- set telephone --%>
+        <spring:bind path="worker.telephone">
+        <div class="input_div">
+            <label for=""> Telephone number </label>
+            <input type="text" name="telephone" value="${worker.telephone}" ${disabled} >
+        </div>
+        </spring:bind>
 
         <c:choose>
         <c:when test="${action != \"/worker\"}">
@@ -90,7 +93,6 @@
         </div>
         </spring:bind>
 
-
         <div>
             <input type="submit" class="btn create" value="${button}">
         </div>
@@ -127,7 +129,7 @@
                 <spring:bind path="worker.skills">
                     <c:forEach items="${worker.skills}" var="skill">
                         <div class="col-xs-3">
-                            <form action="/viewskill" method="get">
+                            <form action="/view_skill" method="get">
                                 <input type="hidden"  name="id" value="${skill.id}">
                                 <input type="submit" value="${skill.name}" class="btn view">
                             </form>
@@ -139,11 +141,11 @@
             <div class="worker_schedule_info">
                 Worker schedule:
                 <div class="worker_days">
-                    <div>First day: ${firstday}</div>
-                    <div>Last day: ${lastday}</div>
+                    <div>First day: ${dates.begindate}</div>
+                    <div>Last day: ${dates.enddate}</div>
                 </div>
                 <div>
-                    <div class="worker_time"> Working from ${firsthour}:00 to ${pausehour}:00; from ${pausehour+1}:00  to ${lasthour}:00</div>
+                    <div class="worker_time"> Working from ${dates.beginhour}:00 to ${dates.breakstart}:00; from ${dates.breakstart+1}:00  to ${dates.endhour}:00</div>
                     <%--<div> Pause from ${pausehour}:00 to ${pausehour+1}:00 </div>--%>
                 </div>
             </div>
@@ -166,13 +168,13 @@
         <%-- if we view, print additional buttons--%>
         <div class="buttons-ud">
             <div class="btn-update">
-                <form action="/admin/updateworker" method="get">
+                <form action="/update_worker" method="get">
                     <input type="hidden"  name="id" value="${worker.id}">
                     <input type="submit" value="UPDATE" class="btn renew">
                 </form>
             </div>
             <div class="btn-delete">
-                <form action="/admin/deleteworker" method="post">
+                <form action="/delete_worker" method="post">
                     <input type="hidden"  name="id" value="${worker.id}">
                     <input type="submit" value="DELETE" class="btn delete">
                 </form>

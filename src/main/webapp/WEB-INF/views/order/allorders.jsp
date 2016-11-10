@@ -67,13 +67,13 @@
                                 </form>
                             </div>
                             <div class="btn-update">
-                                <form action="/updateorder" method="get">
+                                <form action="/update_order" method="get">
                                     <input type="hidden"  name="id" value="${order.id}">
                                     <input type="submit" value="UPDATE" class="btn renew">
                                 </form>
                             </div>
                             <div class="btn-delete">
-                                <form action="/deleteorder" method="get">
+                                <form action="/delete_order" method="get">
                                     <input type="hidden"  name="id" value="${order.id}">
                                     <input type="submit" value="DELETE" class="btn delete">
                                 </form>

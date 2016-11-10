@@ -28,7 +28,7 @@
                 </td>
                 <td>
                     <div class="btn-update">
-                        <form action="/skill" method="get">
+                        <form action="/view_skill" method="get">
                             <input type="hidden"  name="id" value="${skill.id}">
                             <input type="submit" value="VIEW" class="btn view">
                         </form>

@@ -15,6 +15,7 @@ import java.util.List;
  * Class for implementation abstract & interfaces
  */
 @Repository("orderDao")
+@Transactional
 public class OrderDAOImpl extends AbstractDAO<Order> implements OrderDAO {
     /**
      * Overrited methods for getAll & deleteAll by named queries
@@ -24,19 +25,11 @@ public class OrderDAOImpl extends AbstractDAO<Order> implements OrderDAO {
      * @param worker
      * @return list of orders
      */
-    @Transactional
     public List<Order> getByWorker(Worker worker) {
         List<Order> result = null;
-        try {
-            em.getTransaction().begin();
-            Query query = em.createNamedQuery("Cmsorder.getByWorker");
-            query.setParameter("worker",worker);
-            result = query.getResultList();
-            em.getTransaction().commit();
-        }
-        catch (Exception exp) {
-            em.getTransaction().rollback();
-        }
+        Query query = em.createNamedQuery("Cmsorder.getByWorker");
+        query.setParameter("worker",worker);
+        result = query.getResultList();
         return result;
     }
 }
