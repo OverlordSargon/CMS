@@ -32,6 +32,8 @@ public class WorkerServiceImpl implements WorkerService {
     @Autowired
     WorkplanService workplanService;
 
+    @Autowired
+    OrderService orderService;
     // Logger
     private static final Logger LOG = LogManager.getLogger(WorkplanService.class);
     // DAO
@@ -127,7 +129,6 @@ public class WorkerServiceImpl implements WorkerService {
      * @throws ExceptionCMS
      */
     public void deleteWorker(Worker worker) throws ExceptionCMS {
-        OrderService orderService = FactoryService.getOrderServiceInstance();
         try {
             if (orderService.getByWorker(worker).size() == 0) {
                 workerDAO.delete(worker);
@@ -184,6 +185,7 @@ public class WorkerServiceImpl implements WorkerService {
         List<Workplan> result = new ArrayList<Workplan>();
         try {
             List<Workplan> workplanList = worker.getWorkplans();
+
             WorkplanComparator workplanComparator = new WorkplanComparator();
             Collections.sort(workplanList,workplanComparator);
         result.add(workplanList.get(0));

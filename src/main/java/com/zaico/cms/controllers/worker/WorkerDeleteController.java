@@ -2,7 +2,10 @@ package com.zaico.cms.controllers.worker;
 
 import com.zaico.cms.entities.Worker;
 import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
+import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
+import com.zaico.cms.utility.ErrorCode;
+import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -27,7 +30,9 @@ public class WorkerDeleteController {
 
     @Autowired
     WorkerService workerService;
-    
+    @Autowired
+    OrderService orderService;
+
     @RequestMapping(value = "delete_worker**", method = RequestMethod.GET)
     public ModelAndView deleteWorkerPrepare(
             @RequestParam("id") int id
@@ -57,7 +62,11 @@ public class WorkerDeleteController {
     ) {
         try {
             Worker worker = workerService.findWorker((long)id);
-            workerService.deleteWorker(worker);
+            if (orderService.getByWorker(worker).size() == 0) {
+                workerService.deleteWorker(worker);
+            } else {
+                throw new ExceptionCMS("FUCK", ErrorCode.WORKER_CANNOT_BE_UPDATED);
+            }
             String message = "Worker \""+worker.getName()+"\" deleted successfully";
             LOG.info(message);
             redirectAttributes.addFlashAttribute("infoMessage",message);

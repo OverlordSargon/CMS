@@ -221,15 +221,13 @@ public class OrderServiceImpl implements OrderService {
      * @throws ExceptionCMS
      */
     public List<Order> getByWorker(Worker worker) throws ExceptionCMS {
-        List<Order> result = null;
         try {
-            result = orderDAO.getByWorker(worker);
-
+            List<Order> orders = orderDAO.getByWorker(worker);
+            return orders;
         } catch (Exception e) {
             String errMes = "Error with worker orders";
             logger.info(errMes);
             throw new ExceptionCMS(errMes,ErrorCode.CANT_GET_WORKERs_ORDERS);
         }
-        return result;
     }
 }

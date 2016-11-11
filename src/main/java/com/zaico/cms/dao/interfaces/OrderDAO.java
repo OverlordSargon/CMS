@@ -2,6 +2,7 @@ package com.zaico.cms.dao.interfaces;
 
 import com.zaico.cms.entities.Order;
 import com.zaico.cms.entities.Worker;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
