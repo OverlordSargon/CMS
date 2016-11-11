@@ -82,7 +82,7 @@ public class OrderDeleteController {
             orderService.findCapacity(calDate,calFrom,calTo,null,"F",order.getWorker());
             orderService.deleteOrder(order);
             String message = "Order \""+order.getOrdNumber()+"\" deleted successfully";
-            redirectAttributes.addFlashAttribute("infoMessage",message);
+            redirectAttributes.addFlashAttribute("sucMessage",message);
             logger.info("END: delete order "+order.getOrdNumber());
         } catch (Exception e) {
             String message = ExceptionHandler.handleException(e);

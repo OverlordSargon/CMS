@@ -123,6 +123,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public Schedule updateFlag(Schedule schedule, String flag) throws ExceptionCMS {
         schedule.setFlag(flag);
+        scheduleDAO.update(schedule);
         return schedule;
     }
 }

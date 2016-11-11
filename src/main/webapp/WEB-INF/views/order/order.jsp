@@ -2,7 +2,7 @@
 <%--FORM BEGIN--%>
 <div class="form-view">
     <form action="${action}" method="post">
-        <input type="hidden" value="${order.id}">
+        <input type="hidden" name = "id" value="${order.id}">
         <div>
             <label for=""> Order number </label>
             <input type="text" name="ordNumber" value="${order.ordNumber}" ${disabled} >
@@ -73,7 +73,7 @@
                 <div class="list_label">
                     Choose worktype:
                 </div>
-                <select name="skill" size="5" id="">
+                <select name="skill" size="1" id="">
                     <c:forEach items="${skills}" var="skill" >
                         <option value="${skill.id}">${skill.name}</option>
                     </c:forEach>

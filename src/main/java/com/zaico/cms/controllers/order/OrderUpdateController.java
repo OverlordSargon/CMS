@@ -44,6 +44,7 @@ public class OrderUpdateController {
     @Autowired
     SkillService skillService;
 
+
     @RequestMapping(value = "update_order*", method = RequestMethod.GET)
     public ModelAndView updatePrepare(
             @RequestParam("id") int id
@@ -87,18 +88,17 @@ public class OrderUpdateController {
             String toS = orderDates.getOrgerEndHour();
 
             CheckFromTo.checkHours(fromS, toS);
-            ScheduleService scheduleService = FactoryService.getScheduleServiceInstance();
-            /*Set old flags as F*/
-            Calendar calendarD = Calendar.getInstance();
-            Calendar calendarF = Calendar.getInstance();
-            Calendar calendarT = Calendar.getInstance();
-            calendarD.setTime(order.getDate());
-            calendarF.setTime(order.getFrom());
-            calendarT.setTime(order.getTo());
 
             //string dates into dates
             DateFormat timeF = new SimpleDateFormat("HH:mm");
             DateFormat dateF = new SimpleDateFormat("dd-MM-y");
+            /*Set old flags as F*/
+            Calendar calendarD = Calendar.getInstance();
+            Calendar calendarF = Calendar.getInstance();
+            Calendar calendarT = Calendar.getInstance();
+            calendarD.setTime(orderUpdated.getDate());
+            calendarF.setTime(orderUpdated.getFrom());
+            calendarT.setTime(orderUpdated.getTo());
 
             //create dates
             Date fromDate = timeF.parse(fromS);
@@ -116,8 +116,8 @@ public class OrderUpdateController {
             calDate.setTime(dateDate);
 
             /*Find workers by skill*/
+            Worker workerOrder = orderService.findCapacity(calendarD, calendarF, calendarT, null, "F", orderUpdated.getWorker());
             orderService.findCapacity(calDate, calFrom, calTo, (long) skillId, "W", null);
-            Worker workerOrder = orderService.findCapacity(calendarD, calendarF, calendarT, null, "F", order.getWorker());
 
             orderUpdated.setOrdNumber(order.getOrdNumber());
             orderUpdated.setDescription(order.getDescription());
@@ -130,7 +130,7 @@ public class OrderUpdateController {
 
             LOG.info("New " + order.toString());
 
-            orderService.updateOrder(order);
+            orderService.updateOrder(orderUpdated);
             String message = "Order \"" + order.getOrdNumber() + "\"updated successfully";
             redirectAttributes.addFlashAttribute("sucMessage", message);
             LOG.info("END: successful update order " + order.getOrdNumber());
