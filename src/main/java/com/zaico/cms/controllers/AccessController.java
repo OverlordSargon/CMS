@@ -36,7 +36,7 @@ public class AccessController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/login", method = RequestMethod.POST)
+    @RequestMapping(value="/login_login", method = RequestMethod.POST)
     public String loginCmsUser(HttpServletRequest request, Model model) {
         try {
             userService.findByName(request.getParameter("ulog"));

@@ -8,7 +8,7 @@
 
 %>
 <div class="form-view">
-    <form action="/login" method="post">
+    <form action="/login_login" method="post">
         <div>
             <label for="">Login</label>
             <input type="login" name = "ulog">
