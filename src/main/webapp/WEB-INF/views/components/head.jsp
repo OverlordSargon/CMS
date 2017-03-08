@@ -42,7 +42,7 @@
 
     <title>${title}</title>
     <%
-        String logoutButt = "<li><a href=\"/\">Login</a></li>";
+        String logoutButt = "<li><a href=\"/login\">Login</a></li>";
         String links ="";
         String userName = " ";
         String disabledField = "";
