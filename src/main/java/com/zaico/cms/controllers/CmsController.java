@@ -18,9 +18,6 @@ public class CmsController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("title","CMS");
         mav.setViewName("components/cmsmn");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        mav.addObject("errMessage",authentication.toString());
         return mav;
     }
 }

@@ -4,40 +4,40 @@
     <form action="${action}" method="post">
         <input type="hidden" name = "id" value="${order.id}">
         <div>
-            <label for=""> Order number </label>
+            <label for=""> Номер заказа </label>
             <input type="text" name="ordNumber" value="${order.ordNumber}" ${disabled} >
         </div>
         <div>
-            <label for=""> Description </label>
+            <label for=""> Описание </label>
             <input type="text" name="description" value="${order.description}" ${disabled} >
         </div>
 
         <div>
-            <label for=""> Day </label>
+            <label for=""> День </label>
             <input id="orderdatepicker" type="datetime" placeholder="day-month-year" name="orderDay"
                    value="<fmt:formatDate pattern="dd-MM-y" value="${order.date}"/>" ${disabled} >
         </div>
 
         <div>
-            <label for=""> Start time </label>
+            <label for=""> Начало </label>
             <input id="beginhourpicker" type="datetime" placeholder="hour:00" name="orgerBeginHour"
                    value="<fmt:formatDate pattern="HH:mm" value="${order.from}" />" ${disabled} >
         </div>
 
 
         <div>
-            <label for=""> End time </label>
+            <label for=""> Конец </label>
             <input id="endhourpicker" type="datetime" placeholder="hour:00" name="orgerEndHour"
                    value="<fmt:formatDate pattern="HH:mm" value="${order.to}" />" ${disabled} >
         </div>
 
         <div>
-            <label for=""> Client name </label>
+            <label for=""> Имя клиента </label>
             <input type="text" name="clientName" value="${order.clientName}" ${disabled} >
         </div>
 
         <div>
-            <label for=""> Client telephone number </label>
+            <label for=""> Телефон киента </label>
             <input type="text" name="telNumber" value="${order.telNumber}" ${disabled} >
         </div>
         <script type="text/javascript">
@@ -71,7 +71,7 @@
             <%--If U or C print the following name--%>
             <div class="list">
                 <div class="list_label">
-                    Choose worktype:
+                    Выберите тип работ:
                 </div>
                 <select name="skill" size="1" id="">
                     <c:forEach items="${skills}" var="skill" >
@@ -88,7 +88,7 @@
         <%--BUTTONS--%>
         <c:otherwise>
             <div>
-                <label for=""> Worker </label>
+                <label for=""> Рабочий </label>
                 <input type="text" name="orderworker" value="${order.worker}" ${disabled} >
             </div>
             </form>
@@ -110,8 +110,8 @@
         </c:otherwise>
     </c:choose>
     <div>
-        <button type="button" name="back" onclick="history.back()">BACK</button>
-        <button><a href="/orders">Orders</a></button>
+        <button type="button" name="back" onclick="history.back()">Назад</button>
+        <button><a href="/orders">Заказы</a></button>
     </div>
 </div>
 

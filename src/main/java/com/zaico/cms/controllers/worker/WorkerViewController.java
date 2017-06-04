@@ -6,6 +6,7 @@ import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.implementation.WorkerServiceImpl;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.WorkerService;
+import com.zaico.cms.utility.ExceptionCMS;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -22,7 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by ZAITNIK on 29.10.2016.
@@ -46,6 +49,17 @@ public class WorkerViewController {
 
     ) {
         ModelAndView mav = new ModelAndView();
+        Queue<Worker> workersQue = new LinkedList();
+        StringBuffer sss = new StringBuffer();
+        try {
+            workersQue.addAll(workerService.findAllWorkers());
+            while (workersQue.size()>1) {
+                Worker worker = workersQue.poll();
+                sss.append(worker.getName());
+            }
+        } catch (ExceptionCMS exceptionCMS) {
+            exceptionCMS.printStackTrace();
+        }
         try {
             List<Worker> workers = workerService.findAllWorkers();
             mav.addObject("workers",workers);
@@ -58,6 +72,7 @@ public class WorkerViewController {
         }
         mav.addObject("title","CMS Workers");
         mav.addObject("cmsheader","Workers");
+//        mav.addObject("infoMessage",sss);
         mav.setViewName("worker/allworkers");
         return mav;
     }

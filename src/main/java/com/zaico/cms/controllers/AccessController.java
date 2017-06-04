@@ -27,6 +27,7 @@ public class AccessController {
     public ModelAndView loginPage() {
         ModelAndView modelAndView = new ModelAndView();
         try {
+            modelAndView.addObject("title","LOGIN");
             modelAndView.setViewName("login");
             modelAndView.addObject("infoMessage","Please login to work with CMS!");
 

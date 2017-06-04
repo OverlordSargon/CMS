@@ -116,11 +116,12 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
-     * find free capacity. if true - `ll create order in sevlet
-     * @param day
-     * @param timeFrom
-     * @param timeTo
-     * @param skill
+     * Method finds free capacity.
+     * @param day Day of order
+     * @param timeFrom Start time
+     * @param timeTo End time
+     * @param skill Needed skill
+     * @param existingWorker In case of updating we already have worker
      * @return  capacityExists
      * @throws ExceptionCMS
      */

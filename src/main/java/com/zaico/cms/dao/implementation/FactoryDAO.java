@@ -4,7 +4,6 @@ import com.zaico.cms.dao.implementation.*;
 import com.zaico.cms.dao.interfaces.*;
 
 /**
- * Created by nzaitsev on 11.08.2016.
  * Singleton factory
  * @author ZAITNIK
  */

@@ -2,19 +2,15 @@ package com.zaico.cms.dao.implementation;
 
 import com.zaico.cms.dao.interfaces.CommonDAO;
 import com.zaico.cms.entities.AbstractEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by ZAITNIK on 06.08.2016.
- * @author ZAITNIK
  * Abstract DAO with CRUD and basic operations
  */
 @Transactional

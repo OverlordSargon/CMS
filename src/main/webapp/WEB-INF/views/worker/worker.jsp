@@ -17,7 +17,7 @@
     <%-- set telephone --%>
         <spring:bind path="worker.telephone">
         <div class="input_div">
-            <label for=""> Telephone number </label>
+            <label for=""> Телефон </label>
             <input type="text" name="telephone" value="${worker.telephone}" ${disabled} >
         </div>
         </spring:bind>
@@ -29,12 +29,12 @@
         <div>
                 <%-- choose begin worker date--%>
             <div class=" input_div " >
-                <label for=""> Begin date </label>
+                <label for=""> Начинает работу </label>
                 <input id="begindatepicker" type="text" name="begindate" value="${dates.begindate}" ${disabled} placeholder="day-month-year" >
             </div>
             <%-- choose end worker date--%>
             <div class="input_div">
-                <label for=""> End date </label>
+                <label for=""> Заканчивает работу </label>
                 <input id="enddatepicker" type="text" name="enddate" value="${dates.enddate}" ${disabled} placeholder="day-month-year">
             </div>
         </div>
@@ -42,7 +42,7 @@
         <div>
                 <%--choose time from--%>
             <div class="input_div">
-                <label for=""> Work from: </label>
+                <label for=""> Работает с : </label>
                 <input id="beginhourpicker" type="text" name="beginhour"
                        <c:if test="${not empty dates.beginhour}">
                            value="${dates.beginhour}:00"
@@ -52,7 +52,7 @@
 
                 <%--choose time to--%>
             <div class="input_div">
-                <label for=""> to: </label>
+                <label for=""> по: </label>
                 <input id="endhourpicker" type="text" name="endhour"
                     <c:if test="${not empty dates.endhour}">
                            value="${dates.endhour}:00"
@@ -62,7 +62,7 @@
 
                 <%-- choose break for 1 hour--%>
             <div class="input_div">
-                <label for=""> Begin 1 hour break: </label>
+                <label for=""> Часовой перерыв с: </label>
                 <input id="breakpicker" type="text" name="breakstart"
                     <c:if test="${not empty dates.breakstart}">
                         value="${dates.breakstart}:00"
@@ -74,7 +74,7 @@
         <spring:bind path="worker.skills">
         <div class="list">
             <div class="list_label">
-                Choose skills for worker:
+                Выберите навыки работника:
             </div>
             <c:forEach items="${skills}" var="skill" varStatus="count">
                 <div >
@@ -124,7 +124,7 @@
         </form>
         <div class="workerinfo">
             <div class="worker_skills_info col-xs-12">
-                Worker has the following skills:
+                Рабочий имеет следующие навыки:
                 <div class="attr-view ">
                 <spring:bind path="worker.skills">
                     <c:forEach items="${worker.skills}" var="skill">
@@ -139,20 +139,20 @@
                 </div>
             </div>
             <div class="worker_schedule_info">
-                Worker schedule:
+                График рабочего:
                 <div class="worker_days">
                     <div>First day: ${dates.begindate}</div>
                     <div>Last day: ${dates.enddate}</div>
                 </div>
                 <div>
-                    <div class="worker_time"> Working from ${dates.beginhour}:00 to ${dates.breakstart}:00; from ${dates.breakstart+1}:00  to ${dates.endhour}:00</div>
+                    <div class="worker_time"> Работает с ${dates.beginhour}:00 по ${dates.breakstart}:00; с ${dates.breakstart+1}:00  по ${dates.endhour}:00</div>
                     <%--<div> Pause from ${pausehour}:00 to ${pausehour+1}:00 </div>--%>
                 </div>
             </div>
         </div>
         <c:if test="${fn:length(orders) > 0}">
             <div class="grid-view">
-                <p style="text-align: center">Execute the following orders:</p>
+                <p style="text-align: center">Выполняет заказы:</p>
                 <c:forEach items="${orders}" var="order">
                     <div class="info-frame">
                         <table class="cmstable">
@@ -170,21 +170,21 @@
             <div class="btn-update">
                 <form action="/update_worker" method="get">
                     <input type="hidden"  name="id" value="${worker.id}">
-                    <input type="submit" value="UPDATE" class="btn renew">
+                    <input type="submit" value="Обновить" class="btn renew">
                 </form>
             </div>
             <div class="btn-delete">
                 <form action="/delete_worker" method="post">
                     <input type="hidden"  name="id" value="${worker.id}">
-                    <input type="submit" value="DELETE" class="btn delete">
+                    <input type="submit" value="Удалить" class="btn delete">
                 </form>
             </div>
         </div>
     </c:otherwise>
     </c:choose>
     <div>
-        <button type="button" name="back" onclick="history.back()">BACK</button>
-        <button><a href="/admin/workers">Workers</a></button>
+        <button type="button" name="back" onclick="history.back()">Назад</button>
+        <button><a href="/admin/workers">Рабочие</a></button>
     </div>
 </div>
 <%@include file="../components/bottom.jsp"%>
