@@ -6,7 +6,6 @@ import com.zaico.cms.entities.Skill;
 import com.zaico.cms.entities.Worker;
 import com.zaico.cms.servicies.interfaces.OrderService;
 import com.zaico.cms.servicies.interfaces.SkillService;
-import com.zaico.cms.servlets.order.OrderViewServlet;
 import com.zaico.cms.utility.CheckFromTo;
 import com.zaico.cms.utility.ErrorCode;
 import com.zaico.cms.utility.ExceptionCMS;
@@ -40,7 +39,7 @@ import java.util.List;
 @Controller
 public class OrderCreateController {
 
-    Logger LOG = LogManager.getLogger(OrderViewServlet.class.toString());
+    Logger LOG = LogManager.getLogger(OrderCreateController.class.toString());
 
     @Autowired
     SkillService skillService;
