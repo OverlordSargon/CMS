@@ -29,7 +29,7 @@ public class AccessController {
         try {
             modelAndView.addObject("title","LOGIN");
             modelAndView.setViewName("login");
-            modelAndView.addObject("infoMessage","Please login to work with CMS!");
+            modelAndView.addObject("infoMessage","Please login to work with WTM!");
 
         } catch (Exception e) {
             modelAndView.addObject("mes", "BAD!!!!");

@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
-            request.setAttribute("cmsheader","You must login to work with CMS");
+            request.setAttribute("cmsheader","You must login to work with WTM");
         }
         request.getRequestDispatcher("pages/login.jsp").forward(request, response);
     }

@@ -40,7 +40,6 @@ import java.util.List;
 @Controller
 public class OrderCreateController {
 
-
     Logger LOG = LogManager.getLogger(OrderViewServlet.class.toString());
 
     @Autowired

@@ -167,9 +167,7 @@ public class User extends AbstractEntity {
      */
     public String toString() {
         return "User{" +
-                "login='" + login + '\'' +
-//                ", role=" + role.toString() +
-                '}';
+                "login='" + login + '}';
     }
 
     public String rolesprint() {
