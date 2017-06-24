@@ -1,9 +1,7 @@
 package com.zaico.cms.controllers.order;
 
 import com.zaico.cms.entities.Order;
-import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.interfaces.OrderService;
-import com.zaico.cms.servlets.order.OrderViewServlet;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +24,7 @@ import java.util.List;
 public class OrderViewController {
 
     // Logger
-    Logger LOG = LogManager.getLogger(OrderViewServlet.class.toString());
+    Logger LOG = LogManager.getLogger(OrderViewController.class.toString());
 
     @Autowired
     OrderService orderService;

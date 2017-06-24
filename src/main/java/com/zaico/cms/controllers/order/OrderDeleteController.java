@@ -2,7 +2,6 @@ package com.zaico.cms.controllers.order;
 
 import com.zaico.cms.entities.Order;
 import com.zaico.cms.servicies.interfaces.OrderService;
-import com.zaico.cms.servlets.order.OrderDeleteServlet;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -28,7 +27,7 @@ public class OrderDeleteController {
     /**
      * Logger
      */
-    Logger logger = LogManager.getLogger(OrderDeleteServlet.class);
+    Logger logger = LogManager.getLogger(OrderDeleteController.class);
 
     @Autowired
     OrderService orderService;

@@ -3,11 +3,8 @@ package com.zaico.cms.controllers.order;
 import com.zaico.cms.entities.Order;
 import com.zaico.cms.entities.Skill;
 import com.zaico.cms.entities.Worker;
-import com.zaico.cms.servicies.implementation.FactoryService;
 import com.zaico.cms.servicies.interfaces.OrderService;
-import com.zaico.cms.servicies.interfaces.ScheduleService;
 import com.zaico.cms.servicies.interfaces.SkillService;
-import com.zaico.cms.servlets.order.OrderViewServlet;
 import com.zaico.cms.utility.CheckFromTo;
 import com.zaico.cms.utility.ExceptionHandler;
 import org.apache.log4j.LogManager;
@@ -21,10 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,7 +30,7 @@ import java.util.List;
 @Controller
 public class OrderUpdateController {
     
-    Logger LOG = LogManager.getLogger(OrderViewServlet.class.toString());
+    Logger LOG = LogManager.getLogger(OrderUpdateController.class.toString());
 
     @Autowired
     OrderService orderService;
